@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.member">
+
+	<select id="login" parameterType="MemberVo" resultType="int">
+		select count(*) from member where member_id=#{member_id} and password=#{password}
+	</select>
+	<!-- <select id="login" parameterType="Object" resultType="int">
+		select count(*) from member where member_id=#{member_id} and password=#{password}
+	</select> -->
+	
+	<insert id="insert" parameterType="MemberVo">
+		insert into member (member_id, password, name, email, phone_num, addr, tel)
+		values (#{member_id},#{password},#{name},#{email},#{phone_num},#{addr},#{tel})
+	</insert>
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(*) from member where member_id=#{member_id}
+	</select>
+	
+	<select id="findId" parameterType="MemberVo" resultType="java.lang.String">
+		select member_id from member where name=#{name} and phone_num=#{phone_num}
+	</select>
+	
+	<select id="select" parameterType="MemberVo" resultType="int">
+		select count(*) from member where member_id=#{member_id} and name=#{name} and phone_num=#{phone_num}
+	</select>
+	
+	<update id="update" parameterType="MemberVo">
+		update member set email=#{email}, addr=#{addr}, phone_num=#{phone_num}, tel=#{tel} where member_id=#{member_id} and password=#{password}
+	</update>
+	
+	<update id="changeMpassword" parameterType="java.lang.String">
+		update member set password=#{mnewpassword} where member_id=#{member_id}
+	</update>
+	
+	<select id="myPage" parameterType="java.lang.String" resultType="MemberVo">
+		select member_id, password, name, email, phone_num, addr, tel from member where member_id=#{member_id}
+	</select>
+	
+	<delete id="delete" parameterType="MemberVo">
+		delete from member where member_id=#{member_id} and password=#{password}
+	</delete>
+	
+	<select id="emailCheck" parameterType="java.lang.String" resultType="int">
+		select count(*) from member where email=#{email}
+	</select>
+	
+	<select id="phoneCheck" parameterType="java.lang.String" resultType="int">
+		select count(*) from member where phone_num=#{phone_num}
+	</select>
+	
+	
+	
+	
+</mapper>   

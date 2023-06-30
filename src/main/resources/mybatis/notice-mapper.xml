@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uniqueGames.repository.NoticeMapper">
+
+	<!-- 공지사항 리스트 -->
+	<select id="selectNotice" resultType="NoticeVo">
+		SELECT *
+		FROM (
+			SELECT row_number() over(order by NOTICE_DATE DESC, POST_ID DESC) as RNO
+				 , POST_ID
+				 , TITLE
+				 , CONTENT
+				 , NOTICE.COMPANY_ID
+				 , COMPANY.NAME
+				 , NOTICE_HITS
+				 , NOTICE_DATE
+			FROM NOTICE
+			INNER JOIN COMPANY
+			ON NOTICE.COMPANY_ID = COMPANY.COMPANY_ID
+		) T1
+		where RNO between #{start} AND #{end};
+	</select>
+
+	<!-- 공지사항 리스트 검색 -->
+	<select id="searchList" resultType="NoticeVo">
+		SELECT *
+		FROM (
+			SELECT row_number() over(order by NOTICE_DATE DESC, POST_ID DESC) as RNO
+				 , POST_ID
+				 , TITLE
+				 , CONTENT
+				 , NOTICE.COMPANY_ID
+				 , COMPANY.NAME
+				 , NOTICE_HITS
+				 , CAST( DATE_FORMAT( NOTICE_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS NOTICE_DATE
+			FROM NOTICE
+			INNER JOIN COMPANY
+			ON NOTICE.COMPANY_ID = COMPANY.COMPANY_ID
+			WHERE TITLE LIKE CONCAT('%',#{keyword},'%')
+		) T1
+		WHERE RNO between #{start} AND #{end}
+	</select>
+
+	<!-- 공지사항 작성 -->
+	<insert id="insertNotice" parameterType="NoticeVo">
+        <selectKey resultType="int" keyProperty="post_id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+		INSERT INTO NOTICE (
+			COMPANY_ID,
+			TITLE,
+			CONTENT,
+			NOTICE_HITS,
+			NOTICE_DATE
+		)
+		VALUES (
+			#{company_id}, <!-- 테스트용 회사 id -->
+			#{title},
+			#{content},
+			0,
+			NOW()
+		)
+	</insert>
+
+	<!-- 공지사항 상세 보기 -->
+	<select id="selectContent" resultType="NoticeVo">
+		SELECT 	NOTICE.POST_ID,
+				NOTICE.COMPANY_ID,
+		        NAME,
+				TITLE,
+				CONTENT,
+				NOTICE_HITS,
+				CAST( DATE_FORMAT( NOTICE_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS NOTICE_DATE,
+		        IMAGE_ID,
+		        UPLOAD_FILE
+		FROM NOTICE
+		INNER JOIN COMPANY
+		ON NOTICE.COMPANY_ID = COMPANY.COMPANY_ID
+		LEFT JOIN NOTICE_IMAGE
+		ON NOTICE.POST_ID = NOTICE_IMAGE.POST_ID 
+		WHERE NOTICE.POST_ID = #{no};
+	</select>
+
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="NoticeVo">
+		UPDATE NOTICE
+		SET TITLE = #{title},
+			CONTENT = #{content}
+		WHERE POST_ID = #{post_id}
+	</update>
+
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice">
+		DELETE FROM NOTICE
+		WHERE POST_ID = #{no}
+	</delete>
+	
+	<!-- 공지사항 리스트 선택 삭제 -->
+	<delete id="deleteList">
+		DELETE FROM NOTICE
+		WHERE POST_ID IN
+		<foreach collection="array" item="item" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 조회수 증가 -->
+	<update id="hitsCount">
+		UPDATE NOTICE
+		SET NOTICE_HITS = NOTICE_HITS + 1 
+		WHERE POST_ID = #{no}
+	</update>
+
+	<!-- 공지사항 작성 이미지 첨부 -->
+	<insert id="insertFile" parameterType="NoticeVo">
+		INSERT INTO NOTICE_IMAGE (
+			IMAGE_ID,
+			POST_ID,
+			UPLOAD_FILE,
+			UPLOAD_DATE
+		)
+		VALUES (
+		#{image_id},
+		#{post_id},
+		#{upload_file},
+		NOW()
+		)
+	</insert>
+
+	<!-- 공지사항 수정 이미지 덮어쓰기 -->
+	<update id="updateFile" parameterType="NoticeVo">
+		UPDATE NOTICE_IMAGE
+		SET IMAGE_ID = #{image_id},
+		UPLOAD_FILE = #{upload_file}
+		WHERE POST_ID = #{post_id}
+	</update>
+
+	<!-- 수정하는 글에 이미지가 없었을 경우 컬럼 생성 -->
+	<insert id="updateUploadFile" parameterType="NoticeVo">
+		INSERT INTO
+		NOTICE_IMAGE (
+		IMAGE_ID,
+		POST_ID,
+		UPLOAD_FILE
+		)
+		VALUES (
+		#{image_id},
+		#{post_id},
+		#{upload_file}
+		)
+	</insert>
+	
+	<!-- 수정시 파일 업로드 취소하면 삭제 -->
+	<delete id="deleteFile" parameterType="NoticeVo">
+		DELETE FROM NOTICE_IMAGE
+		WHERE POST_ID = #{post_id}	
+	</delete>
+
+	<!-- 글에 이미지 컬럼 존재 여부 체크 -->
+	<select id="fileCheck" parameterType="NoticeVo" resultType="int">
+		SELECT COUNT(*)
+		FROM NOTICE_IMAGE
+		WHERE POST_ID = #{post_id}
+	</select>
+
+</mapper>

@@ -1,0 +1,369 @@
+/******* Commons *******/
+* {
+	margin: 0px;		padding: 0px;
+	font-family: "YouandiModern", "Apex New", "Noto Sans KR", sans-serif;
+}
+
+/******* Base *******/
+h1, #div-gameList, #order-complete, #div-info , #div-price , #div-button, #div-nothing {
+	margin: auto;
+	width: 1100px;
+}
+
+h1, h2 {
+	padding: 30px 0 10px 0;
+	margin-bottom: 10px;
+	border-bottom: 2px solid #393939;
+
+	font-family:"YouandiModern", sans-serif;
+	font-size: 23px;
+	color: #2B2B2B;
+}
+
+h2 {
+	border: none;
+	font-size: 20px;
+}
+
+h3 {
+	padding: 0 20px 10px 0;
+
+	font-family:"YouandiModern", sans-serif;
+	font-size: 17px;
+	color: #2B2B2B;
+}
+
+ul {
+	list-style: none;
+	padding-left: 20px;
+}
+
+span {
+	font-size: 20px;
+}
+
+hr {
+	margin: 10px 0;
+}
+
+select {
+	border: 1px solid #DDDDDD;
+	border-collapse: collapse;
+	float : right;
+	padding: 5px 10px;
+	margin-bottom : 5px;
+
+	font-family:"YouandiModern";
+	text-align: center;
+}
+
+
+/******* Table *******/
+#div-table {
+	padding-bottom: 100px;
+}
+
+#table-gameList, #cart-price {
+	border: 1px solid #DDDDDD;
+	border-collapse: collapse;
+	width: 100%;
+	margin: auto;
+
+	font-family:"YouandiModern";
+	text-align: center;
+}
+#cart-price {
+	width: 600px;
+} 
+
+#table-gameList th, #cart-price th {
+	padding: 6px 0 6px 0;
+	border-bottom: 1px solid #DDDDDD;
+	
+	font-size: 16px;
+	color: #000000;
+}
+
+#table-gameList td, #cart-price td {
+	padding: 10px 0 10px 0;
+	border-bottom: 1px solid #DDDDDD;
+	
+	font-size:14px;
+	color: #A9A9A9;
+	text-align: center;
+}
+
+#table-gameList td img{
+	width: 80px;		height: 80px;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	outline: none;
+	background: #E6E6E6 0% 0% no-repeat padding-box;
+}
+
+#cart-price td:last-child {
+	font-size: 20px;
+	font-weight: bold;
+	color: #000000;
+}
+
+#cart-price td:first-child {
+	font-size: 16px;
+	color: #000000;
+}
+
+#table-gameList {
+	margin-bottom: 20px;
+}
+
+/******* Button *******/
+#btn-deleteAll, #btn-deleteSelected, #btn-deleteOne, #btn-refund {
+	padding: 3px 10px;
+	background: #393939;
+	border-radius: 5px;
+	
+	color: #FFFFFF;
+	font-size: 14px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#btn-cart, #btn-order, #btn-main, #btn-list, #btn-method, #btn-modal, #btn-goCart {
+	padding: 12px 80px;
+	border: none;
+	border-radius: 3px;
+	background: linear-gradient(to right,#682CAD,#2FC0CC);
+	
+	color: white;
+	font-family: "Apex New";
+	font-size: 20px;
+	cursor: pointer;
+}
+
+#btn-method {
+	display: inline-block;
+	padding: 0px;
+	margin-left: 20px;
+	width: 140px;		height: 50px;
+	opacity: 40%;
+	
+	font-size: 15px;
+}
+
+/******* CheckBox *******/
+#checkAll {
+	margin-right: 6px;
+	width: 1rem;	height: 1rem;
+	border: 2px solid #2C2C2C;
+	border-radius: 50%;
+	
+	appearance: none;
+    cursor: pointer;
+}
+
+#checkAll:checked {
+	background: #2C2C2C;
+}
+
+input[name="checkOne"] {
+	width: 20px;	height: 20px;
+	margin: 3px 0px 0px 5px;
+	appearance: none;
+	background-image: url("../images/btn_check_normal.png");
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+input[name="checkOne"]:checked {
+	background-image: url("../images/btn_check_select.png");
+	background-repeat: no-repeat;
+}
+#div-agreement input[name="checkOne"] {
+	border: none;
+}
+
+#span-agreement {
+	position: relative;
+	top: -10px;
+	font-size: 15px;
+}
+
+/******* a *******/
+a {
+	color: black;
+	text-decoration: none;
+}
+#div-agreement a {
+	color: blue;
+	font-size: 14px;
+}
+a:hover {
+	text-decoration: underline;
+}
+a:visited {
+	color: #DDDDDD;
+}
+
+#detail1, #detail2, #detail3, #detail4 {
+	position: relative;
+	top: -10px;
+	padding: 0 10px;
+} 
+
+/******* Banner *******/
+#top-bg {
+	width: 100%;
+	margin: auto;
+	background-image: url("../../images/img_bg.png");
+	background-size:cover;
+	height: 229px;
+	background-repeat: no-repeat;
+}
+
+#base-layer {
+	width: 1100px;
+	margin: auto;
+}
+
+#top-bg-textarea {
+	color: white;
+	font-style: italic;
+}
+
+#top-title {
+	font-family: "Apex New";
+	color: white;
+	font-size: 32px;
+	font-weight: bold;
+	padding-top: 70px;
+}
+
+#top-subtitle {
+	font-size: 20px;
+	font-style: normal;
+	padding-top: 15px;
+	opacity: 0.6;
+	font-weight: 500;
+}
+
+/******* div-delete *******/
+<!--  -->
+#div-delete {
+	padding: 0 0 5px 0;
+	text-align: right;
+}
+
+/******* div-button *******/
+<!--  -->
+#div-button {
+	padding: 100px 0 100px 0;
+	text-align: center;
+}
+
+/******* div-method *******/
+<!--  -->
+#div-method {
+	margin: 0 0 20px 20px;
+}
+
+/******* div-margin *******/
+<!--  -->
+#div-margin {
+	margin-bottom: 100px;
+}
+
+/******* div-info *******/
+<!--  -->
+#div-infomation {
+	margin: 0 0 20px 20px;
+	padding-left: 10px;
+	
+	font-family:"YouandiModern", sans-serif;
+	font-size: 15px;
+	color: #2B2B2B;
+}
+#p-infomationTitle {
+	margin: 0px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #2B2B2B;
+}
+#p-infomationContent {
+	margin: 0px;
+	padding-left: 10px;
+	font-size: 14px;
+	color: #2B2B2B;
+}
+
+/******* div-agreement *******/
+<!--  -->
+#div-agreement {
+	padding-left: 20px;
+	margin: 0 0 50px 0;
+}
+
+/******* div-thankyou *******/
+<!--  -->
+#div-thankyou {
+	padding: 50px 0 30px 0;
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	color: #2B2B2B;
+}
+
+/******* modal *******/
+div#modal {
+	position: fixed;
+	top:50%; 			left:50%;
+  	transform: translate(-50%,-50%);
+	width: 100%;		height: 100%;
+	background: rgba(128, 128, 128, .3);
+	display: none;
+}
+
+div.modal-agreement {
+	position: fixed;
+	top:50%; 			left:50%;
+  	transform: translate(-50%,-50%);
+	width: 450px;		height: 550px;
+	margin: auto;
+	background: white;
+	text-align: center;
+	border-radius: 10px;
+	box-shadow: inset 0px 3px 6px #0000001A, 0px 10px 20px #00000029;
+}
+#modal-title {
+	margin: 0px 0px 20px 0px;
+	padding-top: 30px;
+	text-align: center;
+	font-family: "YouandiModern", sans-serif;
+	color: #2B2B2B;
+	font-size: 24px;
+}
+
+#modal-content {
+	text-align: center;
+	width: 370px;			height: 340px;
+	padding: 15px;
+	font-family: "YouandiModern", sans-serif;
+	color: #6E6E6E;
+	font-size: 16px;
+	text-align: justify;
+	margin: auto;
+	overflow: auto;
+}
+
+div.detail1, div.detail2, div.detail3, div.detail4 {
+	display: none;
+}
+
+/******* nothing in cart *******/
+#p-nothing {
+	margin-bottom: 200px;
+
+	text-align: center;
+	font-family:"YouandiModern", sans-serif;
+	font-size: 25px;
+	color: #2B2B2B;
+}
+

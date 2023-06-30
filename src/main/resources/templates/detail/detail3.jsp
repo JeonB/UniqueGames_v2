@@ -1,0 +1,223 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%--<%@include file="../main/header.jsp"%>--%>
+<!DOCTYPE html>
+<html lang="ko" dir="ltr" class='com_virtuemart view-productdetails itemid-167 mm-hover'>
+<head>
+  <title>개발사 후원페이지</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detail.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainunigames.css">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script> <!-- 마이크로소프트 jQuery-->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="apple-mobile-web-app-capable" content="YES"/>
+
+</head>
+
+<body>
+
+<jsp:include page="../main/header.jsp"></jsp:include>
+<div id="image-top-bg" ></div>
+<div class="parent-container" style="display: grid">
+  <div class="main-container">
+  <div class="row equal-height">
+      <!-- MAIN CONTENT -->
+      <div id="t3-content" class="t3-content col-md-12">
+        <div id="system-message-container"></div>
+        <div class="productdetails-view productdetails">
+          <div class="page-header">
+            <div style="clear:both;position:absolute;margin-top:18px;z-index:10;text-align:center;">
+              <div style="display:block;border: 1px solid rgba(255,255,255,0.1);padding-left:10px;padding-right:10px;"><img src="${pageContext.request.contextPath}/images/img-game-icon_3.jpg" width="80"/></div>
+            </div>
+            <h1 style="font-size:20px;padding-left:110px;display:inline-block;text-transform:initial" >
+
+							<span>
+																												뱀파이어: 마스커레이드 - 스완송							</span><br/>
+              <span style="text-transform:none" id="game_name">${game.name}</span>
+            </h1>
+          </div>
+
+          <div class="vm-product-container">
+            <div class="left">
+              <div class="vm-product-media-container" itemprop='video' itemscope itemtype='https://schema.org/VideoObject'>
+                <div class="main-image">
+                  <div id="screenshot_image"><div class='embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' src='https://www.youtube.com/embed/aaVZqYAIsF8'></iframe></div></div>
+                  <div class="clear"></div>
+                </div>
+                <div class="gallery-wrapper">
+                  <div class="gallery detail-gallery">
+                    <div class="item screenshot_thumbnail" style='cursor:pointer'>
+                      <div class='media_player_marker'><span>▶</span></div>												<img src="https://img.youtube.com/vi/aaVZqYAIsF8/1.jpg" data-type="media" data-url="<div class='embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' src='https://www.youtube.com/embed/aaVZqYAIsF8'></iframe></div>" itemprop="thumbnailUrl">
+                    </div>
+                    <div class="item screenshot_thumbnail" style='cursor:pointer'>
+                      <img src="${pageContext.request.contextPath}/images/img-game-thumnail_3.jpg" data-type="image/jpeg" data-url="<img src='${pageContext.request.contextPath}/images/img-game-thumnail_3.jpg'>" itemprop="thumbnailUrl">
+                    </div>
+                    <div class="item screenshot_thumbnail" style='cursor:pointer'>
+                      <img src="${pageContext.request.contextPath}/images/img-game-thumnail_4.jpg" data-type="image/jpeg" data-url="<img src='${pageContext.request.contextPath}/images/img-game-thumnail_4.jpg'>" itemprop="thumbnailUrl">
+                    </div>
+                    <div class="item screenshot_thumbnail" style='cursor:pointer'>
+                      <img src="${pageContext.request.contextPath}/images/img_game_thumbnail_1_500240.png" data-type="image/jpeg" data-url="<img src='${pageContext.request.contextPath}/images/img_game_thumbnail_1_500240.png'>" itemprop="thumbnailUrl">
+                    </div>
+                    <div class="item screenshot_thumbnail" style='cursor:pointer'>
+                      <img src="${pageContext.request.contextPath}/images/img_game_thumbnail_2_500240.png" data-type="image/jpeg" data-url="<img src='${pageContext.request.contextPath}/images/img_game_thumbnail_2_500240.png'>" itemprop="thumbnailUrl">
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="clear"></div>
+
+
+              <div class="vm-productdetail-tabs-container">
+                <ul class="nav nav-tabs" style="margin-bottom:8px">
+                  <li class="active"><a href="#goods_info3" data-toggle="tab">게임정보</a></li>
+                  <li><a href="#goods_info5" data-toggle="tab">시스템 요구사항</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                  <div id="goods_info2" class="tab-pane fade">
+                    <div class="product-description">
+                      <p><br></p>												</div>
+                  </div>
+                  <div id="goods_info3" class="tab-pane fade active in">
+                    <div class="product-description">
+                    </div>
+                    <div class="product-description">
+                      <p>많은 팬을 거느린 롤플레잉 게임에 기반하여 해당 장르의 전문가들에 의해 제작된 뱀파이어: 마스커레이드 - 스완송은 서사 중심 RPG로, 당신의 모든 선택이 세 명의 주인공 및 보스턴 카마릴라의 운명을 결정짓습니다.<br><br><b>월드 오브 다크니스에 오신 것을 환영합니다</b><br>뱀파이어가 실제로 존재한다면 어떨까요? 그 피에 굶주린 포식자들이 복잡한 사회를 이루고 인간들 속에 숨어 살아왔으며, 수천 년 동안 음모를 꾸며왔다면? 그리고 당신이 그들의 일원이 되었다면?<br>뱀파이어: 마스커레이드에서 당신은 복잡하고 현실과 초현실의 경계가 희미한 세계 속의 매혹적인 괴물들을 플레이하게 됩니다.<br><br><b>긴장감 넘치는 스릴러</b><br>"백조" 헤이즐 아이버센은 보스턴 카마릴라의 새로운 제후입니다. 벨벳 장갑 속에 강인함을 숨기고 있는 그녀는 자신의 권력을 굳건히 하고, 인간들에게서 뱀파이어의 존재를 숨기기 위해 만들어진 법인 가장무도를 준수하고자 합니다. 하지만 계획이란 흐트러지기 마련이죠. 음모, 살인, 그리고 권력 투쟁에 대한 소문이 들끓는 와중 당신은 어둠 속에서 자신의 파벌을 지켜야 하며, 당신의 조사 활동이 보스턴을 혼돈으로 몰아넣게 될 것입니다.<b><br></b><br><b>세 명의 오리지널 뱀파이어 캐릭터로 플레이</b><br>100살이 넘은 세 명의 뱀파이어로 플레이할 수 있습니다. 그들의 서로 얽힌 운명을 따라 게임을 진행하며, 각기 다른 관점을 경험하고 캐릭터 시트를 통해 진실과 거짓을 구별하세요. 각 캐릭터는 고유한 뱀파이어 능력과 규율을 지니고 있으며, 각각 당신이 선호하는 플레이 방식에 맞춰 업그레이드할 수 있습니다. 협박, 유혹, 그리고 잠입 중 어떤 방법을 선택하시겠습니까? 피를 향한 갈증을 채울 수만 있다면, 전부 당신 손에 달려 있습니다.<br><br><b>인과가 존재하는 게임 플레이</b><br>스완송은 독특한 게임 플레이를 자랑하며, 당신이 조사 및 다른 캐릭터와 교류 중 펼치는 행동에 따른 결과에 중점을 둡니다.<br>당신의 결정은 영웅들의 생명과 보스턴 카마릴라의 운명에 큰 영향을 미칠 수 있으니 매 상황을 신중하게 분석하세요.</p>												</div>
+                  </div>
+                  <div id="goods_info4" class="tab-pane fade">
+                    <div class="product-description">
+                      <p><br></p>												</div>
+                  </div>
+                  <div id="goods_info5" class="tab-pane fade">
+                    <div class="product-description">
+                      <p><b>최소:</b><br>64비트 프로세서와 운영 체제가 필요합니다<br>운영체제: Windows 10<br>프로세서: Intel Core i5-2300 or AMD FX-6100<br>메모리: 6 GB RAM<br>그래픽: NVIDIA GeForce GTX 750 Ti, 4 GB or AMD Radeon HD 7790, 4 GB<br>DirectX: 버전 11<br>저장공간: 23 GB 사용 가능 공간<br><br><b>권장:</b><br>64비트 프로세서와 운영 체제가 필요합니다<br>운영체제: Windows 10<br>프로세서: Intel Core i5-3470, 3.20GHz or AMD FX 6300<br>메모리: 8 GB RAM<br>그래픽: NVIDIA GeForce GTX 1060, 6 GB or AMD Radeon RX 590, 8 GB<br>DirectX: 버전 12<br>저장공간: 23 GB 사용 가능 공간<br>&nbsp;</p><hr><br>©2023 Nacon. ©2023 Published by Nacon and developed by Big Bad Wolf.<br>Paradox Interactive, Vampire: The Masquerade® Copyright© 2023 Paradox Interactive AB (publ) All rights reserved.<br>													<br><p>※ 시스템 요구 사항은 출시 버전을 기준으로 하며, 컨텐츠 추가와 업데이트로 인한 변경 사항이 있을 수 있습니다.</p>
+                    </div>
+                  </div>
+                  <div id="goods_info8" class="tab-pane fade">
+                    <div class="product-description">
+                      <p><br></p>												</div>
+                  </div>
+                  <div id="goods_event" class="tab-pane fade">
+                    <div class="product-description">
+                      <p><br></p>												</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="right">
+              <div class="vm-product-details-container" >
+                <div class="module normal-module" >
+                  <div id="goods_img" ><img src="${pageContext.request.contextPath}/images/img-game-thumnail_3.jpg" width="320" height="150"  title="유니크 게임즈" onerror="this.src='/images/404.jpg'"></div>
+                  <div class="module-inner">
+                    <div class="module-ct">
+                      <div class="vmgroup single-product  normal-module" >
+                        <div class="vmproduct normal-module" >
+                          <div class="spacer">
+
+                            <div class="product-short-description">
+
+                            </div>
+
+                            <div id="product-price2" style="padding-top:10px">
+                              <div class="PricebasePrice vm-display vm-price-value">
+                                <span class="vm-price-desc" >제작 </span>
+                                <span class="PricebasePrice" ><a href="../detail/getIntro?id=3" style="font: italic normal 900 18px Apex New; letter-spacing: 0px;color: #1c2025">베스트게이밍</a>
+                                  </span>
+                                <span id="company_id" style="display: none">${companyVo.company_id}</span>
+                              </div>
+                              <span class="price-crossed" ></span>
+                            </div>
+
+                            <div class="product-info">
+                              <div class="vm-display">
+                                <span class="vm-desc">제작기간 </span>
+                                <span class="vm-value">12개월 15일</span>
+                              </div>
+                              <div class="vm-display">
+                                <span class="vm-desc">지원모드 </span>
+                                <span class="vm-value">싱글 플레이</span>
+                              </div>
+                              <div class="vm-display release_date">
+                                <span class="vm-desc">출시일 </span>
+                                <span class="vm-value">
+																																				2023-05-27																																				</span>
+                              </div>
+                              <div class="vm-display">
+                                <span class="vm-desc">장르 </span>
+                                <span class="vm-value">액션/어드벤쳐</span>
+                              </div>
+                              <div class="vm-display">
+                                <span class="vm-desc">퍼블리셔 </span>
+                                <span class="vm-value" >HandyGames</span>
+                              </div>
+                              <div class="vm-display">
+                                <span class="vm-desc">플랫폼 </span>
+                                <span class="vm-value">Steam</span>
+                              </div>
+                              <div class="vm-display">
+                                <span class="vm-desc">언어 </span>
+                                <span class="vm-value">한국어</span>
+                              </div>
+                              <div class="vm-display">
+                                <span class="vm-desc">게임패드 </span>
+                                <span class="vm-value">지원함</span>
+                              </div>
+
+                            </div>
+
+                            <div class="vmproduct-link" style="text-align:center">
+                              <div class="donation-amount">
+                                <span class="label">목표금액</span>
+                                <span class="amount">300,000,000원</span>
+                              </div>
+                              <div class="donation-amount" style="margin-bottom: 30px">
+<%--                                <span class="label">후원금액</span>--%>
+<%--                                <span class="don-amount">3,000,000원</span>--%>
+                              </div>
+                              <button type="button" class="btn btn-default btn-lg" id="btn_wishlist" data="50004122" style="width: 90px;">
+                                <img src="${pageContext.request.contextPath}/images/btn_like_select.png">
+                                Like</button>
+                              <button type="button" class="btn btn-warning btn-lg" id="btn_donate" data="50004122" data-assetid="3402" data-prodtp="1" style="width: 150px">후원하기</button>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="clear"></div>
+
+              <div class="product-share-container">
+                <div class="docs-section">
+                  <div class="page-header">
+                    <h2 style="font-size:16px;text-indent:130px">공유하기</h2>
+                  </div>
+                  <div class="row">
+                    <div class="input-inline" style="align-content: center ">
+                      <button type="button" class="btn" id="btn_facebook" style="background:#4e69a2;color:#ffffff;font-size:13px"><i class="fa fa-facebook" style="background:#4e69a2;color:#ffffff"></i> 페이스북</button>
+                      <button type="button" class="btn" id="btn_twitter" style="background:#319de1;color:#ffffff;font-size:13px"><i class="fa fa-twitter" style="background:#319de1;color:#ffffff"></i> 트위터</button>
+                      <button type="button" class="btn" id="btn_google" style="background:#df513f;color:#ffffff;font-size:13px"><i class="fa fa-google-plus" style="background:#df513f;color:#ffffff"></i> 구글+</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<jsp:include page="../main/footer.jsp"></jsp:include>
+</body>
+
+</html>
+<script src="${pageContext.request.contextPath}/js/detail.js"></script>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mapper.orderMapper">
+	<!-- Cart -->
+	<select id="getCartList" parameterType="String" resultType="OrderVo">
+		SELECT ID, G_ID, GAME_IMG, GAMETITLE, AMOUNT 
+		FROM ORDERS WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{m_id} 
+	</select>
+	
+	<select id="getCartCount" parameterType="String" resultType="int">
+		SELECT COUNT(G_ID) FROM ORDERS 
+		WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{m_id} 
+	</select>
+	
+	<delete id="getCartDeleteAll" parameterType="String">
+		DELETE FROM ORDERS 
+		WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{m_id}  
+	</delete>
+	
+	<delete id="getCartDeleteOne" parameterType="int">
+		DELETE FROM ORDERS 
+		WHERE ID = #{id}  
+	</delete>
+
+	<insert id="insertCart" parameterType="OrderVo">
+		INSERT INTO ORDERS( M_ID, C_ID, G_ID, AMOUNT,GAMETITLE, GAME_IMG) VALUES (#{m_id},#{c_id},#{g_id},#{amount},#{gametitle},#{game_img})
+	</insert>
+	
+	<!-- Order -->
+	<select id="getOrderList" parameterType="int" resultType="OrderVo">
+		SELECT ID, G_ID, GAME_IMG, GAMETITLE, AMOUNT 
+		FROM ORDERS WHERE ID = #{id}
+	</select>
+		
+	<select id="getOrderAmount" parameterType="int" resultType="int">
+		SELECT AMOUNT FROM ORDERS WHERE ID = #{id}
+	</select>
+		
+	<select id="getOrderComplete" parameterType="map" resultType="int">
+		UPDATE ORDERS SET PAYMENT_STATUS = 'COMPLETE', 
+		ORDER_DATE = NOW(), METHOD = #{method} 
+		WHERE ID = #{id} 
+	</select>
+	
+	<!-- Details -->
+	<select id="getPaymentDetail" parameterType="map" resultType="OrderVo">
+		<if test='array == "orderdate_desc"'>
+			SELECT ROW_NUMBER() OVER(ORDER BY ORDER_DATE DESC) AS RNO, </if>
+		<if test='array == "orderdate_asc"'>
+			SELECT ROW_NUMBER() OVER(ORDER BY ORDER_DATE ASC) AS RNO, </if>
+		<if test='array == "amount_desc"'>
+			SELECT ROW_NUMBER() OVER(ORDER BY AMOUNT ASC) AS RNO, </if>
+		<if test='array == "amount_asc"'>
+			SELECT ROW_NUMBER() OVER(ORDER BY AMOUNT DESC) AS RNO, </if>
+			
+		DATE_FORMAT(ORDER_DATE, '%y-%m-%d') ORDER_DATE, GAMETITLE, AMOUNT FROM ORDERS 
+		WHERE M_ID = #{m_id} AND PAYMENT_STATUS = 'COMPLETE' 
+	</select>
+	
+	<select id="getPaymentCount" parameterType="String" resultType="int">
+		SELECT IFNULL(COUNT(*), 0) COUNT FROM ORDERS WHERE M_ID = #{m_id} 
+		AND PAYMENT_STATUS = 'COMPLETE' 
+	</select>
+	
+	<select id="getPaymentAmount" parameterType="String" resultType="int">
+		SELECT IFNULL(SUM(AMOUNT), 0) PAYMENT_AMOUNT FROM ORDERS WHERE M_ID = #{m_id} 
+		AND PAYMENT_STATUS = 'COMPLETE' 
+	</select>
+	
+	<select id="getDonationDetail" parameterType="map" resultType="OrderVo">
+		<if test='array == "orderdate_desc"'>
+			SELECT ROW_NUMBER() OVER(ORDER BY DATE_FORMAT(ORDER_DATE, '%y-%m') DESC) AS RNO, </if>
+		<if test='array == "orderdate_asc"'>
+			SELECT ROW_NUMBER() OVER(ORDER BY DATE_FORMAT(ORDER_DATE, '%y-%m') ASC) AS RNO, </if>
+		<if test='array == "amount_desc"'>
+			SELECT ROW_NUMBER() OVER(ORDER BY SUM(AMOUNT) DESC) AS RNO, </if>
+		<if test='array == "amount_asc"'>
+			SELECT ROW_NUMBER() OVER(ORDER BY SUM(AMOUNT) ASC) AS RNO, </if>
+			
+		DATE_FORMAT(ORDER_DATE, '%y-%m') ORDER_DATE, GAMETITLE, SUM(AMOUNT) AMOUNT FROM ORDERS 
+		WHERE C_ID = #{c_id} AND PAYMENT_STATUS = 'COMPLETE' 
+		GROUP BY DATE_FORMAT(ORDER_DATE, '%y-%m'), GAMETITLE 
+	</select>
+		
+	<select id="getExpected" parameterType="String" resultType="int">
+		SELECT IFNULL(SUM(AMOUNT), 0) AMOUNT FROM ORDERS WHERE C_ID = #{c_id} AND PAYMENT_STATUS = 'COMPLETE' 
+		AND DATE_FORMAT(ORDER_DATE, '%y-%m') = DATE_FORMAT(NOW(), '%y-%m') 
+	</select>
+	
+	<select id="getTotalDonation" parameterType="String" resultType="int">
+		SELECT IFNULL(SUM(AMOUNT), 0) TOTAL_AMOUNT FROM ORDERS 
+		WHERE C_ID = #{c_id} AND PAYMENT_STATUS = 'COMPLETE' 
+	</select>
+		
+	<select id="getDonationRank" parameterType="String" resultType="OrderVo">
+		SELECT ROW_NUMBER() OVER(ORDER BY SUM(AMOUNT) DESC) AS RNO, 
+		M.MEMBER_ID USERID, O.GAMETITLE, SUM(AMOUNT) FROM ORDERS AS O 
+		INNER JOIN MEMBER AS M ON O.M_ID = M.ID 
+		WHERE C_ID = #{c_id} AND PAYMENT_STATUS = 'COMPLETE' 
+		GROUP BY M.MEMBER_ID, O.GAMETITLE 
+	</select>
+	
+</mapper>

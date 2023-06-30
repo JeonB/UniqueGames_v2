@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--매퍼 위치(해당 매퍼 인터페이스와 매핑)-->
+<mapper namespace="com.uniqueGames.repository.DetailMapper">
+  <!-- 소개글 등록 -->
+  <insert id="insertIntro" parameterType="IntroVo" >
+    INSERT INTO intro (name,title, content,upload)
+    VALUES ( #{name}, #{title}, #{content},#{upload})
+  </insert>
+  <!-- 소개글 조회 -->
+  <select id="getIntro" parameterType="int" resultType="IntroVo">
+    SELECT * FROM intro WHERE id = #{id}
+  </select>
+  <!-- 소개글 조회 2-->
+  <select id="getIntroTitle" parameterType="String" resultType="IntroVo">
+    SELECT * FROM intro WHERE title = #{title}
+  </select>
+  <!-- 소개글 수정 -->
+  <update id="updateIntro" parameterType="IntroVo">
+  UPDATE intro SET title = #{title}, content = #{content}, name = #{name}
+  WHERE id = #{id}
+    </update>
+
+  <!-- 소개글 삭제 -->
+  <delete id="deleteIntro" parameterType="int">
+    DELETE FROM intro WHERE id = #{id}
+  </delete>
+
+  <!-- 소개글 전부 가져오기 -->
+  <select id="getIntroList" resultType="IntroVo">
+    SELECT * FROM intro ORDER BY id
+  </select>
+  
+</mapper>

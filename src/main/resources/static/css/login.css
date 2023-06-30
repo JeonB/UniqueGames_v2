@@ -1,0 +1,527 @@
+/* Commons */
+* {
+	padding: 0px;
+	margin: 0px;
+	font-family: "YouandiModern", "Apex New", "Noto Sans KR", sans-serif;
+}
+
+/* Base */
+#content {
+	width: 1100px;
+	margin: auto;
+}
+
+/* Banner */
+#top-bg {
+	width: 100%;
+	margin: auto;
+	background-image: url(../images/img_bg.png);
+	background-size: cover;
+	height: 229px;
+	background-repeat: no-repeat;
+}
+
+#base-layer {
+	width: 1100px;
+	margin: auto;
+}
+
+#top-bg-textarea {
+	color: white;
+	font-style: italic;
+}
+
+#top-title {
+	font-family: "Apex New";
+	color: white;
+	font-size: 32px;
+	font-weight: bold;
+	padding-top: 70px;
+}
+
+#top-subtitle {
+	font-size: 20px;
+	font-style: normal;
+	padding-top: 15px;
+	opacity: 0.6;
+	font-weight: 500;
+}
+
+/* Input */
+input {
+	width: 394px;
+	padding: 20px 0;
+	margin: 5px 0;
+	text-indent: 10px;
+	border-radius: 3px;
+	border: 1px solid lightgray;
+	outline: none;
+	font-size: 16px;
+}
+
+input:focus {
+	border: 1px solid gray;
+}
+
+input[name='email1'], input[name='email2'] {
+	width: 122px;
+}
+
+input[name="phone2"], input[name='phone3'] {
+	width: 104px;
+}
+
+#input-phone-company {
+	width: 118px;
+	height: 43px;
+	border-radius: 3px;
+	border: 1px solid lightgray;
+	font-size: 16px;
+	text-indent: 10px;
+}
+
+input[name="email-auth-check"] {
+	margin-top: -10px;
+}
+
+/* Button */
+#btn-style, #address-btn-style, #company-address-btn-style,
+	#check-btn-style, #c-check-btn-style, #email-btn-style,
+	#c-email-btn-style, #company-address-btn-style {
+	width: 80px;
+	height: 30px;
+	background: #393939;
+	border-radius: 5px;
+	color: #FFFFFF;
+	font-size: 14px;
+	vertical-align: top;
+	cursor: pointer;
+}
+
+#button-gradient, #button-gradient-findPwd,
+	#button-gradient-company-login, #button-gradient-delete,
+	#button-gradient-company, #button-gradient-gotoLogin,
+	#button-gradient-gotoPwd, #button-gradient-gotoFind,
+	#button-gradient-gotoJoin, #button-gradient-home {
+	border: none;
+	width: 394px;
+	height: 60px;
+	cursor: pointer;
+	color: white;
+	background: linear-gradient(to right, #682CAD, #2FC0CC);
+	border-radius: 3px;
+	font-family: "YouandiModern", sans-serif;
+	margin: 10px 0;
+	font-size: 20px;
+}
+
+#button-gradient-gotoLogin, #button-gradient-gotoPwd,
+	#button-gradient-gotoFind, #button-gradient-gotoJoin,
+	#button-gradient-home {
+	width: 180px;
+	height: 50px;
+	margin-top: 20px;
+}
+
+#button-gradient-delete {
+	background: black;
+	border-radius: 3px;
+}
+
+#address-btn-style, #company-address-btn-style, #check-btn-style,
+	#c-check-btn-style, #email-btn-style, #c-email-btn-style,
+	#company-address-btn-style {
+	width: 90px;
+	height: 40px;
+	position: relative;
+	top: -55px;
+	left: 405px;
+}
+
+/* A tag */
+a {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:visited {
+	color: #DDDDDD;
+}
+
+#detail1, #detail2 {
+	text-decoration: underline;
+	color: Blue;
+	margin-left: 10px;
+	cursor: pointer;
+	color: #6E6E6E;
+}
+
+#link-findAccount {
+	display: inline-block;
+	background: white;
+	color: #2B2B2B;
+	font-size: 14px;
+	padding: 0 8px;
+	font-family: "YouandiModern", sans-serif;
+	margin-top: 30px;
+}
+
+#link-signUp {
+	display: inline-block;
+	font-family: "Apex New";
+	font-weight: 500;
+	color: #2E7AF6;
+	font-size: 14px;
+	margin: 25px 10px 0 8px;
+}
+
+#link-deleteAccount, #link-changePassword, #link-donation {
+	margin-left: 330px;
+	color: #333;
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+#link-changePassword {
+	margin-left: 300px;
+}
+
+#link-donation {
+	margin-left: 285px;
+}
+
+/* CheckBox */
+li input[name="agreementAll"] {
+	height: 1rem;	width: 1rem;	
+	padding: 0px;
+	border: 2px solid #2C2C2C;
+	border-radius: 50%;
+	appearance: none;
+	cursor: pointer;
+}
+
+input[name="agreementAll"]:checked {
+	background: #2C2C2C;
+}
+
+input[name="chk-agree"], input[name="c-chk-agree"] {
+	width: 20px;	height: 20px;
+	background-image: url("../images/btn_check_normal.png");
+	background-repeat: no-repeat;
+	margin: 0px 4px;
+	padding: 0px;
+	appearance: none;
+	border: none;
+	cursor: pointer;
+}
+
+input[name="chk-agree"]:checked, input[name="c-chk-agree"]:checked {
+	background-image: url("../images/btn_check_select.png");
+	background-repeat: no-repeat;
+}
+
+/* Select */
+select {
+	border: 1px solid lightgray;
+	border-radius: 3px;
+	outline: none;
+	text-indent: 10px;
+	padding: 20px 0;
+	margin: 5px 0;
+	font-size: 16px;
+}
+
+select:focus {
+	border: 1px solid gray;
+}
+
+#selectbox-find {
+	width: 394px;
+	margin: 10px 0;
+}
+
+select[name='email3'] {
+	width: 125px;
+}
+
+select[name='tel'] {
+	width: 80px;
+}
+
+select[name='phone1'] {
+	width: 80px;
+}
+
+/* List */
+ol, ul, li {
+	list-style: none;
+}
+
+/* Modal */
+div.agreement, div.agreement2 {
+	width: 450px;
+	height: 550px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: auto;
+	background: white;
+	text-align: center;
+	border-radius: 10px;
+	box-shadow: inset 0px 3px 6px #0000001A, 0px 10px 20px #00000029;
+}
+
+#modal, #modal2 {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: rgba(128, 128, 128, .3);
+	display: none;
+}
+
+#agreement-title {
+	margin: 0px 0px 20px 0px;
+	padding-top: 30px;
+	text-align: center;
+	font-family: "YouandiModern", sans-serif;
+	color: #2B2B2B;
+	font-size: 24px;
+}
+
+#agreement-content {
+	text-align: center;
+	width: 370px;
+	height: 340px;
+	padding: 15px;
+	font-family: "YouandiModern", sans-serif;
+	color: #6E6E6E;
+	font-size: 16px;
+	text-align: justify;
+	margin: auto;
+	overflow: auto;
+}
+
+div.agreement button#button-gradient {
+	margin: 20px 0 10px 0;
+	width: 250px;
+	font-size: 20px;
+}
+
+div.detail1, div.detail2, div.deleteComplete, div.deleteComplete1, div.find-id-none,
+	div.find-pwd-none {
+	display: none;
+}
+
+#delete-span {
+	display: inline-block;
+	margin: 25px 0;
+}
+
+div.agreement2 {
+	height: 300px;
+}
+
+/* Span */
+#msgId, #msgPwd, #msgName, #msgPhone, #msgName1, #msgPhone1 {
+	width: 394px;
+	margin: auto;
+	text-align: left;
+}
+
+#c-idMsg {
+	position: relative;
+	top: -1.5px;
+	left: 5px;
+}
+
+/* Join CSS */
+li.address-input {
+	margin-top: -40px;
+}
+
+#content-2, #content-myPage, #newPasswordForm {
+	width: 40%;
+	margin: auto;
+	text-align: left;
+	padding-left: 45px;
+}
+
+#agreement-box {
+	margin: 30px 0 10px 0;
+	width: 394px;
+	font-size: 10pt;
+}
+
+#agreement-color {
+	color: tomato;
+	margin: 0 5px;
+}
+
+#ul-agreement li span, #ul-agreement li a {
+	position: relative;
+	padding: 0px;
+	bottom: 10px;
+}
+
+#ul-agreement li #span_agreementAll {
+	padding-left: 10px;
+	text-align: left;
+	font-family: "YouandiModern";
+	font-size: 16px;
+	letter-spacing: 0px;
+	color: #000000;
+	opacity: 1;
+	top: -5px;
+}
+
+#label-dot, #label-dot-1 {
+	display: inline-block;
+	position: absolute;
+	top: -9px;
+	left: -4px;
+	color: red;
+}
+
+#must-insert, #must-insert-1 {
+	position: relative;
+}
+
+#must-insert-1 {
+	margin-top: -28px;
+}
+
+#idMsg, #pwdMsg, #pwdMsg-check, #nameMsg, #emailMsg, #emailAuth,
+	#phoneMsg, #c-idMsg, #c-pwdMsg, #c-pwdMsg-check, #c-nameMsg,
+	#c-emailMsg, #c-emailAuth, #c-phoneMsg {
+	position: relative;
+	top: -1.5px;
+	left: 5px;
+	margin-right: 5px;
+}
+
+#choice-span {
+	margin: 0 3px;
+}
+
+#pwd-check-img, #pwd-check-img-1, #c-pwd-check-img, #c-pwd-check-img-1 {
+	width: 24px;
+	height: 16px;
+	background-image: url("../images/btn_eye_normal.png");
+	background-repeat: no-repeat;
+	appearance: none;
+	border: none; cursor : pointer;
+	position: relative;
+	right: 40px;
+	top: 30px;
+	cursor: pointer;
+}
+
+#pwd-check-img:checked, #pwd-check-img-1:checked, #c-pwd-check-img:checked,
+	#c-pwd-check-img-1:checked {
+	background-image: url("../images/btn_eye_select.png");
+	background-repeat: no-repeat;
+}
+
+/* DeltePWD, DeleteCompany CSS */
+#intro-1, #intro-2, #intro-3 {
+	font-family: "YouandiModern", sans-serif; 
+	width: 394px;
+	margin: auto;
+	text-align: left;
+	font-size: 16px;
+	padding: 20px 0 14px 0;
+}
+
+#delete-id {
+	font-size: 18px;
+	font-family: "YouandiModern", sans-serif;
+}
+
+#delete-content {
+	font-size: 13px;
+	font-family: "Noto Sans";
+	padding: 22px 0 20px 0;
+}
+
+#delete-caution {
+	background: #E6E6E6;
+	padding: 20px 11px 20px 20px;
+	color: #D81E42;
+	font-size: 13px;
+	font-family: "Noto Sans";
+	font-weight: 700;
+}
+
+/* Tab */
+#content-3 {
+	width: 40%;
+	margin: auto;
+	text-align: left;
+	padding-left: 45px;
+}
+
+#content-2, #content-3, #individual-loginForm, #company-loginForm,
+	#individual, #company, #findId, #findPwd, #individual-login,
+	#company-login, #findIdForm, #findPwdForm {
+	display: none;
+}
+
+#individual:checked ~ #content-2, #company:checked ~ #content-3, #findId:checked 
+	~ #findIdForm, #findPwd:checked ~ #findPwdForm, #individual-login:checked 
+	~ #individual-loginForm, #company-login:checked ~ #company-loginForm {
+	display: block;
+}
+
+#individual-tab, #company-tab, #findId-tab, #findPwd-tab,
+	#individual-login-tab, #company-login-tab {
+	display: inline-block;
+	margin: 0 0 5px 0;
+	padding: 15px 63px;
+	font-weight: 600;
+	text-align: center;
+	color: #bbb;
+	border: 1px solid transparent;
+}
+
+#individual-tab:hover, #company-tab:hover, #findId-tab:hover,
+	#findPwd-tab:hover, #individual-login-tab:hover, #company-login-tab:hover
+	{
+	color: #2e9cdf;
+	cursor: pointer;
+}
+
+#individual:checked+#individual-tab, #company:checked+#company-tab,
+	#findId:checked+#findId-tab, #findPwd:checked+#findPwd-tab,
+	#individual-login:checked+#individual-login-tab, #company-login:checked+#company-login-tab
+	{
+	color: #555;
+	border: 1px solid #ddd;
+	border-top: 2px solid #2e9cdf;
+	border-bottom: 1px solid #ffffff;
+}
+
+/* Etc */
+#intro {
+	font-family: "YouandiModern", sans-serif;
+	font-size: 24px;
+	padding-bottom: 60px;
+}
+
+#content-1 {
+	width: 1100px;
+	margin: auto;
+	text-align: center;
+	padding: 60px 0 100px 0;
+}
+
+#findId-tab, #findPwd-tab {
+	padding: 15px 51px;
+}
