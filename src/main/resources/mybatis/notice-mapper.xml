@@ -8,18 +8,18 @@
 	<select id="selectNotice" resultType="NoticeVo">
 		SELECT *
 		FROM (
-			SELECT row_number() over(order by NOTICE_DATE DESC, POST_ID DESC) as RNO
+					 SELECT row_number() over(order by NOTICE_DATE DESC, POST_ID DESC) as RNO
 				 , POST_ID
-				 , TITLE
-				 , CONTENT
-				 , NOTICE.COMPANY_ID
-				 , COMPANY.NAME
-				 , NOTICE_HITS
-				 , NOTICE_DATE
-			FROM NOTICE
-			INNER JOIN COMPANY
-			ON NOTICE.COMPANY_ID = COMPANY.COMPANY_ID
-		) T1
+								, TITLE
+								, CONTENT
+								, NOTICE.COMPANY_ID
+								, COMPANY.NAME
+								, NOTICE_HITS
+								, CAST( DATE_FORMAT( NOTICE_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS NOTICE_DATE
+					 FROM NOTICE
+									INNER JOIN COMPANY
+														 ON NOTICE.COMPANY_ID = COMPANY.COMPANY_ID
+				 ) T1
 		where RNO between #{start} AND #{end};
 	</select>
 

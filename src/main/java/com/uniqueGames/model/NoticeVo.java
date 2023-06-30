@@ -1,6 +1,9 @@
 package com.uniqueGames.model;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -12,7 +15,7 @@ public class NoticeVo {
 	String title;
 	String content;
 	int notice_hits;
-	String notice_date;
+	LocalDateTime notice_date;
 	String date_output;
 	CommonsMultipartFile file;
 	String image_id;
@@ -75,11 +78,11 @@ public class NoticeVo {
 		this.notice_hits = notice_hits;
 	}
 
-	public String getNotice_date() {
+	public LocalDateTime getNotice_date() {
 		return notice_date;
 	}
 
-	public void setNotice_date(String notice_date) {
+	public void setNotice_date(LocalDateTime notice_date) {
 		this.notice_date = notice_date;
 	}
 

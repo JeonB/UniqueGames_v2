@@ -155,14 +155,14 @@
                 <th>작성자</th>
                 <th>작성일</th>
             </tr>
-            <div th:each="noticeVo : ${noticeList}">
-                <tr>
-                    <td th:text="${noticeVo.rno}"></td>
-                    <td><a th:href="@{'notice_content?no=' + ${noticeVo.post_id}}}">${noticeVo.title}</a></td>
-                    <td th:text="${noticeVo.company_id}"></td>
-                    <td th:text="${noticeVo.date_output}"></td>
-                </tr>
-            </div>
+<!--            <div th:each="noticeVo : ${noticeList}">-->
+<!--                <tr>-->
+<!--                    <td th:text="${noticeVo.rno}"></td>-->
+<!--                    <td><a th:href="@{'notice_content?no=' + ${noticeVo.post_id}}}">${noticeVo.title}</a></td>-->
+<!--                    <td th:text="${noticeVo.company_id}"></td>-->
+<!--                    <td th:text="${noticeVo.date_output}"></td>-->
+<!--                </tr>-->
+<!--            </div>-->
         </table>
         <div id="solution-btn-area">
             <a href="notice_list"><button id="btn-solution" type="button">자세히보기</button></a>
