@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Unique Games</title>
+  <link rel="stylesheet" href="/css/mainunigames.css">
+  <link rel="stylesheet" href="/css/board.css">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script><!-- 마이크로소프트 jQuery-->
+  <script src="/js/board.js"></script>
+  <script type="text/javascript">
+
+  </script>
+  <th:block th:if="${result != null}">
+    <script type="text/javascript">
+      let result = '${result}';
+      getResult(result);
+    </script>
+  </th:block>
+  <th:block th:if="${cmtresult != null}">
+    <script type="text/javascript">
+      let result = '${cmtresult}';
+      getResultCmt(result);
+    </script>
+  </th:block>
+</head>
+<body>
+<header>
+  <!-- Include header file -->
+  <!-- <jsp:include page="../main/header.jsp"></jsp:include> -->
+  <!-- Replace with the appropriate Thymeleaf code -->
+  <!-- ... -->
+</header>
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">Notice</p>
+      <p id="top-subtitle">#공지사항</p>
+    </div>
+  </div>
+</section>
+<div id="content">
+  <div id="board-content">
+    <div id="board-top-menu">
+      <p>Notice</p>
+      <div>
+        <ul>
+          <li><button type="button" id="btn-style" name="update">수정</button></li>
+          <li><button type="button" id="btn-style" name="delete">삭제</button></li>
+          <li><button type="button" id="btn-style" name="list">목록</button></li>
+        </ul>
+      </div>
+      <div id="clearFix"></div>
+    </div>
+    <table>
+      <tr>
+        <th>제목</th>
+        <td colspan="5" id="btitle" th:text="${noticeVo.title}"></td>
+      </tr>
+      <tr>
+        <th>등록자</th>
+        <td th:text="${noticeVo.name}"></td>
+        <th>조회수</th>
+        <td style="text-align: center;" th:text="${noticeVo.notice_hits}"></td>
+        <th>등록일</th>
+        <td th:text="${noticeVo.date_output}"></td>
+      </tr>
+      <tr>
+        <td colspan="6" style="border:none;">
+          <div id="details" th:if="${noticeVo.image_id != null}">
+            <img src="/upload/${noticeVo.image_id}" style="max-width:1024px;"><br>
+          </div>
+          <span th:utext="${noticeVo.content}"></span>
+        </td>
+      </tr>
+    </table>
+    <input type="hidden" id="authorId" data-author-id="${noticeVo.company_id}">
+
+  </div>
+  <section id="comment-box">
+    <div>
+      <!-- Comment form-->
+      <form id="comment-write" name="commentWriteForm" action="comment_write_proc" method="post">
+        <input type="hidden" name="post_id" th:value="${noticeVo.post_id}">
+        <input type="hidden" id="member_id" name="member_id"
+               th:if="${loginMember instanceof TLDialect.CompanyVo}" th:value="${loginMember.company_id}"
+               th:if="${loginMember instanceof TLDialect.MemberVo}" th:value="${loginMember.member_id}"
+               th:unless="${loginMember}"/>
+        <textarea id="form-control" rows="3" name="comment_content"
+                  placeholder="타인에게 불쾌함을 주는 댓글은 통보없이 삭제될 수 있습니다."></textarea>
+        <button type="button" id="btn-style" name="cmtWrite">등록</button>
+      </form>
+      <!-- Comment -->
+      <th:block th:each="c : ${commList}" th:status="status">
+        <div id="comment" th:id="'comment' + ${status.count}" class="comment1">
+          <input type="hidden" name="no" th:value="${c.comment_id}">
+          <div id="user-name" th:text="${c.member_id}"></div>
+          <div><span id="msg-date" th:text="${c.comment_date}"></span><th:block th:if="${loginMember instanceof TLDialect.MemberVo} && ${c.member_id} eq ${loginMember.member_id}"><span id="cmtDelete" class="cmtDelete" onclick="javascript:commentDelete(${c.comment_id})">삭제</span></th:block></div>
+          <span th:utext="${c.comment_content}"></span>
+        </div>
+      </th:block>
+    </div>
+  </section>
+  <form name="noticeDelete" action="notice_delete" method="post"><input type="hidden" name="no" th:value="${noticeVo.post_id}"><th:block th:if="${noticeVo.image_id != null}"><input type="hidden" name="imgdel" th:value="${noticeVo.image_id}"></th:block></form>
+</div>
+<!-- Include footer file -->
+<!-- <jsp:include page="../main/footer.jsp"></jsp:include> -->
+<!-- Replace with the appropriate Thymeleaf code -->
+<!-- ... -->
+</body>
+</html>
