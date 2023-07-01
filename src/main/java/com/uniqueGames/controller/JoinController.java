@@ -27,7 +27,7 @@ public class JoinController {
 
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join() {
-		return "/join/join";
+		return "join/join";
 	}
 	
 	@RequestMapping(value="/join_individual_proc", method=RequestMethod.POST)
@@ -37,7 +37,7 @@ public class JoinController {
 		
 		if(result==1) {
 			mav.addObject("join_individual_result", "success");
-			mav.setViewName("/login/login");
+			mav.setViewName("login/login");
 		}else {
 			System.out.println("회원가입 실패");
 		}
@@ -85,7 +85,7 @@ public class JoinController {
 		
 		if(result==1) {
 			mav.addObject("join_company_result", "success");
-			mav.setViewName("/login/login");
+			mav.setViewName("login/login");
 		}else {
 			System.out.println("회원가입 실패");
 		}

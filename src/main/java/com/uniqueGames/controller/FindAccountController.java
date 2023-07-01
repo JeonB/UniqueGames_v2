@@ -24,17 +24,17 @@ public class FindAccountController {
 
 	@RequestMapping(value="/findId", method=RequestMethod.GET)
 	public String findId() {
-		return "/findAccount/findId";
+		return "findAccount/findId";
 	}
 	
 	@RequestMapping(value="/findPwd", method=RequestMethod.GET)
 	public String findPwd() {
-		return "/findAccount/findPwd";
+		return "findAccount/findPwd";
 	}
 	
 	@RequestMapping("/findCompany")
 	public String findCompany() {
-		return "/findAccount/findCompany";
+		return "findAccount/findCompany";
 	}
 
 	@RequestMapping(value="/findId_check", method=RequestMethod.POST)
@@ -52,10 +52,10 @@ public class FindAccountController {
 		
 		if(result == 1) {
 			mav.addObject("member_id", memberVo.getMember_id());
-			mav.setViewName("/findAccount/newPassword");
+			mav.setViewName("findAccount/newPassword");
 		}else {
 			mav.addObject("find_result", "fail");
-			mav.setViewName("/findAccount/findId");
+			mav.setViewName("findAccount/findId");
 		}
 		
 		return mav;
@@ -69,7 +69,7 @@ public class FindAccountController {
 		
 		mav.addObject("member_id", memberVo.getMember_id());
 		mav.addObject("password", memberVo.getPassword());
-		mav.setViewName("/findAccount/newPassword");
+		mav.setViewName("findAccount/newPassword");
 		
 		return mav;
 	}
@@ -83,7 +83,7 @@ public class FindAccountController {
 		if(result==1) {
 			session.invalidate();
 			mav.addObject("changePassword_result", "success");
-			mav.setViewName("/login/login");
+			mav.setViewName("login/login");
 		}else {
 			System.out.println("비밀번호 변경 실패");
 		}
@@ -108,7 +108,7 @@ public class FindAccountController {
 		mav.addObject("company_id", companyVo.getCompany_id());
 		mav.addObject("password", companyVo.getPassword());
 		
-		mav.setViewName("/findAccount/cnewPassword");
+		mav.setViewName("findAccount/cnewPassword");
 		return mav;
 	}
 	/**Company password change; href to cnewpassword.jsp*/
@@ -120,10 +120,10 @@ public class FindAccountController {
 		if(result == 1) {
 			mav.addObject("company_id", companyVo.getCompany_id());
 			mav.addObject("password", companyVo.getPassword());
-			mav.setViewName("/findAccount/cnewPassword");
+			mav.setViewName("findAccount/cnewPassword");
 		}else {
 			mav.addObject("find_result", "fail");
-			mav.setViewName("/findAccount/findCompany");
+			mav.setViewName("findAccount/findCompany");
 		}
 		
 		return mav;
@@ -137,7 +137,7 @@ public class FindAccountController {
 		if(result==1) {
 			session.invalidate();
 			mav.addObject("changePassword_result", "success");
-			mav.setViewName("/login/login");
+			mav.setViewName("login/login");
 		}else {
 			System.out.println("비밀번호 변경 실패");
 		}

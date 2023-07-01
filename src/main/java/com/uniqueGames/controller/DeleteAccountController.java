@@ -33,11 +33,11 @@ public class DeleteAccountController {
 		if(mode.contains("MemberVo")) {
 			MemberVo memberVo = (MemberVo)session.getAttribute(SessionConstants.LOGIN_MEMBER);
 			mav.addObject("memberVo", memberVo);
-			mav.setViewName("/deleteAccount/deletePwd");
+			mav.setViewName("deleteAccount/deletePwd");
 		}else if(mode.contains("CompanyVo")) {
 			CompanyVo companyVo = (CompanyVo)session.getAttribute(SessionConstants.LOGIN_MEMBER);
 			mav.addObject("companyVo", companyVo);
-			mav.setViewName("/deleteAccount/deleteCompany");
+			mav.setViewName("deleteAccount/deleteCompany");
 		}
 		
 		return mav;

@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private static final String[] whitelist = {"/css/**", "/js/**", "/img/**",
+    private static final String[] whitelist = {"/css/**", "/js/**", "/images/**",
             "/", "/login", "/logout", "/findPassword", "/register", "/registerOk", "/register/check",
             "/member/**",
             "/search/**",

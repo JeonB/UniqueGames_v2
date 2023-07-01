@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" xml:lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>로그인</title>
+  <link rel="stylesheet" th:href="@{/css/login.css}">
+  <script src="/js/jquery-3.6.4.min.js"></script>
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/v1/kakao.min.js"></script>
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+  <script th:inline="javascript">
+    // JavaScript code goes here
+  </script>
+</head>
+<body>
+<header>
+<!--  <div th:include="../main/header.html"></div>-->
+</header>
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">Login</p>
+      <p id="top-subtitle">#로그인</p>
+    </div>
+  </div>
+</section>
+<section id="content-1">
+  <p id="intro">로그인</p>
+  <input id="individual-login" type="radio" name="loginSelect" checked>
+  <label for="individual-login" id="individual-login-tab">개인 회원</label>
+  <input id="company-login" type="radio" name="loginSelect">
+  <label for="company-login" id="company-login-tab">법인 회원</label>
+
+  <form action="/login" method="post" th:object="${member}" id="individual-loginForm">
+    <div>
+      <ul>
+        <li>
+          <input type="text" id="input-common" name="member_id" placeholder="아이디" th:value="${member.member_id}">
+          <span id="msgId"></span>
+        </li>
+        <li>
+          <input type="password" id="input-common" name="password" placeholder="비밀번호" size="15" th:value="${member.password}">
+          <span id="msgPwd"></span>
+        </li>
+        <li>
+          <button type="submit" id="button-gradient">LOGIN</button>
+        </li>
+        <li>
+          <a href="findId" id="link-findAccount">아이디 찾기</a>
+          <a href="findId?selectedTab=findPwd" id="link-findAccount">비밀번호 찾기</a>
+          <a href="/join" id="link-signUp">
+            <span>Sign Up</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </form>
+
+  <form action="login" method="post" th:object="${company}" id="company-loginForm">
+    <div>
+      <ul>
+        <li>
+          <input type="text" id="input-common" name="company_id" placeholder="법인 아이디" th:value="${company.company_id}">
+          <span id="msgId"></span>
+        </li>
+        <li>
+          <input type="password" id="c-input-common" name="password" placeholder="비밀번호" size="15" th:value="${company.password}">
+          <span id="msgPwd"></span>
+        </li>
+        <li>
+          <button type="submit" id="button-gradient-company-login">LOGIN</button>
+        </li>
+        <li>
+          <a href="findCompany" id="link-findAccount">아이디 찾기</a>
+          <a href="findCompany?selectedTab=findPwd" id="link-findAccount">비밀번호 찾기</a>
+          <a href="join?selectedTab=company" id="link-signUp">Company Sign Up</a>
+        </li>
+      </ul>
+    </div>
+  </form>
+</section>
+<!--<div th:include="../main/footer.html"></div>-->
+</body>
+</html>

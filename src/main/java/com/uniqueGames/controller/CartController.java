@@ -41,7 +41,7 @@ public class CartController {
 				gameVo.getImage_path()
 				);
 		orderService.insertCart(orderVo);
-		return "/order/cart";
+		return "order/cart";
 	}
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public ModelAndView cart(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member) {
@@ -57,7 +57,7 @@ public class CartController {
 			model.addObject("nothingInCart", true);
 		}
 
-		model.setViewName("/order/cart");
+		model.setViewName("order/cart");
 
 		return model;
 	}
@@ -70,7 +70,7 @@ public class CartController {
 		if (result != 0) {
 			view = "redirect://cart";
 		} else {
-			view = "/order/error";
+			view = "order/error";
 		}
 
 		return view;
@@ -83,7 +83,7 @@ public class CartController {
 		for (int i = 0; i < checkedList.size(); i++) {
 			result = orderService.getCartDeleteOne((int) checkedList.get(i));
 			if (result == 0) {
-				return "/order/error";
+				return "order/error";
 			}
 		}
 		return "redirect://cart";
@@ -95,7 +95,7 @@ public class CartController {
 		int result = orderService.getCartDeleteAll(m_id);
 
 		if (result == 0) {
-			return "/order/error";
+			return "order/error";
 		}
 
 		return "redirect://cart";
@@ -103,7 +103,7 @@ public class CartController {
 
 	@RequestMapping(value = "/error", method = RequestMethod.GET)
 	public String error() {
-		return "/order/error";
+		return "order/error";
 	}
 
 }

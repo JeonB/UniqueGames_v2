@@ -70,7 +70,7 @@ public class MyPageController {
 			memberVo.setPhone3(phone3);
 			
 			mav.addObject("memberVo", memberVo);
-			mav.setViewName("/myPage/myPage");
+			mav.setViewName("myPage/myPage");
 		
 		}else if(mode.contains("CompanyVo")) {
 			
@@ -118,9 +118,9 @@ public class MyPageController {
 			companyVo.setPhone3(phone3);
 			
 			mav.addObject("companyVo", companyVo);
-			mav.setViewName("/myPage/companyMyPage");
+			mav.setViewName("myPage/companyMyPage");
 		}else {
-			mav.setViewName("/login/login");
+			mav.setViewName("login/login");
 		}
 
 		return mav;

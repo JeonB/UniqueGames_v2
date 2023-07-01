@@ -41,7 +41,7 @@ public class OrderController {
 		model.addObject("orderList", orderList);
 		model.addObject("count", count);
 		model.addObject("totalAmount", totalAmount);
-		model.setViewName("/order/order");
+		model.setViewName("order/order");
 
 		return model;
 	}
@@ -70,7 +70,7 @@ public class OrderController {
 				model.addObject("orderList", orderList);
 				model.addObject("count", count);
 				model.addObject("amount", amount);
-				model.setViewName("/order/order");
+				model.setViewName("order/order");
 			}
 		}
 
@@ -86,7 +86,7 @@ public class OrderController {
 		if (result != 0) {
 			model.setViewName("redirect://order_complete");
 		} else {
-			model.setViewName("/order/error");
+			model.setViewName("order/error");
 		}
 
 		return model;
@@ -95,6 +95,6 @@ public class OrderController {
 	/** order_proc **/
 	@RequestMapping(value = "/order_complete", method = RequestMethod.GET)
 	public String order_complete() {
-		return "/order/order_complete";
+		return "order/order_complete";
 	}
 }
