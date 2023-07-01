@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>a<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Unique Games</title>
+  <link rel="stylesheet" th:href="@{css/order_style.css}">
+  <script th:src="@{http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js}"></script>
+  <script th:src="@{js/order_script.js}"></script>
+</head>
+<body>
+<!-- header -->
+<div th:replace="../main/header.html :: header"></div>
+
+<!-- content -->
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">Order</p>
+      <p id="top-subtitle">#주문완료</p>
+    </div>
+  </div>
+</section>
+
+<h1>Complete</h1>
+<div id="order-complete">
+  <div id="div-thankyou">결제가 완료되었습니다.</div>
+  <div id="div-button">
+    <a th:href="/"><button type="button" id="btn-main">메인으로</button></a>
+    <a th:href="/payment_detail"><button type="button" id="btn-list">결제내역</button></a>
+  </div>
+</div>
+
+<!-- footer -->
+<div th:replace="../main/footer.html :: footer"></div>
+</body>
+</html>
