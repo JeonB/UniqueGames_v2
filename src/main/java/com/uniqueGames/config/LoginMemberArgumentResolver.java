@@ -1,5 +1,6 @@
 package com.uniqueGames.config;
 
+import com.uniqueGames.model.CompanyVo;
 import com.uniqueGames.model.MemberVo;
 import com.uniqueGames.model.SessionConstants;
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +18,9 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
 
-        //member타입인지 확인
+        //MemberVo 타입인지 확인
         boolean hasMemberType = MemberVo.class.isAssignableFrom(parameter.getParameterType());
+        boolean hasCompanyType = CompanyVo.class.isAssignableFrom(parameter.getParameterType());
         //@Login 어노테이션이 존재하는지 확인
         boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
         return hasLoginAnnotation && hasMemberType;
