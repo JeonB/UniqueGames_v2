@@ -2,7 +2,7 @@ package com.uniqueGames.service;
 
 
 import com.uniqueGames.fileutil.BoardUtil;
-import com.uniqueGames.model.NoticeVo;
+import com.uniqueGames.model.Notice;
 import com.uniqueGames.repository.NoticeMapper;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,36 +14,43 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoticeServiceImpl implements NoticeService {
 
-	@Autowired
 	private NoticeMapper noticeMapper;
+	private BoardUtil boardUtil;
+
+	@Autowired
+	public NoticeServiceImpl(NoticeMapper noticeMapper, BoardUtil boardUtil) {
+		this.noticeMapper = noticeMapper;
+		this.boardUtil = boardUtil;
+	}
 
 	/**
 	 * 공지사항 - 전체 리스트 조회
 	 */
 	@Override
-	public ArrayList<NoticeVo> getNoticeList(int startCount, int endCount) {
-		return (ArrayList<NoticeVo>) BoardUtil.getOutput(noticeMapper.selectNotice(startCount, endCount));
+	public List<Notice> getNoticeList(int startCount, int endCount) {
+//		return boardUtil.getOutput(noticeMapper.selectNotice(startCount, endCount));
+		return noticeMapper.selectNotice(1, 10);
 	}
 
 	/**
 	 * 공지사항 - 상세 보기
 	 */
 	@Override
-	public NoticeVo getNoticeContent(String stat, String no) {
-		NoticeVo noticeVo = noticeMapper.selectContent(no);
+	public Notice getNoticeContent(String stat, String no) {
+		Notice notice = noticeMapper.selectContent(no);
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-		if (noticeVo != null) {
+		if (notice != null) {
 			if (stat == null || stat.equals("")) {
 				noticeMapper.hitsCount(no);
-				noticeVo.setNotice_hits(noticeVo.getNotice_hits() + 1);
+				notice.setNotice_hits(notice.getNotice_hits() + 1);
 			}
 
-			noticeVo.setDate_output(format.format(noticeVo.getNotice_date()));
+			notice.setDate_output(format.format(notice.getNotice_date()));
 
 		}
 
-		return noticeVo;
+		return notice;
 	}
 
 	/**
@@ -52,11 +59,11 @@ public class NoticeServiceImpl implements NoticeService {
 	 * @throws Exception
 	 */
 	@Override
-	public int insert(NoticeVo noticeVo) {
+	public int insert(Notice notice) {
 
-		int insResult = noticeMapper.insertNotice(noticeVo);
-		if (noticeVo.getImage_id() != null) {
-			noticeMapper.insertFile(noticeVo);
+		int insResult = noticeMapper.insertNotice(notice);
+		if (notice.getImage_id() != null) {
+			noticeMapper.insertFile(notice);
 		}
 
 		return insResult;
@@ -66,24 +73,24 @@ public class NoticeServiceImpl implements NoticeService {
 	 * 공지사항 - 수정
 	 */
 	@Override
-	public int update(NoticeVo noticeVo) {
+	public int update(Notice notice) {
 		int result = 0;
 
-		result = noticeMapper.updateNotice(noticeVo);
+		result = noticeMapper.updateNotice(notice);
 
-		if (noticeVo.getFile() != null && !noticeVo.getFile().isEmpty()) {
+		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
 
-			if (noticeMapper.fileCheck(noticeVo) == 1) {
-				noticeMapper.updateFile(noticeVo);
+			if (noticeMapper.fileCheck(notice) == 1) {
+				noticeMapper.updateFile(notice);
 
 			} else {
-				noticeMapper.updateUploadFile(noticeVo);
+				noticeMapper.updateUploadFile(notice);
 
 			}
 
-		} else if (noticeVo.getImage_id() != null && noticeVo.getImage_id().split("!")[0].equals("delete")) {
+		} else if (notice.getImage_id() != null && notice.getImage_id().split("!")[0].equals("delete")) {
 
-			noticeMapper.deleteFile(noticeVo);
+			noticeMapper.deleteFile(notice);
 		}
 
 		return result;
@@ -108,9 +115,9 @@ public class NoticeServiceImpl implements NoticeService {
 	 * 공지사항 - 검색
 	 */
 	@Override
-	public List<NoticeVo> search(String keyword, int startCount, int endCount) {
+	public List<Notice> search(String keyword, int startCount, int endCount) {
 
-		return BoardUtil.getOutput(noticeMapper.searchList(keyword, startCount, endCount));
+		return boardUtil.getOutput(noticeMapper.searchList(keyword, startCount, endCount));
 	}
 
 }

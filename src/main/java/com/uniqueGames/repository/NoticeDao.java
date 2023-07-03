@@ -10,6 +10,7 @@ public class NoticeDao {
 
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
+    private final String NAMESPACE = "";
     /**
      * totRowCount - 페이징 처리용 전체 컬럼 수
      */

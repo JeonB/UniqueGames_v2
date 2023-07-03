@@ -1,10 +1,12 @@
 package com.uniqueGames.fileutil;
 
-import com.uniqueGames.model.NoticeVo;
+import com.uniqueGames.model.Notice;
 import com.uniqueGames.repository.NoticeDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
@@ -12,11 +14,17 @@ import java.util.Map;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
+@Component
 public class BoardUtil {
 
-	private static String root_path;
-	private static String attach_path;
-	static NoticeDao noticeDao = new NoticeDao();
+	private String root_path;
+	private String attach_path;
+	NoticeDao noticeDao;
+
+	@Autowired
+	public BoardUtil(NoticeDao noticeDao) {
+		this.noticeDao = noticeDao;
+	}
 
 	/**
 	 * 페이징 처리 유틸
@@ -24,7 +32,7 @@ public class BoardUtil {
 	 * @param page
 	 * @return Map<String, Integer>
 	 */
-	public static Map<String, Integer> getPagination(String page, String keyword) {
+	public Map<String, Integer> getPagination(String page, String keyword) {
 
 		Map<String, Integer> result = new HashMap<String, Integer>();
 
@@ -34,32 +42,32 @@ public class BoardUtil {
 		int reqPage = 1; // 요청페이지
 		int pageCount = 1; // 전체 페이지 수
 		int dbCount = 0; // DB에서 가져온 전체 행수
-
-		if (keyword.equals("list")) { // 검색 키워드가 없는 전체 리스트
-			dbCount = noticeDao.totRowCount("list");
-
-		} else {
-			dbCount = noticeDao.totRowCount(keyword);
-
-		}
-
-		// 총 페이지 수 계산
-		if (dbCount % pageSize == 0) {
-			pageCount = dbCount / pageSize;
-		} else {
-			pageCount = dbCount / pageSize + 1;
-		}
-
-		// 요청 페이지 계산
-		if (page != null) {
-			reqPage = Integer.parseInt(page);
-			startCount = (reqPage - 1) * pageSize + 1;
-			endCount = reqPage * pageSize;
-		} else {
-			startCount = 1;
-			endCount = pageSize;
-		}
-
+//
+//		if (keyword.equals("list")) { // 검색 키워드가 없는 전체 리스트
+//			dbCount = noticeDao.totRowCount("list");
+//
+//		} else {
+//			dbCount = noticeDao.totRowCount(keyword);
+//
+//		}
+//
+//		// 총 페이지 수 계산
+//		if (dbCount % pageSize == 0) {
+//			pageCount = dbCount / pageSize;
+//		} else {
+//			pageCount = dbCount / pageSize + 1;
+//		}
+//
+//		// 요청 페이지 계산
+//		if (page != null) {
+//			reqPage = Integer.parseInt(page);
+//			startCount = (reqPage - 1) * pageSize + 1;
+//			endCount = reqPage * pageSize;
+//		} else {
+//			startCount = 1;
+//			endCount = pageSize;
+//		}
+//
 		result.put("startCount", startCount);
 		result.put("endCount", endCount);
 		result.put("pageSize", pageSize);
@@ -76,7 +84,7 @@ public class BoardUtil {
 	 * @param result
 	 * @return
 	 */
-	public static List<NoticeVo> getOutput(List<NoticeVo> result) {
+	public List<Notice> getOutput(List<Notice> result) {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM.dd");
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 		String date_output = "";
@@ -86,7 +94,7 @@ public class BoardUtil {
 		int currentMonth = now.getMonthValue();
 		int currentDay = now.getDayOfMonth();
 
-		for (NoticeVo nvo : result) {
+		for (Notice nvo : result) {
 //			LocalDateTime dbDateTime = nvo.getNotice_date().toInstant().atZone(ZoneId.systemDefault())
 //					.toLocalDateTime();
 //			int dbYear = dbDateTime.getYear();
@@ -114,39 +122,39 @@ public class BoardUtil {
 	 * 파일 체크
 	 * 
 	 * @param request
-	 * @param noticeVo
+	 * @param notice
 	 * @return
 	 * @throws Exception
 	 */
-	public static NoticeVo fileUtil(HttpServletRequest request, NoticeVo noticeVo) throws Exception {
+	public  Notice fileUtil(HttpServletRequest request, Notice notice) throws Exception {
 		root_path = request.getSession().getServletContext().getRealPath("/");
 		attach_path = "\\resources\\upload\\";
 
-		if (noticeVo.getFile() != null && !noticeVo.getFile().isEmpty()) {
+		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
 
 			String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-			String upload_file = noticeVo.getFile().getOriginalFilename();
+			String upload_file = notice.getFile().getOriginalFilename();
 			String image_id = uuid + upload_file;
 
-			noticeVo.setUpload_file(upload_file);
-			noticeVo.setImage_id(image_id);
+			notice.setUpload_file(upload_file);
+			notice.setImage_id(image_id);
 
 		}
 
-		return noticeVo;
+		return notice;
 	}
 
 	/**
 	 * 파일 저장
 	 * 
-	 * @param noticeVo
+	 * @param notice
 	 * @throws Exception
 	 */
-	public static void fileSaveUtil(NoticeVo noticeVo) throws Exception {
+	public  void fileSaveUtil(Notice notice) throws Exception {
 
-		if (noticeVo.getFile() != null && !noticeVo.getFile().isEmpty()) {
-			File saveFile = new File(root_path + attach_path + noticeVo.getImage_id());
-			noticeVo.getFile().transferTo(saveFile);
+		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
+			File saveFile = new File(root_path + attach_path + notice.getImage_id());
+			notice.getFile().transferTo(saveFile);
 
 		}
 
@@ -154,10 +162,10 @@ public class BoardUtil {
 
 	/**
 	 * 파일 업데이트
-	 * @param noticeVo
+	 * @param notice
 	 * @throws Exception
 	 */
-	public static void fileUpdateUtil(NoticeVo noticeVo, String oldFileName) throws Exception {
+	public void fileUpdateUtil(Notice notice, String oldFileName) throws Exception {
 		String stat = "";
 
 		if (oldFileName.indexOf("!") > -1) {
@@ -166,13 +174,13 @@ public class BoardUtil {
 			oldFileName = tmp[1];
 		}
 		
-		if (noticeVo.getFile() != null && !noticeVo.getFile().isEmpty()) {
-			File saveFile = new File(root_path + attach_path + noticeVo.getImage_id());
-			noticeVo.getFile().transferTo(saveFile);
+		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
+			File saveFile = new File(root_path + attach_path + notice.getImage_id());
+			notice.getFile().transferTo(saveFile);
 
 		}
 
-		if (!noticeVo.getFile().isEmpty() || stat.equals("delete")) {
+		if (!notice.getFile().isEmpty() || stat.equals("delete")) {
 			File deleteFile = new File(root_path + attach_path + oldFileName);
 
 			if (deleteFile.exists()) {
@@ -186,7 +194,7 @@ public class BoardUtil {
 	 * 파일 삭제
 	 * @param imgdel
 	 */
-	public static void fileDeleteUtil(String imgdel) {
+	public void fileDeleteUtil(String imgdel) {
 
 		if (imgdel != null && !imgdel.equals("")) {
 			File deleteFile = new File(root_path + attach_path + imgdel);
