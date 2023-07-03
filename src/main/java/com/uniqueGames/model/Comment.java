@@ -1,6 +1,6 @@
 package com.uniqueGames.model;
 
-public class CommentVo {
+public class Comment {
 	int comment_id;
 	int post_id;
 	String member_id;

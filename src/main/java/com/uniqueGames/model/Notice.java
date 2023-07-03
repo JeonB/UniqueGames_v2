@@ -1,13 +1,9 @@
 package com.uniqueGames.model;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Date;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-public class NoticeVo {
+public class Notice {
 	int rno;
 	int post_id;
 	String company_id;

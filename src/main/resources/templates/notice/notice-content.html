@@ -51,33 +51,33 @@
     <table>
       <tr>
         <th>제목</th>
-        <td colspan="5" id="btitle" th:text="${noticeVo.title}"></td>
+        <td colspan="5" id="btitle" th:text="${notice.title}"></td>
       </tr>
       <tr>
         <th>등록자</th>
-        <td th:text="${noticeVo.name}"></td>
+        <td th:text="${notice.name}"></td>
         <th>조회수</th>
-        <td style="text-align: center;" th:text="${noticeVo.notice_hits}"></td>
+        <td style="text-align: center;" th:text="${notice.notice_hits}"></td>
         <th>등록일</th>
-        <td th:text="${noticeVo.date_output}"></td>
+        <td th:text="${notice.date_output}"></td>
       </tr>
       <tr>
         <td colspan="6" style="border:none;">
-          <div id="details" th:if="${noticeVo.image_id != null}">
-            <img src="/upload/${noticeVo.image_id}" style="max-width:1024px;"><br>
+          <div id="details" th:if="${notice.image_id != null}">
+            <img src="/upload/${notice.image_id}" style="max-width:1024px;"><br>
           </div>
-          <span th:utext="${noticeVo.content}"></span>
+          <span th:utext="${notice.content}"></span>
         </td>
       </tr>
     </table>
-    <input type="hidden" id="authorId" data-author-id="${noticeVo.company_id}">
+    <input type="hidden" id="authorId" data-author-id="${notice.company_id}">
 
   </div>
   <section id="comment-box">
     <div>
       <!-- Comment form-->
       <form id="comment-write" name="commentWriteForm" action="comment_write_proc" method="post">
-        <input type="hidden" name="post_id" th:value="${noticeVo.post_id}">
+        <input type="hidden" name="post_id" th:value="${notice.post_id}">
         <input type="hidden" id="member_id" name="member_id"
                th:if="${loginMember instanceof TLDialect.CompanyVo}" th:value="${loginMember.company_id}"
                th:if="${loginMember instanceof TLDialect.MemberVo}" th:value="${loginMember.member_id}"
@@ -97,7 +97,7 @@
       </th:block>
     </div>
   </section>
-  <form name="noticeDelete" action="notice_delete" method="post"><input type="hidden" name="no" th:value="${noticeVo.post_id}"><th:block th:if="${noticeVo.image_id != null}"><input type="hidden" name="imgdel" th:value="${noticeVo.image_id}"></th:block></form>
+  <form name="noticeDelete" action="notice_delete" method="post"><input type="hidden" name="no" th:value="${notice.post_id}"><th:block th:if="${notice.image_id != null}"><input type="hidden" name="imgdel" th:value="${notice.image_id}"></th:block></form>
 </div>
 <div th:replace="/main/footer::footerFragment"></div>
 </body>

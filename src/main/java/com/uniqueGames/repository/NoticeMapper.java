@@ -1,8 +1,8 @@
 package com.uniqueGames.repository;
 
 
-import com.uniqueGames.model.CommentVo;
-import com.uniqueGames.model.NoticeVo;
+import com.uniqueGames.model.Comment;
+import com.uniqueGames.model.Notice;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,36 +12,36 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface NoticeMapper {
-	ArrayList<NoticeVo> selectNotice(@Param("start") int startCount, @Param("end") int endCount);
+	ArrayList<Notice> selectNotice(@Param("start") int startCount, @Param("end") int endCount);
 
-	NoticeVo selectContent(String no);
+	Notice selectContent(String no);
 
-	int insertNotice(NoticeVo noticeVo);
+	int insertNotice(Notice notice);
 
-	int updateNotice(NoticeVo noticeVo);
+	int updateNotice(Notice notice);
 
 	int deleteNotice(String no);
 
 	int deleteList(String[] list);
 
-	List<NoticeVo> searchList(@Param("keyword") String keyword, @Param("start") int startCount,
-			@Param("end") int endCount);
+	List<Notice> searchList(@Param("keyword") String keyword, @Param("start") int startCount,
+                            @Param("end") int endCount);
 
 	void hitsCount(String no);
 
-	int insertFile(NoticeVo noticeVo);
+	int insertFile(Notice notice);
 
-	int updateFile(NoticeVo noticeVo);
+	int updateFile(Notice notice);
 
-	int updateUploadFile(NoticeVo noticeVo);
+	int updateUploadFile(Notice notice);
 
-	int deleteFile(NoticeVo noticeVo);
+	int deleteFile(Notice notice);
 
-	int fileCheck(NoticeVo noticeVo);
+	int fileCheck(Notice notice);
 
-	ArrayList<CommentVo> selectComment(String no);
+	ArrayList<Comment> selectComment(String no);
 
-	int insertComment(CommentVo commentVo);
+	int insertComment(Comment comment);
 
 	int deleteComment(String no);
 }

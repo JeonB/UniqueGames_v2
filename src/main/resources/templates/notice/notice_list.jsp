@@ -126,14 +126,14 @@
 							</tr>
 							<c:choose>
 								<c:when test="${not empty list}">
-									<c:forEach var="noticeVo" items="${list}">
+									<c:forEach var="notice" items="${list}">
 										<tr>
 											<td><input type="checkbox" name="list"
-												value="${noticeVo.post_id}"></td>
-											<td><c:out value="${noticeVo.rno}"/></td>
-											<td><a href="notice_content?no=${noticeVo.post_id}"><c:out value="${noticeVo.title}" /><c:if test="${noticeVo.cmtCount > 0}"><c:out value="  [${noticeVo.cmtCount}]" /></c:if></a></td>
-											<td><c:out value="${noticeVo.name}" /></td>
-											<td><c:out value="${noticeVo.date_output}" /></td>
+												value="${notice.post_id}"></td>
+											<td><c:out value="${notice.rno}"/></td>
+											<td><a href="notice_content?no=${notice.post_id}"><c:out value="${notice.title}" /><c:if test="${notice.cmtCount > 0}"><c:out value="  [${notice.cmtCount}]" /></c:if></a></td>
+											<td><c:out value="${notice.name}" /></td>
+											<td><c:out value="${notice.date_output}" /></td>
 										</tr>
 									</c:forEach>
 								</c:when>
@@ -159,12 +159,12 @@
 						</tr>
 							<c:choose>
 								<c:when test="${not empty list}">
-									<c:forEach var="noticeVo" items="${list}">
+									<c:forEach var="notice" items="${list}">
 										<tr>
-											<td><c:out value="${noticeVo.rno}"/></td>
-											<td><a href="notice_content?no=${noticeVo.post_id}"><c:out value="${noticeVo.title}" /><c:if test="${noticeVo.cmtCount > 0}"><c:out value=" [${noticeVo.cmtCount}]" /></c:if></a></td>
-											<td><c:out value="${noticeVo.name}" /></td>
-											<td><c:out value="${noticeVo.date_output}" /></td>
+											<td><c:out value="${notice.rno}"/></td>
+											<td><a href="notice_content?no=${notice.post_id}"><c:out value="${notice.title}" /><c:if test="${notice.cmtCount > 0}"><c:out value=" [${notice.cmtCount}]" /></c:if></a></td>
+											<td><c:out value="${notice.name}" /></td>
+											<td><c:out value="${notice.date_output}" /></td>
 										</tr>
 									</c:forEach>
 								</c:when>

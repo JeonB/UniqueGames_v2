@@ -1,6 +1,6 @@
 package com.uniqueGames.service;
 
-import com.uniqueGames.model.CommentVo;
+import com.uniqueGames.model.Comment;
 import com.uniqueGames.repository.CommentMapper;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +16,11 @@ public class CommentServiceImpl implements CommentService {
 	 * 댓글 - 작성
 	 */
 	@Override
-	public String commentInsert(CommentVo commentVo) {
+	public String commentInsert(Comment comment) {
 		String result = "FAIL";
 
-		commentVo.setComment_content(commentVo.getComment_content().replaceAll("\r\n", "<br>"));
-		int dbResult = commentMapper.insertComment(commentVo);
+		comment.setComment_content(comment.getComment_content().replaceAll("\r\n", "<br>"));
+		int dbResult = commentMapper.insertComment(comment);
 		if (dbResult == 1) {
 			result = "SUCCESS";
 		}
@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
 	 * 댓글 - 페이지별 댓글 전체 리스트
 	 */
 	@Override
-	public List<CommentVo> select(String no) {
+	public List<Comment> select(String no) {
 
 		return commentMapper.selectComment(no);
 	}
