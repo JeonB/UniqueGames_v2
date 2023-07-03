@@ -55,7 +55,7 @@ public class NoticeController {
 		model.addObject("pageCount", pageMap.get("pageCount"));
 		model.addObject("page", pageMap.get("reqPage"));
 
-		model.setViewName("notice/notice_list");
+		model.setViewName("notice-list");
 
 		return model;
 	}
@@ -65,7 +65,7 @@ public class NoticeController {
 	 */
 	@RequestMapping(value = "/notice_write", method = RequestMethod.GET)
 	public String noticeWrite() {
-		return "/notice/notice_write";
+		return "notice-write";
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class NoticeController {
 
 		model.addObject("noticeVo", noticeVo);
 		model.addObject("commList", commList);
-		model.setViewName("notice/notice_content");
+		model.setViewName("notice-content");
 
 		return model;
 	}
@@ -137,7 +137,7 @@ public class NoticeController {
 		NoticeVo noticeVo = noticeService.getNoticeContent(stat, no);
 
 		model.addObject("noticeVo", noticeVo);
-		model.setViewName("notice/notice_update");
+		model.setViewName("notice-update");
 
 		return model;
 	}
@@ -218,7 +218,7 @@ public class NoticeController {
 		model.addObject("pageCount", pageMap.get("pageCount"));
 		model.addObject("page", pageMap.get("reqPage"));
 
-		model.setViewName("notice/notice_list");
+		model.setViewName("notice-list");
 
 		return model;
 	}
