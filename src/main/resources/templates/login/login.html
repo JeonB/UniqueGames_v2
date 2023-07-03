@@ -13,7 +13,7 @@
 </head>
 <body>
 <!--header-->
-<div th:replace="/main/header::headerFragment"></div>
+<div th:replace="fragments/header :: headerFragment"></div>
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
@@ -33,17 +33,17 @@
     <div>
       <ul>
         <li>
-          <input type="text" id="input-common" name="member_id" placeholder="아이디" th:value="${member?.member_id}">
+          <input type="text" id="input-common" name="member_id" placeholder="아이디" th:value="${member.member_id}">
           <span id="msgId"></span>
         </li>
         <li>
-          <input type="password" id="input-common" name="password" placeholder="비밀번호" size="15" th:value="${member?.password}">
+          <input type="password" id="input-common" name="password" placeholder="비밀번호" size="15" th:value="${member.password}">
           <span id="msgPwd"></span>
         </li>
         <li>
           <button type="submit" id="button-gradient">LOGIN</button>
         </li>
-        <li>`
+        <li>
           <a href="findId" id="link-findAccount">아이디 찾기</a>
           <a href="findId?selectedTab=findPwd" id="link-findAccount">비밀번호 찾기</a>
           <a href="/join" id="link-signUp">
@@ -54,7 +54,7 @@
     </div>
   </form>
 
-  <form action="login" method="post" th:object="${company}" id="company-loginForm">
+  <form action="/login" method="post" th:object="${company}" id="company-loginForm">
     <div>
       <ul>
         <li>
@@ -78,6 +78,6 @@
   </form>
 </section>
 <!--footer-->
-<div th:replace="/main/footer::footerFragment"></div>
+<div th:replace="fragments/footer :: footerFragment"></div>
 </body>
 </html>
