@@ -27,7 +27,7 @@ public class PaymentDetailController {
 	/** payment_detail **/
 	@RequestMapping(value = "/payment_detail", method = RequestMethod.GET)
 	public String payment_detail() {
-		return "order/payment_detail";
+		return "payment-detail";
 	}
 
 	/** payment_detail_data **/
@@ -67,7 +67,7 @@ public class PaymentDetailController {
 	/** donation_detail **/
 	@RequestMapping(value = "/donation_detail", method = RequestMethod.GET)
 	public String donation_detail() {
-		return "order/donation_detail";
+		return "donation-detail";
 	}
 
 	/** donation_detail_data **/
@@ -108,7 +108,7 @@ public class PaymentDetailController {
 	/** donation_rank **/
 	@RequestMapping(value = "/donation_rank", method = RequestMethod.GET)
 	public String donation_rank() {
-		return "order/donation_rank";
+		return "donation-rank";
 	}
 
 	/** donation_rank_data **/

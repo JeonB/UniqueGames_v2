@@ -95,6 +95,6 @@ public class OrderController {
 	/** order_proc **/
 	@RequestMapping(value = "/order_complete", method = RequestMethod.GET)
 	public String order_complete() {
-		return "order/order_complete";
+		return "order-complete";
 	}
 }
