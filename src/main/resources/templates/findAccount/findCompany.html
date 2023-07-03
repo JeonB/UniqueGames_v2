@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>findAccount</title>
@@ -117,8 +117,8 @@
 
 </head>
 <body>
-<header>
-</header>
+<!--header-->
+<div th:replace="/main/header::headerFragment"></div>
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
@@ -201,6 +201,7 @@
     </li>
   </ul>
 </div>
-
+<!--footer-->
+<div th:replace="/main/footer::footerFragment"></div>
 </body>
 </html>

@@ -6,7 +6,7 @@
   <title>개발사 후원페이지</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detail.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainunigames.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script> <!-- 마이크로소프트 jQuery-->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 

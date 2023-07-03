@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- header -->
-<div th:include="../main/header.html"></div>
+<div th:replace="/main/header::headerFragment"></div>
 
 <!-- content -->
 <section id="top-bg">
@@ -80,6 +80,6 @@
 </section>
 
 <!-- footer -->
-<div th:include="../main/footer.html"></div>
+<div th:replace="/main/footer::footerFragment"></div>
 </body>
 </html>

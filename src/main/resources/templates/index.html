@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Unique Games</title>
-    <link rel="stylesheet" href="/css/mainunigames.css">
+    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
@@ -32,47 +32,47 @@
     </script>
 </head>
 <body>
-<!-- <iframe th:src="@{/header.html}" scrolling="no" width="100%" height="228px" frameborder=0></iframe> -->
-<!--<div th:replace="header :: header"></div>-->
+
+<div th:replace="~{/main/header :: headerFragment}"></div>
 <div class="swiper">
     <div class="swiper-wrapper">
         <div class="swiper-slide">
             <div class="silde1">
-                <div id="slide-text">
+                <div class="slide-text">
                     <h2>디 엑시트 이터널 매터스</h2>
                     <h1>DE-EXIT - Eternal Matters</h1>
                     <p>죽음을 넘어선 생명을 느끼다</p>
-                    <a href="detail/1"><button id="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
+                    <a href="detail/1"><button class="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
                 </div>
             </div>
         </div>
         <div class="swiper-slide">
             <div class="silde2">
-                <div id="slide-text">
+                <div class="slide-text">
                     <h2>스트리트 파이터 6 디럭스 에디션</h2>
                     <h1>Street Fighter 6</h1>
                     <p>시리즈 최신작 『Street Fighter 6(스트리트 파이터 6)』</p>
-                    <a href="detail/2"><button id="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
+                    <a href="detail/2"><button class="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
                 </div>
             </div>
         </div>
         <div class="swiper-slide">
             <div class="silde3">
-                <div id="slide-text">
+                <div class="slide-text">
                     <h2>뱀파이어: 마스커레이드 - 스완송</h2>
                     <h1>Vampire: The Masquerade</h1>
                     <p>월드 오브 다크니스에 오신 것을 환영합니다</p>
-                    <a href="detail/3"><button id="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
+                    <a href="detail/3"><button class="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
                 </div>
             </div>
         </div>
         <div class="swiper-slide">
             <div class="silde4">
-                <div id="slide-text">
+                <div class="slide-text">
                     <h2>더 라스트 오브 어스 파트 1 디럭스 에디션</h2>
                     <h1>The Last of Us Part I </h1>
                     <p>살기 위해 오늘도 길을 나선다 탐험 액션</p>
-                    <a href="detail/4"><button id="btn-main-style" type="button"  style='cursor:pointer'>자세히보기</button></a>
+                    <a href="detail/4"><button class="btn-main-style" type="button"  style='cursor:pointer'>자세히보기</button></a>
                 </div>
             </div>
         </div>
@@ -89,13 +89,13 @@
 </div>
 <img id="topGame-title" src="/images/imt_title_top.png" width="135px" height="32px">
 <div id="menu-topGame">
-    <div id="topGameList">
+    <div id="topGame-list">
         <div th:each="game, loop : ${ranking}">
             <div th:if="${loop.index &lt; 4}" id="tList">
                 <a th:href="@{'detail/' + ${game.id}}"><img alt="#" th:src="${game.image_path}" width="500px" height="240px"></a>
                 <div>
                     <p th:text="${loop.index + 1}"></p>
-                    <li id="cyber"><a th:href="@{'detail/' + ${game.id}}">${game.name}</a></li>
+                    <li id="cyber"><a th:href="@{'detail/' + ${game.id}}" th:text="${game.name}"></a></li>
                     <p id="cyber2" th:text="${game.description}"></p>
                     <a href="topgame"><button id="readmore-plus" type="button"><img src="/images/btn_plus_normal.png" width="30px" height="30px"></button></a>
                 </div>
@@ -105,7 +105,7 @@
 </div>
 <section id="menu-main1">
     <img id="recommendations-title" src="/images/img_title_recommendations.png" width="262px" height="26px">
-    <p id="subTitle">#최근 반응이 좋은</p>
+    <p class="sub-title">#최근 반응이 좋은</p>
     <div id="menu-recommendations">
         <div id="recommendList">
             <div th:each="game, loop : ${donation}">
@@ -146,7 +146,7 @@
 </section>
 <section id="menu-main3">
     <img id="solution-title" src="/images/img_title_notice.png" width="90px" height="25px">
-    <p id="subTitle">#공지사항 #필독</p>
+    <p class="sub-title">#공지사항 #필독</p>
     <div id="menu-solution">
         <table>
             <tr>
@@ -169,6 +169,7 @@
         </div>
     </div>
 </section>
+<div th:replace="~{/main/footer::footerFragment}"></div>
 <script>
     new Swiper('.swiper', {
         autoplay: {

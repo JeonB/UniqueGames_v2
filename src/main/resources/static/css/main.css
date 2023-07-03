@@ -114,26 +114,26 @@ a:visited {
 	margin: auto;
 }
 
-#slide-text {
+.slide-text {
 	width: 1100px;
 	margin: auto;
 }
 
-#slide-text h2 {
+.slide-text h2 {
 	font-family: "YouandiModern", sans-serif;
 	font-size: 32px;
 	color: #fff;
 	padding-bottom: 32px;
 }
 
-#slide-text p {
+.slide-text p {
 	font-family: "Noto Sans KR", sans-serif;
 	font-size: 28px;
 	color: #fff;
 	padding-bottom: 45px;
 }
 
-#slide-text h1 {
+.slide-text h1 {
 	font-family: "Apex New", sans-serif;
 	font-size: 100px;
 	font-weight: bold;
@@ -142,7 +142,7 @@ a:visited {
 	padding-bottom: 10px;
 }
 
-#btn-main-style {
+.btn-main-style {
 	font-family: "YouandiModern", sans-serif;
 	font-size: 18px;
 	color: #fff;
@@ -185,7 +185,7 @@ a:visited {
 	margin-top: 60px;
 }
 
-#subTitle {
+.sub-title {
 	padding-top: 20px;
 	padding-bottom: 60px;
 	display: block;
@@ -193,7 +193,7 @@ a:visited {
 	margin: auto;
 }
 
-#topGameList {
+#topGame-list {
 	white-space: nowrap;
 	overflow-x: scroll;
 }
@@ -647,24 +647,24 @@ header div img {
 	height: 50px;
 }
 
-#nav1 {
+.nav1 {
 	margin: 10px 0;
 	padding-right: 10%;
 	float: right;
 }
 
-#nav1>ul {
+.nav1>ul {
 	width: 100%;
 	overflow: hidden;
 }
 
-#nav1>ul>li {
+.nav1>ul>li {
 	display: block;
 	float: left;
 	margin: 0 2px;
 }
 
-#nav1>ul>li>a {
+.nav1>ul>li>a {
 	display: block;
 	width: 40px;
 	padding: 4px 6px 4px 6px;
@@ -675,20 +675,20 @@ header div img {
 	text-align: center;
 }
 
-#nav1>ul>li>a>img {
+.nav1>ul>li>a>img {
 	text-align: center;
 }
 
-#nav1>ul>li:first-child {
+.nav1>ul>li:first-child {
 	padding-right: 20px;
 	border-right: 1px solid #999999;
 }
 
-#nav1>ul>li:nth-child(2) {
+.nav1>ul>li:nth-child(2) {
 	margin-left: 0px;
 }
 
-#nav2 {
+.nav2 {
 	border: 1px solid #D6D6D6;
 	background-color: #F5F5F5;
 	margin: auto;
@@ -696,19 +696,19 @@ header div img {
 	text-align: center;
 }
 
-#nav2>ul {
+.nav2>ul {
 	width: 100%;
 	margin: auto;
 	overflow: hidden;
 }
 
-#nav2>ul>li {
+.nav2>ul>li {
 	padding: 22px 50px;
 	display: inline-block;
 	margin: 0 50px;
 }
 
-#nav2>ul>li>a {
+.nav2>ul>li>a {
 	font-family: "Apex New", sans-serif;
 	font-style: italic;
 	font-weight: 100;
@@ -718,7 +718,7 @@ header div img {
 	text-decoration-line: none;
 }
 
-#nav2>ul>li>a:hover {
+.nav2>ul>li>a:hover {
 	color: #497EBF;
 	font-weight: bold;
 }

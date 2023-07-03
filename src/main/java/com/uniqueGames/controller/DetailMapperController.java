@@ -9,7 +9,6 @@ import com.uniqueGames.model.NoticeVo;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.repository.CompanyRepositoryMapper;
 import com.uniqueGames.service.CompanyServiceMapper;
-import com.uniqueGames.service.CompanyServiceMapper2;
 import com.uniqueGames.service.IndexServiceMapper;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,15 +36,13 @@ public class DetailMapperController {
 
 
     private final CompanyServiceMapper companyServiceMapper;
-    private final CompanyServiceMapper2 companyServiceMapper2;
     private final IndexServiceMapper indexServiceMapper;
     CompanyRepositoryMapper companyRepositoryMapper;
 
     @Autowired
     public DetailMapperController(CompanyServiceMapper companyServiceMapper,
-            CompanyServiceMapper2 companyServiceMapper2, IndexServiceMapper indexServiceMapper, CompanyRepositoryMapper companyRepositoryMapper) {
+            IndexServiceMapper indexServiceMapper, CompanyRepositoryMapper companyRepositoryMapper) {
         this.companyServiceMapper = companyServiceMapper; // 매퍼 방식
-        this.companyServiceMapper2 = companyServiceMapper2; // 인터페이스 only
         this.indexServiceMapper = indexServiceMapper;
         this.companyRepositoryMapper = companyRepositoryMapper;
     }
@@ -97,7 +94,7 @@ public class DetailMapperController {
                 return "detail/company_regi";
          }
         else{
-                companyServiceMapper2.insertIntro(introVo);
+                companyServiceMapper.insertIntro(introVo);
                 model.addAttribute("status", "writeOnce");
                 return "redirect:getIntroList";
             }

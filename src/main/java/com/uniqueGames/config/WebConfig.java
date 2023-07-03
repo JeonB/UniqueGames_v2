@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     private static final String[] whitelist = {"/css/**", "/js/**", "/images/**",
-            "/", "/login", "/logout", "/findPassword", "/register", "/registerOk", "/register/check",
+            "/", "/login", "/logout", "/findPassword",
             "/member/**",
             "/search/**",
             "/mybatis",
@@ -25,13 +25,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)               //낮을수록 먼저 호출됨. 인터셉터 체인 순서
                 .addPathPatterns("/**") //모든 요청에 대해 인터셉터 실행
                 .excludePathPatterns(whitelist); //인터셉터에서 제외할 패턴(URL) 지정
-
-        /*
-        registry.addInterceptor(new ExampleInterceptor())
-           .order(2)
-           .addPathPatterns("/**")
-           .excludePathPatterns("/css/**" , "/*.ico" , "/error");
-        * */
     }
 
     @Override

@@ -14,8 +14,8 @@
 </head>
 
 <body>
-
-<jsp:include page="../main/header.jsp"></jsp:include>
+<!--header-->
+<div th:replace="~{/main/header::headerFragment}"></div>
 <div id="image-top-bg" ></div>
 <div class="parent-container" style="display: grid">
   <div class="main-container">
@@ -218,8 +218,8 @@
     </div>
   </div>
 </div>
-<jsp:include page="../main/footer.jsp"></jsp:include>
+<div th:replace="/main/footer::footerFragment"></div>
 </body>
 
 </html>
-<script src="${pageContext.request.contextPath}/js/detail.js"></script>
+<script src="/js/detail.js"></script>

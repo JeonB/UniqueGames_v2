@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Unique Games</title>
@@ -72,7 +72,7 @@
 </head>
 <body>
 <!-- header -->
-<div th:include="../main/header.html"></div>
+<div th:replace="/main/header::headerFragment"></div>
 
 <!-- content -->
 <section id="top-bg">
@@ -89,4 +89,14 @@
   <div id="div-gameList">
     <div id="div-select">
       <select id="select-order">
-        <option value="
+        <option value="orderdate_desc">최근 날짜순</option>
+        <option value="orderdate_asc">오래된 날짜순</option>
+        <option value="amount_asc">낮은 후원금순</option>
+        <option value="amount_desc">높은 후원금순</option>
+      </select>
+    </div>
+  </div>
+</section>
+<div th:replace="/main/footer::footerFragment"></div>
+</body>
+</html>

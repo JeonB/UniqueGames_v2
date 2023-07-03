@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko" dir="ltr" class='com_virtuemart view-productdetails itemid-167 mm-hover'>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko" dir="ltr" class='com_virtuemart view-productdetails itemid-167 mm-hover'>
 <head>
   <title>개발사 후원페이지</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detail.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainunigames.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/detail.css}">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script> <!-- 마이크로소프트 jQuery-->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -14,8 +14,8 @@
 </head>
 
 <body>
-
-<jsp:include page="../main/header.jsp"></jsp:include>
+<!--header-->
+<div th:replace="/main/header::headerFragment"></div>
 <div id="image-top-bg" ></div>
 <div class="parent-container" style="display: grid">
   <div class="main-container">
@@ -26,7 +26,7 @@
         <div class="productdetails-view productdetails">
           <div class="page-header">
             <div style="clear:both;position:absolute;margin-top:18px;z-index:10;text-align:center;">
-              <div style="display:block;border: 1px solid rgba(255,255,255,0.1);padding-left:10px;padding-right:10px;"><img src="${pageContext.request.contextPath}/images/img-game-icon_1.jpg" width="80"/></div>
+              <div style="display:block;border: 1px solid rgba(255,255,255,0.1);padding-left:10px;padding-right:10px;"><img th:src="@{/images/img-game-icon_1.jpg}" width="80"/></div>
             </div>
             <h1 style="font-size:20px;padding-left:110px;display:inline-block;text-transform:initial" >
 
@@ -211,7 +211,8 @@
     </div>
   </div>
 </div>
-<jsp:include page="../main/footer.jsp"></jsp:include>
+<!--footer-->
+<div th:replace="/main/footer::footerFragment"></div>
 </body>
 </html>
-<script src="${pageContext.request.contextPath}/js/detail.js"></script>
+<script th:src="@{/js/detail.js}"></script>

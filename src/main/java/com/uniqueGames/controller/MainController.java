@@ -45,7 +45,7 @@ public class MainController {
 
 	
 	@RequestMapping(value="/allList", method=RequestMethod.GET)
-	public String alllist(Model model) {
+	public String allList(Model model) {
 		model.addAttribute("gameList", indexServiceMapper.getGameList());
 		return "main/allList";
 	}

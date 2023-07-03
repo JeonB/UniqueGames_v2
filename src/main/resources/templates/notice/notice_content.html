@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Unique Games</title>
-  <link rel="stylesheet" href="/css/mainunigames.css">
+  <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/board.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script><!-- 마이크로소프트 jQuery-->
   <script src="/js/board.js"></script>
   <script type="text/javascript">
 
   </script>
+
   <th:block th:if="${result != null}">
     <script type="text/javascript">
       let result = '${result}';
@@ -23,13 +24,9 @@
     </script>
   </th:block>
 </head>
+
 <body>
-<header>
-  <!-- Include header file -->
-  <!-- <jsp:include page="../main/header.jsp"></jsp:include> -->
-  <!-- Replace with the appropriate Thymeleaf code -->
-  <!-- ... -->
-</header>
+<div th:replace="/main/header::headerFragment"></div>
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
@@ -44,9 +41,9 @@
       <p>Notice</p>
       <div>
         <ul>
-          <li><button type="button" id="btn-style" name="update">수정</button></li>
-          <li><button type="button" id="btn-style" name="delete">삭제</button></li>
-          <li><button type="button" id="btn-style" name="list">목록</button></li>
+          <li><button type="button" class="btn-style" name="update">수정</button></li>
+          <li><button type="button" class="btn-style" name="delete">삭제</button></li>
+          <li><button type="button" class="btn-style" name="list">목록</button></li>
         </ul>
       </div>
       <div id="clearFix"></div>
@@ -102,9 +99,6 @@
   </section>
   <form name="noticeDelete" action="notice_delete" method="post"><input type="hidden" name="no" th:value="${noticeVo.post_id}"><th:block th:if="${noticeVo.image_id != null}"><input type="hidden" name="imgdel" th:value="${noticeVo.image_id}"></th:block></form>
 </div>
-<!-- Include footer file -->
-<!-- <jsp:include page="../main/footer.jsp"></jsp:include> -->
-<!-- Replace with the appropriate Thymeleaf code -->
-<!-- ... -->
+<div th:replace="/main/footer::footerFragment"></div>
 </body>
 </html>

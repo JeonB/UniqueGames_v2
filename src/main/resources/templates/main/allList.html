@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Unique Games</title>
-  <link rel="stylesheet" th:href="@{/css/mainunigames.css}">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 <body>
-<header th:include="header"></header>
+<!--header-->
+<div th:replace="/main/header::headerFragment"></div>
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
@@ -31,6 +32,7 @@
     </div>
   </div>
 </section>
-<footer th:include="footer"></footer>
+<!--footer-->
+<div th:replace="/main/footer::footerFragment"></div>
 </body>
 </html>

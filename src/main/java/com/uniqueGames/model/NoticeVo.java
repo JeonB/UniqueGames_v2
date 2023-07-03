@@ -15,7 +15,7 @@ public class NoticeVo {
 	String title;
 	String content;
 	int notice_hits;
-	LocalDateTime notice_date;
+	Date notice_date;
 	String date_output;
 	CommonsMultipartFile file;
 	String image_id;
@@ -78,11 +78,11 @@ public class NoticeVo {
 		this.notice_hits = notice_hits;
 	}
 
-	public LocalDateTime getNotice_date() {
+	public Date getNotice_date() {
 		return notice_date;
 	}
 
-	public void setNotice_date(LocalDateTime notice_date) {
+	public void setNotice_date(Date notice_date) {
 		this.notice_date = notice_date;
 	}
 

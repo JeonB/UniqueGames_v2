@@ -62,10 +62,8 @@
   </script>
 </head>
 <body>
-<header>
-  <!-- include 표현식은 Thymeleaf의 th:include로 변경됩니다 -->
-  <div th:replace="../main/header :: header"></div>
-</header>
+<!--header-->
+<div th:replace="/main/header :: headerFragment"></div>
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
@@ -143,7 +141,7 @@
   </ul>
 </div>
 
-<!-- include 표현식은 Thymeleaf의 th:include로 변경됩니다 -->
-<div th:replace="../main/footer :: footer"></div>
+<!--footer-->
+<div th:replace="/main/footer :: footerFragment"></div>
 </body>
 </html>

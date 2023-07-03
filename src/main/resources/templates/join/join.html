@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Join</title>
@@ -9,8 +9,8 @@
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
-<header>
-</header>
+<!--header-->
+<div th:replace="/main/header::headerFragment"></div>
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
@@ -312,6 +312,7 @@
   <br>&nbsp;  - 동의를 거부하셔도 그에 따른 불이익은 없습니다.
 </div>
 
-
+<!--footer-->
+<div th:replace="/main/footer::footerFragment"></div>
 </body>
 </html>
