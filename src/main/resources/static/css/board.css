@@ -157,7 +157,7 @@
     padding: 8px;
 }
 
-#default-write {
+.default-write {
     font-size: 14px;
     border: 1px solid #DDDDDD;
     padding: 12px 16px;
@@ -252,7 +252,6 @@
 #form-control {
     display: block;
     font-size: 14px;
-    border: 1px solid #DDDDDD;
     padding: 12px 16px;
     margin: auto;
     width: 1000px;
