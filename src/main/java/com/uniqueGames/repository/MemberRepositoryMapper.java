@@ -18,13 +18,13 @@ public interface MemberRepositoryMapper {
    //@Select("select * from member where id = #{findId}")
 //   MemberVo findById(Long findId);
 //
-   @Select("select * from member where member_id = #{member_id}")
-   MemberVo findById(String member_id);
+   @Select("select * from member where member_id = #{memberId}")
+   MemberVo findById(String memberId);
 
    @Select("select * from member")
    List<MemberVo> findAll();
    
-   @Select("select count(*) from member where member_id = #{member_id} and password = #{password}")
+   @Select("select count(*) from member where member_id = #{memberId} and password = #{password}")
    int passEqual(MemberVo member);
 
    //@Select("select * from member where email = #{email} and name = #{name}")

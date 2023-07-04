@@ -21,10 +21,10 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
         //MemberVo 타입인지 확인
         boolean hasMemberType = MemberVo.class.isAssignableFrom(parameter.getParameterType());
         //CompanyVo 타입인지 확인
-        boolean hasCompanyType = CompanyVo.class.isAssignableFrom(parameter.getParameterType());
+//        boolean hasCompanyType = CompanyVo.class.isAssignableFrom(parameter.getParameterType());
         //@Login 어노테이션이 존재하는지 확인
         boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
-        return hasLoginAnnotation && (hasMemberType||hasCompanyType);
+        return hasLoginAnnotation && hasMemberType;
     }
     //세션에 있는 member 객체를 찾아서 반환. 못찾으면 null 반환
     @Override

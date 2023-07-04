@@ -3,7 +3,8 @@ package com.uniqueGames.model;
 public class MemberVo {
 	
 	int id;
-	String member_id, password, name, email1, email2, email3, phone1, phone2, phone3, addr1, addr2, tel;
+	String memberId;
+	String password, name, email1, email2, email3, phone1, phone2, phone3, addr1, addr2, tel;
 	
 	public String getEmail3() {
 		return email3;
@@ -31,12 +32,12 @@ public class MemberVo {
 		this.id = id;
 	}
 
-	public String getMember_id() {
-		return member_id;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	public String getPassword() {

@@ -1,6 +1,7 @@
 package com.uniqueGames.controller;
 
 
+import com.uniqueGames.config.Login;
 import com.uniqueGames.model.CompanyVo;
 import com.uniqueGames.model.GameVo;
 import com.uniqueGames.model.MemberVo;
@@ -10,6 +11,8 @@ import com.uniqueGames.service.OrderServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,13 +30,13 @@ public class CartController {
 
 	@RequestMapping(value = "/cart", method = RequestMethod.POST)
 	public String getValue(@RequestParam("selectedValue") String selectedValue, @ModelAttribute("companyVo")
-	CompanyVo companyVo, @ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo memberVo, @ModelAttribute("game") GameVo gameVo){
+	CompanyVo companyVo, @Login MemberVo memberVo, @ModelAttribute("game") GameVo gameVo){
 
 		/*
 		* orderService의 데이터 insert 기능 추가
 		* */
 		OrderVo orderVo = orderService.addToOrderVo(
-				memberVo.getMember_id(),
+				memberVo.getMemberId(),
 				companyVo.getCompany_id(),
 				gameVo.getId(),
 				Integer.parseInt(selectedValue),
@@ -44,11 +47,13 @@ public class CartController {
 		return "order/cart";
 	}
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
-	public ModelAndView cart(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member) {
-		System.out.println(member.getMember_id());
+	public ModelAndView cart(@Login MemberVo loginMember, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		System.out.println(session.getAttribute(SessionConstants.LOGIN_MEMBER));
+		System.out.println(loginMember.getMemberId());
 
 		ModelAndView model = new ModelAndView();
-		ArrayList<OrderVo> cartList = orderService.getCartList(member.getMember_id());
+		ArrayList<OrderVo> cartList = orderService.getCartList(loginMember.getMemberId());
 
 		if (cartList.size() > 0) {
 			model.addObject("cartList", cartList);
@@ -91,7 +96,7 @@ public class CartController {
 
 	@RequestMapping(value = "/cart_delete_all", method = RequestMethod.GET)
 	public String cart_delete_selected(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member) {
-		String m_id = member.getMember_id();
+		String m_id = member.getMemberId();
 		int result = orderService.getCartDeleteAll(m_id);
 
 		if (result == 0) {

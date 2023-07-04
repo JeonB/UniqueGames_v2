@@ -147,7 +147,7 @@
 //		getPreparedStatement(sql);
 //
 //		try {
-//			pstmt.setString(1, memberVo.getMember_id());
+//			pstmt.setString(1, memberVo.getMemberId());
 //			pstmt.setString(2, memberVo.getPassword());
 //
 //			result = pstmt.executeUpdate();

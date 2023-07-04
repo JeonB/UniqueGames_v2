@@ -7,12 +7,15 @@ import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.repository.CompanyRepositoryMapper;
 import com.uniqueGames.repository.MemberRepositoryMapper;
 import java.util.Enumeration;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,34 +38,27 @@ public class LoginController {
 	}
 
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@PostMapping("/login")
 	public String loginOk(@Validated @ModelAttribute MemberVo member, @Validated @ModelAttribute CompanyVo company,
 			HttpServletRequest request, @RequestParam(defaultValue = "/") String redirectURL) {
 		HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
 
-//		MemberVo loginMember = memberRepositoryMapper.findById(member.getMember_id());
-//		CompanyVo loginMemberCom = companyRepositoryMapper.findById(company.getCompany_id());
+		MemberVo loginMember = memberRepositoryMapper.findById(member.getMemberId());
+		CompanyVo loginMemberCom = companyRepositoryMapper.findById(company.getCompany_id());
 
-		session.setAttribute("login", "not");
 		/* member */
-		if (member != null && memberRepositoryMapper.passEqual(member) == 1) {
+		if (memberRepositoryMapper.passEqual(member) == 1) {
 			// loginMember != null && loginMember.getPassword().equals(member.getPassword())
-			session.setAttribute(SessionConstants.LOGIN_MEMBER, memberRepositoryMapper.findById(member.getMember_id()));
+			session.setAttribute(SessionConstants.LOGIN_MEMBER, loginMember);
 			session.setAttribute("login", "member");
 			if (redirectURL.equals("notice_write") || redirectURL.equals("detail/insertIntro")) {
 				return "redirect:/";
 			}
 		}
 		/* company */
-		else if (company != null && companyRepositoryMapper.passEqual(company) == 1) {
+		else if (companyRepositoryMapper.passEqual(company) == 1) {
 			session.setAttribute(SessionConstants.LOGIN_MEMBER,  companyRepositoryMapper.findById(company.getCompany_id())); // 세션에 로그인 회원 정보 보관
 			session.setAttribute("login", "company");
-		}
-		
-		System.out.println(session.getAttribute("login"));
-
-		if (redirectURL.isEmpty()) {
-			redirectURL = "/";
 		}
 
 		return "redirect:" + redirectURL;
@@ -96,4 +92,11 @@ public class LoginController {
 
 	}
 
+	@GetMapping("/findAll")
+	public void testId(){
+		List<MemberVo> test = memberRepositoryMapper.findAll();
+		for (MemberVo t:test) {
+			System.out.println(t);
+		}
+	}
 }

@@ -43,7 +43,7 @@ public class MemberDao{
 	
 	public int changeMpassword(String member_id, String mnewpassword) {
 		MemberVo memberVo = new MemberVo();
-		memberVo.setMember_id(member_id);
+		memberVo.setMemberId(member_id);
 		memberVo.setMnewpassword(mnewpassword);
 		return sqlSession.update("mapper.member.changeMpassword", memberVo);
 	}

@@ -51,7 +51,7 @@ public class FindAccountController {
 		int result = memberService.memberFindPwdResult(memberVo);
 		
 		if(result == 1) {
-			mav.addObject("member_id", memberVo.getMember_id());
+			mav.addObject("member_id", memberVo.getMemberId());
 			mav.setViewName("findAccount/newPassword");
 		}else {
 			mav.addObject("find_result", "fail");
@@ -67,7 +67,7 @@ public class FindAccountController {
 		ModelAndView mav = new ModelAndView();
 		MemberVo memberVo = memberService.memberMyPageResult(member_id);
 		
-		mav.addObject("member_id", memberVo.getMember_id());
+		mav.addObject("member_id", memberVo.getMemberId());
 		mav.addObject("password", memberVo.getPassword());
 		mav.setViewName("findAccount/newPassword");
 		

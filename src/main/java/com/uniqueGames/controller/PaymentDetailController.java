@@ -34,7 +34,7 @@ public class PaymentDetailController {
 	@RequestMapping(value = "/payment_detail_data", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String payment_detail_data(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member, String array) {
-		String m_id = member.getMember_id();
+		String m_id = member.getMemberId();
 		ArrayList<OrderVo> list = orderService.getPaymentDetail(m_id, array);
 
 		// list 객체의 데이터를 JSON 형태로 생성

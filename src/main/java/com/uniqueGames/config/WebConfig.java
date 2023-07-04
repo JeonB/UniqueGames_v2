@@ -10,12 +10,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private static final String[] whitelist = {"/css/**", "/js/**", "/images/**",
+    private static final String[] whitelist = {"/css/**", "/js/**", "/images/**","/cart",
             "/", "/login", "/logout", "/findPassword",
             "/member/**",
             "/search/**",
             "/mybatis",
-            "/error"
+            "/error",
+            "/test"
     };
     //whitelist 같은 경우 로그인하지 않아도 접근할 수 있는 자원들 목록
 

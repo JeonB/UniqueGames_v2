@@ -29,11 +29,11 @@
   <input id="company-login" type="radio" name="loginSelect">
   <label for="company-login" id="company-login-tab">법인 회원</label>
 
-  <form action="/login" method="post" th:object="${member}" id="individual-loginForm">
+  <form th:action="@{/login(redirectURL=${param.redirectURL})}" method="post" th:object="${member}" id="individual-loginForm">
     <div>
       <ul>
         <li>
-          <input type="text" id="input-common" name="member_id" placeholder="아이디" th:value="${member?.member_id}">
+          <input type="text" id="input-common" name="memberId" placeholder="아이디" th:value="${member?.memberId}">
           <span id="msgId"></span>
         </li>
         <li>
@@ -54,15 +54,15 @@
     </div>
   </form>
 
-  <form action="login" method="post" th:object="${company}" id="company-loginForm">
+  <form th:action="@{/login(redirectURL=${param.redirectURL})}" method="post" th:object="${company}" id="company-loginForm">
     <div>
       <ul>
         <li>
-          <input type="text" id="input-common" name="company_id" placeholder="법인 아이디" th:value="${company.company_id}">
+          <input type="text" id="input-common" name="company_id" placeholder="법인 아이디" th:value="${company?.company_id}">
           <span id="msgId"></span>
         </li>
         <li>
-          <input type="password" id="c-input-common" name="password" placeholder="비밀번호" size="15" th:value="${company.password}">
+          <input type="password" id="c-input-common" name="password" placeholder="비밀번호" size="15" th:value="${company?.password}">
           <span id="msgPwd"></span>
         </li>
         <li>
