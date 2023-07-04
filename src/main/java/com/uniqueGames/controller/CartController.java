@@ -1,11 +1,8 @@
 package com.uniqueGames.controller;
 
 
-import com.uniqueGames.model.CompanyVo;
-import com.uniqueGames.model.GameVo;
-import com.uniqueGames.model.MemberVo;
-import com.uniqueGames.model.OrderVo;
-import com.uniqueGames.model.SessionConstants;
+import com.uniqueGames.model.*;
+import com.uniqueGames.model.Company;
 import com.uniqueGames.service.OrderServiceImpl;
 
 import java.util.ArrayList;
@@ -27,14 +24,14 @@ public class CartController {
 
 	@RequestMapping(value = "/cart", method = RequestMethod.POST)
 	public String getValue(@RequestParam("selectedValue") String selectedValue, @ModelAttribute("companyVo")
-	CompanyVo companyVo, @ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo memberVo, @ModelAttribute("game") GameVo gameVo){
+    Company company, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member, @ModelAttribute("game") GameVo gameVo){
 
 		/*
 		* orderService의 데이터 insert 기능 추가
 		* */
 		OrderVo orderVo = orderService.addToOrderVo(
-				memberVo.getMember_id(),
-				companyVo.getCompany_id(),
+				member.getMemberId(),
+				company.getCompany_id(),
 				gameVo.getId(),
 				Integer.parseInt(selectedValue),
 				gameVo.getName(),
@@ -44,11 +41,11 @@ public class CartController {
 		return "order/cart";
 	}
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
-	public ModelAndView cart(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member) {
-		System.out.println(member.getMember_id());
+	public ModelAndView cart(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member) {
+		System.out.println(member.getMemberId());
 
 		ModelAndView model = new ModelAndView();
-		ArrayList<OrderVo> cartList = orderService.getCartList(member.getMember_id());
+		ArrayList<OrderVo> cartList = orderService.getCartList(member.getMemberId());
 
 		if (cartList.size() > 0) {
 			model.addObject("cartList", cartList);
@@ -90,8 +87,8 @@ public class CartController {
 	}
 
 	@RequestMapping(value = "/cart_delete_all", method = RequestMethod.GET)
-	public String cart_delete_selected(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member) {
-		String m_id = member.getMember_id();
+	public String cart_delete_selected(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member) {
+		String m_id = member.getMemberId();
 		int result = orderService.getCartDeleteAll(m_id);
 
 		if (result == 0) {

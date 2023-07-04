@@ -9,13 +9,13 @@
   <script>
 
     $(document).ready(function(){
-      var password = "${companyVo.password}";
-      var password = "${companyVo.password}";
-      var phone1 = "${companyVo.phone1}";
-      var phone2 = "${companyVo.phone2}";
-      var phone3 = "${companyVo.phone3}";
-      var email1 = "${companyVo.email1}";
-      var email2 = "${companyVo.email2}";
+      var password = "${company.password}";
+      var password = "${company.password}";
+      var phone1 = "${company.phone1}";
+      var phone2 = "${company.phone2}";
+      var phone3 = "${company.phone3}";
+      var email1 = "${company.email1}";
+      var email2 = "${company.email2}";
 
       function emailCheck(asValue){
         var regex = /[A-za-z0-9]{4,20}$/;
@@ -291,14 +291,14 @@
           <label>회사 아이디</label>
         </li>
         <li>
-          <input type="text" id="input-common" name="company_id" value="${companyVo.company_id}" disabled>
-          <input type="hidden" name="company_id" value="${companyVo.company_id}">
+          <input type="text" id="input-common" name="company_id" th:value="${company.company_id}" th:disabled="true">
+          <input type="hidden" name="company_id" th:value="${company.company_id}">
         </li>
         <li>
           <label>게임명</label>
         </li>
         <li>
-          <input type="text" id="input-common" name="game" value="${companyVo.game}" disabled>
+          <input type="text" id="input-common" name="game" th:value="${company.game}" disabled>
         </li>
         <li id="must-insert">
           <p id="label-dot">*</p>
@@ -309,7 +309,7 @@
           <input type="checkbox" id="pwd-check-img">
         </li>
         <li>
-          <a th:href="@{/CompanyPageChangePassword(company_id=${companyVo.company_id})}" id="link-changePassword">
+          <a th:href="@{/CompanyPageChangePassword(company_id=${company.company_id})}" id="link-changePassword">
             <span>비밀번호 변경 ></span>
           </a>
         </li>
@@ -318,7 +318,7 @@
           <label>회사명</label>
         </li>
         <li>
-          <input type="text" id="company-name" name="name" value="${companyVo.name}">
+          <input type="text" id="company-name" name="name" th:value="${company.name}">
         </li>
         <li id="must-insert">
           <p id="label-dot">*</p>
@@ -327,14 +327,14 @@
           <span id="c-emailAuth"></span>
         </li>
         <li>
-          <input type="text" id="company-email1" name="email1" value="${companyVo.email1}">
+          <input type="text" id="company-email1" name="email1" th:value="${company.email1}">
           @
-          <input type="text" id="company-email2" name="email2" value="${companyVo.email2}">
+          <input type="text" id="company-email2" name="email2" th:value="${company.email2}">
           <select id="company-selectbox-email" name="email3">
             <option value="choose">선택</option>
-            <option value="naver.com" th:selected="${companyVo.email3 == 'naver.com'}">naver.com</option>
-            <option value="gmail.com" th:selected="${companyVo.email3 == 'gmail.com'}">gmail.com</option>
-            <option value="daum.net" th:selected="${companyVo.email3 == 'daum.net'}">daum.net</option>
+            <option value="naver.com" th:selected="${company.email3 == 'naver.com'}">naver.com</option>
+            <option value="gmail.com" th:selected="${company.email3 == 'gmail.com'}">gmail.com</option>
+            <option value="daum.net" th:selected="${company.email3 == 'daum.net'}">daum.net</option>
             <option value="direct">직접입력</option>
           </select>
           <button type="button" id="c-email-btn-style">인증 번호</button>
@@ -344,14 +344,14 @@
           <label>주소</label>
         </li>
         <li>
-          <input type="text" id="company-addr1" name="addr1" value="${companyVo.addr1}">
+          <input type="text" id="company-addr1" name="addr1" th:value="${company.addr1}">
           <button type="button" id="company-address-btn-style">주소 검색</button>
         </li>
         <li class="address-input">
           <label>상세 주소</label>
         </li>
         <li>
-          <input type="text" id="company-addr2" name="addr2" value="${companyVo.addr2}">
+          <input type="text" id="company-addr2" name="addr2" th:value="${company.addr2}">
         </li>
         <li id="must-insert">
           <p id="label-dot">*</p>
@@ -360,21 +360,21 @@
         <li>
           <select name="tel" id="company-selectbox-mobile">
             <option value="choose">선택</option>
-            <option value="SKT" th:selected="${companyVo.tel == 'SKT'}">SKT</option>
-            <option value="KT" th:selected="${companyVo.tel == 'KT'}">KT</option>
-            <option value="LGU+" th:selected="${companyVo.tel == 'LGU+'}">LGU+</option>
-            <option value="MVNO" th:selected="${companyVo.tel == 'MVNO'}">알뜰폰</option>
+            <option value="SKT" th:selected="${company.tel == 'SKT'}">SKT</option>
+            <option value="KT" th:selected="${company.tel == 'KT'}">KT</option>
+            <option value="LGU+" th:selected="${company.tel == 'LGU+'}">LGU+</option>
+            <option value="MVNO" th:selected="${company.tel == 'MVNO'}">알뜰폰</option>
           </select>
           <select name="phone1" id="company-selectbox-phone">
             <option value="choose">선택</option>
-            <option value="010" th:selected="${companyVo.phone1 == '010'}">010</option>
-            <option value="011" th:selected="${companyVo.phone1 == '011'}">011</option>
-            <option value="012" th:selected="${companyVo.phone1 == '012'}">012</option>
+            <option value="010" th:selected="${company.phone1 == '010'}">010</option>
+            <option value="011" th:selected="${company.phone1 == '011'}">011</option>
+            <option value="012" th:selected="${company.phone1 == '012'}">012</option>
           </select>
           -
-          <input type="text" id="company-phone2" name="phone2" value="${companyVo.phone2}">
+          <input type="text" id="company-phone2" name="phone2" th:value="${company.phone2}">
           -
-          <input type="text" id="company-phone3" name="phone3" value="${companyVo.phone3}">
+          <input type="text" id="company-phone3" name="phone3" th:value="${company.phone3}">
         </li>
         <li>
           <button type="button" id="button-gradient-company">수정하기</button>
@@ -383,7 +383,7 @@
           <a href="donation_detail" id="link-donation">
             <span>후원금 정산 내역 ></span>
           </a>
-          <a th:href="@{/deletePwd(company_id=${companyVo.company_id})}" id="link-deleteAccount">
+          <a th:href="@{/deletePwd(company_id=${company.company_id})}" id="link-deleteAccount">
             <span>회원탈퇴 ></span>
           </a>
         </li>

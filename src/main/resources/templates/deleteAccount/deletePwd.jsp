@@ -12,8 +12,8 @@
 	<script>
 
 		$(document).ready(function(){
-			var member_id = "${memberVo.member_id }";
-			var password = "${memberVo.password}";
+			var member_id = "${member.member_id }";
+			var password = "${member.password}";
 			
 		$("#button-gradient-delete").click(function(){
 				
@@ -104,8 +104,8 @@
 						</select>
 					</li>
 					<li>
-						<input type="text" id="input-common" name="member_id" value="${memberVo.member_id }" disabled>
-						<input type="hidden" name="member_id" value="${memberVo.member_id }">
+						<input type="text" id="input-common" name="member_id" value="${member.member_id }" disabled>
+						<input type="hidden" name="member_id" value="${member.member_id }">
 						<span id="msgId"></span>
 					</li>
 					<li>
@@ -113,7 +113,7 @@
 						<span id="msgPwd"></span>
 					</li>
 					<li id="intro-3">
-						<p id="delete-id">${memberVo.member_id }님!</p>
+						<p id="delete-id">${member.member_id }님!</p>
 						<p id="delete-content">회원 탈퇴하려고 하신다니 저희 사이트의 서비스가 많이 부족하고 미흡했나 봅니다.<br>
 						불만사항이나 사유를 알려주신다면 적극 반영해서 고객님의 불편함을 해결해드리도록 노력하겠습니다.
 						회원 탈퇴시의 아래 사항을 숙지하시기 바랍니다.</p>

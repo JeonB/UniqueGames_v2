@@ -1,6 +1,6 @@
 package com.uniqueGames.service;
 
-import com.uniqueGames.model.CompanyVo;
+import com.uniqueGames.model.Company;
 import com.uniqueGames.repository.CompanyDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,14 +12,14 @@ public class CompanyMemberServiceImpl implements CompanyMemberService {
 	private CompanyDao companyDao;
 	
 	@Override
-	public int companyLoginResult(CompanyVo companyVo) {
+	public int companyLoginResult(Company company) {
 		
-		return companyDao.login(companyVo);
+		return companyDao.login(company);
 	}
 
 	@Override
-	public int companyJoinResult(CompanyVo companyVo) {
-		return companyDao.insert(companyVo);
+	public int companyJoinResult(Company company) {
+		return companyDao.insert(company);
 	}
 
 	@Override
@@ -28,31 +28,31 @@ public class CompanyMemberServiceImpl implements CompanyMemberService {
 	}
 
 	@Override
-	public String companyFindIdResult(CompanyVo companyVo) {
-		return companyDao.findIdCheck(companyVo);
+	public String companyFindIdResult(Company company) {
+		return companyDao.findIdCheck(company);
 	}
 
 	@Override
-	public int companyFindPwdResult(CompanyVo companyVo) {
-		return companyDao.findPwdCheck(companyVo);
+	public int companyFindPwdResult(Company company) {
+		return companyDao.findPwdCheck(company);
 	}
 
 	@Override
-	public int companyUpdateResult(CompanyVo companyVo) {
-		return companyDao.update(companyVo);
+	public int companyUpdateResult(Company company) {
+		return companyDao.update(company);
 	}
 
 	@Override
-	public CompanyVo companyPageResult(String company_id) {
+	public Company companyPageResult(String company_id) {
 		return companyDao.companyPage(company_id);
 	}
 
 	@Override
 	public int companyChangeCPassword(String company_id, String cnewpassword) {
-		CompanyVo companyVo = new CompanyVo();
-		companyVo.setCompany_id(company_id);
-		companyVo.setCnewpassword(cnewpassword);
-		return companyDao.changeCpassword(companyVo);
+		Company company = new Company();
+		company.setCompany_id(company_id);
+		company.setCnewpassword(cnewpassword);
+		return companyDao.changeCpassword(company);
 	}
 
 	@Override
@@ -61,8 +61,8 @@ public class CompanyMemberServiceImpl implements CompanyMemberService {
 	}
 
 	@Override
-	public int companyDeleteResult(CompanyVo companyVo) {
-		return companyDao.deleteCompany(companyVo);
+	public int companyDeleteResult(Company company) {
+		return companyDao.deleteCompany(company);
 	}
 
 	@Override

@@ -5,11 +5,11 @@
 
 <mapper namespace="mapper.companyMember">
 
-	<select id="login" parameterType="CompanyVo" resultType="int">
+	<select id="login" parameterType="Company" resultType="int">
 		select count(*) from company where company_id=#{company_id} and password=#{password}
 	</select>
 
-	<insert id="insert" parameterType="CompanyVo">
+	<insert id="insert" parameterType="Company">
 		insert into company (company_id, password, name, email, tel, phone_num, addr)
 		values (#{company_id},#{password},#{name},#{email},#{tel},#{phone_num},#{addr})
 	</insert>
@@ -18,24 +18,24 @@
 		select count(*) from company where company_id=#{company_id}
 	</select>
 
-	<select id="findId" parameterType="CompanyVo" resultType="java.lang.String">
+	<select id="findId" parameterType="Company" resultType="java.lang.String">
 		select company_id from company where name=#{name} and phone_num=#{phone_num}
 	</select>
 
-	<select id="findPwd" parameterType="CompanyVo" resultType="int">
+	<select id="findPwd" parameterType="Company" resultType="int">
 		select count(*) from company where company_id=#{company_id} and name=#{name} and phone_num=#{phone_num}
 	</select>
 
-	<update id="update" parameterType="CompanyVo">
+	<update id="update" parameterType="Company">
 		update company set name=#{name}, email=#{email}, addr=#{addr}, tel=#{tel}, phone_num=#{phone_num}
 		where company_id=#{company_id} and password=#{password}
 	</update>
 
-	<select id="companyPage" parameterType="java.lang.String" resultType="CompanyVo">
+	<select id="companyPage" parameterType="java.lang.String" resultType="Company">
 		select company_id, g_id, password, name, email, tel, phone_num, addr from company where company_id=#{company_id}
 	</select>
 	
-	<update id="changeCpassword" parameterType="CompanyVo">
+	<update id="changeCpassword" parameterType="Company">
 		update company set password=#{cnewpassword} where company_id=#{company_id}
 	</update>
 	
@@ -43,7 +43,7 @@
 		select b.name from company a, game b where a.G_ID = b.ID and company_id=#{company_id}
 	</select>
 
-	<delete id="deleteCompany" parameterType="CompanyVo">
+	<delete id="deleteCompany" parameterType="Company">
 		delete from company where company_id=#{company_id} and password=#{password}
 	</delete>
 

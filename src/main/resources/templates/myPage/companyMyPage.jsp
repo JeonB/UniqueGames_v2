@@ -13,13 +13,13 @@
 	<script>
 	
 	$(document).ready(function(){
-		var password = "${companyVo.password}";
-		var password = "${companyVo.password}";
-		var phone1 = "${companyVo.phone1}";
-		var phone2 = "${companyVo.phone2}";
-		var phone3 = "${companyVo.phone3}";
-		var email1 = "${companyVo.email1}";
-		var email2 = "${companyVo.email2}";
+		var password = "${company.password}";
+		var password = "${company.password}";
+		var phone1 = "${company.phone1}";
+		var phone2 = "${company.phone2}";
+		var phone3 = "${company.phone3}";
+		var email1 = "${company.email1}";
+		var email2 = "${company.email2}";
 		
 		function emailCheck(asValue){
 			var regex = /[A-za-z0-9]{4,20}$/;
@@ -295,14 +295,14 @@
 						<label>회사 아이디</label>
 					</li>
 					<li>
-						<input type="text" id="input-common" name="company_id" value="${companyVo.company_id }" disabled>
-						<input type="hidden" name="company_id" value="${companyVo.company_id }">
+						<input type="text" id="input-common" name="company_id" value="${company.company_id }" disabled>
+						<input type="hidden" name="company_id" value="${company.company_id }">
 					</li>
 					<li>
 						<label>게임명</label>
 					</li>
 					<li>
-						<input type="text" id="input-common" name="game" value="${companyVo.game }" disabled>
+						<input type="text" id="input-common" name="game" value="${company.game }" disabled>
 					</li>
 					<li id="must-insert">
 						<p id="label-dot">*</p>
@@ -313,7 +313,7 @@
 						<input type="checkbox" id="pwd-check-img">
 					</li>
 					<li>
-						<a href="CompanyPageChangePassword?company_id=${companyVo.company_id }" id="link-changePassword">
+						<a href="CompanyPageChangePassword?company_id=${company.company_id }" id="link-changePassword">
 							<span>비밀번호 변경 ></span>
 						</a>
 					</li>
@@ -322,7 +322,7 @@
 						<label>회사명</label>
 					</li>
 					<li>
-						<input type="text" id="company-name" name="name" value="${companyVo.name }">
+						<input type="text" id="company-name" name="name" value="${company.name }">
 					</li>
 					<li id="must-insert">
 						<p id="label-dot">*</p>
@@ -331,14 +331,14 @@
 						<span id="c-emailAuth"></span>
 					</li>
 					<li>
-						<input type="text" id="company-email1" name="email1" value="${companyVo.email1 }">
+						<input type="text" id="company-email1" name="email1" value="${company.email1 }">
 						@
-						<input type="text" id="company-email2" name="email2" value="${companyVo.email2 }">
+						<input type="text" id="company-email2" name="email2" value="${company.email2 }">
 						<select id="company-selectbox-email" name="email3">
 							<option value="choose">선택</option>
-							<option value="naver.com" ${companyVo.email3  == 'naver.com' ? 'selected' : ''}>naver.com</option>
-							<option value="gmail.com" ${companyVo.email3  == 'gmail.com' ? 'selected' : ''}>gmail.com</option>
-							<option value="daum.net" ${companyVo.email3  == 'daum.net' ? 'selected' : ''}>daum.net</option>
+							<option value="naver.com" ${company.email3  == 'naver.com' ? 'selected' : ''}>naver.com</option>
+							<option value="gmail.com" ${company.email3  == 'gmail.com' ? 'selected' : ''}>gmail.com</option>
+							<option value="daum.net" ${company.email3  == 'daum.net' ? 'selected' : ''}>daum.net</option>
 							<option value="direct">직접입력</option>
 						</select>
 						<button type="button" id="c-email-btn-style">인증 번호</button>
@@ -348,14 +348,14 @@
 						<label>주소</label>
 					</li>
 					<li>
-						<input type="text" id="company-addr1" name="addr1" value="${companyVo.addr1 }">
+						<input type="text" id="company-addr1" name="addr1" value="${company.addr1 }">
 						<button type="button" id="company-address-btn-style">주소 검색</button>
 					</li>
 					<li class="address-input">
 						<label>상세 주소</label>
 					</li>
 					<li>
-						<input type="text" id="company-addr2" name="addr2" value="${companyVo.addr2 }">
+						<input type="text" id="company-addr2" name="addr2" value="${company.addr2 }">
 					</li>
 					<li id="must-insert">
 						<p id="label-dot">*</p>
@@ -364,21 +364,21 @@
 					<li>
 						<select name="tel" id="company-selectbox-mobile">
 							<option value="choose">선택</option>
-							<option value="SKT" ${companyVo.tel == 'SKT' ? 'selected' : '' }>SKT</option>
-							<option value="KT" ${companyVo.tel == 'KT' ? 'selected' : '' }>KT</option>
-							<option value="LGU+" ${companyVo.tel == 'LGU+' ? 'selected' : '' }>LGU+</option>
-							<option value="MVNO" ${companyVo.tel == 'MVNO' ? 'selected' : '' }>알뜰폰</option>
+							<option value="SKT" ${company.tel == 'SKT' ? 'selected' : '' }>SKT</option>
+							<option value="KT" ${company.tel == 'KT' ? 'selected' : '' }>KT</option>
+							<option value="LGU+" ${company.tel == 'LGU+' ? 'selected' : '' }>LGU+</option>
+							<option value="MVNO" ${company.tel == 'MVNO' ? 'selected' : '' }>알뜰폰</option>
 						</select> 
 						<select name="phone1" id="company-selectbox-phone">
 							<option value="choose">선택</option>
-							<option value="010" ${companyVo.phone1 == '010' ? 'selected' : ''}>010</option>
-    						<option value="011" ${companyVo.phone1 == '011' ? 'selected' : ''}>011</option>
-    						<option value="012" ${companyVo.phone1 == '012' ? 'selected' : ''}>012</option>
+							<option value="010" ${company.phone1 == '010' ? 'selected' : ''}>010</option>
+    						<option value="011" ${company.phone1 == '011' ? 'selected' : ''}>011</option>
+    						<option value="012" ${company.phone1 == '012' ? 'selected' : ''}>012</option>
 						</select>
 						-
-						<input type="text" id="company-phone2" name="phone2" value="${companyVo.phone2 }">
+						<input type="text" id="company-phone2" name="phone2" value="${company.phone2 }">
 						-
-						<input type="text" id="company-phone3" name="phone3" value="${companyVo.phone3 }">
+						<input type="text" id="company-phone3" name="phone3" value="${company.phone3 }">
 					</li>
 					<li>
 						<button type="button" id="button-gradient-company">수정하기</button>
@@ -387,7 +387,7 @@
 						<a href="donation_detail" id="link-donation">
 							<span>후원금 정산 내역 ></span>
 						</a>
-						<a href="deletePwd?company_id=${companyVo.company_id }" id="link-deleteAccount">
+						<a href="deletePwd?company_id=${company.company_id }" id="link-deleteAccount">
 							<span>회원탈퇴 ></span>
 						</a>
 					</li>

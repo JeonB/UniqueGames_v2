@@ -1,8 +1,8 @@
 package com.uniqueGames.controller;
 
 
-import com.uniqueGames.model.CompanyVo;
-import com.uniqueGames.model.MemberVo;
+import com.uniqueGames.model.Company;
+import com.uniqueGames.model.Member;
 import com.uniqueGames.service.CompanyMemberService;
 import com.uniqueGames.service.MailSendService;
 import com.uniqueGames.service.MemberService;
@@ -31,13 +31,14 @@ public class JoinController {
 	}
 	
 	@RequestMapping(value="/join_individual_proc", method=RequestMethod.POST)
-	public ModelAndView join_proc(MemberVo memberVo) {
+	public ModelAndView join_proc(Member member) {
 		ModelAndView mav = new ModelAndView();
-		int result = memberService.memberJoinResult(memberVo);
+		int result = memberService.memberJoinResult(member);
 		
 		if(result==1) {
 			mav.addObject("join_individual_result", "success");
 			mav.setViewName("login/login");
+
 		}else {
 			System.out.println("회원가입 실패");
 		}
@@ -48,7 +49,8 @@ public class JoinController {
 	@RequestMapping(value="/id_check", method=RequestMethod.GET)
 	@ResponseBody
 	public String id_check(String member_id) {
-		return memberService.memberIdCheckResult(member_id);
+		int result = memberService.memberIdCheckResult(member_id);
+		return String.valueOf(result);
 	}
 	
 	/**이메일 중복 확인*/
@@ -79,9 +81,9 @@ public class JoinController {
 	
 	/******************************************************************법인 회원가입**********************************************************************/
 	@RequestMapping(value="/join_company_proc", method=RequestMethod.POST)
-	public ModelAndView companyJoin(CompanyVo companyVo) {
+	public ModelAndView companyJoin(Company company) {
 		ModelAndView mav = new ModelAndView();
-		int result = companyMemberService.companyJoinResult(companyVo);
+		int result = companyMemberService.companyJoinResult(company);
 		
 		if(result==1) {
 			mav.addObject("join_company_result", "success");

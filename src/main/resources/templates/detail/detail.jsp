@@ -126,7 +126,7 @@
                                 <span class="vm-price-desc" >제작 </span>
                                 <span class="PricebasePrice" ><a href="../detail/getIntro?id=1" style="font: italic normal 900 18px Apex New; letter-spacing: 0px;color: #1c2025">CGD(Crazy Game Dog) Team</a>
                                   </span>
-                                <span id="company_id" style="display: none">${companyVo.company_id}</span>
+                                <span id="company_id" style="display: none">${company.company_id}</span>
                               </div>
                               <span class="price-crossed" ></span>
 

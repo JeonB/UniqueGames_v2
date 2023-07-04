@@ -1,27 +1,27 @@
 package com.uniqueGames.model;
 
-public class MemberVo {
+public class Company {
 	
-	int id;
-	String member_id, password, name, email1, email2, email3, phone1, phone2, phone3, addr1, addr2, tel;
-	
-	public String getEmail3() {
-		return email3;
+	int id, g_id;
+	String company_id, password, name, email1, email2, email3, tel, phone1, phone2, phone3, addr1, addr2;
+
+	String email, phone_num, addr, cnewpassword, game;
+
+	public String getGame() {
+		return game;
 	}
 
-	public void setEmail3(String email3) {
-		this.email3 = email3;
+	public void setGame(String game) {
+		this.game = game;
 	}
 
-	public String getMnewpassword() {
-		return mnewpassword;
+	public int getG_id() {
+		return g_id;
 	}
 
-	public void setMnewpassword(String mnewpassword) {
-		this.mnewpassword = mnewpassword;
+	public void setG_id(int g_id) {
+		this.g_id = g_id;
 	}
-
-	String email, phone_num, addr, mnewpassword;
 
 	public int getId() {
 		return id;
@@ -31,12 +31,20 @@ public class MemberVo {
 		this.id = id;
 	}
 
-	public String getMember_id() {
-		return member_id;
+	public String getEmail3() {
+		return email3;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setEmail3(String email3) {
+		this.email3 = email3;
+	}
+
+	public String getCompany_id() {
+		return company_id;
+	}
+
+	public void setCompany_id(String company_id) {
+		this.company_id = company_id;
 	}
 
 	public String getPassword() {
@@ -69,6 +77,14 @@ public class MemberVo {
 
 	public void setEmail2(String email2) {
 		this.email2 = email2;
+	}
+	
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 
 	public String getPhone1() {
@@ -111,16 +127,7 @@ public class MemberVo {
 		this.addr2 = addr2;
 	}
 
-	public String getTel() {
-		return tel;
-	}
-
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-
 	public String getEmail() {
-		
 		if(email1!=null) {
 			email = email1+"@"+email2;
 		}
@@ -132,9 +139,8 @@ public class MemberVo {
 	}
 
 	public String getPhone_num() {
-		
 		if(phone1!=null) {
-			phone_num = phone1+"-"+phone2+"-"+phone3;
+			phone_num=phone1+"-"+phone2+"-"+phone3;
 		}
 		return phone_num;
 	}
@@ -145,7 +151,7 @@ public class MemberVo {
 
 	public String getAddr() {
 		if(addr1!=null) {
-			addr = addr1 +"   "+ addr2;
+			addr = addr1+"   "+addr2;
 		}
 		return addr;
 	}
@@ -154,6 +160,13 @@ public class MemberVo {
 		this.addr = addr;
 	}
 	
+	public String getCnewpassword() {
+		return cnewpassword;
+	}
+
+	public void setCnewpassword(String cnewpassword) {
+		this.cnewpassword = cnewpassword;
+	}
 	
 
 }

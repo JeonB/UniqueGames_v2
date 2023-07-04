@@ -1,8 +1,8 @@
 package com.uniqueGames.controller;
 
 
-import com.uniqueGames.model.CompanyVo;
-import com.uniqueGames.model.MemberVo;
+import com.uniqueGames.model.Company;
+import com.uniqueGames.model.Member;
 import com.uniqueGames.service.CompanyMemberService;
 import com.uniqueGames.service.MemberService;
 import javax.servlet.http.HttpSession;
@@ -22,9 +22,9 @@ public class FindAccountController {
 	@Autowired
 	private CompanyMemberService companyMemberService;
 
-	@RequestMapping(value="/findId", method=RequestMethod.GET)
+	@RequestMapping(value="/find-member", method=RequestMethod.GET)
 	public String findId() {
-		return "findAccount/findId";
+		return "findAccount/find-member";
 	}
 	
 	@RequestMapping(value="/findPwd", method=RequestMethod.GET)
@@ -32,30 +32,30 @@ public class FindAccountController {
 		return "findAccount/findPwd";
 	}
 	
-	@RequestMapping("/findCompany")
+	@RequestMapping("/find-company")
 	public String findCompany() {
-		return "findAccount/findCompany";
+		return "findAccount/find-company";
 	}
 
 	@RequestMapping(value="/findId_check", method=RequestMethod.POST)
 	@ResponseBody
-	public String findId_check(MemberVo memberVo) {
-		String result = memberService.memberFindIdResult(memberVo);
+	public String findId_check(Member member) {
+		String result = memberService.memberFindIdResult(member);
 		return result;
 	}
 	
 	/**Member password change; href to newpassword.jsp*/
 	@RequestMapping(value="/findPwd_check", method=RequestMethod.POST)
-	public ModelAndView findPwd_check(MemberVo memberVo) {
+	public ModelAndView findPwd_check(Member member) {
 		ModelAndView mav = new ModelAndView();
-		int result = memberService.memberFindPwdResult(memberVo);
+		int result = memberService.memberFindPwdResult(member);
 		
 		if(result == 1) {
-			mav.addObject("member_id", memberVo.getMember_id());
+			mav.addObject("member_id", member.getMemberId());
 			mav.setViewName("findAccount/newPassword");
 		}else {
 			mav.addObject("find_result", "fail");
-			mav.setViewName("findAccount/findId");
+			mav.setViewName("find-member");
 		}
 		
 		return mav;
@@ -65,10 +65,10 @@ public class FindAccountController {
 	@RequestMapping(value="/myPageChangePassword", method=RequestMethod.GET)
 	public ModelAndView MyPageChangePassword(String member_id) {
 		ModelAndView mav = new ModelAndView();
-		MemberVo memberVo = memberService.memberMyPageResult(member_id);
+		Member member = memberService.memberMyPageResult(member_id);
 		
-		mav.addObject("member_id", memberVo.getMember_id());
-		mav.addObject("password", memberVo.getPassword());
+		mav.addObject("member_id", member.getMemberId());
+		mav.addObject("password", member.getPassword());
 		mav.setViewName("findAccount/newPassword");
 		
 		return mav;
@@ -94,8 +94,8 @@ public class FindAccountController {
 	
 	@RequestMapping(value="/cfindId_check", method=RequestMethod.POST)
 	@ResponseBody
-	public String cfindId_check(CompanyVo companyVo) {
-		String result = companyMemberService.companyFindIdResult(companyVo);
+	public String cfindId_check(Company company) {
+		String result = companyMemberService.companyFindIdResult(company);
 		
 		return result;
 	}
@@ -104,26 +104,26 @@ public class FindAccountController {
 	@RequestMapping(value="/CompanyPageChangePassword", method=RequestMethod.GET)
 	public ModelAndView CompanyPageChangePassword(String company_id) {
 		ModelAndView mav = new ModelAndView();
-		CompanyVo companyVo = companyMemberService.companyPageResult(company_id);
-		mav.addObject("company_id", companyVo.getCompany_id());
-		mav.addObject("password", companyVo.getPassword());
+		Company company = companyMemberService.companyPageResult(company_id);
+		mav.addObject("company_id", company.getCompany_id());
+		mav.addObject("password", company.getPassword());
 		
 		mav.setViewName("findAccount/cnewPassword");
 		return mav;
 	}
 	/**Company password change; href to cnewpassword.jsp*/
 	@RequestMapping(value="/cfindPwd_check", method=RequestMethod.POST)
-	public ModelAndView cfindPwd_check(CompanyVo companyVo) {
+	public ModelAndView cfindPwd_check(Company company) {
 		ModelAndView mav = new ModelAndView();
-		int result = companyMemberService.companyFindPwdResult(companyVo);
+		int result = companyMemberService.companyFindPwdResult(company);
 		
 		if(result == 1) {
-			mav.addObject("company_id", companyVo.getCompany_id());
-			mav.addObject("password", companyVo.getPassword());
+			mav.addObject("company_id", company.getCompany_id());
+			mav.addObject("password", company.getPassword());
 			mav.setViewName("findAccount/cnewPassword");
 		}else {
 			mav.addObject("find_result", "fail");
-			mav.setViewName("findAccount/findCompany");
+			mav.setViewName("find-company");
 		}
 		
 		return mav;

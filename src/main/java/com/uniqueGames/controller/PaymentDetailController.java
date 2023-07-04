@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import com.uniqueGames.model.CompanyVo;
-import com.uniqueGames.model.MemberVo;
+import com.uniqueGames.model.Company;
+import com.uniqueGames.model.Member;
 import com.uniqueGames.model.OrderVo;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.OrderServiceImpl;
@@ -33,8 +33,8 @@ public class PaymentDetailController {
 	/** payment_detail_data **/
 	@RequestMapping(value = "/payment_detail_data", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String payment_detail_data(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member, String array) {
-		String m_id = member.getMember_id();
+	public String payment_detail_data(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member, String array) {
+		String m_id = member.getMemberId();
 		ArrayList<OrderVo> list = orderService.getPaymentDetail(m_id, array);
 
 		// list 객체의 데이터를 JSON 형태로 생성
@@ -73,7 +73,7 @@ public class PaymentDetailController {
 	/** donation_detail_data **/
 	@RequestMapping(value = "/donation_detail_data", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String donation_detail_data(@ModelAttribute(SessionConstants.LOGIN_MEMBER) CompanyVo company, String array) {
+	public String donation_detail_data(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Company company, String array) {
 		String c_id = company.getCompany_id();
 		ArrayList<OrderVo> list = orderService.getDonationDetail(c_id, array);
 
@@ -114,7 +114,7 @@ public class PaymentDetailController {
 	/** donation_rank_data **/
 	@RequestMapping(value = "/donation_rank_data", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String donation_rank_data(@ModelAttribute(SessionConstants.LOGIN_MEMBER) CompanyVo company) {
+	public String donation_rank_data(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Company company) {
 		String c_id = company.getCompany_id();
 		ArrayList<OrderVo> list = orderService.getDonationRank(c_id);
 

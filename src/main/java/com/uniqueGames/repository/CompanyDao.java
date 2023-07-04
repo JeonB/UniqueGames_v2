@@ -1,6 +1,6 @@
 package com.uniqueGames.repository;
 
-import com.uniqueGames.model.CompanyVo;
+import com.uniqueGames.model.Company;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -10,13 +10,13 @@ public class CompanyDao {
 	private SqlSessionTemplate sqlSession;
 	
 	/**company login*/
-	public int login(CompanyVo companyVo) {
-		return sqlSession.selectOne("mapper.companyMember.login", companyVo);
+	public int login(Company company) {
+		return sqlSession.selectOne("mapper.companyMember.login", company);
 	}
 	
 	/**sign up member*/
-	public int insert(CompanyVo companyVo) {
-		return sqlSession.insert("mapper.companyMember.insert", companyVo);
+	public int insert(Company company) {
+		return sqlSession.insert("mapper.companyMember.insert", company);
 	}
 	/**id checking*/
 	public int idCheck(String company_id) {
@@ -24,32 +24,32 @@ public class CompanyDao {
 	}
 	
 	/**find-id-check*/
-	public String findIdCheck(CompanyVo companyVo) {
-		return sqlSession.selectOne("mapper.companyMember.findId", companyVo);
+	public String findIdCheck(Company company) {
+		return sqlSession.selectOne("mapper.companyMember.findId", company);
 	}
 	
-	public int findPwdCheck(CompanyVo companyVo) {
-		return sqlSession.selectOne("mapper.companyMember.findPwd", companyVo);
+	public int findPwdCheck(Company company) {
+		return sqlSession.selectOne("mapper.companyMember.findPwd", company);
 	}
 	
-	public int update(CompanyVo companyVo) {
-		return sqlSession.update("mapper.companyMember.update", companyVo);
+	public int update(Company company) {
+		return sqlSession.update("mapper.companyMember.update", company);
 	}
 	
-	public CompanyVo companyPage(String company_id) {
+	public Company companyPage(String company_id) {
 		return sqlSession.selectOne("mapper.companyMember.companyPage", company_id);
 	}
 	
-	public int changeCpassword(CompanyVo companyVo) {
-		return sqlSession.update("mapper.companyMember.changeCpassword", companyVo);
+	public int changeCpassword(Company company) {
+		return sqlSession.update("mapper.companyMember.changeCpassword", company);
 	}
 	
 	public String getGameNameByCID(String company_id) {
 		return sqlSession.selectOne("mapper.companyMember.getGameName", company_id);
 	}
 	
-	public int deleteCompany(CompanyVo companyVo) {
-		return sqlSession.delete("mapper.companyMember.deleteCompany", companyVo);
+	public int deleteCompany(Company company) {
+		return sqlSession.delete("mapper.companyMember.deleteCompany", company);
 	}
 	
 	public int emailCheck(String email) {
