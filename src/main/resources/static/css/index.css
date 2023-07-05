@@ -437,19 +437,19 @@
     right: 10px;
 }
 .silde1, .silde2, .silde3, .silde4 {
-    background-image: url(../images/img-game-deexit1.jpg);
+    background-image: url("../images/img-game-deexit1.jpg");
     background-size: cover;
     width: 100%;
     height: 100%;
 }
 .silde2 {
-    background-image: url(../images/img-game-street4.jpg);
+    background-image: url("../images/img-game-street4.jpg");
 }
 .silde3 {
-    background-image: url(../images/img-game-vampire1.jpg);
+    background-image: url("../images/img-game-vampire1.jpg");
 }
 .silde4 {
-    background-image: url(../images/img-game-last4.jpg);
+    background-image: url("../images/img-game-last4.jpg");
 }
 .swiper-button-next button, .swiper-button-prev button {
     background-color: rgba( 255, 255, 255, 0 );
@@ -495,22 +495,22 @@
 }
 
 .silde1, .silde2, .silde3, .silde4 {
-    background-image: url(../images/img-game-deexit1.jpg);
+    background-image: url("../images/img-game-deexit1.jpg");
     background-size: cover;
     width: 100%;
     height: 100%;
 }
 
 .silde2 {
-    background-image: url(../images/img-game-street4.jpg);
+    background-image: url("../images/img-game-street4.jpg");
 }
 
 .silde3 {
-    background-image: url(../images/img-game-vampire1.jpg);
+    background-image: url("../images/img-game-vampire1.jpg");
 }
 
 .silde4 {
-    background-image: url(../images/img-game-last4.jpg);
+    background-image: url("../images/img-game-last4.jpg");
 }
 
 .swiper-button-next button, .swiper-button-prev button {
