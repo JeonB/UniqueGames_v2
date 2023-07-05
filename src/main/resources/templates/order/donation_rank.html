@@ -31,7 +31,7 @@
               output += '<tr><th>번호</th><th>유저 아이디</th>';
               output += '<th>게임 타이틀</th><th>가격</th></tr>';
 
-              th:each="obj : ${jdata.jlist}"
+              each="obj : ${jdata.jlist}"
               output += "<tr>";
               output += "<td th:text='${obj.rno}'></td>";
               output += "<td th:text='${obj.userId}'></td>";

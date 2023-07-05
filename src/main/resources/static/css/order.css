@@ -169,12 +169,12 @@ input[name="checkOne"] {
 	width: 20px;	height: 20px;
 	margin: 3px 0px 0px 5px;
 	appearance: none;
-	background-image: url("../images/btn_check_normal.png");
+	background-image: url("btn-check-normal.png");
 	background-repeat: no-repeat;
 	cursor: pointer;
 }
 input[name="checkOne"]:checked {
-	background-image: url("../images/btn_check_select.png");
+	background-image: url("btn-check-select.png");
 	background-repeat: no-repeat;
 }
 #div-agreement input[name="checkOne"] {

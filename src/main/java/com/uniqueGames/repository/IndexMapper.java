@@ -1,7 +1,7 @@
 package com.uniqueGames.repository;
 
 
-import com.uniqueGames.model.GameVo;
+import com.uniqueGames.model.Game;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -15,28 +15,28 @@ import org.springframework.stereotype.Repository;
 public interface IndexMapper {
 
     @Select("SELECT G.ID, G.NAME, G.IMAGE_PATH, G.GAME_GENRE, G.DONATION_STATUS, G.DESCRIPTION, L.LIKE_COUNT FROM GAME G INNER JOIN (SELECT ID, LENGTH(LIKELIST) - LENGTH(REPLACE(LIKELIST, ',', '')) AS LIKE_COUNT FROM GAME) L ON G.ID = L.ID")
-    List<GameVo> getGameList();
+    List<Game> getGameList();
 
     @Select("SELECT * FROM GAME WHERE ID=?#{id}")
-    GameVo getGame(GameVo vo);
+    Game getGame(Game vo);
 
     @Select("SELECT * FROM GAME WHERE ID=#{id}")
-    GameVo getGameForIndex(int id);
+    Game getGameForIndex(int id);
 
     @Select("SELECT * FROM GAME WHERE DONATION_STATUS = 1")
-    List<GameVo> getDonationList();
+    List<Game> getDonationList();
 
     @Select("SELECT G.ID, G.NAME, G.IMAGE_PATH, G.GAME_GENRE, G.DONATION_STATUS, G.DESCRIPTION, L.LIKE_COUNT FROM GAME G INNER JOIN (SELECT ID, LENGTH(LIKELIST) - LENGTH(REPLACE(LIKELIST, ',', '')) + 1 AS LIKE_COUNT FROM GAME) L ON G.ID = L.ID ORDER BY LIKE_COUNT DESC")
-    List<GameVo> getRankingList();
+    List<Game> getRankingList();
 
     @Insert("INSERT INTO GAME(NAME,IMAGE_PATH,GAME_GENRE,DONATION_STATUS,DESCRIPTION,LIKELIST) VALUES(#{name},#{image_path},#{game_genre},#{donation_status},#{description},0)")
-    void insertGame(GameVo vo);
+    void insertGame(Game vo);
 
     @Update("UPDATE GAME SET NAME=#{name} WHERE ID=#{id}")
-    void updateGame(GameVo vo);
+    void updateGame(Game vo);
 
     @Delete("DELETE GAME WHERE ID=#{id}")
-    void deleteGame(GameVo vo);
+    void deleteGame(Game vo);
 
     @Select("SELECT COUNT(*) FROM GAME WHERE CONCAT(',', LIKELIST, ',') LIKE '%,#{gid},%' AND ID = #{mid}")
     int hasLiked(int gid, int mid);

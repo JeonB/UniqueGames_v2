@@ -1,7 +1,7 @@
 package com.uniqueGames.service;
 
 
-import com.uniqueGames.model.GameVo;
+import com.uniqueGames.model.Game;
 import com.uniqueGames.repository.IndexMapper;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,34 +13,34 @@ public class IndexServiceMapper {
     @Autowired
     IndexMapper indexMapper;
 
-    public List<GameVo> getGameList() {
+    public List<Game> getGameList() {
         return indexMapper.getGameList();
     }
 
-    public GameVo getGame(GameVo vo) {
+    public Game getGame(Game vo) {
         return indexMapper.getGame(vo);
     }
-    public GameVo getGameForIndex(int id) {
+    public Game getGameForIndex(int id) {
         return indexMapper.getGameForIndex(id);
     }
 
-    public List<GameVo> getDonationList() {
+    public List<Game> getDonationList() {
         return indexMapper.getDonationList();
     }
 
-    public List<GameVo> getRankingList() {
+    public List<Game> getRankingList() {
         return indexMapper.getRankingList();
     }
 
-    public void insertGame(GameVo vo) {
+    public void insertGame(Game vo) {
         indexMapper.insertGame(vo);
     }
 
-    public void updateGame(GameVo vo) {
+    public void updateGame(Game vo) {
         indexMapper.updateGame(vo);
     }
 
-    public void deleteGame(GameVo vo) {
+    public void deleteGame(Game vo) {
         indexMapper.deleteGame(vo);
     }
 

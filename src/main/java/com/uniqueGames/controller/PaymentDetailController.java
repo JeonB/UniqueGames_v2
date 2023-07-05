@@ -41,11 +41,7 @@ public class PaymentDetailController {
 		JsonObject jlist = new JsonObject();
 		JsonArray jarray = new JsonArray();
 
-		if (list.size() == 0) {
-			jlist.addProperty("nothing", true);
-		} else {
-			jlist.addProperty("nothing", false);
-		}
+        jlist.addProperty("nothing", list.size() == 0);
 		jlist.addProperty("count", orderService.getPaymentCount(m_id));
 		jlist.addProperty("totalAmount", orderService.getPaymentAmount(m_id));
 
@@ -82,11 +78,7 @@ public class PaymentDetailController {
 		JsonObject jlist = new JsonObject();
 		JsonArray jarray = new JsonArray();
 
-		if (list.size() == 0) {
-			jlist.addProperty("nothing", true);
-		} else {
-			jlist.addProperty("nothing", false);
-		}
+        jlist.addProperty("nothing", list.size() == 0);
 		jlist.addProperty("expected", orderService.getExpected(c_id));
 		jlist.addProperty("totalAmount", orderService.getTotalDonation(c_id));
 
@@ -122,11 +114,7 @@ public class PaymentDetailController {
 		JsonObject jlist = new JsonObject();
 		JsonArray jarray = new JsonArray();
 
-		if (list.size() == 0) {
-			jlist.addProperty("nothing", true);
-		} else {
-			jlist.addProperty("nothing", false);
-		}
+        jlist.addProperty("nothing", list.size() == 0);
 
 		for (OrderVo payment : list) {
 			JsonObject jobj = new JsonObject();

@@ -3,7 +3,7 @@ package com.uniqueGames.controller;
 
 import com.uniqueGames.fileutil.FileUtil;
 import com.uniqueGames.model.CompanyVo;
-import com.uniqueGames.model.GameVo;
+import com.uniqueGames.model.Game;
 import com.uniqueGames.model.IntroVo;
 import com.uniqueGames.model.NoticeVo;
 import com.uniqueGames.model.SessionConstants;
@@ -52,8 +52,8 @@ public class DetailMapperController {
      */
     @RequestMapping(value = "/{detailId}", method = RequestMethod.GET)
     public String goDetail(@PathVariable("detailId") int detailId, Model model) {
-        GameVo gameVo = indexServiceMapper.getGameForIndex(detailId);
-        model.addAttribute("game", gameVo);
+        Game game = indexServiceMapper.getGameForIndex(detailId);
+        model.addAttribute("game", game);
         CompanyVo companyVo = companyRepositoryMapper.findByIndex(detailId);
         model.addAttribute("companyVo", companyVo);
         // 요청된 detailId에 따라 해당 페이지로 이동

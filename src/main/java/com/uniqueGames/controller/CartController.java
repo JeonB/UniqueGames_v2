@@ -2,7 +2,7 @@ package com.uniqueGames.controller;
 
 
 import com.uniqueGames.model.CompanyVo;
-import com.uniqueGames.model.GameVo;
+import com.uniqueGames.model.Game;
 import com.uniqueGames.model.MemberVo;
 import com.uniqueGames.model.OrderVo;
 import com.uniqueGames.model.SessionConstants;
@@ -27,7 +27,7 @@ public class CartController {
 
 	@RequestMapping(value = "/cart", method = RequestMethod.POST)
 	public String getValue(@RequestParam("selectedValue") String selectedValue, @ModelAttribute("companyVo")
-	CompanyVo companyVo, @ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo memberVo, @ModelAttribute("game") GameVo gameVo){
+	CompanyVo companyVo, @ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo memberVo, @ModelAttribute("game") Game game){
 
 		/*
 		* orderService의 데이터 insert 기능 추가
@@ -35,10 +35,10 @@ public class CartController {
 		OrderVo orderVo = orderService.addToOrderVo(
 				memberVo.getMember_id(),
 				companyVo.getCompany_id(),
-				gameVo.getId(),
+				game.getId(),
 				Integer.parseInt(selectedValue),
-				gameVo.getName(),
-				gameVo.getImage_path()
+				game.getName(),
+				game.getImage_path()
 				);
 		orderService.insertCart(orderVo);
 		return "order/cart";
@@ -81,7 +81,7 @@ public class CartController {
 		int result = 0;
 
 		for (int i = 0; i < checkedList.size(); i++) {
-			result = orderService.getCartDeleteOne((int) checkedList.get(i));
+			result = orderService.getCartDeleteOne(checkedList.get(i));
 			if (result == 0) {
 				return "order/error";
 			}

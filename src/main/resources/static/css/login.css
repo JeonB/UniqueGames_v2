@@ -15,7 +15,7 @@
 #top-bg {
 	width: 100%;
 	margin: auto;
-	background-image: url(../images/img_bg.png);
+	background-image: url(img-bg.png);
 	background-size: cover;
 	height: 229px;
 	background-repeat: no-repeat;
@@ -210,7 +210,7 @@ input[name="agreementAll"]:checked {
 
 input[name="chk-agree"], input[name="c-chk-agree"] {
 	width: 20px;	height: 20px;
-	background-image: url("../images/btn_check_normal.png");
+	background-image: url("btn-check-normal.png");
 	background-repeat: no-repeat;
 	margin: 0px 4px;
 	padding: 0px;
@@ -220,7 +220,7 @@ input[name="chk-agree"], input[name="c-chk-agree"] {
 }
 
 input[name="chk-agree"]:checked, input[name="c-chk-agree"]:checked {
-	background-image: url("../images/btn_check_select.png");
+	background-image: url("btn-check-select.png");
 	background-repeat: no-repeat;
 }
 
@@ -414,7 +414,7 @@ li.address-input {
 #pwd-check-img, #pwd-check-img-1, #c-pwd-check-img, #c-pwd-check-img-1 {
 	width: 24px;
 	height: 16px;
-	background-image: url("../images/btn_eye_normal.png");
+	background-image: url("btn-eye-normal.png");
 	background-repeat: no-repeat;
 	appearance: none;
 	border: none; cursor : pointer;
@@ -426,7 +426,7 @@ li.address-input {
 
 #pwd-check-img:checked, #pwd-check-img-1:checked, #c-pwd-check-img:checked,
 	#c-pwd-check-img-1:checked {
-	background-image: url("../images/btn_eye_select.png");
+	background-image: url("btn-eye-select.png");
 	background-repeat: no-repeat;
 }
 

@@ -91,7 +91,7 @@
         <div id="comment" th:id="'comment' + ${status.count}" class="comment1">
           <input type="hidden" name="no" th:value="${c.comment_id}">
           <div id="user-name" th:text="${c.member_id}"></div>
-          <div><span id="msg-date" th:text="${c.comment_date}"></span><th:block th:if="${loginMember instanceof TLDialect.MemberVo} && ${c.member_id} eq ${loginMember.member_id}"><span id="cmtDelete" class="cmtDelete" onclick="javascript:commentDelete(${c.comment_id})">삭제</span></th:block></div>
+          <div><span id="msg-date" th:text="${c.comment_date}"></span><th:block th:if="${loginMember instanceof TLDialect.MemberVo} && ${c.member_id} eq ${loginMember.member_id}"><span id="cmtDelete" class="cmtDelete" onclick="commentDelete(${c.comment_id})">삭제</span></th:block></div>
           <span th:utext="${c.comment_content}"></span>
         </div>
       </th:block>

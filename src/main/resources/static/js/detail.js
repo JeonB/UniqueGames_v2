@@ -17,7 +17,7 @@
           $(".screenshot_thumbnail").eq(i).removeClass("active");
         }
       });
-      return;
+
     });
   });
   /* sns 스크립트 */

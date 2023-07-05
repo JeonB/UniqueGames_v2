@@ -255,7 +255,7 @@
 
 #image-top-bg {
   margin: auto;
-  background: url("../images/img_bg.png");
+  background: url("img-bg.png");
   background-size: cover;
   width: 100%;
   height: 200px;

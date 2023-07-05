@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Unique Games</title>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
@@ -81,44 +82,44 @@
     <div class="swiper-pagination"></div>
 
     <div class="swiper-button-prev">
-        <button class="btn__prev"><img src="/images/btn_main-arrow_left.png"></button>
+        <button class="btn__prev"><img src="/images/btn-main-arrow-left.png"></button>
     </div>
     <div class="swiper-button-next">
-        <button class="btn__next"><img src="/images/btn_main-arrow_right.png"></button>
+        <button class="btn__next"><img src="/images/btn-main-arrow-right.png"></button>
     </div>
 </div>
-<img id="topGame-title" src="/images/imt_title_top.png" width="135px" height="32px">
+<img id="topGame-title" src="/images/imt-title-top.png" width="135px" height="32px">
 <div id="menu-topGame">
     <div id="topGame-list">
         <div th:each="game, loop : ${ranking}">
-            <div th:if="${loop.index &lt; 4}" id="tList">
+            <div th:if="${loop.index &lt; 4}" class="tList">
                 <a th:href="@{'detail/' + ${game.id}}"><img alt="#" th:src="${game.image_path}" width="500px" height="240px"></a>
                 <div>
                     <p th:text="${loop.index + 1}"></p>
                     <li id="cyber"><a th:href="@{'detail/' + ${game.id}}" th:text="${game.name}"></a></li>
                     <p id="cyber2" th:text="${game.description}"></p>
-                    <a href="topgame"><button id="readmore-plus" type="button"><img src="/images/btn_plus_normal.png" width="30px" height="30px"></button></a>
+                    <a href="topgame"><button class="readmore-plus" type="button"><img src="/images/btn-plus-normal.png" width="30px" height="30px"></button></a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <section id="menu-main1">
-    <img id="recommendations-title" src="/images/img_title_recommendations.png" width="262px" height="26px">
+    <img id="recommendations-title" src="/images/img-title-recommendations.png" width="262px" height="26px">
     <p class="sub-title">#최근 반응이 좋은</p>
     <div id="menu-recommendations">
         <div id="recommendList">
             <div th:each="game, loop : ${donation}">
-                <div th:if="${loop.index &lt; 4}" id="rList">
+                <div th:if="${loop.index &lt; 4}" class="rList">
                     <img th:src="${game.image_path}" width="260px" height="180px">
                     <ul>
                         <li>Hot</li>
                         <li th:text="${game.name}"></li>
                         <li th:text="${game.game_genre}"></li>
-                        <li><img src="/images/img_icon_rPc.png"></li>
+                        <li><img src="/images/img-icon-rPc.png"></li>
                     </ul>
                     <div>
-                        <a th:href="@{'detail/' + ${game.id}}"><button id="btn-recommend-style" type="button">자세히보기</button></a>
+                        <a th:href="@{'detail/' + ${game.id}}"><button class="btn-recommend-style" type="button">자세히보기</button></a>
                     </div>
                 </div>
             </div>
@@ -126,7 +127,7 @@
     </div>
 </section>
 <section id="menu-main2">
-    <img id="allList-title" src="/images/img_title_AllList.png" width="100px" height="24px">
+    <img id="allList-title" src="/images/img-title-AllList.png" width="100px" height="24px">
     <div id="menu-allList">
         <div id="gameList">
             <div th:each="game : ${gameList}">
@@ -135,9 +136,9 @@
                     <ul>
                         <li><a th:href="@{'detail/' + ${game.id}}">${game.name}</a></li>
                         <li th:text="${game.game_genre}"></li>
-                        <li><a th:href="@{'detail/' + ${game.id}}"><button id="btn-like-style" type="button"data-game-id="${game.id}"></button></a></li>
+                        <li><a th:href="@{'detail/' + ${game.id}}"><button class="btn-like-style" type="button"data-game-id="${game.id}"></button></a></li>
                         <li th:text="${game.like_count}"></li>
-                        <li><img src="/images/img_icon_rPc.png"></li>
+                        <li><img src="/images/img-icon-rPc.png"></li>
                     </ul>
                 </div>
             </div>
@@ -145,9 +146,9 @@
     </div>
 </section>
 <section id="menu-main3">
-    <img id="solution-title" src="/images/img_title_notice.png" width="90px" height="25px">
+    <img id="solution-title" src="/images/img-title-notice.png" width="90px" height="25px">
     <p class="sub-title">#공지사항 #필독</p>
-    <div id="menu-solution">
+    <div class="menu-solution">
         <table>
             <tr>
                 <th>번호</th>
@@ -164,8 +165,8 @@
 <!--                </tr>-->
 <!--            </div>-->
         </table>
-        <div id="solution-btn-area">
-            <a href="notice_list"><button id="btn-solution" type="button">자세히보기</button></a>
+        <div class="solution-btn-area">
+            <a href="notice_list"><button class="btn-solution" type="button">자세히보기</button></a>
         </div>
     </div>
 </section>

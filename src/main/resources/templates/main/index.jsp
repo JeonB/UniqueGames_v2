@@ -41,41 +41,41 @@
     <div class="swiper-wrapper">
         <div class="swiper-slide">
             <div class="silde1">
-                <div id="slide-text">
+                <div class="slide-text">
                     <h2>디 엑시트 이터널 매터스</h2>
                     <h1>DE-EXIT - Eternal Matters</h1>
                     <p>죽음을 넘어선 생명을 느끼다</p>
-                    <a href="detail/1"><button id="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
+                    <a href="detail/1"><button class="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
                 </div>
             </div>
         </div>
         <div class="swiper-slide">
             <div class="silde2">
-                <div id="slide-text">
+                <div class="slide-text">
                     <h2>스트리트 파이터 6 디럭스 에디션</h2>
                     <h1>Street Fighter 6</h1>
                     <p>시리즈 최신작 『Street Fighter 6(스트리트 파이터 6)』</p>
-                    <a href="detail/2"><button id="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
+                    <a href="detail/2"><button class="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
                 </div>
             </div>
         </div>
         <div class="swiper-slide">
             <div class="silde3">
-                <div id="slide-text">
+                <div class="slide-text">
                     <h2>뱀파이어: 마스커레이드 - 스완송</h2>
                     <h1>Vampire: The Masquerade</h1>
                     <p>월드 오브 다크니스에 오신 것을 환영합니다</p>
-                    <a href="detail/3"><button id="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
+                    <a href="detail/3"><button class="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
                 </div>
             </div>
         </div>
         <div class="swiper-slide">
             <div class="silde4">
-                <div id="slide-text">
+                <div class="slide-text">
                     <h2>더 라스트 오브 어스 파트 1 디럭스 에디션</h2>
                     <h1>The Last of Us Part I </h1>
                     <p>살기 위해 오늘도 길을 나선다 탐험 액션</p>
-                    <a href="detail/4"><button id="btn-main-style" type="button"  style='cursor:pointer'>자세히보기</button></a>
+                    <a href="detail/4"><button class="btn-main-style" type="button"  style='cursor:pointer'>자세히보기</button></a>
                 </div>
             </div>
         </div>
