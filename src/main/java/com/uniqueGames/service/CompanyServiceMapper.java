@@ -1,7 +1,7 @@
 package com.uniqueGames.service;
 
 
-import com.uniqueGames.model.IntroVo;
+import com.uniqueGames.model.Intro;
 import com.uniqueGames.repository.DetailMapper;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,11 @@ public class CompanyServiceMapper{
     @Autowired
     DetailMapper detailMapper;
 
-    public void insertIntro(IntroVo vo) {
+    public void insertIntro(Intro vo) {
         detailMapper.insertIntro(vo);
     }
 
-    public void updateIntro(IntroVo vo) {
+    public void updateIntro(Intro vo) {
         detailMapper.updateIntro(vo);
     }
 
@@ -25,11 +25,11 @@ public class CompanyServiceMapper{
         detailMapper.deleteIntro(id);
     }
 
-    public IntroVo getIntro(int id) {
+    public Intro getIntro(int id) {
         return detailMapper.getIntro(id);
     }
 
-    public List<IntroVo> getIntroList() {
+    public List<Intro> getIntroList() {
         return detailMapper.getIntroList();
     }
 }

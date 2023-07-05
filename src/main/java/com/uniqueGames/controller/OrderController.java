@@ -1,9 +1,7 @@
 package com.uniqueGames.controller;
 
-
+import com.uniqueGames.config.Login;
 import com.uniqueGames.model.Member;
-import com.uniqueGames.model.OrderVo;
-import com.uniqueGames.model.MemberVo;
 import com.uniqueGames.model.Order;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.OrderServiceImpl;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@SessionAttributes(SessionConstants.LOGIN_MEMBER)
 public class OrderController {
 	@Autowired
     OrderServiceImpl orderServiece;
@@ -27,7 +24,7 @@ public class OrderController {
 
 	/** order **/
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
-	public ModelAndView order(String[] checkedList, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member) {
+	public ModelAndView order(String[] checkedList, @Login Member member) {
 		ModelAndView model = new ModelAndView();
 
 		list = new ArrayList<Integer>();

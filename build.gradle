@@ -37,6 +37,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework:spring-context-support:5.3.10'
+
+    implementation 'javax.persistence:javax.persistence-api:2.2'
+    implementation 'org.hibernate:hibernate-core:5.5.3.Final'
+
 }
 
 tasks.named('test') {

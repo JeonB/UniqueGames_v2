@@ -3,8 +3,8 @@
 <head>
   <title>개발사 후원페이지</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detail.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainunigames.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/detail.css}">
+  <link rel="stylesheet" th:href="@{/css/mainunigames.css}">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script> <!-- 마이크로소프트 jQuery-->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -26,7 +26,7 @@
         <div class="productdetails-view productdetails">
           <div class="page-header">
             <div style="clear:both;position:absolute;margin-top:18px;z-index:10;text-align:center;">
-              <div style="display:block;border: 1px solid rgba(255,255,255,0.1);padding-left:10px;padding-right:10px;"><img src="${pageContext.request.contextPath}/images/img-game-icon_3.jpg" width="80"/></div>
+              <div style="display:block;border: 1px solid rgba(255,255,255,0.1);padding-left:10px;padding-right:10px;"><img th:src="@{/images/img-game-icon_3.jpg}" width="80"/></div>
             </div>
             <h1 style="font-size:20px;padding-left:110px;display:inline-block;text-transform:initial" >
 
@@ -49,16 +49,16 @@
                       <div class='media_player_marker'><span>▶</span></div>												<img src="https://img.youtube.com/vi/aaVZqYAIsF8/1.jpg" data-type="media" data-url="<div class='embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' src='https://www.youtube.com/embed/aaVZqYAIsF8'></iframe></div>" itemprop="thumbnailUrl">
                     </div>
                     <div class="item screenshot_thumbnail" style='cursor:pointer'>
-                      <img src="${pageContext.request.contextPath}/images/img-game-thumnail_3.jpg" data-type="image/jpeg" data-url="<img src='${pageContext.request.contextPath}/images/img-game-thumnail_3.jpg'>" itemprop="thumbnailUrl">
+                      <img th:src="@{/images/img-game-thumnail_3.jpg}" data-type="image/jpeg" data-url="<img src='/images/img-game-thumnail_3.jpg'>" itemprop="thumbnailUrl">
                     </div>
                     <div class="item screenshot_thumbnail" style='cursor:pointer'>
-                      <img src="${pageContext.request.contextPath}/images/img-game-thumnail_4.jpg" data-type="image/jpeg" data-url="<img src='${pageContext.request.contextPath}/images/img-game-thumnail_4.jpg'>" itemprop="thumbnailUrl">
+                      <img th:src="@{/images/img-game-thumnail_4.jpg}" data-type="image/jpeg" data-url="<img src='/images/img-game-thumnail_4.jpg'>" itemprop="thumbnailUrl">
                     </div>
                     <div class="item screenshot_thumbnail" style='cursor:pointer'>
-                      <img src="${pageContext.request.contextPath}/images/img_game_thumbnail_1_500240.png" data-type="image/jpeg" data-url="<img src='${pageContext.request.contextPath}/images/img_game_thumbnail_1_500240.png'>" itemprop="thumbnailUrl">
+                      <img th:src="@{/images/img_game_thumbnail_1_500240.png}" data-type="image/jpeg" data-url="<img src='${pageContext.request.contextPath}/images/img_game_thumbnail_1_500240.png'>" itemprop="thumbnailUrl">
                     </div>
                     <div class="item screenshot_thumbnail" style='cursor:pointer'>
-                      <img src="${pageContext.request.contextPath}/images/img_game_thumbnail_2_500240.png" data-type="image/jpeg" data-url="<img src='${pageContext.request.contextPath}/images/img_game_thumbnail_2_500240.png'>" itemprop="thumbnailUrl">
+                      <img th:src="@{/images/img_game_thumbnail_2_500240.png}" data-type="image/jpeg" data-url="<img src='${pageContext.request.contextPath}/images/img_game_thumbnail_2_500240.png'>" itemprop="thumbnailUrl">
                     </div>
 
                   </div>

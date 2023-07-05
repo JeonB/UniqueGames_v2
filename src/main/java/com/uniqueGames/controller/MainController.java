@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 @Controller
-@SessionAttributes({"gameList","ranking"})
 public class MainController {
 
 	private final IndexServiceMapper indexServiceMapper;

@@ -1,6 +1,6 @@
 package com.uniqueGames.fileutil;
 
-import com.uniqueGames.model.IntroVo;
+import com.uniqueGames.model.Intro;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -11,17 +11,17 @@ public class FileUtil {
 
 
     MultipartFile uploadFile;
-    IntroVo vo;
+    Intro vo;
     String root_path;
 
 
-    public FileUtil(IntroVo vo, HttpServletRequest request){
+    public FileUtil(Intro vo, HttpServletRequest request){
         this.uploadFile = vo.getUploadFile();
         this.vo = vo;
         this.root_path = request.getSession().getServletContext().getRealPath("/");
     }
     // 랜덤 문자열 붙인 파일 저장 및 해당 파일 이름 저장한 객체 반환
-    public IntroVo getUpload() throws IOException {
+    public Intro getUpload() throws IOException {
         String attach_path = "\\resources\\upload\\";
         if(uploadFile!=null && !uploadFile.isEmpty()){
             String fileName = uploadFile.getOriginalFilename();

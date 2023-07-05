@@ -80,42 +80,44 @@ public class DetailMapperController {
      * @throws IOException 입출력 예외 처리
      */
     @RequestMapping(value = "/insertIntro")
-    public String insertIntro(IntroVo vo, HttpServletRequest request,Model model) throws IOException {
+    public String insertIntro(Intro vo, HttpServletRequest request,Model model) throws IOException {
 
         FileUtil fileUtil = new FileUtil(vo, request);
-        IntroVo introVo = fileUtil.getUpload();
+        Intro intro = fileUtil.getUpload();
         HttpSession session = request.getSession();
+        if(intro.getTitle() == null || intro.getName() == null){
+                CompanyVo company = (CompanyVo) session.getAttribute(SessionConstants.LOGIN_MEMBER);
         if(introVo.getTitle() == null || introVo.getName() == null){
                 Company company = (Company) session.getAttribute(SessionConstants.LOGIN_MEMBER);
                 model.addAttribute("company",company);
                 return "detail/company_regi";
          }
         else{
-                companyServiceMapper.insertIntro(introVo);
+                companyServiceMapper.insertIntro(intro);
                 model.addAttribute("status", "writeOnce");
                 return "redirect:getIntroList";
             }
     }
 //    @RequestMapping(value = "/updateIntro")
-//    public String updateIntro(@ModelAttribute("intro") IntroVo vo, @ModelAttribute("company") CompanyVo companyVo){
+//    public String updateIntro(@ModelAttribute("intro") Intro vo, @ModelAttribute("company") CompanyVo companyVo){
 //        companyServiceMapper.updateIntro(vo);
 //        return "redirect:getIntroList";
 //    }
     @RequestMapping(value = "/updateIntro", method = RequestMethod.POST)
-    public String updateIntro(@ModelAttribute("intro") IntroVo vo, @ModelAttribute("company") Company company){
+    public String updateIntro(@ModelAttribute("intro") Intro vo, @ModelAttribute("company") Company company){
         companyServiceMapper.updateIntro(vo);
         return "detail/company_regi";
     }
 
     @RequestMapping(value = "/deleteIntro")
-    public String deleteIntro(@ModelAttribute("intro")IntroVo vo,Model model){
+    public String deleteIntro(@ModelAttribute("intro") Intro vo,Model model){
         companyServiceMapper.deleteIntro(vo.getId());
         model.addAttribute("status", "");
         return "redirect:getIntroList";
     }
 
     @RequestMapping(value = "/getIntro")
-    public String getIntro(Model model, IntroVo vo, @ModelAttribute("noticeVo") NoticeVo noticeVo, @ModelAttribute("list") ArrayList<NoticeVo> list){
+    public String getIntro(Model model, Intro vo, @ModelAttribute("noticeVo") Notice notice, @ModelAttribute("list") ArrayList<NoticeVo> list){
         model.addAttribute("intro",companyServiceMapper.getIntro(vo.getId()));
         return "detail/company";
     }

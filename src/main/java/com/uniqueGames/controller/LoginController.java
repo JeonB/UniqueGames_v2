@@ -62,10 +62,6 @@ public class LoginController {
 		
 		System.out.println(session.getAttribute("login"));
 
-		if (redirectURL.isEmpty()) {
-			redirectURL = "/";
-		}
-
 		return "redirect:" + redirectURL;
 	}
 
