@@ -1,12 +1,12 @@
 package com.uniqueGames.model;
 
-public class OrderVo {
+public class Order {
 	// Field
 	String order_date, method, payment_status, gametitle, game_img, userId, m_id, c_id;
 	int id, g_id, amount, rno;
-	public OrderVo(){
+	public Order(){
 	}
-	public OrderVo( String m_id, String c_id, int g_id,int amount, String gametitle, String game_img) {
+	public Order(String m_id, String c_id, int g_id, int amount, String gametitle, String game_img) {
 
 		this.gametitle = gametitle;
 		this.game_img = game_img;

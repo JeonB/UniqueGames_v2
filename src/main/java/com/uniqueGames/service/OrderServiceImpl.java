@@ -1,7 +1,7 @@
 package com.uniqueGames.service;
 
 
-import com.uniqueGames.model.OrderVo;
+import com.uniqueGames.model.Order;
 import com.uniqueGames.repository.OrderDao;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class OrderServiceImpl implements OrderService {
 	OrderDao orderDao;
 
 	@Override
-	public ArrayList<OrderVo> getCartList(String m_id) {
+	public ArrayList<Order> getCartList(String m_id) {
 		return orderDao.getCartList(m_id);
 	}
 
@@ -34,15 +34,15 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void insertCart(OrderVo orderVo) {
-		orderDao.insertCart(orderVo);
+	public void insertCart(Order order) {
+		orderDao.insertCart(order);
 	}
-	public OrderVo addToOrderVo(String m_id, String c_id, int g_id, int amount,  String gametitle, String game_img){
-		return new OrderVo(m_id,c_id,g_id,amount,gametitle,game_img);
+	public Order addToOrderVo(String m_id, String c_id, int g_id, int amount, String gametitle, String game_img){
+		return new Order(m_id,c_id,g_id,amount,gametitle,game_img);
 	}
 
 	@Override
-	public ArrayList<OrderVo> getOrderList(List<Integer> checkedList) {
+	public ArrayList<Order> getOrderList(List<Integer> checkedList) {
 		return orderDao.getOrderList(checkedList);
 	}
 
@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public ArrayList<OrderVo> getPaymentDetail(String m_id, String array) {
+	public ArrayList<Order> getPaymentDetail(String m_id, String array) {
 		return orderDao.getPaymentDetail(m_id, array);
 	}
 
@@ -72,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public ArrayList<OrderVo> getDonationDetail(String c_id, String array) {
+	public ArrayList<Order> getDonationDetail(String c_id, String array) {
 		return orderDao.getDonationDetail(c_id, array);
 	}
 
@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public ArrayList<OrderVo> getDonationRank(String c_id) {
+	public ArrayList<Order> getDonationRank(String c_id) {
 		return orderDao.getDonationRank(c_id);
 	}
 
