@@ -1,18 +1,19 @@
 package com.uniqueGames.service;
 
 
-import com.uniqueGames.model.NoticeVo;
-import java.util.ArrayList;
+import com.uniqueGames.model.Notice;
+
+import java.util.List;
 
 public interface NoticeService {
 	
-	ArrayList<NoticeVo> getNoticeList(int startCount, int endCount);
+	List<Notice> getNoticeList(int startCount, int endCount);
 	
-	NoticeVo getNoticeContent(String stat, String no);
+	Notice getNoticeContent(String stat, String no);
 	
-	int insert(NoticeVo noticeVo);
+	int insert(Notice notice);
 	
-	int update(NoticeVo noticeVo);
+	int update(Notice notice);
 	
 	int delete(String no);
 	

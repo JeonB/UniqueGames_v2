@@ -6,17 +6,17 @@
 	<!-- Cart -->
 	<select id="getCartList" parameterType="String" resultType="Order">
 		SELECT ID, G_ID, GAME_IMG, GAMETITLE, AMOUNT 
-		FROM ORDERS WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{m_id} 
+		FROM ORDERS WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{mId}
 	</select>
 	
 	<select id="getCartCount" parameterType="String" resultType="int">
 		SELECT COUNT(G_ID) FROM ORDERS 
-		WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{m_id} 
+		WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{mId}
 	</select>
 	
 	<delete id="getCartDeleteAll" parameterType="String">
 		DELETE FROM ORDERS 
-		WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{m_id}  
+		WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{mId}
 	</delete>
 	
 	<delete id="getCartDeleteOne" parameterType="int">
@@ -25,7 +25,7 @@
 	</delete>
 
 	<insert id="insertCart" parameterType="Order">
-		INSERT INTO ORDERS( M_ID, C_ID, G_ID, AMOUNT,GAMETITLE, GAME_IMG) VALUES (#{m_id},#{c_id},#{g_id},#{amount},#{gametitle},#{game_img})
+		INSERT INTO ORDERS( M_ID, C_ID, G_ID, AMOUNT,GAMETITLE, GAME_IMG) VALUES (#{mId},#{cId},#{g_id},#{amount},#{gametitle},#{game_img})
 	</insert>
 	
 	<!-- Order -->
@@ -56,16 +56,16 @@
 			SELECT ROW_NUMBER() OVER(ORDER BY AMOUNT DESC) AS RNO, </if>
 			
 		DATE_FORMAT(ORDER_DATE, '%y-%m-%d') ORDER_DATE, GAMETITLE, AMOUNT FROM ORDERS 
-		WHERE M_ID = #{m_id} AND PAYMENT_STATUS = 'COMPLETE' 
+		WHERE M_ID = #{mId} AND PAYMENT_STATUS = 'COMPLETE'
 	</select>
 	
 	<select id="getPaymentCount" parameterType="String" resultType="int">
-		SELECT IFNULL(COUNT(*), 0) COUNT FROM ORDERS WHERE M_ID = #{m_id} 
+		SELECT IFNULL(COUNT(*), 0) COUNT FROM ORDERS WHERE M_ID = #{mId}
 		AND PAYMENT_STATUS = 'COMPLETE' 
 	</select>
 	
 	<select id="getPaymentAmount" parameterType="String" resultType="int">
-		SELECT IFNULL(SUM(AMOUNT), 0) PAYMENT_AMOUNT FROM ORDERS WHERE M_ID = #{m_id} 
+		SELECT IFNULL(SUM(AMOUNT), 0) PAYMENT_AMOUNT FROM ORDERS WHERE M_ID = #{mId}
 		AND PAYMENT_STATUS = 'COMPLETE' 
 	</select>
 	
@@ -80,25 +80,25 @@
 			SELECT ROW_NUMBER() OVER(ORDER BY SUM(AMOUNT) ASC) AS RNO, </if>
 			
 		DATE_FORMAT(ORDER_DATE, '%y-%m') ORDER_DATE, GAMETITLE, SUM(AMOUNT) AMOUNT FROM ORDERS 
-		WHERE C_ID = #{c_id} AND PAYMENT_STATUS = 'COMPLETE' 
+		WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE'
 		GROUP BY DATE_FORMAT(ORDER_DATE, '%y-%m'), GAMETITLE 
 	</select>
 		
 	<select id="getExpected" parameterType="String" resultType="int">
-		SELECT IFNULL(SUM(AMOUNT), 0) AMOUNT FROM ORDERS WHERE C_ID = #{c_id} AND PAYMENT_STATUS = 'COMPLETE' 
+		SELECT IFNULL(SUM(AMOUNT), 0) AMOUNT FROM ORDERS WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE'
 		AND DATE_FORMAT(ORDER_DATE, '%y-%m') = DATE_FORMAT(NOW(), '%y-%m') 
 	</select>
 	
 	<select id="getTotalDonation" parameterType="String" resultType="int">
 		SELECT IFNULL(SUM(AMOUNT), 0) TOTAL_AMOUNT FROM ORDERS 
-		WHERE C_ID = #{c_id} AND PAYMENT_STATUS = 'COMPLETE' 
+		WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE'
 	</select>
 		
 	<select id="getDonationRank" parameterType="String" resultType="Order">
 		SELECT ROW_NUMBER() OVER(ORDER BY SUM(AMOUNT) DESC) AS RNO, 
 		M.MEMBER_ID USERID, O.GAMETITLE, SUM(AMOUNT) FROM ORDERS AS O 
 		INNER JOIN MEMBER AS M ON O.M_ID = M.ID 
-		WHERE C_ID = #{c_id} AND PAYMENT_STATUS = 'COMPLETE' 
+		WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE'
 		GROUP BY M.MEMBER_ID, O.GAMETITLE 
 	</select>
 	

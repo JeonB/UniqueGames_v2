@@ -36,13 +36,14 @@ public class CartController {
 		* orderService의 데이터 insert 기능 추가
 		* */
 		Order order = orderService.addToOrderVo(
-				memberVo.getMember_id(),
-				companyVo.getCompany_id(),
+
+				memberVo.getMemberId(),
+				companyVo.getCompanyId(),
 
 				gameVo.getId(),
 				Integer.parseInt(selectedValue),
 				gameVo.getName(),
-				gameVo.getImage_path()
+				gameVo.getImagePath()
 				);
 		orderService.insertCart(order);
 		return "order/cart";
@@ -50,8 +51,8 @@ public class CartController {
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public ModelAndView cart(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member) {
 		ModelAndView model = new ModelAndView();
-		ArrayList<Order> cartList = orderService.getCartList(member.getMember_id());
-		System.out.println(member.getMember_id());
+		ArrayList<Order> cartList = orderService.getCartList(member.getMemberId());
+		System.out.println(member.getMemberId());
 
 		if (cartList.size() > 0) {
 			model.addObject("cartList", cartList);
@@ -65,8 +66,8 @@ public class CartController {
 		return model;
 	}
 
-	@RequestMapping(value = "/cart_delete_one", method = RequestMethod.GET)
-	public String cart_delete_one(int id) {
+	@RequestMapping(value = "/cartDeleteOne", method = RequestMethod.GET)
+	public String cartDeleteOne(int id) {
 		String view;
 		int result = orderService.getCartDeleteOne(id);
 
@@ -79,8 +80,8 @@ public class CartController {
 		return view;
 	}
 
-	@RequestMapping(value = "/cart_delete_selected")
-	public String cart_delete_selected(@RequestParam(value = "checkedList[]") List<Integer> checkedList) {
+	@RequestMapping(value = "/cartDeleteSelected")
+	public String cartDeleteSelected(@RequestParam(value = "checkedList[]") List<Integer> checkedList) {
 		int result = 0;
 
 		for (int i = 0; i < checkedList.size(); i++) {
@@ -92,10 +93,11 @@ public class CartController {
 		return "redirect://cart";
 	}
 
-	@RequestMapping(value = "/cart_delete_all", method = RequestMethod.GET)
-	public String cart_delete_selected(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member) {
-		String m_id = member.getMemberId();
-		int result = orderService.getCartDeleteAll(m_id);
+	@RequestMapping(value = "/cartDeleteAll", method = RequestMethod.GET)
+	public String cartDeleteSelected(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member) {
+		String mId = member.getMemberId();
+		int result = orderService.getCartDeleteAll(mId);
+
 
 		if (result == 0) {
 			return "order/error";

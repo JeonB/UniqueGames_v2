@@ -9,17 +9,17 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class OrderDao{
+public class OrderRepository {
 	private final SqlSession sqlSession;
 
-	public OrderDao(SqlSession sqlSession) {
+	public OrderRepository(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
 
 	/** Cart **/
 	// getCartList
-	public ArrayList<Order> getCartList(String m_id) {
-		List<Object> oList = sqlSession.selectList("mapper.orderMapper.getCartList", m_id);
+	public ArrayList<Order> getCartList(String mId) {
+		List<Object> oList = sqlSession.selectList("mapper.orderMapper.getCartList", mId);
 		ArrayList<Order> cartList = new ArrayList<Order>();
 		
 		for (Object cart : oList) {
@@ -30,13 +30,13 @@ public class OrderDao{
 	} // getCartList
 
 	// getCartCount
-	public int getCartCount(String m_id) {
-		return sqlSession.selectOne("mapper.orderMapper.getCartCount", m_id);
+	public int getCartCount(String mId) {
+		return sqlSession.selectOne("mapper.orderMapper.getCartCount", mId);
 	} // getCartCount
 
 	// getCartDeleteAll
-	public int getCartDeleteAll(String m_id) {
-		return sqlSession.delete("mapper.orderMapper.getCartDeleteAll", m_id);
+	public int getCartDeleteAll(String mId) {
+		return sqlSession.delete("mapper.orderMapper.getCartDeleteAll", mId);
 	} // getCartDeleteAll
 
 	// getCartDeleteOne
@@ -93,9 +93,9 @@ public class OrderDao{
 	} // getOrderComplete
 
 	// getPaymentDetail
-	public ArrayList<Order> getPaymentDetail(String m_id, String array) {
+	public ArrayList<Order> getPaymentDetail(String mId, String array) {
 		Map<String, String> param = new HashMap<String, String>();
-		param.put("m_id", m_id);
+		param.put("mId", mId);
 		param.put("array", array);
 
 		List<Object> oList = sqlSession.selectList("mapper.orderMapper.getPaymentDetail", param);
@@ -109,19 +109,19 @@ public class OrderDao{
 	} // getPaymentDetail
 
 	// getPaymentCount
-	public int getPaymentCount(String m_id) {
-		return sqlSession.selectOne("mapper.orderMapper.getPaymentCount", m_id);
+	public int getPaymentCount(String mId) {
+		return sqlSession.selectOne("mapper.orderMapper.getPaymentCount", mId);
 	} // getPaymentCount
 
 	// getPaymentAmount
-	public int getPaymentAmount(String m_id) {
-		return sqlSession.selectOne("mapper.orderMapper.getPaymentAmount", m_id);
+	public int getPaymentAmount(String mId) {
+		return sqlSession.selectOne("mapper.orderMapper.getPaymentAmount", mId);
 	} // getPaymentAmount
 
 	// getDonationDetail
-	public ArrayList<Order> getDonationDetail(String c_id, String array) {
+	public ArrayList<Order> getDonationDetail(String cId, String array) {
 		Map<String, String> param = new HashMap<String, String>();
-		param.put("c_id", c_id);
+		param.put("cId", cId);
 		param.put("array", array);
 
 		List<Object> oList = sqlSession.selectList("mapper.orderMapper.getDonationDetail", param);
@@ -135,18 +135,18 @@ public class OrderDao{
 	} // getDonationDetail
 
 	// getExpected
-	public int getExpected(String c_id) {
-		return sqlSession.selectOne("mapper.orderMapper.getExpected", c_id);
+	public int getExpected(String cId) {
+		return sqlSession.selectOne("mapper.orderMapper.getExpected", cId);
 	} // getExpected
 
 	// getTotalDonation
-	public int getTotalDonation(String c_id) {
-		return sqlSession.selectOne("mapper.orderMapper.getTotalDonation", c_id);
+	public int getTotalDonation(String cId) {
+		return sqlSession.selectOne("mapper.orderMapper.getTotalDonation", cId);
 	} // getTotalDonation
 
 	// getDonationRank
-	public ArrayList<Order> getDonationRank(String c_id) {
-		List<Object> oList = sqlSession.selectList("mapper.orderMapper.getDonationRank", c_id);
+	public ArrayList<Order> getDonationRank(String cId) {
+		List<Object> oList = sqlSession.selectList("mapper.orderMapper.getDonationRank", cId);
 		ArrayList<Order> rankList = new ArrayList<Order>();
 
 		for (Object donator : oList) {

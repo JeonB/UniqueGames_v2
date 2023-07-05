@@ -1,191 +1,180 @@
 /** board style **/
-#content {
-	margin: 100px auto;
+.content {
+    margin: 100px auto;
 }
 
-#board-content>table, #user-btable, #admin-btable, #board-write>table {
-	border-collapse: collapse;
-	border-top: 2px solid #393939;
-	border-bottom: 2px solid #393939;
+#board-content > table, .user-btable, .admin-btable, #board-write > table {
+    border-collapse: collapse;
+    border-top: 2px solid #393939;
+    border-bottom: 2px solid #393939;
 }
 
 /* board top menu */
-#board-top-menu {
-	padding-bottom: 10px;
-	font-size: 0px;
+.board-top-menu {
+    padding-bottom: 10px;
+    font-size: 0px;
 }
 
-#board-write>form>table {
-	border-collapse: collapse;
-	border: 1px solid #DDDDDD;
-	border-top: 2px solid #393939;
-	border-bottom: 2px solid #393939;
+#board-write > form > table {
+    border-collapse: collapse;
+    border: 1px solid #DDDDDD;
+    border-top: 2px solid #393939;
+    border-bottom: 2px solid #393939;
 }
 
-#board-top-menu>p {
-	font-size: 24px;
-	float: left;
+.board-top-menu > p {
+    font-size: 24px;
+    float: left;
 }
 
-#board-top-menu>div>form {
-	position: relative;
-	margin-left: 380px;
-	display: inline;
+.board-top-menu > div > form {
+    position: relative;
+    margin-left: 380px;
+    display: inline;
 }
 
-#board-top-menu>div>form input {
-	width: 215px;
-	height: 14px;
-	border: 1px solid #DDDDDD;
-	padding: 7px 30px 7px 16px;
-	font-size: 14px;
+.board-top-menu > div > form input {
+    width: 215px;
+    height: 14px;
+    border: 1px solid #DDDDDD;
+    padding: 7px 30px 7px 16px;
+    font-size: 14px;
 }
 
-#bsearch-box {
-	float: right;
+.bsearch-box {
+    float: right;
 }
 
-#board-top-menu>div>ul>li:last-child>button {
-	margin-right: 0;
+.board-top-menu > div > ul > li:last-child > button {
+    margin-right: 0;
 }
 
-#board-top-menu>div>ul>li:last-child>a>button {
-	margin-right: 0;
+.board-top-menu > div > ul > li:last-child > a > button {
+    margin-right: 0;
 }
 
-#board-top-menu>div>ul {
-	float: right;
+.board-top-menu > div > ul {
+    float: right;
 }
 
-#board-top-menu>div>ul>li {
-	float: left;
-	margin-left: 10px;
+.board-top-menu > div > ul > li {
+    float: left;
+    margin-left: 10px;
 }
 
-#btn-search {
-	background: none;
-	border: none;
-	position: absolute;
-	top: -15px;
-	right: 10px;
-	cursor: pointer;
+.btn-search {
+    background: none;
+    border: none;
+    position: absolute;
+    top: -15px;
+    right: 10px;
+    cursor: pointer;
 }
 
 /* board */
-#admin-btable {
-	table-layout: fixed;
-}
-#admin-btable th {
-	border-bottom: 1px solid #DDDDDD;
+.admin-btable {
+    table-layout: fixed;
 }
 
-#admin-btable th,
-#admin-btable td {
-	padding: 18px;
-	text-align: center;
+.admin-btable th {
+    border-bottom: 1px solid #DDDDDD;
 }
 
-#admin-btable tr>th:first-child,
-#admin-btable tr>td:first-child,
-#admin-btable tr>th:nth-child(2),
-#admin-btable tr>td:nth-child(2) {
-	padding: 8px;
-	width: 35px;
+.admin-btable th,
+.admin-btable td {
+    padding: 18px;
+    text-align: center;
 }
 
-#admin-btable tr>td:nth-child(3) {
-	text-align: left;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+.admin-btable tr > th:first-child,
+.admin-btable tr > td:first-child,
+.admin-btable tr > th:nth-child(2),
+.admin-btable tr > td:nth-child(2) {
+    padding: 8px;
+    width: 35px;
 }
 
-#admin-btable tr>th:nth-child(3),
-#admin-btable tr>td:nth-child(3) {
-	max-width: 671px;
-	width: 671px;
+.admin-btable tr > td:nth-child(3) {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-#paging {
-	font-size: 18px;
-	list-style-type: none;
-	clear: both;
-	margin: 0 380px;
+.admin-btable tr > th:nth-child(3),
+.admin-btable tr > td:nth-child(3) {
+    max-width: 671px;
+    width: 671px;
 }
 
-#paging>li {
-	float: left;
-	padding: 5px;
+.user-btable, .admin-btable {
+    border-bottom: none;
 }
 
-#user-btable, #admin-btable {
-	border-bottom: none;
-}
-
-#user-btable tr:last-child, #admin-btable tr:last-child {
-	border-top: 2px solid #393939;
+.user-btable tr:last-child, .admin-btable tr:last-child {
+    border-top: 2px solid #393939;
 }
 
 /* board - user */
-#user-table th {
-	border-bottom: 1px solid #DDDDDD;
+.user-btable th {
+    border-bottom: 1px solid #DDDDDD;
 }
 
-#user-table th,
-td {
-	padding: 18px;
-	text-align: center;
+.user-btable th,
+.user-btable td {
+    padding: 18px;
+    text-align: center;
 }
 
-#user-btable tr>th:first-child,
-#user-btable tr>td:first-child {
-	padding: 8px;
+.user-btable tr > th:first-child,
+.user-btable tr > td:first-child {
+    padding: 8px;
 }
 
-#user-btable tr>td:nth-child(2) {
-	text-align: left;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	max-width: 671px;
-	width: 671px;
+.user-btable tr > td:nth-child(2) {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 671px;
+    width: 671px;
 }
 
-#user-btable tr>td:nth-child(3) {
-	text-align: center;
+.user-btable tr > td:nth-child(3) {
+    text-align: center;
 }
 
 /* board - write */
-#board-write>form>table th {
-	padding: 19px 24px;
-	font-size: 16px;
-	border-bottom: 1px solid #DDDDDD;
+#board-write > form > table th {
+    padding: 19px 24px;
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD;
 }
 
-#board-write>form>table td {
-	font-size: 14px;
-	border-bottom: 1px solid #DDDDDD;
-	padding: 8px;
+#board-write > form > table td {
+    font-size: 14px;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 8px;
 }
 
-#default-write {
-	font-size: 14px;
-	border: 1px solid #DDDDDD;
-	padding: 12px 16px;
-	width: 766px;
+.default-write {
+    font-size: 14px;
+    border: 1px solid #DDDDDD;
+    padding: 12px 16px;
+    width: 766px;
 }
 
-#board-write>form>table td>input {
-	height: 14px;
+#board-write > form > table td > input {
+    height: 14px;
 }
 
-#board-write>form>table td>textarea {
-	height: 153px;
-	resize: none;
+#board-write > form > table td > textarea {
+    height: 153px;
+    resize: none;
 }
 
 #filebox {
-	margin-right: 161px;
+    margin-right: 161px;
 }
 
 #filebox #upload-name {
@@ -200,14 +189,14 @@ td {
 
 #fileDelbtn {
     display: inline-block;
-   	vertical-align: middle;
+    vertical-align: middle;
 }
 
-#filebox>button {
+#filebox > button {
     display: inline-block;
-	vertical-align: middle;
-	cursor: pointer;
-	margin: 0 3px;
+    vertical-align: middle;
+    cursor: pointer;
+    margin: 0 3px;
 }
 
 #filebox input[type="file"] {
@@ -220,91 +209,90 @@ td {
 }
 
 /* board - content */
-#board-content>table th {
-	padding: 19px 8px;
-	font-size: 16px;
-	background: #DDDDDD;
-	border-bottom: 1px solid #DDDDDD;
+#board-content > table th {
+    padding: 19px 8px;
+    font-size: 16px;
+    background: #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
 }
 
-#board-content>table td {
-	font-size: 17px;
-	border-bottom: 1px solid #DDDDDD;
-	padding: 8px;
+#board-content > table td {
+    font-size: 17px;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 8px;
 }
 
-#board-content>table th:first-child {
-	text-align: left;
+#board-content > table th:first-child {
+    text-align: left;
 }
 
-#board-content>table td:nth-child(2) {
-	width: 50%;
+#board-content > table td:nth-child(2) {
+    width: 50%;
 }
 
 #details {
-	padding: 10px 30px;
-	text-align: left;
-	white-space: pre-line;
-	max-width: 1000px;
+    padding: 10px 30px;
+    text-align: left;
+    white-space: pre-line;
+    max-width: 1000px;
 }
 
 #clearFix {
-	clear: both;
+    clear: both;
 }
 
 /* comment */
 #comment-box {
-	margin: 10px 0;
-	padding: 10px;
-	/* border-top: 2px solid #393939; */
-	border-bottom: 2px solid #393939;
+    margin: 10px 0;
+    padding: 10px;
+    /* border-top: 2px solid #393939; */
+    border-bottom: 2px solid #393939;
 }
 
 #form-control {
-	display: block;
-	font-size: 14px;
-	border: 1px solid #DDDDDD;
-	padding: 12px 16px;
-	margin: auto;
-	width: 1000px;
-	font-weight: 400;
-	line-height: 1.5;
-	color: #212529;
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid #ced4da;
-	border-radius: 4px;
-	resize: vertical;
-  }
+    display: block;
+    font-size: 14px;
+    padding: 12px 16px;
+    margin: auto;
+    width: 1000px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    resize: vertical;
+}
 
 .comment1 {
-	border-top: 1px solid #C5C9D3;
-	padding: 10px 5px;
+    border-top: 1px solid #C5C9D3;
+    padding: 10px 5px;
 }
 
 #comment-write {
-	margin: 5px;
+    margin: 5px;
 }
 
-#comment-write>button {
-	margin-top: 5px;
-	position: relative;
-	left: 972px;
+#comment-write > button {
+    margin-top: 5px;
+    position: relative;
+    left: 972px;
 }
 
 #user-name {
-	font-weight: bold;
-	margin-bottom: 8px;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
 #msg-date {
-	font-size: 14px;
-	padding-right: 5px;
-	border-right: 1px solid #DDDDDD;
+    font-size: 14px;
+    padding-right: 5px;
+    border-right: 1px solid #DDDDDD;
 }
 
 #cmtDelete {
-	font-size: 14px;
-	padding-left: 5px;
-	cursor: pointer;
+    font-size: 14px;
+    padding-left: 5px;
+    cursor: pointer;
 }

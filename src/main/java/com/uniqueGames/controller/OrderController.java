@@ -48,8 +48,8 @@ public class OrderController {
 		return model;
 	}
 
-	@RequestMapping(value = "/order_delete_one")
-	public ModelAndView order_delete_one(int id) {
+	@RequestMapping(value = "/orderDeleteOne")
+	public ModelAndView orderDeleteOne(int id) {
 		ModelAndView model = new ModelAndView();
 
 		for (int i = 0; i < list.size(); i++) {
@@ -79,14 +79,14 @@ public class OrderController {
 		return model;
 	}
 
-	/** order_proc **/
-	@RequestMapping(value = "/order_proc", method = RequestMethod.GET)
-	public ModelAndView order_complete(String method) {
+	/** orderProc **/
+	@RequestMapping(value = "/orderProc", method = RequestMethod.GET)
+	public ModelAndView orderComplete(String method) {
 		ModelAndView model = new ModelAndView();
 		int result = orderServiece.getOrderComplete(list, method);
 
 		if (result != 0) {
-			model.setViewName("redirect://order_complete");
+			model.setViewName("redirect://orderComplete");
 		} else {
 			model.setViewName("order/error");
 		}
@@ -94,9 +94,9 @@ public class OrderController {
 		return model;
 	}
 
-	/** order_proc **/
-	@RequestMapping(value = "/order_complete", method = RequestMethod.GET)
-	public String order_complete() {
+	/** orderProc **/
+	@RequestMapping(value = "/orderComplete", method = RequestMethod.GET)
+	public String orderComplete() {
 		return "order-complete";
 	}
 }
