@@ -56,30 +56,30 @@
 			<table>
 				<tr>
 					<th>제목</th>
-					<td colspan="5" id="btitle"><c:out value="${noticeVo.title}" /></td>
+					<td colspan="5" id="btitle"><c:out value="${notice.title}" /></td>
 				</tr>
 				<tr>
 					<th>등록자</th>
-					<td><c:out value="${noticeVo.name}" /></td>
+					<td><c:out value="${notice.name}" /></td>
 					<th>조회수</th>
-					<td style="text-align: center;"><c:out value="${noticeVo.notice_hits}" /></td>
+					<td style="text-align: center;"><c:out value="${notice.notice_hits}" /></td>
 					<th>등록일</th>
-					<td><c:out value="${noticeVo.date_output}" /></td>
+					<td><c:out value="${notice.date_output}" /></td>
 				</tr>
 				<tr>
 					<td colspan="6" style="border:none;">
-						<div id="details"><c:if test="${noticeVo.image_id != null}"><img src="/upload/${noticeVo.image_id}" style="max-width:1024px;"><br></c:if>${noticeVo.content}</div>
+						<div id="details"><c:if test="${notice.image_id != null}"><img src="/upload/${notice.image_id}" style="max-width:1024px;"><br></c:if>${notice.content}</div>
 					</td>
 				</tr>
 			</table>
-			<input type="hidden" id="authorId" data-author-id="${noticeVo.company_id}">
+			<input type="hidden" id="authorId" data-author-id="${notice.company_id}">
 			
 		</div>
 		<section id="comment-box">
 			<div>
 				<!-- Comment form-->
 				<form id="comment-write" name="commentWriteForm" action="comment_write_proc" method="post">
-					<input type="hidden" name="post_id" value="${noticeVo.post_id}">
+					<input type="hidden" name="post_id" value="${notice.post_id}">
 					<c:choose>
 						<c:when test='${fn:contains(loginMember, "CompanyVo")}'>
 							<input type="hidden" id="member_id" name="member_id" value="${loginMember.company_id}">
@@ -106,7 +106,7 @@
 					</c:forEach>
 			</div>
 		</section>
-		<form name="noticeDelete" action="notice_delete" method="post"><input type="hidden" name="no" value="${noticeVo.post_id}"><c:if test="${noticeVo.image_id !=null}"><input type="hidden" name="imgdel" value="${noticeVo.image_id}"></c:if></form>
+		<form name="noticeDelete" action="notice_delete" method="post"><input type="hidden" name="no" value="${notice.post_id}"><c:if test="${notice.image_id !=null}"><input type="hidden" name="imgdel" value="${notice.image_id}"></c:if></form>
 	</div>
 	<jsp:include page="../main/footer.jsp"></jsp:include>
 	

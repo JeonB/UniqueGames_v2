@@ -40,18 +40,18 @@
 				<table>
 					<tr>
 						<th>제목</th>
-						<td><input type="text" name="title" id="default-write" value="${noticeVo.title}"></td>
+						<td><input type="text" name="title" id="default-write" value="${notice.title}"></td>
 					</tr>
 					<tr>
 						<th>내용</th>
 						<td><textarea name="content" cols="30" rows="5"
-								id="default-write">${noticeVo.content}</textarea></td>
+								id="default-write">${notice.content}</textarea></td>
 					</tr>
 					<tr>
 						<th>이미지</th>
 						<td>
 							<div id="filebox">
-								<input id="upload-name" value="${noticeVo.image_id}" placeholder="첨부파일" disabled>
+								<input id="upload-name" value="${notice.image_id}" placeholder="첨부파일" disabled>
 								<button type="button" id="btn-style" name="file">파일 찾기</button>
 								<input type="file" name="file" id="upload-hidden" accept="image/*">
 								<nav id="fileDelbtn"></nav>
@@ -60,8 +60,8 @@
 						</td>
 					</tr>
 				</table>
-				<input type="hidden" name="post_id" value="${noticeVo.post_id}">
-				<input type="hidden" name="image_id" value="${noticeVo.image_id}">
+				<input type="hidden" name="post_id" value="${notice.post_id}">
+				<input type="hidden" name="image_id" value="${notice.image_id}">
 			</form>
 		</div>
 	</div>

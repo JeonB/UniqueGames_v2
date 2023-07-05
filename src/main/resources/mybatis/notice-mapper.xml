@@ -5,7 +5,7 @@
 <mapper namespace="com.uniqueGames.repository.NoticeMapper">
 
 	<!-- 공지사항 리스트 -->
-	<select id="selectNotice" resultType="NoticeVo">
+	<select id="selectNotice" resultType="Notice">
 		SELECT *
 		FROM (
 					 SELECT row_number() over(order by NOTICE_DATE DESC, POST_ID DESC) as RNO
@@ -24,7 +24,7 @@
 	</select>
 
 	<!-- 공지사항 리스트 검색 -->
-	<select id="searchList" resultType="NoticeVo">
+	<select id="searchList" resultType="Notice">
 		SELECT *
 		FROM (
 			SELECT row_number() over(order by NOTICE_DATE DESC, POST_ID DESC) as RNO
@@ -44,7 +44,7 @@
 	</select>
 
 	<!-- 공지사항 작성 -->
-	<insert id="insertNotice" parameterType="NoticeVo">
+	<insert id="insertNotice" parameterType="Notice">
         <selectKey resultType="int" keyProperty="post_id" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
@@ -66,7 +66,7 @@
 	</insert>
 
 	<!-- 공지사항 상세 보기 -->
-	<select id="selectContent" resultType="NoticeVo">
+	<select id="selectContent" resultType="Notice">
 		SELECT 	NOTICE.POST_ID,
 				NOTICE.COMPANY_ID,
 		        NAME,
@@ -85,7 +85,7 @@
 	</select>
 
 	<!-- 공지사항 수정 -->
-	<update id="updateNotice" parameterType="NoticeVo">
+	<update id="updateNotice" parameterType="Notice">
 		UPDATE NOTICE
 		SET TITLE = #{title},
 			CONTENT = #{content}
@@ -115,7 +115,7 @@
 	</update>
 
 	<!-- 공지사항 작성 이미지 첨부 -->
-	<insert id="insertFile" parameterType="NoticeVo">
+	<insert id="insertFile" parameterType="Notice">
 		INSERT INTO NOTICE_IMAGE (
 			IMAGE_ID,
 			POST_ID,
@@ -131,7 +131,7 @@
 	</insert>
 
 	<!-- 공지사항 수정 이미지 덮어쓰기 -->
-	<update id="updateFile" parameterType="NoticeVo">
+	<update id="updateFile" parameterType="Notice">
 		UPDATE NOTICE_IMAGE
 		SET IMAGE_ID = #{image_id},
 		UPLOAD_FILE = #{upload_file}
@@ -139,7 +139,7 @@
 	</update>
 
 	<!-- 수정하는 글에 이미지가 없었을 경우 컬럼 생성 -->
-	<insert id="updateUploadFile" parameterType="NoticeVo">
+	<insert id="updateUploadFile" parameterType="Notice">
 		INSERT INTO
 		NOTICE_IMAGE (
 		IMAGE_ID,
@@ -154,13 +154,13 @@
 	</insert>
 	
 	<!-- 수정시 파일 업로드 취소하면 삭제 -->
-	<delete id="deleteFile" parameterType="NoticeVo">
+	<delete id="deleteFile" parameterType="Notice">
 		DELETE FROM NOTICE_IMAGE
 		WHERE POST_ID = #{post_id}	
 	</delete>
 
 	<!-- 글에 이미지 컬럼 존재 여부 체크 -->
-	<select id="fileCheck" parameterType="NoticeVo" resultType="int">
+	<select id="fileCheck" parameterType="Notice" resultType="int">
 		SELECT COUNT(*)
 		FROM NOTICE_IMAGE
 		WHERE POST_ID = #{post_id}
