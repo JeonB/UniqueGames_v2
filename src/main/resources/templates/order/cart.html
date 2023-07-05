@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Unique Games</title>
-  <link rel="stylesheet" href="css/order_style.css">
+  <link rel="stylesheet" href="css/order.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
   <script src="js/cart_script.js"></script>
 </head>
@@ -45,7 +45,7 @@
             <p><a th:text="${cart.gametitle}"></a></p>
           </td>
           <td>
-            <fmt:formatNumber type="currency" th:value="${cart.amount}" />
+            <p><a th:text="${cart.amount}"></a></p>
           </td>
           <td>
             <a th:href="@{/cart_delete_one(id=${cart.id})}" id="a-delete">

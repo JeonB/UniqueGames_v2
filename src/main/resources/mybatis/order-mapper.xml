@@ -4,7 +4,7 @@
   
 <mapper namespace="mapper.orderMapper">
 	<!-- Cart -->
-	<select id="getCartList" parameterType="String" resultType="OrderVo">
+	<select id="getCartList" parameterType="String" resultType="Order">
 		SELECT ID, G_ID, GAME_IMG, GAMETITLE, AMOUNT 
 		FROM ORDERS WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{m_id} 
 	</select>
@@ -24,12 +24,12 @@
 		WHERE ID = #{id}  
 	</delete>
 
-	<insert id="insertCart" parameterType="OrderVo">
+	<insert id="insertCart" parameterType="Order">
 		INSERT INTO ORDERS( M_ID, C_ID, G_ID, AMOUNT,GAMETITLE, GAME_IMG) VALUES (#{m_id},#{c_id},#{g_id},#{amount},#{gametitle},#{game_img})
 	</insert>
 	
 	<!-- Order -->
-	<select id="getOrderList" parameterType="int" resultType="OrderVo">
+	<select id="getOrderList" parameterType="int" resultType="Order">
 		SELECT ID, G_ID, GAME_IMG, GAMETITLE, AMOUNT 
 		FROM ORDERS WHERE ID = #{id}
 	</select>
@@ -45,7 +45,7 @@
 	</select>
 	
 	<!-- Details -->
-	<select id="getPaymentDetail" parameterType="map" resultType="OrderVo">
+	<select id="getPaymentDetail" parameterType="map" resultType="Order">
 		<if test='array == "orderdate_desc"'>
 			SELECT ROW_NUMBER() OVER(ORDER BY ORDER_DATE DESC) AS RNO, </if>
 		<if test='array == "orderdate_asc"'>
@@ -69,7 +69,7 @@
 		AND PAYMENT_STATUS = 'COMPLETE' 
 	</select>
 	
-	<select id="getDonationDetail" parameterType="map" resultType="OrderVo">
+	<select id="getDonationDetail" parameterType="map" resultType="Order">
 		<if test='array == "orderdate_desc"'>
 			SELECT ROW_NUMBER() OVER(ORDER BY DATE_FORMAT(ORDER_DATE, '%y-%m') DESC) AS RNO, </if>
 		<if test='array == "orderdate_asc"'>
@@ -94,7 +94,7 @@
 		WHERE C_ID = #{c_id} AND PAYMENT_STATUS = 'COMPLETE' 
 	</select>
 		
-	<select id="getDonationRank" parameterType="String" resultType="OrderVo">
+	<select id="getDonationRank" parameterType="String" resultType="Order">
 		SELECT ROW_NUMBER() OVER(ORDER BY SUM(AMOUNT) DESC) AS RNO, 
 		M.MEMBER_ID USERID, O.GAMETITLE, SUM(AMOUNT) FROM ORDERS AS O 
 		INNER JOIN MEMBER AS M ON O.M_ID = M.ID 

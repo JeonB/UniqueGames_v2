@@ -1,8 +1,14 @@
 package com.uniqueGames.controller;
 
 
+
 import com.uniqueGames.model.*;
 import com.uniqueGames.model.Company;
+import com.uniqueGames.model.CompanyVo;
+import com.uniqueGames.model.GameVo;
+import com.uniqueGames.model.MemberVo;
+import com.uniqueGames.model.Order;
+import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.OrderServiceImpl;
 
 import java.util.ArrayList;
@@ -29,23 +35,23 @@ public class CartController {
 		/*
 		* orderService의 데이터 insert 기능 추가
 		* */
-		OrderVo orderVo = orderService.addToOrderVo(
-				member.getMemberId(),
-				company.getCompanyId(),
+		Order order = orderService.addToOrderVo(
+				memberVo.getMember_id(),
+				companyVo.getCompany_id(),
+
 				gameVo.getId(),
 				Integer.parseInt(selectedValue),
 				gameVo.getName(),
 				gameVo.getImage_path()
 				);
-		orderService.insertCart(orderVo);
+		orderService.insertCart(order);
 		return "order/cart";
 	}
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
-	public ModelAndView cart(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member) {
-		System.out.println(member.getMemberId());
-
+	public ModelAndView cart(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member) {
 		ModelAndView model = new ModelAndView();
-		ArrayList<OrderVo> cartList = orderService.getCartList(member.getMemberId());
+		ArrayList<Order> cartList = orderService.getCartList(member.getMember_id());
+		System.out.println(member.getMember_id());
 
 		if (cartList.size() > 0) {
 			model.addObject("cartList", cartList);

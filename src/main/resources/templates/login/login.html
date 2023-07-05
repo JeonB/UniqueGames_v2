@@ -58,12 +58,14 @@
     <div>
       <ul>
         <li>
-          <input type="text" name="companyId" placeholder="법인 아이디" th:value="${company?.companyId}">
-          <span class="msgId"></span>
+
+          <input type="text" id="input-common" name="company_id" placeholder="법인 아이디" th:value="${company?.company_id}">
+          <span id="msgId"></span>
         </li>
         <li>
-          <input type="password" class="c-input-common" name="password" placeholder="비밀번호" size="15" th:value="${company?.password}">
-          <span class="msgPwd"></span>
+          <input type="password" id="c-input-common" name="password" placeholder="비밀번호" size="15" th:value="${company?.password}">
+          <span id="msgPwd"></span>
+
         </li>
         <li>
           <button type="button" class="button-gradient" id="company">LOGIN</button>
