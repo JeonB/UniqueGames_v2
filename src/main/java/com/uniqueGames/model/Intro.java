@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 //VO(Value Object)
-public class IntroVo {
+public class Intro {
 
     /**
      * 회사(팀) 소개글 저장 객체

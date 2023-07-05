@@ -1,7 +1,7 @@
 package com.uniqueGames.repository;
 
 
-import com.uniqueGames.model.IntroVo;
+import com.uniqueGames.model.Intro;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface DetailMapper {
-    void insertIntro(IntroVo vo);
-    IntroVo getIntro(int id);
-    void updateIntro(IntroVo vo);
+    void insertIntro(Intro vo);
+    Intro getIntro(int id);
+    void updateIntro(Intro vo);
     void deleteIntro(int id);
-    List<IntroVo> getIntroList();
+    List<Intro> getIntroList();
 }

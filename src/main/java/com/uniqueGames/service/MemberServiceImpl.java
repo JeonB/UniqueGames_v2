@@ -22,7 +22,6 @@ public class MemberServiceImpl implements MemberService {
 		
 		return memberDao.insert(memberVo);
 	}
-
 	@Override
 	public String memberIdCheckResult(String member_id) {
 		int result = memberDao.idCheck(member_id);
@@ -46,7 +45,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int memberChangePwdResult(String member_id, String name, String phone_num) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

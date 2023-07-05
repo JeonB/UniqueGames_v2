@@ -1,17 +1,17 @@
 package com.uniqueGames.service;
 
 
-import com.uniqueGames.model.IntroVo;
+import com.uniqueGames.model.Intro;
 import java.util.List;
 
 public interface CompanyService {
-    void insertIntro(IntroVo vo);
+    void insertIntro(Intro vo);
 
-    void updateIntro(IntroVo vo);
+    void updateIntro(Intro vo);
 
-    void deleteIntro(IntroVo vo);
+    void deleteIntro(Intro vo);
 
-    IntroVo getIntro(int companyId);
+    Intro getIntro(int companyId);
 
-    List<IntroVo> getIntroList();
+    List<Intro> getIntroList();
 }

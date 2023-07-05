@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class DeleteAccountController {
 	
 	@Autowired
-	private MemberService memberSerivce;
+	private MemberService memberService;
 	
 	@Autowired
 	private CompanyMemberService companyMemberService;
@@ -46,7 +46,7 @@ public class DeleteAccountController {
 	@RequestMapping(value="/delete_check", method=RequestMethod.POST)
 	@ResponseBody
 	public String delete_check(MemberVo memberVo, HttpSession session) {
-		int result = memberSerivce.memberDeleteResult(memberVo);
+		int result = memberService.memberDeleteResult(memberVo);
 		
 		if(result==1) {
 			session.invalidate();

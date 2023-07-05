@@ -1,6 +1,6 @@
 package com.uniqueGames.controller;
 
-import com.uniqueGames.model.IntroVo;
+import com.uniqueGames.model.Intro;
 import com.uniqueGames.repository.DetailMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,7 @@ public class TestController {
     DetailMapper detailMapper;
     @GetMapping("/test")
     String dbConVerify(){
-        IntroVo vo = detailMapper.getIntro(2);
+        Intro vo = detailMapper.getIntro(2);
         return "연결 확인!";
     }
 }
