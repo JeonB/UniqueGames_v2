@@ -8,15 +8,15 @@
     <title>Unique Games</title>
     <link rel="stylesheet" type="text/css" href="/css/mainunigames.css">
 	<style>
-		#btn-hearder-search {
+		.btn-hearder-search {
 			border:none;
 			background-color: rgba( 255, 255, 255, 0 );
 			width: 40px;
 		    padding: 4px 6px 4px 6px;
 		    
 		}
-		#input-search {
-	        background-image: url('/images/icon_search_header.png');
+		.input-search {
+	        background-image: url('/images/icon-search-header.png');
 	        background-repeat: no-repeat;
 	        background-position: 15px center; 
 	        background-size: 16px; 
@@ -35,7 +35,7 @@
 	        top: 60px;
 	        right: 170px;
    		}
-        #member_id_header {
+        .member_id_header {
             font-family: "YouandiModern", sans-serif;
             font-size: 14px;
             color: #ffffff;
@@ -44,7 +44,7 @@
             padding: 5px;
             padding-right: 10px;
         }
-        #logout_header {
+        .logout_header {
             padding-left:10px ;
             width: 80px;
         }
@@ -53,30 +53,30 @@
 
 <body>
     <header>
-        <div id="header-top-menu">
+        <div class="header-top-menu">
             <c:choose>
                 <c:when test="${sessionScope.loginMember.name == null}">
-                <nav id="nav1">
+                <nav class="nav1">
                     <ul>
                         <li><a href="/login">Login</a></li>
                         <li><a href="/join">Join</a></li>
-<%--                        <li><a href="/myPage"><img src="/images/img_icon_mypage.png"></a></li>--%>
-<%--                        <li><a href="/cart?m_id=mtest"><img src="/images/img_icon_cart.png"></a></li>--%>
-                        <li><button type="button" id="btn-hearder-search" onclick="toggleSearch()"><img src="/images/img_icon_search.png"></button></li>
+<%--                        <li><a href="/myPage"><img src="/images/img-icon-mypage.png"></a></li>--%>
+<%--                        <li><a href="/cart?m_id=mtest"><img src="/images/img-icon-cart.png"></a></li>--%>
+                        <li><button type="button" class="btn-hearder-search" onclick="toggleSearch()"><img src="/images/img-icon-search.png"></button></li>
                     </ul>
                 </nav>
                 </c:when>
                 <c:otherwise>
-                    <nav id="nav1">
+                    <nav class="nav1">
                         <ul>
-                            <li id="member_id_header">${sessionScope.loginMember.name}님 반갑습니다.</li>
-                            <li id="logout_header"><a href="/logout" target="_parent">Logout</a></li>
+                            <li class="member_id_header">${sessionScope.loginMember.name}님 반갑습니다.</li>
+                            <li class="logout_header"><a href="/logout" target="_parent">Logout</a></li>
 <%--                            <li><a href="/join">Join</a></li>--%>
                             <li><a href="/myPage"><img src="/images/img_icon_mypage.png"></a></li>
                             <c:if test="${sessionScope.login == 'member' }">
                             	<li><a href="/cart"><img src="/images/img_icon_cart.png"></a></li>
                             </c:if>
-                            <li><button type="button" id="btn-hearder-search" onclick="toggleSearch()"><img src="/images/img_icon_search.png"></button></li>
+                            <li><button type="button" class="btn-hearder-search" onclick="toggleSearch()"><img src="/images/img_icon_search.png"></button></li>
                         </ul>
                     </nav>
                 </c:otherwise>
@@ -85,13 +85,13 @@
 <%--    			<input type="text" id="input-search" placeholder="검색하실 게임 이름을 입력해주세요.">--%>
 <%--    		</div>--%>
         </div>
-        <div id="hearder-logo">
+        <div class="hearder-logo">
             <a href="/" target="_parent">
                 <img src="/images/img_title_logo.png">
             </a>
         </div>
-        <div id="header-bottom-menu">
-            <nav id="nav2">
+        <div class="header-bottom-menu">
+            <nav class="nav2">
                 <ul>
                     <li><a href="/topgame">Top Game</a></li>
                     <li><a href="/alllist">All List</a></li>

@@ -1,0 +1,542 @@
+/* Main style */
+.content-main {
+    display: block;
+    width: 100%;
+    margin: auto;
+}
+
+.slide-text {
+    width: 1100px;
+    margin: auto;
+}
+
+.slide-text h2 {
+    font-family: "YouandiModern", sans-serif;
+    font-size: 32px;
+    color: #fff;
+    padding-bottom: 32px;
+}
+
+.slide-text p {
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 28px;
+    color: #fff;
+    padding-bottom: 45px;
+}
+
+.slide-text h1 {
+    font-family: "Apex New", sans-serif;
+    font-size: 100px;
+    font-weight: bold;
+    font-style: italic;
+    color: #fff;
+    padding-bottom: 10px;
+}
+
+.btn-main-style {
+    font-family: "YouandiModern", sans-serif;
+    font-size: 18px;
+    color: #fff;
+    border: 2px solid #FFFFFF;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 20px 50px;
+}
+
+.btn-style-main-left {
+    position: absolute;
+    top: 300px;
+    left: 300px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+.btn-style-main-right {
+    position: absolute;
+    top: 300px;
+    right: 300px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+.menu-topGame {
+    padding: 60px 0;
+    margin-left: 410px;
+    display: block;
+    text-align: center;
+}
+
+.topGame-title, .recommendations-title, .solution-title, .allList-title
+{
+    display: block;
+    text-align: center;
+    margin: auto;
+}
+
+.allList-title, .topGame-title {
+    margin-top: 60px;
+}
+
+.sub-title {
+    padding-top: 20px;
+    padding-bottom: 60px;
+    display: block;
+    text-align: center;
+    margin: auto;
+}
+
+.topGame-list {
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
+.tList-detail {
+    display: inline-block;
+    width: 100%;
+    height: 240px;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.tList-detail img {
+    float: right;
+}
+
+.tList-detail div p:nth-child(1) {
+    position: absolute;
+    float: left;
+    top: 59px;
+    font-family: "Apex New", sans-serif;
+    font-weight: bold;
+    font-size: 70px;
+    font-style: italic;
+    color: #682CAD;
+}
+
+.cyber2 {
+    position: absolute;
+    font-family: "YouandiModern", sans-serif;
+    font-size: 16px;
+}
+
+.cyber {
+    position: relative;
+    float: left;
+    top: 10px;
+    left: 64px;
+    font-family: "YouandiModern", sans-serif;
+    font-weight: bold;
+    font-size: 26px;
+    font-style: italic;
+}
+
+.tList-detail div p:nth-child(3) {
+    position: absolute;
+    float: left;
+    top: 104px;
+    left: 64px;
+    font-family: "YouandiModern", sans-serif;
+    font-size: 16px;
+}
+
+.btn-readmore-topGame {
+    top: 160px;
+    left: 64px;
+    position: absolute;
+    float: left;
+    display: block;
+    width: 180px;
+    height: 60px;
+    border: 2px solid #000;
+    color: #000;
+    background-color: rgba(0, 0, 0, 0.0);
+    font-size: 18px;
+    font-family: "YouandiModern", sans-serif;
+}
+
+.tList {
+    display: inline-block;
+    width: 500px;
+    height: 320px;
+    position: relative;
+    margin-right: 40px;
+    margin-bottom: 20px;
+}
+
+.tList div p:nth-child(1) {
+    position: absolute;
+    float: left;
+    top: 260px;
+    left: 20px;
+    font-family: "Apex New", sans-serif;
+    font-weight: bold;
+    font-size: 56px;
+    font-style: italic;
+}
+
+.tList div p:nth-child(2) {
+    text-align: left;
+    margin-top: 20px;
+    margin-left: 70px;
+    font-family: "Apex New", sans-serif;
+    font-weight: bold;
+    font-size: 26px;
+    font-style: italic;
+}
+
+.tList div p:nth-child(3) {
+    text-align: left;
+    margin-top: 50px;
+    margin-left: 64px;
+    font-family: "YouandiModern", sans-serif;
+    font-size: 16px;
+}
+
+.readmore-plus {
+    position: absolute;
+    float: right;
+    top: 270px;
+    right: 20px;
+    border: 1px solid #fff;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.menu-main1, .menu-main3 {
+    background-color: #F2F2F2;
+    background-size: cover;
+    width: auto;
+    padding-top: 60px;
+}
+
+.menu-recommendations>img:first-child {
+    text-align: center;
+    padding-bottom: 60px;
+}
+
+.gameList {
+    padding-top: 60px;
+    overflow: visible;
+}
+
+.recommendList {
+    overflow: visible;
+}
+
+.menu-recommendations, .menu-allList, .menu-solution {
+    display: block;
+    width: 1100px;
+    margin: auto;
+    padding-bottom: 100px;
+}
+
+.rList {
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 260px;
+    height: 392px;
+    box-shadow: 0px 5px 10px #0000001A;
+    position: relative;
+    margin: 0 5px;
+    background-color: #fff;
+}
+
+.rList ul, .gList ul {
+    list-style-type: none;
+    padding: 14px;
+}
+
+.rList ul li:nth-child(1) {
+    border-radius: 10px;
+    background: linear-gradient(to right, #682CAD, #2FC0CC);
+    width: 45px;
+    height: 16px;
+    text-align: center;
+    color: #fff;
+    font-family: "Apex New", sans-serif;
+    font-size: 13px;
+    font-style: italic;
+    font-weight: bold;
+    padding-bottom: 2px;
+}
+
+.rList ul li:nth-child(2) {
+    color: #000;
+    font-family: "Apex New", sans-serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+    padding-top: 14px;
+}
+
+.rList ul li:nth-child(3) {
+    color: #000;
+    font-family: "YouandiModern", sans-serif;
+    font-size: 13px;
+    padding-top: 10px;
+}
+
+.rList ul li:nth-child(4) {
+    float: right;
+    padding-top: 14px;
+}
+
+.gList ul li:nth-child(1) {
+    color: #000;
+    font-family: "Apex New", sans-serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.gList ul li:nth-child(2) {
+    color: #000;
+    font-family: "YouandiModern", sans-serif;
+    font-size: 13px;
+    padding-bottom: 10px;
+}
+
+.btn-like-style {
+    border: none;
+    background: url(" ../images/btn-heart-normal.png ") no-repeat;
+    width: 18px;
+    height: 14px;
+    cursor: pointer;
+    float: left;
+    margin-top: 2px;
+}
+
+.gList ul li:nth-child(4) {
+    color: #C5C9D3;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 12px;
+}
+
+.gList ul li:nth-child(5) {
+    position: absolute;
+    right: 14px;
+    bottom: 10px;
+}
+
+.rList div {
+    position: absolute;
+    bottom: 0px;
+    float: left;
+    display: block;
+}
+
+.btn-recommend-style {
+    width: 260px;
+    height: 50px;
+    background: linear-gradient(to right, #682CAD, #2FC0CC);
+    border: 0px solid #fff;
+    color: #fff;
+    font-family: "YouandiModern", sans-serif;
+    font-size: 16px;
+}
+
+.gList {
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 260px;
+    height: 310px;
+    box-shadow: 0px 5px 10px #0000001A;
+    position: relative;
+    margin: 0 5px 40px 5px;
+    background-color: #fff;
+}
+
+.menu-solution>table {
+    background-color: #fff;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #DDDDDD;
+    border-top: 2px solid #393939;
+    border-bottom: 2px solid #393939;
+}
+
+.menu-solution>table th {
+    font-family: "YouandiModern", sans-serif;
+    font-size: 16px;
+    border-bottom: 1px solid #DDDDDD;
+    background-color: #F2F2F2;
+}
+
+.menu-solution>table td {
+    font-family: "YouandiModern", sans-serif;
+    font-size: 15px;
+}
+
+.menu-solution>table th, .menu-solution>table td {
+    padding: 18px;
+    text-align: center;
+}
+
+.menu-solution>table tr>th:first-child, .menu-solution>table tr>td:first-child,
+.menu-solution>table tr>th:nth-child(2), .menu-solution>table tr>td:nth-child(2)
+{
+    padding: 8px;
+}
+
+.menu-solution a {
+    text-decoration: none;
+    color: #000;
+}
+
+.btn-solution {
+    width: 260px;
+    height: 50px;
+    margin-right: 10px;
+    background: linear-gradient(45deg, #682CAD, #2FC0CC);
+    border: none;
+    font-family: "YouandiModern", sans-serif;
+    font-size: 16px;
+    letter-spacing: 0px;
+    color: #FFF;
+    opacity: 1;
+    cursor: pointer;
+}
+
+.solution-btn-area {
+    text-align: center;
+    margin-top: 40px;
+}
+.swiper {
+    width: 100%;
+    height: 660px;
+    position: relative;
+}
+
+.swiper .swiper-slide {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after{
+    content: "";
+    display: none;
+}
+.swiper-button-prev,
+.swiper-button-next {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 300px;
+    z-index: 1;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.swiper-button-prev {
+    left: 10px;
+}
+.swiper-button-next {
+    right: 10px;
+}
+.silde1, .silde2, .silde3, .silde4 {
+    background-image: url("../images/img-game-deexit1.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+.silde2 {
+    background-image: url("../images/img-game-street4.jpg");
+}
+.silde3 {
+    background-image: url("../images/img-game-vampire1.jpg");
+}
+.silde4 {
+    background-image: url("../images/img-game-last4.jpg");
+}
+.swiper-button-next button, .swiper-button-prev button {
+    background-color: rgba( 255, 255, 255, 0 );
+    border: none;
+}
+.swiper-button-next {
+    margin-right: 300px;
+}
+.swiper-button-prev {
+    margin-left: 300px;
+}
+.slide-text {
+    margin-top: 150px;
+}
+.swiper-pagination-bullet {
+    background-color: #ffffff;
+}
+
+
+.swiper-button-prev::after, .swiper-button-next::after {
+    content: "";
+    display: none;
+}
+
+.swiper-button-prev, .swiper-button-next {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 300px;
+    z-index: 1;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-button-prev {
+    left: 10px;
+}
+
+.swiper-button-next {
+    right: 10px;
+}
+
+.silde1, .silde2, .silde3, .silde4 {
+    background-image: url("../images/img-game-deexit1.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.silde2 {
+    background-image: url("../images/img-game-street4.jpg");
+}
+
+.silde3 {
+    background-image: url("../images/img-game-vampire1.jpg");
+}
+
+.silde4 {
+    background-image: url("../images/img-game-last4.jpg");
+}
+
+.swiper-button-next button, .swiper-button-prev button {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+.swiper-button-next {
+    margin-right: 300px;
+}
+
+.swiper-button-prev {
+    margin-left: 300px;
+}
+
+.slide-text {
+    margin-top: 150px;
+}
+
+.swiper-pagination-bullet {
+    background-color: #ffffff;
+}
+.menu-solution>table tr>td:nth-child(2) {
+    text-align: left;
+    padding-left: 40px;
+}
+.menu-solution>table tr>th:nth-child(2) {
+    width: 600px;
+}

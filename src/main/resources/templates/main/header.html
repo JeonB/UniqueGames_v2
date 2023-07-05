@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Unique Games</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
   <style>
     .btn-hearder-search {
       border:none;
       background-color: rgba( 255, 255, 255, 0 );
       width: 40px;
       padding: 4px 6px 4px 6px;
-
     }
-    #input-search {
-      background-image: url('/images/icon_search_header.png');
+
+    .input-search {
+      background-image: url("/images/icon-search-header.png");
       background-repeat: no-repeat;
       background-position: 15px center;
       background-size: 16px;
@@ -32,7 +32,7 @@
       top: 60px;
       right: 170px;
     }
-    #member_id_header {
+    .member_id_header {
       font-family: "YouandiModern", sans-serif;
       font-size: 14px;
       color: #ffffff;
@@ -41,47 +41,52 @@
       padding: 5px;
       padding-right: 10px;
     }
-    #logout_header {
+    .logout_header {
       padding-left:10px ;
       width: 80px;
     }
   </style>
 </head>
-
-<body>
 <header th:fragment="headerFragment">
-  <div id="header-top-menu">
-    <div th:if="${session.loginMember?.name == null}">
-      <nav class="nav1">
-        <ul>
-          <li><a href="/login">Login</a></li>
-          <li><a href="/join">Join</a></li>
-          <li><button type="button" class="btn-hearder-search" onclick="toggleSearch()"><img src="/images/img_icon_search.png"></button></li>
-        </ul>
-      </nav>
-    </div>
-    <div th:if="${session.loginMember?.name != null}">
-      <nav class="nav1">
-        <ul>
-          <li id="member_id_header" th:text="${session.loginMember?.name + '님 반갑습니다.'}"></li>
-          <li id="logout_header"><a href="/logout" target="_parent">Logout</a></li>
-          <li><a href="/myPage"><img src="/images/img_icon_mypage.png"></a></li>
-          <li th:if="${session.login == 'member'}"><a href="/cart"><img src="/images/img_icon_cart.png"></a></li>
-          <li><button type="button" class="btn-hearder-search" onclick="toggleSearch()"><img src="/images/img_icon_search.png"></button></li>
-        </ul>
-      </nav>
-    </div>
+<body>
+<header>
+  <div class="header-top-menu">
+    <c:choose>
+      <c:when test="${sessionScope.loginMember.name == null}">
+        <nav class="nav1">
+          <ul>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/join">Join</a></li>
+            <%--                        <li><a href="/myPage"><img src="/images/img-icon-mypage.png"></a></li>--%>
+            <%--                        <li><a href="/cart?m_id=mtest"><img src="/images/img-icon-cart.png"></a></li>--%>
+          </ul>
+        </nav>
+      </c:when>
+      <c:otherwise>
+        <nav class="nav1">
+          <ul>
+            <li class="member_id_header">${sessionScope.loginMember.name}님 반갑습니다.</li>
+            <li class="logout_header"><a href="/logout" target="_parent">Logout</a></li>
+            <%--                            <li><a href="/join">Join</a></li>--%>
+            <li><a href="/myPage"><img src="/images/img-icon-mypage.png"></a></li>
+            <c:if test="${sessionScope.login == 'member' }">
+              <li><a href="/cart"><img src="/images/img-icon-cart.png"></a></li>
+            </c:if>
+          </ul>
+        </nav>
+      </c:otherwise>
+    </c:choose>
   </div>
-  <div id="hearder-logo">
+  <div class="hearder-logo">
     <a href="/" target="_parent">
-      <img src="/images/img_title_logo.png">
+      <img src="/images/img-title-logo.png">
     </a>
   </div>
-  <div id="header-bottom-menu">
-    <nav id="nav2">
+  <div class="header-bottom-menu">
+    <nav class="nav2">
       <ul>
         <li><a href="/topgame">Top Game</a></li>
-        <li><a href="/allList">All List</a></li>
+        <li><a href="/alllist">All List</a></li>
         <li><a href="/#menu-main1">Recommendations</a></li>
         <li><a href="/notice_list">Notice</a></li>
         <li><a href="/detail/getIntroList">Team Intro</a></li>
@@ -89,27 +94,5 @@
     </nav>
   </div>
 </header>
-<script>
-  /* 검색창 토글 함수 */
-  function toggleSearch() {
-    var searchContainer = $('#search-container');
-    searchContainer.toggle();
-  }
-
-  /* 엔터 키 이벤트 핸들러 */
-  $(document).on('keydown', '#input-search', function(event) {
-    if (event.which === 13) {
-      var inputText = $(this).val();
-      console.log('입력한 텍스트:', inputText);
-      // 입력한 텍스트를 원하는 방식으로 처리할 수 있습니다.
-      // 예: 서버로 전송, 검색 실행 등
-    }
-  });
-
-  /* 페이지 로드 시 검색창 초기화 */
-  $(document).ready(function() {
-    $('#search-container').hide();
-  });
-</script>
 </body>
 </html>
