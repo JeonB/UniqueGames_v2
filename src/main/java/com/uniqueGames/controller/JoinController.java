@@ -48,8 +48,8 @@ public class JoinController {
 	
 	@RequestMapping(value="/id_check", method=RequestMethod.GET)
 	@ResponseBody
-	public String id_check(String member_id) {
-		int result = memberService.memberIdCheckResult(member_id);
+	public String id_check(String memberId) {
+		int result = memberService.memberIdCheckResult(memberId);
 		return String.valueOf(result);
 	}
 	
@@ -67,9 +67,9 @@ public class JoinController {
 	@RequestMapping(value="/phone_check", method=RequestMethod.POST)
 	@ResponseBody
 	public String phone_check(String phone1, String phone2, String phone3) {
-		String phone_num = phone1+"-"+phone2+"-"+phone3;
+		String phoneNum = phone1+"-"+phone2+"-"+phone3;
 		
-		int result = memberService.memberPhoneCheckResult(phone_num);
+		int result = memberService.memberPhoneCheckResult(phoneNum);
 		return String.valueOf(result);
 	}
 	
@@ -97,8 +97,8 @@ public class JoinController {
 	
 	@RequestMapping(value="/c_id_check", method=RequestMethod.GET)
 	@ResponseBody
-	public String c_id_check(String company_id) {
-		int result = companyMemberService.companyIdCheckResult(company_id);
+	public String c_id_check(String companyId) {
+		int result = companyMemberService.companyIdCheckResult(companyId);
 		
 		return String.valueOf(result);
 	}
@@ -119,9 +119,9 @@ public class JoinController {
 	@RequestMapping(value="/c_phone_check", method=RequestMethod.POST)
 	@ResponseBody
 	public String c_phone_check(String phone1, String phone2, String phone3) {
-		String phone_num = phone1+"-"+phone2+"-"+phone3;
+		String phoneNum = phone1+"-"+phone2+"-"+phone3;
 		
-		int result = companyMemberService.companyPhoneCheckResult(phone_num);
+		int result = companyMemberService.companyPhoneCheckResult(phoneNum);
 		return String.valueOf(result);
 	}
 	

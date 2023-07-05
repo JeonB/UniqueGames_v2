@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MemberDao{
+public class MemberRepository {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
@@ -94,8 +94,8 @@ public class MemberDao{
 	}
 	
 	/**phone check*/
-	public int phoneCheck(String phone_num) {
-		return sqlSession.selectOne("mapper.member.phoneCheck", phone_num);
+	public int phoneCheck(String phoneNum) {
+		return sqlSession.selectOne("mapper.member.phoneCheck", phoneNum);
 	}
 	
 	

@@ -5,7 +5,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CompanyDao {
+public class CompanyRepository {
 
 	private SqlSessionTemplate sqlSession;
 	
@@ -19,8 +19,8 @@ public class CompanyDao {
 		return sqlSession.insert("mapper.companyMember.insert", company);
 	}
 	/**id checking*/
-	public int idCheck(String company_id) {
-		return sqlSession.selectOne("mapper.companyMember.idCheck", company_id);
+	public int idCheck(String companyId) {
+		return sqlSession.selectOne("mapper.companyMember.idCheck", companyId);
 	}
 	
 	/**find-id-check*/
@@ -36,16 +36,16 @@ public class CompanyDao {
 		return sqlSession.update("mapper.companyMember.update", company);
 	}
 	
-	public Company companyPage(String company_id) {
-		return sqlSession.selectOne("mapper.companyMember.companyPage", company_id);
+	public Company companyPage(String companyId) {
+		return sqlSession.selectOne("mapper.companyMember.companyPage", companyId);
 	}
 	
 	public int changeCpassword(Company company) {
 		return sqlSession.update("mapper.companyMember.changeCpassword", company);
 	}
 	
-	public String getGameNameByCID(String company_id) {
-		return sqlSession.selectOne("mapper.companyMember.getGameName", company_id);
+	public String getGameNameByCID(String companyId) {
+		return sqlSession.selectOne("mapper.companyMember.getGameName", companyId);
 	}
 	
 	public int deleteCompany(Company company) {
@@ -56,8 +56,8 @@ public class CompanyDao {
 		return sqlSession.selectOne("mapper.companyMember.emailCheck", email);
 	}
 	
-	public int phoneCheck(String phone_num) {
-		return sqlSession.selectOne("mapper.companyMember.phoneCheck", phone_num);
+	public int phoneCheck(String phoneNum) {
+		return sqlSession.selectOne("mapper.companyMember.phoneCheck", phoneNum);
 	}
 	
 }

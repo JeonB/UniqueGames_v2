@@ -82,7 +82,7 @@
 					<input type="hidden" name="post_id" value="${noticeVo.post_id}">
 					<c:choose>
 						<c:when test='${fn:contains(loginMember, "CompanyVo")}'>
-							<input type="hidden" id="member_id" name="member_id" value="${loginMember.company_id}">
+							<input type="hidden" id="member_id" name="member_id" value="${loginMember.companyId}">
 						</c:when>
 						<c:when test='${fn:contains(loginMember, "MemberVo")}'>
 							<input type="hidden" id="member_id" name="member_id" value="${loginMember.member_id}">

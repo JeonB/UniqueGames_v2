@@ -76,7 +76,7 @@ public class NoticeController {
 			HttpServletRequest request, RedirectAttributes attributes) throws Exception {
 
 		noticeVo = BoardUtil.fileUtil(request, noticeVo);
-		noticeVo.setCompany_id(cvo.getCompany_id());
+		noticeVo.setCompany_id(cvo.getCompanyId());
 		int result = noticeService.insert(noticeVo);
 
 		if (result == 1) {

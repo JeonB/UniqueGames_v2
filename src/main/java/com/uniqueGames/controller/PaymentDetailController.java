@@ -74,7 +74,7 @@ public class PaymentDetailController {
 	@RequestMapping(value = "/donation_detail_data", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String donation_detail_data(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Company company, String array) {
-		String c_id = company.getCompany_id();
+		String c_id = company.getCompanyId();
 		ArrayList<OrderVo> list = orderService.getDonationDetail(c_id, array);
 
 
@@ -115,7 +115,7 @@ public class PaymentDetailController {
 	@RequestMapping(value = "/donation_rank_data", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String donation_rank_data(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Company company) {
-		String c_id = company.getCompany_id();
+		String c_id = company.getCompanyId();
 		ArrayList<OrderVo> list = orderService.getDonationRank(c_id);
 
 		// list 객체의 데이터를 JSON 형태로 생성

@@ -62,7 +62,7 @@ function memberIdDuplicate() {
           idMsg.style.color = "blue";
           idMsg.style.fontSize = "11px";
           idMsg.style.display = "inline";
-          document.getElementById("input-common-password").focus();
+          document.querySelector("input[name='password']").focus();
         }
       }
     };
@@ -81,10 +81,10 @@ function memberPassValid(){
 	return true;
 }
 
-function memberPassCheck(){
+function memberPassCheck() {
 	var passwordCheck = document.querySelector("input[name='password-check']");
-	
-	if(passwordCheck.value === "") {
+
+	if (passwordCheck.value === "") {
 		alert("비밀번호 확인은 필수입니다");
 		passwordCheck.focus();
 		return false;
@@ -93,7 +93,7 @@ function memberPassCheck(){
 }
 
 function memberPassVisible() {
-	var isChecked = document.querySelector("#pwd-check-img").checked;
+	var isChecked = document.querySelector(".pwd-check-img").checked;
 	var password = document.querySelector("input[name='password']");
 	  
 	if (!isChecked) {
@@ -104,7 +104,7 @@ function memberPassVisible() {
 }
 
 function memberPassCheckVisible() {
-	var isChecked = document.querySelector("#pwd-check-img-1").checked;
+	var isChecked = document.getElementById("pwd-check-img-1").checked;
 	var passwordCheck = document.querySelector("input[name='password-check']");
 	  
 	if (!isChecked) {
@@ -132,7 +132,7 @@ function memberNameCheck(){
 function findPwd() {
 	var id = document.getElementById("input-common-id");
 	var name = document.getElementById("input-common-name");
-	var phone_num = document.getElementById("input-common-phone");
+	var phoneNum = document.getElementById("input-common-phone");
 	
 	if(id.value === "") {
 		alert("아이디는 필수입니다");
@@ -142,9 +142,9 @@ function findPwd() {
 		alert("이름은 필수입니다");
 		name.focus();
 		return false;
-	}else if(phone_num.value === "") {
+	}else if(phoneNum.value === "") {
 		alert("휴대전화는 필수입니다");
-		phone_num.focus();
+		phoneNum.focus();
 		return false;
 	}
 	
@@ -176,7 +176,7 @@ function memberEmailCheck(){
 	}
 	return true;
 }
-
+/* 옮기기 */
 function handleEmailBlur() {
   var email1 = document.querySelector("input[name='email1']");
   var email2 = document.querySelector("input[name='email2']");
@@ -230,9 +230,9 @@ function sendEmail() {
 
   request.onreadystatechange = function () {
     if (request.readyState === 4 && request.status === 200) {
-      alert("인증번호가 전송되었습니다");
-      code = request.responseText;
-      document.querySelector("#email-auth-check").disabled = false;
+		alert("인증번호가 전송되었습니다");
+		code = request.responseText;
+		document.querySelector("#email-auth-check").disabled = false;
     }
   };
 
@@ -298,18 +298,18 @@ function memberPhoneCheck() {
 }
 
 function memberPhoneCheck1() {
-	var phone_num = document.querySelector("input[name='phone_num']");
+	var phoneNum = document.querySelector("input[name='phoneNum']");
 	
-	if(phone_num.value=="") {
+	if(phoneNum.value=="") {
 		alert("휴대전화는 필수입니다");
-		phone_num.focus();
+		phoneNum.focus();
 		return false;
 	}
 }
 
-
+/*옮기기*/
 function handlePhoneBlur() {
-	var phone1 = document.querySelector("#selectbox-phone");
+	var phone1 = document.querySelector(".selectbox-phone");
 	var phone2 = document.querySelector("input[name='phone2']");
 	var phone3 = document.querySelector("input[name='phone3']");
 	var phoneMsg = document.getElementById("phoneMsg");
@@ -424,7 +424,7 @@ function memberValidation() {
 	var password = document.querySelector("input[name='password']");
 	var passwordCheck = document.querySelector("input[name='password-check']");
 	var email1 = document.querySelector("input[name='email1']");
-	var phone1 = document.querySelector("#selectbox-phone");
+	var phone1 = document.querySelector(".selectbox-phone");
 	
 	var idMsg = document.getElementById("idMsg");
 	var pwdMsg = document.getElementById("pwdMsg");
@@ -481,55 +481,8 @@ function memberValidation() {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function companyIdPassCheck() {
-	var companyId = document.getElementById("company-id");
+	var companyId = document.querySelector(input[name='companyId']);
 	var password = document.getElementById("company-pass");
 	var loginForm = document.getElementById("company-loginForm");
 	

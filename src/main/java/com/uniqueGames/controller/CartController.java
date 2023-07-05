@@ -31,7 +31,7 @@ public class CartController {
 		* */
 		OrderVo orderVo = orderService.addToOrderVo(
 				member.getMemberId(),
-				company.getCompany_id(),
+				company.getCompanyId(),
 				gameVo.getId(),
 				Integer.parseInt(selectedValue),
 				gameVo.getName(),

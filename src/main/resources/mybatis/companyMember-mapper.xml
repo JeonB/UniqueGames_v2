@@ -6,45 +6,45 @@
 <mapper namespace="mapper.companyMember">
 
 	<select id="login" parameterType="Company" resultType="int">
-		select count(*) from company where company_id=#{company_id} and password=#{password}
+		select count(*) from company where company_id=#{companyId} and password=#{password}
 	</select>
 
 	<insert id="insert" parameterType="Company">
 		insert into company (company_id, password, name, email, tel, phone_num, addr)
-		values (#{company_id},#{password},#{name},#{email},#{tel},#{phone_num},#{addr})
+		values (#{companyId},#{password},#{name},#{email},#{tel},#{phoneNum},#{addr})
 	</insert>
 	
 	<select id="idCheck" parameterType="java.lang.String" resultType="int">
-		select count(*) from company where company_id=#{company_id}
+		select count(*) from company where company_id=#{companyId}
 	</select>
 
 	<select id="findId" parameterType="Company" resultType="java.lang.String">
-		select company_id from company where name=#{name} and phone_num=#{phone_num}
+		select company_id from company where name=#{name} and phone_num=#{phoneNum}
 	</select>
 
 	<select id="findPwd" parameterType="Company" resultType="int">
-		select count(*) from company where company_id=#{company_id} and name=#{name} and phone_num=#{phone_num}
+		select count(*) from company where company_id=#{companyId} and name=#{name} and phone_num=#{phoneNum}
 	</select>
 
 	<update id="update" parameterType="Company">
-		update company set name=#{name}, email=#{email}, addr=#{addr}, tel=#{tel}, phone_num=#{phone_num}
-		where company_id=#{company_id} and password=#{password}
+		update company set name=#{name}, email=#{email}, addr=#{addr}, tel=#{tel}, phone_num=#{phoneNum}
+		where company_id=#{companyId} and password=#{password}
 	</update>
 
 	<select id="companyPage" parameterType="java.lang.String" resultType="Company">
-		select company_id, g_id, password, name, email, tel, phone_num, addr from company where company_id=#{company_id}
+		select company_id, g_id, password, name, email, tel, phone_num, addr from company where company_id=#{companyId}
 	</select>
 	
 	<update id="changeCpassword" parameterType="Company">
-		update company set password=#{cnewpassword} where company_id=#{company_id}
+		update company set password=#{cnewpassword} where company_id=#{companyId}
 	</update>
 	
 	<select id="getGameName" parameterType="java.lang.String" resultType="java.lang.String">
-		select b.name from company a, game b where a.G_ID = b.ID and company_id=#{company_id}
+		select b.name from company a, game b where a.G_ID = b.ID and company_id=#{companyId}
 	</select>
 
 	<delete id="deleteCompany" parameterType="Company">
-		delete from company where company_id=#{company_id} and password=#{password}
+		delete from company where company_id=#{companyId} and password=#{password}
 	</delete>
 
 	<select id="emailCheck" parameterType="java.lang.String" resultType="int">
@@ -52,7 +52,7 @@
 	</select>
 	
 	<select id="phoneCheck" parameterType="java.lang.String" resultType="int">
-		select count(*) from company where phone_num=#{phone_num}
+		select count(*) from company where phone_num=#{phoneNum}
 	</select>
 
 

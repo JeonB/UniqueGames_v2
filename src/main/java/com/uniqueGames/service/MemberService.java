@@ -11,11 +11,10 @@ public interface MemberService {
 	String memberFindIdResult(Member member);
 	int memberFindPwdResult(Member member);
 	int memberUpdateResult(Member member);
-	int memberChangePwdResult(String memberId, String name, String phone_num);
 	int memberChangeMPassword(String memberId, String mnewpassword);
 	Member memberMyPageResult(String memberId);
 	int memberDeleteResult(Member member);
 	int memberEmailCheckResult(String email);
-	int memberPhoneCheckResult(String phone_num);
+	int memberPhoneCheckResult(String phoneNum);
 
 }

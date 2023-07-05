@@ -31,9 +31,9 @@
 
       $("#button-gradient-company").click(function(){
 
-        if($("input[name='company_id']").val()==""){
+        if($("input[name='company_class']").val()==""){
           alert("회사 아이디는 필수 입력 항목입니다");
-          $("input[name='company_id']").focus();
+          $("input[name='company_class']").focus();
           return false;
         }else if($("#company-password").val()==""){
           alert("비밀번호는 필수 입력 항목입니다");
@@ -273,64 +273,64 @@
 <header>
   <div th:replace="../main/header :: header"></div>
 </header>
-<section id="top-bg">
-  <div id="base-layer">
-    <div id="top-bg-textarea">
-      <p id="top-title">My Page</p>
-      <p id="top-subtitle">#마이페이지</p>
+<section class="top-bg">
+  <div class="base-layer">
+    <div class="top-bg-textarea">
+      <p class="top-title">My Page</p>
+      <p class="top-subtitle">#마이페이지</p>
     </div>
   </div>
 </section>
-<section id="content-1">
-  <p id="intro">마이페이지</p>
+<section class="content-1">
+  <p class="intro">마이페이지</p>
   <form action="companyMyPage_proc" name="companyMyPageForm" method="post" id="content-myPage">
     <div>
       <ul>
-        <li id="must-insert">
-          <p id="label-dot">*</p>
+        <li class="must-insert">
+          <p class="label-dot">*</p>
           <label>회사 아이디</label>
         </li>
         <li>
-          <input type="text" id="input-common" name="company_id" th:value="${company.company_id}" th:disabled="true">
-          <input type="hidden" name="company_id" th:value="${company.company_id}">
+          <input type="text" name="companyId" th:value="${company.companyId}" th:disabled="true">
+          <input type="hidden" name="companyId" th:value="${company.companyId}">
         </li>
         <li>
           <label>게임명</label>
         </li>
         <li>
-          <input type="text" id="input-common" name="game" th:value="${company.game}" disabled>
+          <input type="text" name="game" th:value="${company.game}" disabled>
         </li>
-        <li id="must-insert">
-          <p id="label-dot">*</p>
-          <label>비밀번호</label><span id="c-pwdMsg"></span>
-        </li>
-        <li>
-          <input type="password" id="company-password" name="password">
-          <input type="checkbox" id="pwd-check-img">
+        <li class="must-insert">
+          <p class="label-dot">*</p>
+          <label>비밀번호</label><span class="c-pwdMsg"></span>
         </li>
         <li>
-          <a th:href="@{/CompanyPageChangePassword(company_id=${company.company_id})}" id="link-changePassword">
+          <input type="password" class="company-password" name="password">
+          <input type="checkbox" class="pwd-check-img">
+        </li>
+        <li>
+          <a th:href="@{/CompanyPageChangePassword(companyId=${company.companyId})}" class="link-changePassword">
             <span>비밀번호 변경 ></span>
           </a>
         </li>
-        <li id="must-insert">
-          <p id="label-dot">*</p>
+        <li class="must-insert">
+          <p class="label-dot">*</p>
           <label>회사명</label>
         </li>
         <li>
-          <input type="text" id="company-name" name="name" th:value="${company.name}">
+          <input type="text" name="name" th:value="${company.name}">
         </li>
-        <li id="must-insert">
-          <p id="label-dot">*</p>
+        <li class="must-insert">
+          <p class="label-dot">*</p>
           <label>회사 이메일</label>
-          <span id="c-emailMsg"></span>
-          <span id="c-emailAuth"></span>
+          <span class="c-emailMsg"></span>
+          <span class="c-emailAuth"></span>
         </li>
         <li>
-          <input type="text" id="company-email1" name="email1" th:value="${company.email1}">
+          <input type="text" name="email1" th:value="${company.email1}">
           @
-          <input type="text" id="company-email2" name="email2" th:value="${company.email2}">
-          <select id="company-selectbox-email" name="email3">
+          <input type="text" name="email2" th:value="${company.email2}">
+          <select class="company-selectbox-email" name="email3">
             <option value="choose">선택</option>
             <option value="naver.com" th:selected="${company.email3 == 'naver.com'}">naver.com</option>
             <option value="gmail.com" th:selected="${company.email3 == 'gmail.com'}">gmail.com</option>
@@ -344,46 +344,46 @@
           <label>주소</label>
         </li>
         <li>
-          <input type="text" id="company-addr1" name="addr1" th:value="${company.addr1}">
+          <input type="text" name="addr1" th:value="${company.addr1}">
           <button type="button" id="company-address-btn-style">주소 검색</button>
         </li>
         <li class="address-input">
           <label>상세 주소</label>
         </li>
         <li>
-          <input type="text" id="company-addr2" name="addr2" th:value="${company.addr2}">
+          <input type="text" name="addr2" th:value="${company.addr2}">
         </li>
-        <li id="must-insert">
-          <p id="label-dot">*</p>
-          <label>대표전화</label><span id="c-phoneMsg"></span>
+        <li class="must-insert">
+          <p class="label-dot">*</p>
+          <label>대표전화</label><span class="c-phoneMsg"></span>
         </li>
         <li>
-          <select name="tel" id="company-selectbox-mobile">
+          <select name="tel" class="company-selectbox-mobile">
             <option value="choose">선택</option>
             <option value="SKT" th:selected="${company.tel == 'SKT'}">SKT</option>
             <option value="KT" th:selected="${company.tel == 'KT'}">KT</option>
             <option value="LGU+" th:selected="${company.tel == 'LGU+'}">LGU+</option>
             <option value="MVNO" th:selected="${company.tel == 'MVNO'}">알뜰폰</option>
           </select>
-          <select name="phone1" id="company-selectbox-phone">
+          <select name="phone1" class="company-selectbox-phone">
             <option value="choose">선택</option>
             <option value="010" th:selected="${company.phone1 == '010'}">010</option>
             <option value="011" th:selected="${company.phone1 == '011'}">011</option>
             <option value="012" th:selected="${company.phone1 == '012'}">012</option>
           </select>
           -
-          <input type="text" id="company-phone2" name="phone2" th:value="${company.phone2}">
+          <input type="text" name="phone2" th:value="${company.phone2}">
           -
-          <input type="text" id="company-phone3" name="phone3" th:value="${company.phone3}">
+          <input type="text" name="phone3" th:value="${company.phone3}">
         </li>
         <li>
           <button type="button" id="button-gradient-company">수정하기</button>
         </li>
         <li>
-          <a href="donation_detail" id="link-donation">
+          <a href="donation_detail" class="link-donation">
             <span>후원금 정산 내역 ></span>
           </a>
-          <a th:href="@{/deletePwd(company_id=${company.company_id})}" id="link-deleteAccount">
+          <a th:href="@{/deletePwd(companyId=${company.companyId})}" class="link-deleteAccount">
             <span>회원탈퇴 ></span>
           </a>
         </li>

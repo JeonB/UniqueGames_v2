@@ -8,13 +8,10 @@
 	<select id="login" parameterType="Member" resultType="int">
 		select count(*) from member where member_id=#{memberId} and password=#{password}
 	</select>
-	<!-- <select id="login" parameterType="Object" resultType="int">
-		select count(*) from member where member_id=#{member_id} and password=#{password}
-	</select> -->
-	
+
 	<insert id="insert" parameterType="Member">
 		insert into member (member_id, password, name, email, phone_num, addr, tel)
-		values (#{memberId},#{password},#{name},#{email},#{phone_num},#{addr},#{tel})
+		values (#{memberId},#{password},#{name},#{email},#{phoneNum},#{addr},#{tel})
 	</insert>
 	
 	<select id="idCheck" parameterType="String" resultType="int">
@@ -22,15 +19,15 @@
 	</select>
 	
 	<select id="findId" parameterType="Member" resultType="java.lang.String">
-		select member_id from member where name=#{name} and phone_num=#{phone_num}
+		select member_id from member where name=#{name} and phone_num=#{phoneNum}
 	</select>
 	
 	<select id="select" parameterType="Member" resultType="int">
-		select count(*) from member where member_id=#{memberId} and name=#{name} and phone_num=#{phone_num}
+		select count(*) from member where member_id=#{memberId} and name=#{name} and phone_num=#{phoneNum}
 	</select>
 	
 	<update id="update" parameterType="Member">
-		update member set email=#{email}, addr=#{addr}, phone_num=#{phone_num}, tel=#{tel} where member_id=#{memberId} and password=#{password}
+		update member set email=#{email}, addr=#{addr}, phone_num=#{phoneNum}, tel=#{tel} where member_id=#{memberId} and password=#{password}
 	</update>
 	
 	<update id="changeMpassword" parameterType="java.lang.String">
@@ -50,7 +47,7 @@
 	</select>
 	
 	<select id="phoneCheck" parameterType="java.lang.String" resultType="int">
-		select count(*) from member where phone_num=#{phone_num}
+		select count(*) from member where phone_num=#{phoneNum}
 	</select>
 	
 	

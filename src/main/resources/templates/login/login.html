@@ -41,7 +41,7 @@
           <span id="msgPwd"></span>
         </li>
         <li>
-          <button type="button" id="button-gradient" onclick="memberIdPassCheck()">LOGIN</button>
+          <button type="button" class="button-gradient" onclick="memberIdPassCheck()">LOGIN</button>
         </li>
         <li>`
           <a th:href="@{/find-member}" class="link-findAccount">아이디 찾기</a>
@@ -58,7 +58,7 @@
     <div>
       <ul>
         <li>
-          <input type="text" name="company_id" placeholder="법인 아이디" th:value="${company?.company_id}">
+          <input type="text" name="companyId" placeholder="법인 아이디" th:value="${company?.companyId}">
           <span class="msgId"></span>
         </li>
         <li>
@@ -66,7 +66,7 @@
           <span class="msgPwd"></span>
         </li>
         <li>
-          <button type="submit" id="button-gradient-company-login">LOGIN</button>
+          <button type="button" class="button-gradient" id="company">LOGIN</button>
         </li>
         <li>
           <a th:href="@{/find-company}" class="link-findAccount">아이디 찾기</a>

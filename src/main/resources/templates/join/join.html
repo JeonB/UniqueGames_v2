@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Join</title>
-  <link rel="stylesheet" href="/css/login.css">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" th:href="@{/css/login.css}">
   <script src="/js/jquery-3.6.4.min.js"></script>
-  <script src="/js/join_jquery.js"></script>
+<!--  <script src="/js/join_jquery.js"></script>-->
+  <script src="/js/login_script.js"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
@@ -34,7 +36,7 @@
           <label>아이디</label><span id="idMsg"></span>
         </li>
         <li>
-          <input type="text" name="member_id" placeholder="영문,숫자 5~10자리" tabindex="1">
+          <input type="text" name="memberId" placeholder="영문,숫자 5~10자리" tabindex="1">
           <button type="button" id="check-btn-style">중복 체크</button>
         </li>
         <li class="must-insert-1">
@@ -42,15 +44,15 @@
           <label>비밀번호</label><span id="pwdMsg"></span>
         </li>
         <li>
-          <input type="password" id="input-common-password" name="password" placeholder="숫자,영문,특수문자 조합 최소 8자" tabindex="2">
-          <input type="checkbox" id="pwd-check-img">
+          <input type="password" name="password" placeholder="숫자,영문,특수문자 조합 최소 8자" tabindex="2">
+          <input type="checkbox" class="pwd-check-img" onclick="memberPassVisible()">
         </li>
         <li>
           <label>비밀번호 확인</label><span id="pwdMsg-check"></span>
         </li>
         <li>
-          <input type="password" id="input-common-password-check" name="password-check" placeholder="비밀번호 재입력" tabindex="3">
-          <input type="checkbox" id="pwd-check-img-1">
+          <input type="password" name="password-check" placeholder="비밀번호 재입력" tabindex="3">
+          <input type="checkbox" class="pwd-check-img" id="pwd-check-img-1"  onclick="memberPassCheckVisible()">
         </li>
         <li class="must-insert">
           <p class="label-dot">*</p>
@@ -76,7 +78,7 @@
             <option value="daum.net">daum.net</option>
             <option value="direct">직접입력</option>
           </select>
-          <button type="button" id="email-btn-style">인증 번호</button>
+          <button type="button" id="email-btn-style" onclick="sendEmail()">인증 번호</button>
           <input type="text" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리" disabled="disabled">
         </li>
         <li>
@@ -154,7 +156,7 @@
           <label>회사_아이디</label><span id="c-idMsg"></span>
         </li>
         <li>
-          <input type="text" name="company_id" placeholder="영문,숫자 5~10자리" tabindex="1">
+          <input type="text" name="companyId" placeholder="영문,숫자 5~10자리" tabindex="1">
           <button type="button" id="c-check-btn-style">중복 체크</button>
         </li>
         <li class="must-insert-1">
@@ -163,14 +165,14 @@
         </li>
         <li>
           <input type="password" id="company-password" name="password" placeholder="숫자,영문,특수문자 조합 최소 8자" tabindex="2">
-          <input type="checkbox" id="c-pwd-check-img">
+          <input type="checkbox" class="pwd-check-img">
         </li>
         <li>
           <label>비밀번호 확인</label><span id="c-pwdMsg-check"></span>
         </li>
         <li>
           <input type="password" id="company-password-check" name="password-check" placeholder="비밀번호 재입력" tabindex="3">
-          <input type="checkbox" id="c-pwd-check-img-1">
+          <input type="checkbox" class="pwd-check-img">
         </li>
         <li class="must-insert">
           <p class="label-dot">*</p>

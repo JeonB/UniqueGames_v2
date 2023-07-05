@@ -79,21 +79,21 @@ public class MyPageController {
 			member.setPhone3(phone3);
 			
 			mav.addObject("member", member);
-			mav.setViewName("myPage/member-mypage");
+			mav.setViewName("memberPage");
 		
 		}else if(mode.contains("Company")) {
 			
 			Company company = (Company)session.getAttribute(SessionConstants.LOGIN_MEMBER);
 			
-			String Gname = companyMemberService.companyGameName(company.getCompany_id());
+			String Gname = companyMemberService.companyGameName(company.getCompanyId());
 			String password = company.getPassword();
 			String email1 = company.getEmail().split("@")[0];
 			String email2 = company.getEmail().split("@")[1];
 			String email3 = company.getEmail().split("@")[1];
 			String tel = company.getTel();
-			String phone1 = company.getPhone_num().split("-")[0];
-			String phone2 = company.getPhone_num().split("-")[1];
-			String phone3 = company.getPhone_num().split("-")[2];
+			String phone1 = company.getPhoneNum().split("-")[0];
+			String phone2 = company.getPhoneNum().split("-")[1];
+			String phone3 = company.getPhoneNum().split("-")[2];
 			String addr = company.getAddr();
 					
 			if (addr == null) {
@@ -127,7 +127,7 @@ public class MyPageController {
 			company.setPhone3(phone3);
 			
 			mav.addObject("company", company);
-			mav.setViewName("myPage/company-mypage");
+			mav.setViewName("company-page");
 		}else {
 			mav.setViewName("login/login");
 		}

@@ -15,11 +15,11 @@ public interface CompanyRepositoryMapper {
 //   @Options(useGeneratedKeys = true, keyProperty = "id")
 //   void save(CompanyVo company);
 
-   @Select("select * from company where g_id = #{g_id}")
-   Company findByIndex(int g_id);
+   @Select("select * from company where g_id = #{gId}")
+   Company findByIndex(int gId);
 
-   @Select("select * from company where company_id = #{company_id}")
-   Company findById(String company_id);
+   @Select("select * from company where company_id = #{companyId}")
+   Company findById(String companyId);
 
    @Select("select * from company")
    List<Company> findAll();
@@ -27,10 +27,10 @@ public interface CompanyRepositoryMapper {
    @Select("select * from company where email = #{email} and name = #{name}")
    Company findByEmailAndName(String email, String name);
 
-   @Select("update company set name=#{name}, password=#{oldPassword} where email=#{company_id}")
+   @Select("update company set name=#{name}, password=#{oldPassword} where email=#{email}")
    Integer update(Company company);
    
-   @Select("select count(*) from company where company_id = #{company_id} and password = #{password}")
+   @Select("select count(*) from company where company_id = #{companyId} and password = #{password}")
    int passEqual(Company company);
 
 }

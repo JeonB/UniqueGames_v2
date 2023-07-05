@@ -1,7 +1,7 @@
 package com.uniqueGames.service;
 
 import com.uniqueGames.model.Company;
-import com.uniqueGames.repository.CompanyDao;
+import com.uniqueGames.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,70 +9,70 @@ import org.springframework.stereotype.Service;
 public class CompanyMemberServiceImpl implements CompanyMemberService {
 
 	@Autowired
-	private CompanyDao companyDao;
+	private CompanyRepository companyRepository;
 	
 	@Override
 	public int companyLoginResult(Company company) {
 		
-		return companyDao.login(company);
+		return companyRepository.login(company);
 	}
 
 	@Override
 	public int companyJoinResult(Company company) {
-		return companyDao.insert(company);
+		return companyRepository.insert(company);
 	}
 
 	@Override
-	public int companyIdCheckResult(String company_id) {
-		return companyDao.idCheck(company_id);
+	public int companyIdCheckResult(String companyId) {
+		return companyRepository.idCheck(companyId);
 	}
 
 	@Override
 	public String companyFindIdResult(Company company) {
-		return companyDao.findIdCheck(company);
+		return companyRepository.findIdCheck(company);
 	}
 
 	@Override
 	public int companyFindPwdResult(Company company) {
-		return companyDao.findPwdCheck(company);
+		return companyRepository.findPwdCheck(company);
 	}
 
 	@Override
 	public int companyUpdateResult(Company company) {
-		return companyDao.update(company);
+		return companyRepository.update(company);
 	}
 
 	@Override
-	public Company companyPageResult(String company_id) {
-		return companyDao.companyPage(company_id);
+	public Company companyPageResult(String companyId) {
+		return companyRepository.companyPage(companyId);
 	}
 
 	@Override
-	public int companyChangeCPassword(String company_id, String cnewpassword) {
+	public int companyChangeCPassword(String companyId, String cnewpassword) {
 		Company company = new Company();
-		company.setCompany_id(company_id);
+		company.setCompanyId(companyId);
 		company.setCnewpassword(cnewpassword);
-		return companyDao.changeCpassword(company);
+		return companyRepository.changeCpassword(company);
 	}
 
 	@Override
-	public String companyGameName(String company_id) {
-		return companyDao.getGameNameByCID(company_id);
+	public String companyGameName(String companyId) {
+		return companyRepository.getGameNameByCID(companyId);
 	}
 
 	@Override
 	public int companyDeleteResult(Company company) {
-		return companyDao.deleteCompany(company);
+		return companyRepository.deleteCompany(company);
 	}
 
 	@Override
 	public int companyEmailCheckResult(String email) {
-		return companyDao.emailCheck(email);
+		return companyRepository.emailCheck(email);
 	}
 
 	@Override
-	public int companyPhoneCheckResult(String phone_num) {
-		return companyDao.phoneCheck(phone_num);
+	public int companyPhoneCheckResult(String phoneNum) {
+		return companyRepository.phoneCheck(phoneNum);
 	}
 
 }

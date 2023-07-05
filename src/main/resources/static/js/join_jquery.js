@@ -642,7 +642,7 @@ $("#check-btn-style").click(function(){
 		$.ajax({
 			url : "id_check?member_id="+$("input[name='member_id']").val(),
 			success : function(result) {
-				if(result == 1){
+				if(result == 	1){
 						$("#idMsg").text("이미 사용중인 아이디 입니다. 다시 입력해주세요")
 						.css("color","red").css("font-size","11px").css("display","inline");
 						$("input[name='member_id']").val("").focus();
