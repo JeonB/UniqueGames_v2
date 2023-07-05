@@ -9,12 +9,12 @@
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		$(document).ready(function(){
-			var password = /*[[${memberVo.password}]]*/ "";
-			var phone1 = /*[[${memberVo.phone1}]]*/ "";
-			var phone2 = /*[[${memberVo.phone2}]]*/ "";
-			var phone3 = /*[[${memberVo.phone3}]]*/ "";
-			var email1 = /*[[${memberVo.email1}]]*/ "";
-			var email2 = /*[[${memberVo.email2}]]*/ "";
+			var password = /*[[${member.password}]]*/ "";
+			var phone1 = /*[[${member.phone1}]]*/ "";
+			var phone2 = /*[[${member.phone2}]]*/ "";
+			var phone3 = /*[[${member.phone3}]]*/ "";
+			var email1 = /*[[${member.email1}]]*/ "";
+			var email2 = /*[[${member.email2}]]*/ "";
 
 			function emailCheck(asValue){
 				var regex = /[A-za-z0-9]{4,20}$/;
@@ -173,8 +173,8 @@
 					<label>아이디</label><span id="idMsg"></span>
 				</li>
 				<li>
-					<input type="text" id="input-common" name="member_id" th:value="${memberVo.member_id}" disabled="disabled">
-					<input type="hidden" name="member_id" th:value="${memberVo.member_id}">
+					<input type="text" id="input-common" name="member_id" th:value="${member.member_id}" disabled="disabled">
+					<input type="hidden" name="member_id" th:value="${member.member_id}">
 				</li>
 				<li id="must-insert">
 					<p id="label-dot">*</p>
@@ -185,7 +185,7 @@
 					<input type="checkbox" id="pwd-check-img">
 				</li>
 				<li>
-					<a th:href="@{/myPageChangePassword(member_id=${memberVo.member_id})}" id="link-changePassword">
+					<a th:href="@{/myPageChangePassword(member_id=${member.member_id})}" id="link-changePassword">
 						<span>비밀번호 변경 ></span>
 					</a>
 				</li>
@@ -194,8 +194,8 @@
 					<label>이름</label><span id="nameMsg"></span>
 				</li>
 				<li>
-					<input type="text" id="input-common" name="name" th:value="${memberVo.name}" disabled="disabled">
-					<input type="hidden" name="name" th:value="${memberVo.name}">
+					<input type="text" id="input-common" name="name" th:value="${member.name}" disabled="disabled">
+					<input type="hidden" name="name" th:value="${member.name}">
 				</li>
 				<li id="must-insert">
 					<p id="label-dot">*</p>
@@ -204,14 +204,14 @@
 					<span id="emailAuth"></span>
 				</li>
 				<li>
-					<input type="text" id="input-email" name="email1" th:value="${memberVo.email1}">
+					<input type="text" id="input-email" name="email1" th:value="${member.email1}">
 					@
-					<input type="text" id="input-email" name="email2" th:value="${memberVo.email2}">
+					<input type="text" id="input-email" name="email2" th:value="${member.email2}">
 					<select name="email3" id="selectbox-email">
 						<option value="choose">선택</option>
-						<option value="naver.com" th:selected="${memberVo.email3 == 'naver.com'}">naver.com</option>
-						<option value="gmail.com" th:selected="${memberVo.email3 == 'gmail.com'}">gmail.com</option>
-						<option value="daum.net" th:selected="${memberVo.email3 == 'daum.net'}">daum.net</option>
+						<option value="naver.com" th:selected="${member.email3 == 'naver.com'}">naver.com</option>
+						<option value="gmail.com" th:selected="${member.email3 == 'gmail.com'}">gmail.com</option>
+						<option value="daum.net" th:selected="${member.email3 == 'daum.net'}">daum.net</option>
 						<option value="direct">직접입력</option>
 					</select>
 					<button type="button" id="email-btn-style">인증 번호</button>
@@ -224,35 +224,35 @@
 				<li>
 					<select name="mobile" id="selectbox-mobile">
 						<option value="choose">선택</option>
-						<option value="SKT" th:selected="${memberVo.mobile == 'SKT'}">SKT</option>
-						<option value="KT" th:selected="${memberVo.mobile == 'KT'}">KT</option>
-						<option value="LGU+" th:selected="${memberVo.mobile == 'LGU+'}">LGU+</option>
+						<option value="SKT" th:selected="${member.mobile == 'SKT'}">SKT</option>
+						<option value="KT" th:selected="${member.mobile == 'KT'}">KT</option>
+						<option value="LGU+" th:selected="${member.mobile == 'LGU+'}">LGU+</option>
 					</select>
 					<span>-</span>
 					<select name="phone1" id="selectbox-phone">
 						<option value="choose">선택</option>
-						<option value="010" th:selected="${memberVo.phone1 == '010'}">010</option>
-						<option value="011" th:selected="${memberVo.phone1 == '011'}">011</option>
-						<option value="016" th:selected="${memberVo.phone1 == '016'}">016</option>
-						<option value="017" th:selected="${memberVo.phone1 == '017'}">017</option>
-						<option value="018" th:selected="${memberVo.phone1 == '018'}">018</option>
-						<option value="019" th:selected="${memberVo.phone1 == '019'}">019</option>
+						<option value="010" th:selected="${member.phone1 == '010'}">010</option>
+						<option value="011" th:selected="${member.phone1 == '011'}">011</option>
+						<option value="016" th:selected="${member.phone1 == '016'}">016</option>
+						<option value="017" th:selected="${member.phone1 == '017'}">017</option>
+						<option value="018" th:selected="${member.phone1 == '018'}">018</option>
+						<option value="019" th:selected="${member.phone1 == '019'}">019</option>
 					</select>
 					<span>-</span>
-					<input type="text" id="input-phone" name="phone2" th:value="${memberVo.phone2}">
+					<input type="text" id="input-phone" name="phone2" th:value="${member.phone2}">
 					<span>-</span>
-					<input type="text" id="input-phone" name="phone3" th:value="${memberVo.phone3}">
+					<input type="text" id="input-phone" name="phone3" th:value="${member.phone3}">
 				</li>
 				<li id="must-insert">
 					<p id="label-dot">*</p>
 					<label>주소</label><span id="addressMsg"></span>
 				</li>
 				<li>
-					<input type="text" id="input-common" name="addr1" th:value="${memberVo.addr1}" readonly="readonly">
+					<input type="text" id="input-common" name="addr1" th:value="${member.addr1}" readonly="readonly">
 					<button type="button" id="address-btn-style">주소 찾기</button>
 				</li>
 				<li>
-					<input type="text" id="input-common" name="addr2" th:value="${memberVo.addr2}" readonly="readonly">
+					<input type="text" id="input-common" name="addr2" th:value="${member.addr2}" readonly="readonly">
 				</li>
 			</ul>
 		</div>

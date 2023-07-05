@@ -1,51 +1,51 @@
 package com.uniqueGames.repository;
 
-import com.uniqueGames.model.MemberVo;
+import com.uniqueGames.model.Member;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MemberDao{
+public class MemberRepository {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
 	
-	public int login(MemberVo memberVo) {
-		return sqlSession.selectOne("mapper.member.login", memberVo);
+	public int login(Member member) {
+		return sqlSession.selectOne("mapper.member.login", member);
 	}
 
 	/**sign up member*/
-	public int insert(MemberVo memberVo) {
-		return sqlSession.insert("mapper.member.insert", memberVo);
+	public int insert(Member member) {
+		return sqlSession.insert("mapper.member.insert", member);
 
 	}
 	/**ID checking*/
-	public int idCheck(String member_id) {
-		return sqlSession.selectOne("mapper.member.idCheck", member_id);
+	public int idCheck(String memberId) {
+		return sqlSession.selectOne("mapper.member.idCheck", memberId);
 	}
 	
 	/**find-id-check*/
-	public String findIdCheck(MemberVo memberVo) {
-		return sqlSession.selectOne("mapper.member.findId", memberVo);
+	public String findIdCheck(Member member) {
+		return sqlSession.selectOne("mapper.member.findId", member);
 	}
 	
 	/*********************��й�ȣ �缳��****************************************/
-	public int select(MemberVo memberVo) {
-		return sqlSession.selectOne("mapper.member.select", memberVo);
+	public int select(Member member) {
+		return sqlSession.selectOne("mapper.member.select", member);
 	}
 	
 	/**mypage session id information update*/
-	public int update(MemberVo memberVo) {
-		return sqlSession.update("mapper.member.update", memberVo);
+	public int update(Member member) {
+		return sqlSession.update("mapper.member.update", member);
 	}
 	
-	public int changeMpassword(String member_id, String mnewpassword) {
-		MemberVo memberVo = new MemberVo();
-		memberVo.setMember_id(member_id);
-		memberVo.setMnewpassword(mnewpassword);
-		return sqlSession.update("mapper.member.changeMpassword", memberVo);
+	public int changeMpassword(String memberId, String mnewpassword) {
+		Member member = new Member();
+		member.setMemberId(memberId);
+		member.setMnewpassword(mnewpassword);
+		return sqlSession.update("mapper.member.changeMpassword", member);
 	}
 	
 	/**mypage session id information
@@ -79,13 +79,13 @@ public class MemberDao{
 	}
 	*/
 	
-	public MemberVo myPage(String member_id) {
-		return sqlSession.selectOne("mapper.member.myPage", member_id);
+	public Member myPage(String memberId) {
+		return sqlSession.selectOne("mapper.member.myPage", memberId);
 	}
 	
 	/**delete Account Ajax*/
-	public int delete(MemberVo memberVo) {
-		return sqlSession.delete("mapper.member.delete", memberVo);
+	public int delete(Member member) {
+		return sqlSession.delete("mapper.member.delete", member);
 	}
 	
 	/**email check*/
@@ -94,8 +94,8 @@ public class MemberDao{
 	}
 	
 	/**phone check*/
-	public int phoneCheck(String phone_num) {
-		return sqlSession.selectOne("mapper.member.phoneCheck", phone_num);
+	public int phoneCheck(String phoneNum) {
+		return sqlSession.selectOne("mapper.member.phoneCheck", phoneNum);
 	}
 	
 	

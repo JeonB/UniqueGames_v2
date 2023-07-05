@@ -62,27 +62,27 @@
 </head>
 <body>
 <div th:replace="/main/header :: headerFragment"></div>
-<section id="top-bg">
-  <div id="base-layer">
-    <div id="top-bg-textarea">
-      <p id="top-title">Login</p>
-      <p id="top-subtitle">#로그인</p>
+<section class="top-bg">
+  <div class="base-layer">
+    <div class="top-bg-textarea">
+      <p class="top-title">Login</p>
+      <p class="top-subtitle">#로그인</p>
     </div>
   </div>
 </section>
-<section id="content-1">
-  <p id="intro">개인 회원</p>
+<section class="content-1">
+  <p class="intro">개인 회원</p>
   <form action="mChangePassword" name="mChangePassword" method="post" id="newPasswordForm">
     <ul>
       <li>
-        <input type="password" id="input-common" name="mnewpassword" placeholder="새로운 비밀번호">
-        <input type="checkbox" id="pwd-check-img">
-        <input type="hidden" name="member_id" th:value="${member_id}">
+        <input type="password" name="mnewpassword" placeholder="새로운 비밀번호">
+        <input type="checkbox" class="pwd-check-img">
+        <input type="hclassden" name="memberId" th:value="${memberId}">
       </li>
       <li>
-        <input type="password" id="input-common" name="mnewpassword-check" placeholder="새로운 비밀번호 확인">
-        <input type="checkbox" id="pwd-check-img-1">
-        <span id="msgPassword"></span>
+        <input type="password" name="mnewpassword-check" placeholder="새로운 비밀번호 확인">
+        <input type="checkbox" class="pwd-check-img-1">
+        <span class="msgPassword"></span>
       </li>
       <li>
         <button type="button" id="button-gradient">수정하기</button>

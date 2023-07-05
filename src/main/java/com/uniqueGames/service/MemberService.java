@@ -1,21 +1,20 @@
 package com.uniqueGames.service;
 
-import com.uniqueGames.model.MemberVo;
+import com.uniqueGames.model.Member;
 
 public interface MemberService {
 	
-	int memberLoginResult(MemberVo memberVo);
+	int memberLoginResult(Member member);
 	//int getLoginResult(Object vo);
-	int memberJoinResult(MemberVo memberVo);
-	String memberIdCheckResult(String member_id);
-	String memberFindIdResult(MemberVo memberVo);
-	int memberFindPwdResult(MemberVo memberVo);
-	int memberUpdateResult(MemberVo memberVo);
-	int memberChangePwdResult(String member_id, String name, String phone_num);
-	int memberChangeMPassword(String member_id, String mnewpassword);
-	MemberVo memberMyPageResult(String member_id);
-	int memberDeleteResult(MemberVo memberVo);
+	int memberJoinResult(Member member);
+	int memberIdCheckResult(String memberId);
+	String memberFindIdResult(Member member);
+	int memberFindPwdResult(Member member);
+	int memberUpdateResult(Member member);
+	int memberChangeMPassword(String memberId, String mnewpassword);
+	Member memberMyPageResult(String memberId);
+	int memberDeleteResult(Member member);
 	int memberEmailCheckResult(String email);
-	int memberPhoneCheckResult(String phone_num);
+	int memberPhoneCheckResult(String phoneNum);
 
 }

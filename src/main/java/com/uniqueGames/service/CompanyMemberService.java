@@ -1,21 +1,21 @@
 package com.uniqueGames.service;
 
 
-import com.uniqueGames.model.CompanyVo;
+import com.uniqueGames.model.Company;
 
 public interface CompanyMemberService {
 	
-	int companyLoginResult(CompanyVo companyVo);
-	int companyJoinResult(CompanyVo companyVo);
-	int companyIdCheckResult(String company_id);
-	String companyFindIdResult(CompanyVo companyVo); //select
-	int companyFindPwdResult(CompanyVo companyVo);
-	int companyUpdateResult(CompanyVo companyVo);
-	CompanyVo companyPageResult(String company_id);
-	int companyChangeCPassword(String company_id, String cnewpassword);
-	String companyGameName(String company_id);
-	int companyDeleteResult(CompanyVo companyVo);
+	int companyLoginResult(Company company);
+	int companyJoinResult(Company company);
+	int companyIdCheckResult(String companyId);
+	String companyFindIdResult(Company company); //select
+	int companyFindPwdResult(Company company);
+	int companyUpdateResult(Company company);
+	Company companyPageResult(String companyId);
+	int companyChangeCPassword(String companyId, String cnewpassword);
+	String companyGameName(String companyId);
+	int companyDeleteResult(Company company);
 	int companyEmailCheckResult(String email);
-	int companyPhoneCheckResult(String phone_num);
+	int companyPhoneCheckResult(String phoneNum);
 
 }

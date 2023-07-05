@@ -1,52 +1,3 @@
-/* Commons */
-* {
-	padding: 0px;
-	margin: 0px;
-	font-family: "YouandiModern", "Apex New", "Noto Sans KR", sans-serif;
-}
-
-/* Base */
-#content {
-	width: 1100px;
-	margin: auto;
-}
-
-/* Banner */
-#top-bg {
-	width: 100%;
-	margin: auto;
-	background-image: url(../images/img_bg.png);
-	background-size: cover;
-	height: 229px;
-	background-repeat: no-repeat;
-}
-
-#base-layer {
-	width: 1100px;
-	margin: auto;
-}
-
-#top-bg-textarea {
-	color: white;
-	font-style: italic;
-}
-
-#top-title {
-	font-family: "Apex New";
-	color: white;
-	font-size: 32px;
-	font-weight: bold;
-	padding-top: 70px;
-}
-
-#top-subtitle {
-	font-size: 20px;
-	font-style: normal;
-	padding-top: 15px;
-	opacity: 0.6;
-	font-weight: 500;
-}
-
 /* Input */
 input {
 	width: 394px;
@@ -59,7 +10,7 @@ input {
 	font-size: 16px;
 }
 
-input:focus {
+input[type="text"]:focus {
 	border: 1px solid gray;
 }
 
@@ -85,6 +36,19 @@ input[name="email-auth-check"] {
 }
 
 /* Button */
+.button-gradient {
+	border: none;
+	width: 394px;
+	height: 60px;
+	cursor: pointer;
+	color: white;
+	background: linear-gradient(to right, #682CAD, #2FC0CC);
+	border-radius: 3px;
+	font-family: "YouandiModern", sans-serif;
+	margin: 10px 0;
+	font-size: 20px;
+}
+
 #btn-style, #address-btn-style, #company-address-btn-style,
 	#check-btn-style, #c-check-btn-style, #email-btn-style,
 	#c-email-btn-style, #company-address-btn-style {
@@ -96,23 +60,6 @@ input[name="email-auth-check"] {
 	font-size: 14px;
 	vertical-align: top;
 	cursor: pointer;
-}
-
-#button-gradient, #button-gradient-findPwd,
-	#button-gradient-company-login, #button-gradient-delete,
-	#button-gradient-company, #button-gradient-gotoLogin,
-	#button-gradient-gotoPwd, #button-gradient-gotoFind,
-	#button-gradient-gotoJoin, #button-gradient-home {
-	border: none;
-	width: 394px;
-	height: 60px;
-	cursor: pointer;
-	color: white;
-	background: linear-gradient(to right, #682CAD, #2FC0CC);
-	border-radius: 3px;
-	font-family: "YouandiModern", sans-serif;
-	margin: 10px 0;
-	font-size: 20px;
 }
 
 #button-gradient-gotoLogin, #button-gradient-gotoPwd,
@@ -137,21 +84,11 @@ input[name="email-auth-check"] {
 	top: -55px;
 	left: 405px;
 }
-
-/* A tag */
-a {
-	color: black;
-	text-decoration: none;
-}
-
-a:hover {
-	text-decoration: underline;
-}
-
+/*
 a:visited {
 	color: #DDDDDD;
 }
-
+*/
 #detail1, #detail2 {
 	text-decoration: underline;
 	color: Blue;
@@ -160,7 +97,7 @@ a:visited {
 	color: #6E6E6E;
 }
 
-#link-findAccount {
+.link-findAccount {
 	display: inline-block;
 	background: white;
 	color: #2B2B2B;
@@ -170,7 +107,7 @@ a:visited {
 	margin-top: 30px;
 }
 
-#link-signUp {
+.link-signUp {
 	display: inline-block;
 	font-family: "Apex New";
 	font-weight: 500;
@@ -239,7 +176,7 @@ select:focus {
 	border: 1px solid gray;
 }
 
-#selectbox-find {
+.selectbox-find {
 	width: 394px;
 	margin: 10px 0;
 }
@@ -256,10 +193,6 @@ select[name='phone1'] {
 	width: 80px;
 }
 
-/* List */
-ol, ul, li {
-	list-style: none;
-}
 
 /* Modal */
 div.agreement, div.agreement2 {
@@ -320,7 +253,7 @@ div.detail1, div.detail2, div.deleteComplete, div.deleteComplete1, div.find-id-n
 	display: none;
 }
 
-#delete-span {
+.delete-span {
 	display: inline-block;
 	margin: 25px 0;
 }
@@ -354,24 +287,24 @@ li.address-input {
 	padding-left: 45px;
 }
 
-#agreement-box {
+.agreement-box {
 	margin: 30px 0 10px 0;
 	width: 394px;
 	font-size: 10pt;
 }
 
-#agreement-color {
+.agreement-color {
 	color: tomato;
 	margin: 0 5px;
 }
 
-#ul-agreement li span, #ul-agreement li a {
+.ul-agreement li span, .ul-agreement li a {
 	position: relative;
 	padding: 0px;
 	bottom: 10px;
 }
 
-#ul-agreement li #span_agreementAll {
+.ul-agreement li .span_agreementAll {
 	padding-left: 10px;
 	text-align: left;
 	font-family: "YouandiModern";
@@ -382,7 +315,7 @@ li.address-input {
 	top: -5px;
 }
 
-#label-dot, #label-dot-1 {
+.label-dot, .label-dot-1 {
 	display: inline-block;
 	position: absolute;
 	top: -9px;
@@ -390,11 +323,11 @@ li.address-input {
 	color: red;
 }
 
-#must-insert, #must-insert-1 {
+.must-insert, .must-insert-1 {
 	position: relative;
 }
 
-#must-insert-1 {
+.must-insert-1 {
 	margin-top: -28px;
 }
 
@@ -407,31 +340,34 @@ li.address-input {
 	margin-right: 5px;
 }
 
-#choice-span {
-	margin: 0 3px;
+.choice-span {
+	margin: 0 5px;
 }
 
-#pwd-check-img, #pwd-check-img-1, #c-pwd-check-img, #c-pwd-check-img-1 {
-	width: 24px;
-	height: 16px;
+.pwd-check-img {
+	display: inline-block;
 	background-image: url("../images/btn_eye_normal.png");
 	background-repeat: no-repeat;
 	appearance: none;
 	border: none; cursor : pointer;
+	width: 24px;
+	height: 16px;
 	position: relative;
 	right: 40px;
-	top: 30px;
-	cursor: pointer;
+	top: 4px;
+	outline: none;
+	padding: 0;
+	margin: 0;
 }
 
-#pwd-check-img:checked, #pwd-check-img-1:checked, #c-pwd-check-img:checked,
-	#c-pwd-check-img-1:checked {
+.pwd-check-img:checked {
 	background-image: url("../images/btn_eye_select.png");
 	background-repeat: no-repeat;
 }
 
+
 /* DeltePWD, DeleteCompany CSS */
-#intro-1, #intro-2, #intro-3 {
+.intro-1, .intro-2, .intro-3 {
 	font-family: "YouandiModern", sans-serif; 
 	width: 394px;
 	margin: auto;
@@ -440,18 +376,18 @@ li.address-input {
 	padding: 20px 0 14px 0;
 }
 
-#delete-id {
+.delete-id {
 	font-size: 18px;
 	font-family: "YouandiModern", sans-serif;
 }
 
-#delete-content {
+.delete-content {
 	font-size: 13px;
 	font-family: "Noto Sans";
 	padding: 22px 0 20px 0;
 }
 
-#delete-caution {
+.delete-caution {
 	background: #E6E6E6;
 	padding: 20px 11px 20px 20px;
 	color: #D81E42;
@@ -461,7 +397,7 @@ li.address-input {
 }
 
 /* Tab */
-#content-3 {
+.content-3 {
 	width: 40%;
 	margin: auto;
 	text-align: left;
@@ -509,13 +445,13 @@ li.address-input {
 }
 
 /* Etc */
-#intro {
+.intro {
 	font-family: "YouandiModern", sans-serif;
 	font-size: 24px;
 	padding-bottom: 60px;
 }
 
-#content-1 {
+.content-1 {
 	width: 1100px;
 	margin: auto;
 	text-align: center;

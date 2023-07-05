@@ -2,11 +2,8 @@ package com.uniqueGames.controller;
 
 
 import com.uniqueGames.fileutil.FileUtil;
-import com.uniqueGames.model.CompanyVo;
-import com.uniqueGames.model.GameVo;
-import com.uniqueGames.model.IntroVo;
-import com.uniqueGames.model.NoticeVo;
-import com.uniqueGames.model.SessionConstants;
+import com.uniqueGames.model.*;
+import com.uniqueGames.model.Company;
 import com.uniqueGames.repository.CompanyRepositoryMapper;
 import com.uniqueGames.service.CompanyServiceMapper;
 import com.uniqueGames.service.IndexServiceMapper;
@@ -54,8 +51,8 @@ public class DetailMapperController {
     public String goDetail(@PathVariable("detailId") int detailId, Model model) {
         GameVo gameVo = indexServiceMapper.getGameForIndex(detailId);
         model.addAttribute("game", gameVo);
-        CompanyVo companyVo = companyRepositoryMapper.findByIndex(detailId);
-        model.addAttribute("companyVo", companyVo);
+        Company company = companyRepositoryMapper.findByIndex(detailId);
+        model.addAttribute("companyVo", company);
         // 요청된 detailId에 따라 해당 페이지로 이동
         switch (detailId) {
             case 1:
@@ -89,7 +86,7 @@ public class DetailMapperController {
         IntroVo introVo = fileUtil.getUpload();
         HttpSession session = request.getSession();
         if(introVo.getTitle() == null || introVo.getName() == null){
-                CompanyVo company = (CompanyVo) session.getAttribute(SessionConstants.LOGIN_MEMBER);
+                Company company = (Company) session.getAttribute(SessionConstants.LOGIN_MEMBER);
                 model.addAttribute("company",company);
                 return "detail/company_regi";
          }
@@ -105,7 +102,7 @@ public class DetailMapperController {
 //        return "redirect:getIntroList";
 //    }
     @RequestMapping(value = "/updateIntro", method = RequestMethod.POST)
-    public String updateIntro(@ModelAttribute("intro") IntroVo vo, @ModelAttribute("company") CompanyVo companyVo){
+    public String updateIntro(@ModelAttribute("intro") IntroVo vo, @ModelAttribute("company") Company company){
         companyServiceMapper.updateIntro(vo);
         return "detail/company_regi";
     }
@@ -135,7 +132,7 @@ public class DetailMapperController {
     }
 
     @RequestMapping(value="/popUp", method = RequestMethod.GET)
-    public String getPopUp(@ModelAttribute("companyVo") CompanyVo companyVo){
+    public String getPopUp(@ModelAttribute("companyVo") Company company){
         return "detail/popup";
     }
 }

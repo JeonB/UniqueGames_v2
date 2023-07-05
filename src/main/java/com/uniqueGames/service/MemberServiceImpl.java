@@ -1,8 +1,8 @@
 package com.uniqueGames.service;
 
 
-import com.uniqueGames.model.MemberVo;
-import com.uniqueGames.repository.MemberDao;
+import com.uniqueGames.model.Member;
+import com.uniqueGames.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,70 +10,63 @@ import org.springframework.stereotype.Service;
 public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
-	private MemberDao memberDao;
+	private MemberRepository memberRepository;
 	
 	@Override
-	public int memberLoginResult(MemberVo memberVo) {
-		return memberDao.login(memberVo);
+	public int memberLoginResult(Member member) {
+		return memberRepository.login(member);
 	}
 
 	@Override
-	public int memberJoinResult(MemberVo memberVo) {
+	public int memberJoinResult(Member member) {
 		
-		return memberDao.insert(memberVo);
+		return memberRepository.insert(member);
 	}
 
 	@Override
-	public String memberIdCheckResult(String member_id) {
-		int result = memberDao.idCheck(member_id);
-		return String.valueOf(result);
+	public int memberIdCheckResult(String memberId) {
+		return memberRepository.idCheck(memberId);
 	}
 	
 	@Override
-	public String memberFindIdResult(MemberVo memberVo) {
-		return memberDao.findIdCheck(memberVo);
+	public String memberFindIdResult(Member member) {
+		return memberRepository.findIdCheck(member);
 	}
 	 
 	@Override
-	public int memberFindPwdResult(MemberVo memberVo) {
-		return memberDao.select(memberVo);
+	public int memberFindPwdResult(Member member) {
+		return memberRepository.select(member);
 	}
 
 	@Override
-	public int memberUpdateResult(MemberVo memberVo) {
-		return memberDao.update(memberVo);
+	public int memberUpdateResult(Member member) {
+		return memberRepository.update(member);
 	}
 
 	@Override
-	public int memberChangePwdResult(String member_id, String name, String phone_num) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int memberChangeMPassword(String memberId, String mnewpassword) {
+		return memberRepository.changeMpassword(memberId, mnewpassword);
 	}
 
 	@Override
-	public int memberChangeMPassword(String member_id, String mnewpassword) {
-		return memberDao.changeMpassword(member_id, mnewpassword);
+	public Member memberMyPageResult(String memberId) {
+		return memberRepository.myPage(memberId);
 	}
 
 	@Override
-	public MemberVo memberMyPageResult(String member_id) {
-		return memberDao.myPage(member_id);
-	}
-
-	@Override
-	public int memberDeleteResult(MemberVo memberVo) {
-		return memberDao.delete(memberVo);
+	public int memberDeleteResult(Member member) {
+		return memberRepository.delete(member);
 	}
 
 	@Override
 	public int memberEmailCheckResult(String email) {
 		
-		return memberDao.emailCheck(email);
+		return memberRepository.emailCheck(email);
 	}
 
 	@Override
-	public int memberPhoneCheckResult(String phone_num) {
-		return memberDao.phoneCheck(phone_num);
+	public int memberPhoneCheckResult(String phoneNum) {
+		return memberRepository.phoneCheck(phoneNum);
 	}
 
 	

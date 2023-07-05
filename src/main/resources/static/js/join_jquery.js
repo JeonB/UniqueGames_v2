@@ -16,10 +16,6 @@ $("#button-gradient").click(function(){
 		alert("아이디는 5~10글자로 작성해주세요");
 		$("input[name='member_id']").focus();
 		return false;
-	}else if($("#idMsg").text() == ""){
-		alert("중복체크를 진행해주세요");
-		$("#check-btn-style").focus();
-		return false;
 	}else if($("input[name='password']").val()==""){
 		alert("비밀번호는 필수 입력 항목입니다");
 		$("input[name='password']").focus();
@@ -59,14 +55,6 @@ $("#button-gradient").click(function(){
 	}else if($("#emailMsg").text() != ""){
 		alert("이메일을 확인해주세요");
 		$("input[name='email1']").focus();
-		return false;
-	}else if($("#email-auth-check").val()=="") {
-		alert("이메일 인증번호를 입력해주세요");
-		$("#email-auth-check").focus();
-		return false;
-	}else if($("#emailAuth").css("color") === "rgb(255, 0, 0)") {
-		alert("이메일 인증번호를 확인해주세요");
-		$("#email-auth-check").focus();
 		return false;
 	}else if($("#selectbox-mobile").val()=="default") {
 		alert("통신사를 선택해주세요");
@@ -644,7 +632,7 @@ $(document).on("click", "button[name='btn-agreement']", function(){
 *************************************************************************/
 $("#check-btn-style").click(function(){
 		
-	if($("#input-id").val()=="") {
+	if($("input[name='member_id']").val()=="") {
 		$("#idMsg").text("필수항목입니다").css("color","red").css("font-size","11px").css("display","inline");
 	}else if(!idCheck2($("input[name='member_id']").val())){
 			$("#idMsg").text("영문 또는 숫자로 작성해주세요").css("color","red").css("font-size","11px").css("display","inline");
@@ -652,13 +640,13 @@ $("#check-btn-style").click(function(){
 			$("#idMsg").text("5~10자리로 작성해주세요").css("color","red").css("font-size","11px").css("display","inline");
 	}else {
 		$.ajax({
-			url : "id_check.?member_id="+$("#input-id").val(),
+			url : "id_check?member_id="+$("input[name='member_id']").val(),
 			success : function(result) {
-				if(result == 1){
+				if(result == 	1){
 						$("#idMsg").text("이미 사용중인 아이디 입니다. 다시 입력해주세요")
 						.css("color","red").css("font-size","11px").css("display","inline");
 						$("input[name='member_id']").val("").focus();
-					}else if(result == 0){
+					}else {
 						$("#idMsg").text("사용 가능한 아이디 입니다")
 						.css("color","blue").css("font-size","11px").css("display","inline");
 						$("#input-common-password").focus();

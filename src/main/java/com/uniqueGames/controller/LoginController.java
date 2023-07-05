@@ -1,8 +1,8 @@
 package com.uniqueGames.controller;
 
 
-import com.uniqueGames.model.CompanyVo;
-import com.uniqueGames.model.MemberVo;
+import com.uniqueGames.model.Company;
+import com.uniqueGames.model.Member;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.repository.CompanyRepositoryMapper;
 import com.uniqueGames.repository.MemberRepositoryMapper;
@@ -36,8 +36,8 @@ public class LoginController {
 
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginOk(@Validated @ModelAttribute MemberVo member, @Validated @ModelAttribute CompanyVo company,
-			HttpServletRequest request, @RequestParam(defaultValue = "/") String redirectURL) {
+	public String loginOk(@Validated @ModelAttribute Member member, @Validated @ModelAttribute Company company,
+						  HttpServletRequest request, @RequestParam(defaultValue = "/") String redirectURL) {
 		HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
 
 //		MemberVo loginMember = memberRepositoryMapper.findById(member.getMember_id());
@@ -47,15 +47,16 @@ public class LoginController {
 		/* member */
 		if (member != null && memberRepositoryMapper.passEqual(member) == 1) {
 			// loginMember != null && loginMember.getPassword().equals(member.getPassword())
-			session.setAttribute(SessionConstants.LOGIN_MEMBER, memberRepositoryMapper.findById(member.getMember_id()));
+			session.setAttribute(SessionConstants.LOGIN_MEMBER, memberRepositoryMapper.findById(member.getMemberId()));
 			session.setAttribute("login", "member");
+
 			if (redirectURL.equals("notice_write") || redirectURL.equals("detail/insertIntro")) {
 				return "redirect:/";
 			}
 		}
 		/* company */
 		else if (company != null && companyRepositoryMapper.passEqual(company) == 1) {
-			session.setAttribute(SessionConstants.LOGIN_MEMBER,  companyRepositoryMapper.findById(company.getCompany_id())); // 세션에 로그인 회원 정보 보관
+			session.setAttribute(SessionConstants.LOGIN_MEMBER,  companyRepositoryMapper.findById(company.getCompanyId())); // 세션에 로그인 회원 정보 보관
 			session.setAttribute("login", "company");
 		}
 		

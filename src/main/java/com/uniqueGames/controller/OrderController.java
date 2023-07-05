@@ -1,6 +1,8 @@
 package com.uniqueGames.controller;
 
 
+import com.uniqueGames.model.Member;
+import com.uniqueGames.model.OrderVo;
 import com.uniqueGames.model.MemberVo;
 import com.uniqueGames.model.Order;
 import com.uniqueGames.model.SessionConstants;
@@ -25,7 +27,7 @@ public class OrderController {
 
 	/** order **/
 	@RequestMapping(value = "/order", method = RequestMethod.GET)
-	public ModelAndView order(String[] checkedList, @ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member) {
+	public ModelAndView order(String[] checkedList, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member) {
 		ModelAndView model = new ModelAndView();
 
 		list = new ArrayList<Integer>();

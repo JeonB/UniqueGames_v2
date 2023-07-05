@@ -1,8 +1,8 @@
 package com.uniqueGames.controller;
 
 
-import com.uniqueGames.model.CompanyVo;
-import com.uniqueGames.model.MemberVo;
+import com.uniqueGames.model.Company;
+import com.uniqueGames.model.Member;
 import com.uniqueGames.service.CompanyMemberService;
 import com.uniqueGames.service.MemberService;
 import javax.servlet.http.HttpSession;
@@ -22,9 +22,9 @@ public class FindAccountController {
 	@Autowired
 	private CompanyMemberService companyMemberService;
 
-	@RequestMapping(value="/findId", method=RequestMethod.GET)
+	@RequestMapping(value="/find-member", method=RequestMethod.GET)
 	public String findId() {
-		return "findAccount/findId";
+		return "findAccount/find-member";
 	}
 	
 	@RequestMapping(value="/findPwd", method=RequestMethod.GET)
@@ -32,30 +32,30 @@ public class FindAccountController {
 		return "findAccount/findPwd";
 	}
 	
-	@RequestMapping("/findCompany")
+	@RequestMapping("/find-company")
 	public String findCompany() {
-		return "findAccount/findCompany";
+		return "findAccount/find-company";
 	}
 
 	@RequestMapping(value="/findId_check", method=RequestMethod.POST)
 	@ResponseBody
-	public String findId_check(MemberVo memberVo) {
-		String result = memberService.memberFindIdResult(memberVo);
+	public String findId_check(Member member) {
+		String result = memberService.memberFindIdResult(member);
 		return result;
 	}
 	
 	/**Member password change; href to newpassword.jsp*/
 	@RequestMapping(value="/findPwd_check", method=RequestMethod.POST)
-	public ModelAndView findPwd_check(MemberVo memberVo) {
+	public ModelAndView findPwd_check(Member member) {
 		ModelAndView mav = new ModelAndView();
-		int result = memberService.memberFindPwdResult(memberVo);
+		int result = memberService.memberFindPwdResult(member);
 		
 		if(result == 1) {
-			mav.addObject("member_id", memberVo.getMember_id());
-			mav.setViewName("findAccount/newPassword");
+			mav.addObject("memberId", member.getMemberId());
+			mav.setViewName("member-newpass");
 		}else {
 			mav.addObject("find_result", "fail");
-			mav.setViewName("findAccount/findId");
+			mav.setViewName("find-member");
 		}
 		
 		return mav;
@@ -63,22 +63,22 @@ public class FindAccountController {
 	
 	/** myPage -> changing Password*/
 	@RequestMapping(value="/myPageChangePassword", method=RequestMethod.GET)
-	public ModelAndView MyPageChangePassword(String member_id) {
+	public ModelAndView MyPageChangePassword(String memberId) {
 		ModelAndView mav = new ModelAndView();
-		MemberVo memberVo = memberService.memberMyPageResult(member_id);
+		Member member = memberService.memberMyPageResult(memberId);
 		
-		mav.addObject("member_id", memberVo.getMember_id());
-		mav.addObject("password", memberVo.getPassword());
-		mav.setViewName("findAccount/newPassword");
+		mav.addObject("memberId", member.getMemberId());
+		mav.addObject("password", member.getPassword());
+		mav.setViewName("member-newpass");
 		
 		return mav;
 	}
 	
 	/**findPwd -> newpassword.jsp -> actual change password logic*/
 	@RequestMapping(value="/mChangePassword", method=RequestMethod.POST)
-	public ModelAndView Mnewpassword(String member_id, String mnewpassword, HttpSession session) {
+	public ModelAndView Mnewpassword(String memberId, String mnewpassword, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		int result = memberService.memberChangeMPassword(member_id, mnewpassword);
+		int result = memberService.memberChangeMPassword(memberId, mnewpassword);
 		
 		if(result==1) {
 			session.invalidate();
@@ -94,45 +94,45 @@ public class FindAccountController {
 	
 	@RequestMapping(value="/cfindId_check", method=RequestMethod.POST)
 	@ResponseBody
-	public String cfindId_check(CompanyVo companyVo) {
-		String result = companyMemberService.companyFindIdResult(companyVo);
+	public String cfindId_check(Company company) {
+		String result = companyMemberService.companyFindIdResult(company);
 		
 		return result;
 	}
 	
 	/**CompanyMyPage -> changing Password*/
 	@RequestMapping(value="/CompanyPageChangePassword", method=RequestMethod.GET)
-	public ModelAndView CompanyPageChangePassword(String company_id) {
+	public ModelAndView CompanyPageChangePassword(String companyId) {
 		ModelAndView mav = new ModelAndView();
-		CompanyVo companyVo = companyMemberService.companyPageResult(company_id);
-		mav.addObject("company_id", companyVo.getCompany_id());
-		mav.addObject("password", companyVo.getPassword());
+		Company company = companyMemberService.companyPageResult(companyId);
+		mav.addObject("companyId", company.getCompanyId());
+		mav.addObject("password", company.getPassword());
 		
-		mav.setViewName("findAccount/cnewPassword");
+		mav.setViewName("company-newpass");
 		return mav;
 	}
 	/**Company password change; href to cnewpassword.jsp*/
 	@RequestMapping(value="/cfindPwd_check", method=RequestMethod.POST)
-	public ModelAndView cfindPwd_check(CompanyVo companyVo) {
+	public ModelAndView cfindPwd_check(Company company) {
 		ModelAndView mav = new ModelAndView();
-		int result = companyMemberService.companyFindPwdResult(companyVo);
+		int result = companyMemberService.companyFindPwdResult(company);
 		
 		if(result == 1) {
-			mav.addObject("company_id", companyVo.getCompany_id());
-			mav.addObject("password", companyVo.getPassword());
-			mav.setViewName("findAccount/cnewPassword");
+			mav.addObject("companyId", company.getCompanyId());
+			mav.addObject("password", company.getPassword());
+			mav.setViewName("company-newpass");
 		}else {
 			mav.addObject("find_result", "fail");
-			mav.setViewName("findAccount/findCompany");
+			mav.setViewName("find-company");
 		}
 		
 		return mav;
 	}
 	
 	@RequestMapping(value="/cChangePassword", method=RequestMethod.POST)
-	public ModelAndView Cnewpassword(String company_id, String cnewpassword, HttpSession session) {
+	public ModelAndView Cnewpassword(String companyId, String cnewpassword, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		int result = companyMemberService.companyChangeCPassword(company_id, cnewpassword);
+		int result = companyMemberService.companyChangeCPassword(companyId, cnewpassword);
 		
 		if(result==1) {
 			session.invalidate();
