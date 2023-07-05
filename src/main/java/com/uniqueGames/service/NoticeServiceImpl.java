@@ -6,7 +6,6 @@ import com.uniqueGames.model.Notice;
 import com.uniqueGames.repository.NoticeMapper;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +27,8 @@ public class NoticeServiceImpl implements NoticeService {
 	 */
 	@Override
 	public List<Notice> getNoticeList(int startCount, int endCount) {
-//		return boardUtil.getOutput(noticeMapper.selectNotice(startCount, endCount));
-		return noticeMapper.selectNotice(1, 10);
+		return boardUtil.getOutput(noticeMapper.selectNotice(startCount, endCount));
+//		return noticeMapper.selectNotice(1, 10);
 	}
 
 	/**
@@ -43,10 +42,10 @@ public class NoticeServiceImpl implements NoticeService {
 		if (notice != null) {
 			if (stat == null || stat.equals("")) {
 				noticeMapper.hitsCount(no);
-				notice.setNotice_hits(notice.getNotice_hits() + 1);
+				notice.setNoticeHits(notice.getNoticeHits() + 1);
 			}
 
-			notice.setDate_output(format.format(notice.getNotice_date()));
+			notice.setDateOutput(format.format(notice.getNoticeDate()));
 
 		}
 
@@ -62,7 +61,7 @@ public class NoticeServiceImpl implements NoticeService {
 	public int insert(Notice notice) {
 
 		int insResult = noticeMapper.insertNotice(notice);
-		if (notice.getImage_id() != null) {
+		if (notice.getImageId() != null) {
 			noticeMapper.insertFile(notice);
 		}
 
@@ -88,7 +87,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 			}
 
-		} else if (notice.getImage_id() != null && notice.getImage_id().split("!")[0].equals("delete")) {
+		} else if (notice.getImageId() != null && notice.getImageId().split("!")[0].equals("delete")) {
 
 			noticeMapper.deleteFile(notice);
 		}

@@ -69,7 +69,7 @@ public class NoticeController {
                                   HttpServletRequest request, RedirectAttributes attributes) throws Exception {
 
         notice = boardUtil.fileUtil(request, notice);
-        notice.setCompany_id(cvo.getCompany_id());
+        notice.setCompanyId(cvo.getCompany_id());
         int result = noticeService.insert(notice);
 
         if (result == 1) {
@@ -81,7 +81,7 @@ public class NoticeController {
 
         }
 
-        return "redirect:/notice_content?no=" + notice.getPost_id();
+        return "redirect:/notice_content?no=" + notice.getPostId();
     }
 
     /**
@@ -141,7 +141,7 @@ public class NoticeController {
     @RequestMapping(value = "/notice_update_proc", method = RequestMethod.POST)
     public String noticeUpdateProc(Notice notice, HttpServletRequest request, RedirectAttributes attributes)
             throws Exception {
-        String oldFileName = notice.getImage_id();
+        String oldFileName = notice.getImageId();
 
         notice = boardUtil.fileUtil(request, notice);
         int result = noticeService.update(notice);
@@ -154,7 +154,7 @@ public class NoticeController {
 
         }
 
-        return "redirect:/notice_content?stat=up&no=" + notice.getPost_id();
+        return "redirect:/notice_content?stat=up&no=" + notice.getPostId();
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.uniqueGames.fileutil;
 
 import com.uniqueGames.model.Notice;
-import com.uniqueGames.repository.NoticeDao;
+import com.uniqueGames.repository.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +19,11 @@ public class BoardUtil {
 
 	private String root_path;
 	private String attach_path;
-	NoticeDao noticeDao;
+	NoticeMapper noticeMapper;
 
 	@Autowired
-	public BoardUtil(NoticeDao noticeDao) {
-		this.noticeDao = noticeDao;
+	public BoardUtil(NoticeMapper noticeMapper) {
+		this.noticeMapper = noticeMapper;
 	}
 
 	/**
@@ -42,31 +42,31 @@ public class BoardUtil {
 		int reqPage = 1; // 요청페이지
 		int pageCount = 1; // 전체 페이지 수
 		int dbCount = 0; // DB에서 가져온 전체 행수
-//
-//		if (keyword.equals("list")) { // 검색 키워드가 없는 전체 리스트
-//			dbCount = noticeDao.totRowCount("list");
-//
-//		} else {
-//			dbCount = noticeDao.totRowCount(keyword);
-//
-//		}
-//
-//		// 총 페이지 수 계산
-//		if (dbCount % pageSize == 0) {
-//			pageCount = dbCount / pageSize;
-//		} else {
-//			pageCount = dbCount / pageSize + 1;
-//		}
-//
-//		// 요청 페이지 계산
-//		if (page != null) {
-//			reqPage = Integer.parseInt(page);
-//			startCount = (reqPage - 1) * pageSize + 1;
-//			endCount = reqPage * pageSize;
-//		} else {
-//			startCount = 1;
-//			endCount = pageSize;
-//		}
+
+		if (keyword.equals("list")) { // 검색 키워드가 없는 전체 리스트
+			dbCount = noticeMapper.totRowCount();
+
+		} else {
+			dbCount = noticeMapper.totRowCount(keyword);
+
+		}
+
+		// 총 페이지 수 계산
+		if (dbCount % pageSize == 0) {
+			pageCount = dbCount / pageSize;
+		} else {
+			pageCount = dbCount / pageSize + 1;
+		}
+
+		// 요청 페이지 계산
+		if (page != null) {
+			reqPage = Integer.parseInt(page);
+			startCount = (reqPage - 1) * pageSize + 1;
+			endCount = reqPage * pageSize;
+		} else {
+			startCount = 1;
+			endCount = pageSize;
+		}
 //
 		result.put("startCount", startCount);
 		result.put("endCount", endCount);
@@ -136,8 +136,8 @@ public class BoardUtil {
 			String upload_file = notice.getFile().getOriginalFilename();
 			String image_id = uuid + upload_file;
 
-			notice.setUpload_file(upload_file);
-			notice.setImage_id(image_id);
+			notice.setUploadFile(upload_file);
+			notice.setImageId(image_id);
 
 		}
 
@@ -153,7 +153,7 @@ public class BoardUtil {
 	public  void fileSaveUtil(Notice notice) throws Exception {
 
 		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
-			File saveFile = new File(root_path + attach_path + notice.getImage_id());
+			File saveFile = new File(root_path + attach_path + notice.getImageId());
 			notice.getFile().transferTo(saveFile);
 
 		}
@@ -175,7 +175,7 @@ public class BoardUtil {
 		}
 		
 		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
-			File saveFile = new File(root_path + attach_path + notice.getImage_id());
+			File saveFile = new File(root_path + attach_path + notice.getImageId());
 			notice.getFile().transferTo(saveFile);
 
 		}

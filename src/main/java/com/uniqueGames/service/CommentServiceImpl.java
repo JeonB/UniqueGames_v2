@@ -19,7 +19,7 @@ public class CommentServiceImpl implements CommentService {
 	public String commentInsert(Comment comment) {
 		String result = "FAIL";
 
-		comment.setComment_content(comment.getComment_content().replaceAll("\r\n", "<br>"));
+		comment.setCommentContent(comment.getCommentContent().replaceAll("\r\n", "<br>"));
 		int dbResult = commentMapper.insertComment(comment);
 		if (dbResult == 1) {
 			result = "SUCCESS";

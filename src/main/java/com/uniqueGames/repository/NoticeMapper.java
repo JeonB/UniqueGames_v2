@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -39,9 +40,9 @@ public interface NoticeMapper {
 
 	int fileCheck(Notice notice);
 
-	ArrayList<Comment> selectComment(String no);
+	@Select("select count(*) from notice")
+	int totRowCount();
 
-	int insertComment(Comment comment);
-
-	int deleteComment(String no);
+	@Select("SELECT COUNT(*) FROM NOTICE WHERE TITLE LIKE CONCAT('%', #{keyword}, '%')")
+	int totRowCount(String keyword);
 }

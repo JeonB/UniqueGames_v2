@@ -95,15 +95,15 @@
             <!-- Comment -->
             <th:block th:each="c : ${commList}" th:status="status">
                 <div id="comment" th:id="'comment' + ${status.count}" class="comment1">
-                    <input type="hidden" name="no" th:value="${c.comment_id}">
-                    <div id="user-name" th:text="${c.member_id}"></div>
-                    <div><span id="msg-date" th:text="${c.comment_date}"></span>
+                    <input type="hidden" name="no" th:value="${c.getCommentId}">
+                    <div id="user-name" th:text="${c.getMemberId}"></div>
+                    <div><span id="msg-date" th:text="${c.getCommentDate}"></span>
                         <th:block
                                 th:if="${loginMember instanceof TLDialect.MemberVo} && ${c.member_id} eq ${loginMember.member_id}">
                             <span id="cmtDelete" class="cmtDelete" onclick="javascript:commentDelete(${c.comment_id})">삭제</span>
                         </th:block>
                     </div>
-                    <span th:utext="${c.comment_content}"></span>
+                    <span th:utext="${c.getCommentContent}"></span>
                 </div>
             </th:block>
         </div>

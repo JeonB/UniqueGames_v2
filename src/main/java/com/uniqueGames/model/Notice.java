@@ -10,17 +10,17 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 @Getter
 public class Notice {
 	int rno;
-	int post_id;
-	String company_id;
+	int postId;
+	String companyId;
 	String name;
 	String title;
 	String content;
-	int notice_hits;
-	Date notice_date;
-	String date_output;
+	int noticeHits;
+	Date noticeDate;
+	String dateOutput;
 	CommonsMultipartFile file;
-	String image_id;
-	String upload_file;
+	String imageId;
+	String uploadFile;
 	int cmtCount;
 
 }
