@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Unique Games</title>
-  <link rel="stylesheet" th:href="@{css/order_style.css}">
+  <link rel="stylesheet" th:href="@{css/order.css}">
   <script th:src="@{http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js}"></script>
   <script th:inline="javascript">
     $(document).ready(function (){
@@ -13,7 +13,7 @@
         let array = $("#select-order").val();
 
         $.ajax({
-          url : "payment_detail_data",
+          url : "paymentDetailData",
           data : {
             array : array
           },

@@ -94,7 +94,7 @@ $(document).ready(function (){
 			}, 
 			function(rsp) { // callback
 				if(rsp.success){
-					location.replace("order_proc?method=" + method);
+					location.replace("orderProc?method=" + method);
 				}
 				else {
 					alert("결제에 실패했습니다. 장바구니로 돌아갑니다.");

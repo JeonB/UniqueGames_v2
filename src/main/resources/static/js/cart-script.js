@@ -38,7 +38,7 @@ $(document).ready(function (){
         }
        	else {
 	       	$.ajax({
-	    		url: 'cart_delete_selected',
+	    		url: 'cartDeleteSelected',
 	    		method: 'POST',
 	    		data: {
 	        		checkedList: checkedList	//보내려는 데이터를 문자열로 변환하여 넣기

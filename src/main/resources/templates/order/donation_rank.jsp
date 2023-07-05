@@ -17,7 +17,7 @@
 			let c_id = $("#c_id").val();
 			
 			$.ajax({
-				url : "donation_rank_data",
+				url : "donationRankData",
 				success : function(result){				
 					let jdata = JSON.parse(result);
 					let output = "";

@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Unique Games</title>
-  <link rel="stylesheet" href="css/order_style.css">
+  <link rel="stylesheet" href="css/order.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
   <!-- 마이크로소프트 jQuery-->
-  <script src="js/order_script.js"></script>
+  <script src="js/order-script.js"></script>
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
@@ -39,11 +39,11 @@
         </tr>
         <tr th:each="order : ${orderList}">
           <td th:text="${order.rno}"></td>
-          <td><a><img th:src="${order.game_img}"></a></td>
+          <td><a><img th:src="${order.gameImg}"></a></td>
           <td><p><a th:text="${order.gametitle}"></a></p></td>
           <td><span th:text="${#numbers.formatCurrency(order.amount)}"></span></td>
           <td>
-            <a th:href="@{/order_delete_one(id=${order.id})}" id="a-delete">
+            <a th:href="@{/orderDeleteOne(id=${order.id})}" id="a-delete">
               <button type="button" id="btn-deleteOne" name="btn-deleteOne" th:value="${order.id}">삭제</button>
             </a>
           </td>
