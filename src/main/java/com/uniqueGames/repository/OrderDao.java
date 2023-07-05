@@ -1,6 +1,6 @@
 package com.uniqueGames.repository;
 
-import com.uniqueGames.model.OrderVo;
+import com.uniqueGames.model.Order;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,12 +18,12 @@ public class OrderDao{
 
 	/** Cart **/
 	// getCartList
-	public ArrayList<OrderVo> getCartList(String m_id) {
+	public ArrayList<Order> getCartList(String m_id) {
 		List<Object> oList = sqlSession.selectList("mapper.orderMapper.getCartList", m_id);
-		ArrayList<OrderVo> cartList = new ArrayList<OrderVo>();
+		ArrayList<Order> cartList = new ArrayList<Order>();
 		
 		for (Object cart : oList) {
-			cartList.add((OrderVo) cart);
+			cartList.add((Order) cart);
 		}
 
 		return cartList;
@@ -44,16 +44,16 @@ public class OrderDao{
 		return sqlSession.delete("mapper.orderMapper.getCartDeleteOne", id);
 	} // getCartDeleteOne
 
-	public void insertCart(OrderVo orderVo){
-		sqlSession.insert("mapper.orderMapper.insertCart", orderVo);
+	public void insertCart(Order order){
+		sqlSession.insert("mapper.orderMapper.insertCart", order);
 	}
 	/** Order **/
 	// getOrderList
-	public ArrayList<OrderVo> getOrderList(List<Integer> checkedList) {
-		ArrayList<OrderVo> orderList = new ArrayList<OrderVo>();
+	public ArrayList<Order> getOrderList(List<Integer> checkedList) {
+		ArrayList<Order> orderList = new ArrayList<Order>();
 
 		for (int i = 0; i < checkedList.size(); i++) {
-			OrderVo order = sqlSession.selectOne("mapper.orderMapper.getOrderList", checkedList.get(i));
+			Order order = sqlSession.selectOne("mapper.orderMapper.getOrderList", checkedList.get(i));
 			order.setRno(i + 1);
 			orderList.add(order);
 		}
@@ -93,16 +93,16 @@ public class OrderDao{
 	} // getOrderComplete
 
 	// getPaymentDetail
-	public ArrayList<OrderVo> getPaymentDetail(String m_id, String array) {
+	public ArrayList<Order> getPaymentDetail(String m_id, String array) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("m_id", m_id);
 		param.put("array", array);
 
 		List<Object> oList = sqlSession.selectList("mapper.orderMapper.getPaymentDetail", param);
-		ArrayList<OrderVo> paymentList = new ArrayList<OrderVo>();
+		ArrayList<Order> paymentList = new ArrayList<Order>();
 
 		for (Object payment : oList) {
-			paymentList.add((OrderVo) payment);
+			paymentList.add((Order) payment);
 		}
 
 		return paymentList;
@@ -119,16 +119,16 @@ public class OrderDao{
 	} // getPaymentAmount
 
 	// getDonationDetail
-	public ArrayList<OrderVo> getDonationDetail(String c_id, String array) {
+	public ArrayList<Order> getDonationDetail(String c_id, String array) {
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("c_id", c_id);
 		param.put("array", array);
 
 		List<Object> oList = sqlSession.selectList("mapper.orderMapper.getDonationDetail", param);
-		ArrayList<OrderVo> donationList = new ArrayList<OrderVo>();
+		ArrayList<Order> donationList = new ArrayList<Order>();
 
 		for (Object donation : oList) {
-			donationList.add((OrderVo) donation);
+			donationList.add((Order) donation);
 		}
 
 		return donationList;
@@ -145,12 +145,12 @@ public class OrderDao{
 	} // getTotalDonation
 
 	// getDonationRank
-	public ArrayList<OrderVo> getDonationRank(String c_id) {
+	public ArrayList<Order> getDonationRank(String c_id) {
 		List<Object> oList = sqlSession.selectList("mapper.orderMapper.getDonationRank", c_id);
-		ArrayList<OrderVo> rankList = new ArrayList<OrderVo>();
+		ArrayList<Order> rankList = new ArrayList<Order>();
 
 		for (Object donator : oList) {
-			rankList.add((OrderVo) donator);
+			rankList.add((Order) donator);
 		}
 
 		return rankList;

@@ -2,7 +2,7 @@ package com.uniqueGames.controller;
 
 
 import com.uniqueGames.model.MemberVo;
-import com.uniqueGames.model.OrderVo;
+import com.uniqueGames.model.Order;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.OrderServiceImpl;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class OrderController {
 			list.add(Integer.parseInt(id));
 		}
 
-		ArrayList<OrderVo> orderList = orderServiece.getOrderList(list);
+		ArrayList<Order> orderList = orderServiece.getOrderList(list);
 		int count = list.size();
 		int totalAmount = orderServiece.getOrderAmount(list);
 
@@ -61,7 +61,7 @@ public class OrderController {
 			model.setViewName("redirect://cart");
 		} else {
 
-			ArrayList<OrderVo> orderList = orderServiece.getOrderList(list);
+			ArrayList<Order> orderList = orderServiece.getOrderList(list);
 			int count = list.size();
 			int amount = orderServiece.getOrderAmount(list);
 
@@ -95,6 +95,6 @@ public class OrderController {
 	/** order_proc **/
 	@RequestMapping(value = "/order_complete", method = RequestMethod.GET)
 	public String order_complete() {
-		return "order/order_complete";
+		return "order-complete";
 	}
 }

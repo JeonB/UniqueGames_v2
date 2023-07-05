@@ -4,7 +4,7 @@ package com.uniqueGames.controller;
 import com.uniqueGames.model.CompanyVo;
 import com.uniqueGames.model.GameVo;
 import com.uniqueGames.model.MemberVo;
-import com.uniqueGames.model.OrderVo;
+import com.uniqueGames.model.Order;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.OrderServiceImpl;
 
@@ -32,7 +32,7 @@ public class CartController {
 		/*
 		* orderService의 데이터 insert 기능 추가
 		* */
-		OrderVo orderVo = orderService.addToOrderVo(
+		Order order = orderService.addToOrderVo(
 				memberVo.getMember_id(),
 				companyVo.getCompany_id(),
 				gameVo.getId(),
@@ -40,15 +40,15 @@ public class CartController {
 				gameVo.getName(),
 				gameVo.getImage_path()
 				);
-		orderService.insertCart(orderVo);
+		orderService.insertCart(order);
 		return "order/cart";
 	}
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public ModelAndView cart(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member) {
+		ModelAndView model = new ModelAndView();
+		ArrayList<Order> cartList = orderService.getCartList(member.getMember_id());
 		System.out.println(member.getMember_id());
 
-		ModelAndView model = new ModelAndView();
-		ArrayList<OrderVo> cartList = orderService.getCartList(member.getMember_id());
 
 		if (cartList.size() > 0) {
 			model.addObject("cartList", cartList);
