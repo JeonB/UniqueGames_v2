@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Unique Games</title>
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <style>
+    .btn-hearder-search {
+      border:none;
+      background-color: rgba( 255, 255, 255, 0 );
+      width: 40px;
+      padding: 4px 6px 4px 6px;
+    }
+
+    .input-search {
+      background-image: url("/images/icon-search-header.png");
+      background-repeat: no-repeat;
+      background-position: 15px center;
+      background-size: 16px;
+      width: 360px;
+      height: 46px;
+      padding: 2px 2px 2px 40px;
+      position: relative;
+      z-index: 2;
+      border-radius: 40px;
+      border: 1px solid #707070;
+    }
+
+    .search-menu {
+      position: absolute;
+      float: right;
+      top: 60px;
+      right: 170px;
+    }
+    .member_id_header {
+      font-family: "YouandiModern", sans-serif;
+      font-size: 14px;
+      color: #ffffff;
+      width: 400px;
+      text-align: right;
+      padding: 5px;
+      padding-right: 10px;
+    }
+    .logout_header {
+      padding-left:10px ;
+      width: 80px;
+    }
+  </style>
+</head>
+<header th:fragment="headerFragment">
+<body>
+<header>
+  <div class="header-top-menu">
+    <c:choose>
+      <c:when test="${sessionScope.loginMember.name == null}">
+        <nav class="nav1">
+          <ul>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/join">Join</a></li>
+            <%--                        <li><a href="/myPage"><img src="/images/img-icon-mypage.png"></a></li>--%>
+            <%--                        <li><a href="/cart?m_id=mtest"><img src="/images/img-icon-cart.png"></a></li>--%>
+          </ul>
+        </nav>
+      </c:when>
+      <c:otherwise>
+        <nav class="nav1">
+          <ul>
+            <li class="member_id_header">${sessionScope.loginMember.name}님 반갑습니다.</li>
+            <li class="logout_header"><a href="/logout" target="_parent">Logout</a></li>
+            <%--                            <li><a href="/join">Join</a></li>--%>
+            <li><a href="/myPage"><img src="/images/img-icon-mypage.png"></a></li>
+            <c:if test="${sessionScope.login == 'member' }">
+              <li><a href="/cart"><img src="/images/img-icon-cart.png"></a></li>
+            </c:if>
+          </ul>
+        </nav>
+      </c:otherwise>
+    </c:choose>
+  </div>
+  <div class="hearder-logo">
+    <a href="/" target="_parent">
+      <img src="/images/img-title-logo.png">
+    </a>
+  </div>
+  <div class="header-bottom-menu">
+    <nav class="nav2">
+      <ul>
+        <li><a href="/topgame">Top Game</a></li>
+        <li><a href="/alllist">All List</a></li>
+        <li><a href="/#menu-main1">Recommendations</a></li>
+        <li><a href="/notice_list">Notice</a></li>
+        <li><a href="/detail/getIntroList">Team Intro</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+</body>
+</html>

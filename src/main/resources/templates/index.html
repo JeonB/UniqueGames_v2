@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Unique Games</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <!-- SWIPER 외부 라이브러리 연결-->
+    <script>
+        document.addEventListener('click', function (event) {
+            // 클릭된 요소가 버튼인지 확인
+            if (event.target.matches('#btn-like-style')) {
+                var gameId = event.target.getAttribute('data-game-id');
+
+                // AJAX 요청을 통해 서버에 좋아요 처리 요청 전송
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/like', true);
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        alert(response.message);
+                        // 좋아요 처리 후 추가적인 작업을 수행할 수 있습니다.
+                    }
+                };
+                xhr.send('gameId=' + gameId);
+            }
+        });
+    </script>
+</head>
+<body>
+
+<div th:replace="~{/main/header :: headerFragment}"></div>
+<div class="swiper">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <div class="silde1">
+                <div class="slide-text">
+                    <h2>디 엑시트 이터널 매터스</h2>
+                    <h1>DE-EXIT - Eternal Matters</h1>
+                    <p>죽음을 넘어선 생명을 느끼다</p>
+                    <a href="detail/1"><button class="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="silde2">
+                <div class="slide-text">
+                    <h2>스트리트 파이터 6 디럭스 에디션</h2>
+                    <h1>Street Fighter 6</h1>
+                    <p>시리즈 최신작 『Street Fighter 6(스트리트 파이터 6)』</p>
+                    <a href="detail/2"><button class="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="silde3">
+                <div class="slide-text">
+                    <h2>뱀파이어: 마스커레이드 - 스완송</h2>
+                    <h1>Vampire: The Masquerade</h1>
+                    <p>월드 오브 다크니스에 오신 것을 환영합니다</p>
+                    <a href="detail/3"><button class="btn-main-style" type="button" style='cursor:pointer'>자세히보기</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="silde4">
+                <div class="slide-text">
+                    <h2>더 라스트 오브 어스 파트 1 디럭스 에디션</h2>
+                    <h1>The Last of Us Part I </h1>
+                    <p>살기 위해 오늘도 길을 나선다 탐험 액션</p>
+                    <a href="detail/4"><button class="btn-main-style" type="button"  style='cursor:pointer'>자세히보기</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="swiper-pagination"></div>
+
+    <div class="swiper-button-prev">
+        <button class="btn__prev"><img src="/images/btn-main-arrow-left.png"></button>
+    </div>
+    <div class="swiper-button-next">
+        <button class="btn__next"><img src="/images/btn-main-arrow-right.png"></button>
+    </div>
+</div>
+<img class="topGame-title" src="/images/imt-title-top.png" width="135px" height="32px">
+<div class="menu-topGame">
+    <div class="topGame-list">
+        <div th:each="game, loop : ${ranking}">
+            <div th:if="${loop.index &lt; 4}" class="tList">
+                <a th:href="@{'detail/' + ${game.id}}"><img alt="#" th:src="${game.image_path}" width="500px" height="240px"></a>
+                <div>
+                    <p th:text="${loop.index + 1}"></p>
+                    <li class="cyber"><a th:href="@{'detail/' + ${game.id}}" th:text="${game.name}"></a></li>
+                    <p class="cyber2" th:text="${game.description}"></p>
+                    <a href="topgame"><button class="readmore-plus" type="button"><img src="/images/btn-plus-normal.png" width="30px" height="30px"></button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="menu-main1">
+    <img class="recommendations-title" src="/images/img-title-recommendations.png" width="262px" height="26px">
+    <p class="sub-title">#최근 반응이 좋은</p>
+    <div class="menu-recommendations">
+        <div class="recommendList">
+            <div th:each="game, loop : ${donation}">
+                <div th:if="${loop.index &lt; 4}" class="rList">
+                    <img th:src="${game.image_path}" width="260px" height="180px">
+                    <ul>
+                        <li>Hot</li>
+                        <li th:text="${game.name}"></li>
+                        <li th:text="${game.game_genre}"></li>
+                        <li><img src="/images/img-icon-rPc.png"></li>
+                    </ul>
+                    <div>
+                        <a th:href="@{'detail/' + ${game.id}}"><button class="btn-recommend-style" type="button">자세히보기</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="menu-main2">
+    <img class="allList-title" src="/images/img-title-AllList.png" width="100px" height="24px">
+    <div class="menu-allList">
+        <div class="gameList">
+            <div th:each="game : ${gameList}">
+                <div class="gList">
+                    <img th:src="${game.image_path}" width="260px" height="180px">
+                    <ul>
+                        <li><a th:href="@{'detail/' + ${game.id}}">${game.name}</a></li>
+                        <li th:text="${game.game_genre}"></li>
+                        <li><a th:href="@{'detail/' + ${game.id}}"><button class="btn-like-style" type="button"data-game-id="${game.id}"></button></a></li>
+                        <li th:text="${game.like_count}"></li>
+                        <li><img src="/images/img-icon-rPc.png"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="menu-main3">
+    <img class="solution-title" src="/images/img-title-notice.png" width="90px" height="25px">
+    <p class="sub-title">#공지사항 #필독</p>
+    <div class="menu-solution">
+        <table>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+            </tr>
+<!--            <div th:each="noticeVo : ${noticeList}">-->
+<!--                <tr>-->
+<!--                    <td th:text="${noticeVo.rno}"></td>-->
+<!--                    <td><a th:href="@{'notice_content?no=' + ${noticeVo.post_id}}}">${noticeVo.title}</a></td>-->
+<!--                    <td th:text="${noticeVo.company_id}"></td>-->
+<!--                    <td th:text="${noticeVo.date_output}"></td>-->
+<!--                </tr>-->
+<!--            </div>-->
+        </table>
+        <div class="solution-btn-area">
+            <a href="notice_list"><button class="btn-solution" type="button">자세히보기</button></a>
+        </div>
+    </div>
+</section>
+<div th:replace="~{/main/footer::footerFragment}"></div>
+<script>
+    new Swiper('.swiper', {
+        autoplay: {
+            delay: 4000
+        },
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        // centeredSlides: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+        navigation: {
+            prevEl: '.swiper-button-prev',
+            nextEl: '.swiper-button-next'
+        }
+    })
+</script>
+</body>
+</html>
