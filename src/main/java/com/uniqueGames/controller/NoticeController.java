@@ -3,7 +3,7 @@ package com.uniqueGames.controller;
 
 import com.uniqueGames.fileutil.BoardUtil;
 import com.uniqueGames.model.Comment;
-import com.uniqueGames.model.CompanyVo;
+import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.CommentService;
@@ -65,11 +65,11 @@ public class NoticeController {
      * notice_write_proc 공지사항 - 작성 처리
      */
     @RequestMapping(value = "/notice_write_proc", method = RequestMethod.POST)
-    public String noticeWriteProc(Notice notice, @ModelAttribute(SessionConstants.LOGIN_MEMBER) CompanyVo cvo,
+    public String noticeWriteProc(Notice notice, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Company cvo,
                                   HttpServletRequest request, RedirectAttributes attributes) throws Exception {
 
         notice = boardUtil.fileUtil(request, notice);
-        notice.setCompanyId(cvo.getCompany_id());
+        notice.setCompanyId(cvo.getCompanyId());
         int result = noticeService.insert(notice);
 
         if (result == 1) {

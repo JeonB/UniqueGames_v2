@@ -49,8 +49,8 @@ public class DetailMapperController {
      */
     @RequestMapping(value = "/{detailId}", method = RequestMethod.GET)
     public String goDetail(@PathVariable("detailId") int detailId, Model model) {
-        GameVo gameVo = indexServiceMapper.getGameForIndex(detailId);
-        model.addAttribute("game", gameVo);
+        Game game = indexServiceMapper.getGameForIndex(detailId);
+        model.addAttribute("game", game);
         Company company = companyRepositoryMapper.findByIndex(detailId);
         model.addAttribute("companyVo", company);
         // 요청된 detailId에 따라 해당 페이지로 이동
@@ -69,7 +69,7 @@ public class DetailMapperController {
     }
 //    @RequestMapping(value = "/{detailId}", method = RequestMethod.POST)
 //    public void getCompanyId(@PathVariable("detailId") int detailId,@RequestParam("companyId") String companyId, Model model){
-//        CompanyVo companyVo = companyRepositoryMapper.findById(companyId);
+//        Company companyVo = companyRepositoryMapper.findById(companyId);
 //        model.addAttribute("companyVo", companyVo);
 //    }
 
@@ -85,9 +85,8 @@ public class DetailMapperController {
         FileUtil fileUtil = new FileUtil(vo, request);
         Intro intro = fileUtil.getUpload();
         HttpSession session = request.getSession();
+
         if(intro.getTitle() == null || intro.getName() == null){
-                CompanyVo company = (CompanyVo) session.getAttribute(SessionConstants.LOGIN_MEMBER);
-        if(introVo.getTitle() == null || introVo.getName() == null){
                 Company company = (Company) session.getAttribute(SessionConstants.LOGIN_MEMBER);
                 model.addAttribute("company",company);
                 return "detail/company_regi";
@@ -99,7 +98,7 @@ public class DetailMapperController {
             }
     }
 //    @RequestMapping(value = "/updateIntro")
-//    public String updateIntro(@ModelAttribute("intro") Intro vo, @ModelAttribute("company") CompanyVo companyVo){
+//    public String updateIntro(@ModelAttribute("intro") Intro vo, @ModelAttribute("company") Company companyVo){
 //        companyServiceMapper.updateIntro(vo);
 //        return "redirect:getIntroList";
 //    }
@@ -117,7 +116,7 @@ public class DetailMapperController {
     }
 
     @RequestMapping(value = "/getIntro")
-    public String getIntro(Model model, Intro vo, @ModelAttribute("noticeVo") Notice notice, @ModelAttribute("list") ArrayList<NoticeVo> list){
+    public String getIntro(Model model, Intro vo, @ModelAttribute("noticeVo") Notice notice, @ModelAttribute("list") ArrayList<Notice> list){
         model.addAttribute("intro",companyServiceMapper.getIntro(vo.getId()));
         return "detail/company";
     }

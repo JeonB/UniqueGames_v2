@@ -4,9 +4,7 @@ package com.uniqueGames.controller;
 
 import com.uniqueGames.model.*;
 import com.uniqueGames.model.Company;
-import com.uniqueGames.model.CompanyVo;
-import com.uniqueGames.model.GameVo;
-import com.uniqueGames.model.MemberVo;
+import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Order;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.OrderServiceImpl;
@@ -30,26 +28,26 @@ public class CartController {
 
 	@RequestMapping(value = "/cart", method = RequestMethod.POST)
 	public String getValue(@RequestParam("selectedValue") String selectedValue, @ModelAttribute("companyVo")
-    Company company, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member, @ModelAttribute("game") GameVo gameVo){
+    Company company, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member, @ModelAttribute("game") Game game){
 
 		/*
 		* orderService의 데이터 insert 기능 추가
 		* */
 		Order order = orderService.addToOrderVo(
 
-				memberVo.getMemberId(),
-				companyVo.getCompanyId(),
+				member.getMemberId(),
+				company.getCompanyId(),
 
-				gameVo.getId(),
+				game.getId(),
 				Integer.parseInt(selectedValue),
-				gameVo.getName(),
-				gameVo.getImagePath()
+				game.getName(),
+				game.getImagePath()
 				);
 		orderService.insertCart(order);
 		return "order/cart";
 	}
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
-	public ModelAndView cart(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member) {
+	public ModelAndView cart(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member) {
 		ModelAndView model = new ModelAndView();
 		ArrayList<Order> cartList = orderService.getCartList(member.getMemberId());
 		System.out.println(member.getMemberId());
@@ -94,7 +92,7 @@ public class CartController {
 	}
 
 	@RequestMapping(value = "/cartDeleteAll", method = RequestMethod.GET)
-	public String cartDeleteSelected(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member) {
+	public String cartDeleteSelected(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member) {
 		String mId = member.getMemberId();
 		int result = orderService.getCartDeleteAll(mId);
 

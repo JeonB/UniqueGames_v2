@@ -34,7 +34,7 @@ public class PaymentDetailController {
 	/** paymentDetailData **/
 	@RequestMapping(value = "/paymentDetailData", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String paymentDetailData(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member, String array) {
+	public String paymentDetailData(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member, String array) {
 		String mId = member.getMemberId();
 		ArrayList<Order> list = orderService.getPaymentDetail(mId, array);
 
@@ -74,7 +74,7 @@ public class PaymentDetailController {
 	/** donationDetailData **/
 	@RequestMapping(value = "/donationDetailData", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String donationDetailData(@ModelAttribute(SessionConstants.LOGIN_MEMBER) CompanyVo company, String array) {
+	public String donationDetailData(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Company company, String array) {
 		String cId = company.getCompanyId();
 		ArrayList<Order> list = orderService.getDonationDetail(cId, array);
 
@@ -115,7 +115,7 @@ public class PaymentDetailController {
 	/** donationRankData **/
 	@RequestMapping(value = "/donationRankData", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String donationRankData(@ModelAttribute(SessionConstants.LOGIN_MEMBER) CompanyVo company) {
+	public String donationRankData(@ModelAttribute(SessionConstants.LOGIN_MEMBER) Company company) {
 		String cId = company.getCompanyId();
 		ArrayList<Order> list = orderService.getDonationRank(cId);
 
