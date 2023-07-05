@@ -1,28 +1,33 @@
 package com.uniqueGames.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class Order {
 	// Field
-	String order_date, method, payment_status, gametitle, game_img, userId, m_id, c_id;
-	int id, g_id, amount, rno;
+	String orderDate, method, paymentStatus, gametitle, gameImg, userId, mId, cId;
+	int id, gId, amount, rno;
 	public Order(){
 	}
-	public Order(String m_id, String c_id, int g_id, int amount, String gametitle, String game_img) {
+	public Order(String mId, String cId, int gId, int amount, String gametitle, String gameImg) {
 
 		this.gametitle = gametitle;
-		this.game_img = game_img;
-		this.m_id = m_id;
-		this.c_id = c_id;
-		this.g_id = g_id;
+		this.gameImg = gameImg;
+		this.mId = mId;
+		this.cId = cId;
+		this.gId = gId;
 		this.amount = amount;
 	}
 
 	// Method
-	public String getOrder_date() {
-		return order_date;
+	public String getOrderDate() {
+		return orderDate;
 	}
 
-	public void setOrder_date(String order_date) {
-		this.order_date = order_date;
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
 	}
 
 	public String getMethod() {
@@ -33,12 +38,12 @@ public class Order {
 		this.method = method;
 	}
 
-	public String getPayment_status() {
-		return payment_status;
+	public String getPaymentStatus() {
+		return paymentStatus;
 	}
 
-	public void setPayment_status(String payment_status) {
-		this.payment_status = payment_status;
+	public void setPaymentStatus(String paymentStatus) {
+		this.paymentStatus = paymentStatus;
 	}
 
 	public String getGametitle() {
@@ -49,12 +54,12 @@ public class Order {
 		this.gametitle = gametitle;
 	}
 
-	public String getGame_img() {
-		return game_img;
+	public String getGameImg() {
+		return gameImg;
 	}
 
-	public void setGame_img(String game_img) {
-		this.game_img = game_img;
+	public void setGameImg(String gameImg) {
+		this.gameImg = gameImg;
 	}
 
 	public String getUserId() {
@@ -65,20 +70,20 @@ public class Order {
 		this.userId = userId;
 	}
 
-	public String getM_id() {
-		return m_id;
+	public String getmId() {
+		return mId;
 	}
 
-	public void setM_id(String m_id) {
-		this.m_id = m_id;
+	public void setmId(String mId) {
+		this.mId = mId;
 	}
 
-	public String getC_id() {
-		return c_id;
+	public String getcId() {
+		return cId;
 	}
 
-	public void setC_id(String c_id) {
-		this.c_id = c_id;
+	public void setcId(String cId) {
+		this.cId = cId;
 	}
 
 	public int getId() {
@@ -89,12 +94,12 @@ public class Order {
 		this.id = id;
 	}
 
-	public int getG_id() {
-		return g_id;
+	public int getgId() {
+		return gId;
 	}
 
-	public void setG_id(int g_id) {
-		this.g_id = g_id;
+	public void setgId(int gId) {
+		this.gId = gId;
 	}
 
 	public int getAmount() {

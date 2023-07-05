@@ -5,7 +5,7 @@
   <title>Unique Games</title>
   <link rel="stylesheet" href="css/order.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-  <script src="js/cart_script.js"></script>
+  <script src="js/cart-script.js"></script>
 </head>
 <body>
 <!-- header -->
@@ -40,7 +40,7 @@
           <td th:id="${cart.amount}">
             <input type="checkbox" th:id="${cart.id}" name="checkOne" checked="checked" th:value="${cart.id}">
           </td>
-          <td><a><img th:src="${cart.game_img}"></a></td>
+          <td><a><img th:src="${cart.gameImg}"></a></td>
           <td>
             <p><a th:text="${cart.gametitle}"></a></p>
           </td>
@@ -48,7 +48,7 @@
             <p><a th:text="${cart.amount}"></a></p>
           </td>
           <td>
-            <a th:href="@{/cart_delete_one(id=${cart.id})}" id="a-delete">
+            <a th:href="@{/cartDeleteOne(id=${cart.id})}" id="a-delete">
               <button type="button" id="btn-deleteOne" th:value="${cart.id}">삭제</button>
             </a>
           </td>

@@ -30,7 +30,7 @@
 	<div id="div-thankyou">결제가 완료되었습니다.</div>
 	<div id="div-button">
 		<a href="/"><button type="button" id="btn-main">메인으로</button></a>
-		<a href="/payment_detail"><button type="button" id="btn-list">결제내역</button></a>
+		<a href="/paymentDetail"><button type="button" id="btn-list">결제내역</button></a>
 	</div>
 </div>
 

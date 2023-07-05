@@ -24,18 +24,18 @@ public class PaymentDetailController {
 	@Autowired
     OrderServiceImpl orderService;
 
-	/** payment_detail **/
-	@RequestMapping(value = "/payment_detail", method = RequestMethod.GET)
-	public String payment_detail() {
+	/** paymentDetail **/
+	@RequestMapping(value = "/paymentDetail", method = RequestMethod.GET)
+	public String paymentDetail() {
 		return "payment-detail";
 	}
 
-	/** payment_detail_data **/
-	@RequestMapping(value = "/payment_detail_data", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	/** paymentDetailData **/
+	@RequestMapping(value = "/paymentDetailData", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String payment_detail_data(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member, String array) {
-		String m_id = member.getMember_id();
-		ArrayList<Order> list = orderService.getPaymentDetail(m_id, array);
+	public String paymentDetailData(@ModelAttribute(SessionConstants.LOGIN_MEMBER) MemberVo member, String array) {
+		String mId = member.getMemberId();
+		ArrayList<Order> list = orderService.getPaymentDetail(mId, array);
 
 		// list 객체의 데이터를 JSON 형태로 생성
 		JsonObject jlist = new JsonObject();
@@ -46,14 +46,14 @@ public class PaymentDetailController {
 		} else {
 			jlist.addProperty("nothing", false);
 		}
-		jlist.addProperty("count", orderService.getPaymentCount(m_id));
-		jlist.addProperty("totalAmount", orderService.getPaymentAmount(m_id));
+		jlist.addProperty("count", orderService.getPaymentCount(mId));
+		jlist.addProperty("totalAmount", orderService.getPaymentAmount(mId));
 
 		for (Order payment : list) {
 			JsonObject jobj = new JsonObject();
 
 			jobj.addProperty("rno", payment.getRno());
-			jobj.addProperty("orderdate", payment.getOrder_date());
+			jobj.addProperty("orderdate", payment.getOrderDate());
 			jobj.addProperty("gametitle", payment.getGametitle());
 			jobj.addProperty("amount", payment.getAmount());
 
@@ -64,18 +64,18 @@ public class PaymentDetailController {
 		return new Gson().toJson(jlist);
 	}
 
-	/** donation_detail **/
-	@RequestMapping(value = "/donation_detail", method = RequestMethod.GET)
-	public String donation_detail() {
+	/** donationDetail **/
+	@RequestMapping(value = "/donationDetail", method = RequestMethod.GET)
+	public String donationDetail() {
 		return "donation-detail";
 	}
 
-	/** donation_detail_data **/
-	@RequestMapping(value = "/donation_detail_data", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	/** donationDetailData **/
+	@RequestMapping(value = "/donationDetailData", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String donation_detail_data(@ModelAttribute(SessionConstants.LOGIN_MEMBER) CompanyVo company, String array) {
-		String c_id = company.getCompany_id();
-		ArrayList<Order> list = orderService.getDonationDetail(c_id, array);
+	public String donationDetailData(@ModelAttribute(SessionConstants.LOGIN_MEMBER) CompanyVo company, String array) {
+		String cId = company.getCompanyId();
+		ArrayList<Order> list = orderService.getDonationDetail(cId, array);
 
 
 		// list 객체의 데이터를 JSON 형태로 생성
@@ -87,14 +87,14 @@ public class PaymentDetailController {
 		} else {
 			jlist.addProperty("nothing", false);
 		}
-		jlist.addProperty("expected", orderService.getExpected(c_id));
-		jlist.addProperty("totalAmount", orderService.getTotalDonation(c_id));
+		jlist.addProperty("expected", orderService.getExpected(cId));
+		jlist.addProperty("totalAmount", orderService.getTotalDonation(cId));
 
 		for (Order payment : list) {
 			JsonObject jobj = new JsonObject();
 
 			jobj.addProperty("rno", payment.getRno());
-			jobj.addProperty("orderdate", payment.getOrder_date());
+			jobj.addProperty("orderdate", payment.getOrderDate());
 			jobj.addProperty("gametitle", payment.getGametitle());
 			jobj.addProperty("amount", payment.getAmount());
 
@@ -105,18 +105,18 @@ public class PaymentDetailController {
 		return new Gson().toJson(jlist);
 	}
 
-	/** donation_rank **/
-	@RequestMapping(value = "/donation_rank", method = RequestMethod.GET)
-	public String donation_rank() {
+	/** donationRank **/
+	@RequestMapping(value = "/donationRank", method = RequestMethod.GET)
+	public String donationRank() {
 		return "donation-rank";
 	}
 
-	/** donation_rank_data **/
-	@RequestMapping(value = "/donation_rank_data", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	/** donationRankData **/
+	@RequestMapping(value = "/donationRankData", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String donation_rank_data(@ModelAttribute(SessionConstants.LOGIN_MEMBER) CompanyVo company) {
-		String c_id = company.getCompany_id();
-		ArrayList<Order> list = orderService.getDonationRank(c_id);
+	public String donationRankData(@ModelAttribute(SessionConstants.LOGIN_MEMBER) CompanyVo company) {
+		String cId = company.getCompanyId();
+		ArrayList<Order> list = orderService.getDonationRank(cId);
 
 		// list 객체의 데이터를 JSON 형태로 생성
 		JsonObject jlist = new JsonObject();
