@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Unique Games</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/order.css}">
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+    <script src="js/admin-script.js"></script>
+</head></head>
+<body>
+<!-- header -->
+<div th:replace="~{/main/header :: headerFragment}"></div>
+
+<!-- content -->
+<section id="top-bg">
+    <div id="base-layer">
+        <div id="top-bg-textarea">
+            <p id="top-title">Admin</p>
+            <p id="top-subtitle">#관리자_페이지</p>
+        </div>
+    </div>
+</section>
+
+<div id="div-sidebar">
+
+</div>
+
+<!-- footer -->
+<div th:replace="~{/main/footer::footerFragment}"></div>
+</body>
+</html>

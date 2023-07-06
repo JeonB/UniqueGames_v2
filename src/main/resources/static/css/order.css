@@ -169,12 +169,12 @@ input[name="checkOne"] {
 	width: 20px;	height: 20px;
 	margin: 3px 0px 0px 5px;
 	appearance: none;
-	background-image: url("../images/btn_check_normal.png");
+	background-image: url("../images/btn-check-normal.png");
 	background-repeat: no-repeat;
 	cursor: pointer;
 }
 input[name="checkOne"]:checked {
-	background-image: url("../images/btn_check_select.png");
+	background-image: url("../images/btn-check-select.png");
 	background-repeat: no-repeat;
 }
 #div-agreement input[name="checkOne"] {
@@ -213,7 +213,7 @@ a:visited {
 #top-bg {
 	width: 100%;
 	margin: auto;
-	background-image: url("../../images/img_bg.png");
+	background-image: url("../images/img-bg.png");
 	background-size:cover;
 	height: 229px;
 	background-repeat: no-repeat;
@@ -365,5 +365,13 @@ div.detail1, div.detail2, div.detail3, div.detail4 {
 	font-family:"YouandiModern", sans-serif;
 	font-size: 25px;
 	color: #2B2B2B;
+}
+
+/******* Admin Page CSS *******/
+#div-sidebar{
+	width: 200px;	height: 850px;
+	background: rgba(251, 251, 251, 1);
+	border: 1px rgba(221, 221, 221, 1) solid;
+
 }
 
