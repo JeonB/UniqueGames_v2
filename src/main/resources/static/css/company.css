@@ -1,0 +1,88 @@
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 16px;
+  padding-right: 16px
+}
+
+.card h6{
+  text-align: left;
+  font: italic normal 900 18px Apex New;
+}
+.card-text{
+  color: #6E6E6E;
+}
+
+.swiper {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 1000px!important;
+  height: 500px!important;
+  overflow: hidden!important;
+}
+
+.swiper .swiper-slide {
+  height: 300px!important;
+  display: flex!important;
+  justify-content: center;
+}
+
+.material-icons {
+  font-size: 30px;
+  color: #A8A8A8;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after{
+  content: "";
+  display: none;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  width: 30px!important;
+  height: 30px!important;
+  border: 2px solid rgba(136, 20, 20, 0.03)!important;
+  border-radius: 50%!important;
+  position: absolute!important;
+  top: 300px!important;
+  z-index: 1!important;
+  cursor: pointer!important;
+  display: flex!important;
+  justify-content: center!important;
+  align-items: center!important;
+}
+.swiper-button-prev {
+  margin-left: -70px;
+  left: 50px!important;
+}
+.swiper-button-next {
+  right: 10px;
+}
+.card-footer a{
+  text-decoration: none;
+  color: white !important;
+  font: normal normal normal 16px YouandiModern;
+}
+p{
+  text-align: left;
+  font: normal normal normal 16px YouandiModern;
+  letter-spacing: 0px;
+  opacity: 1;
+  color: #000000;
+}
+#introduce{
+  position: relative;
+  letter-spacing: -1px;
+  color: #000000;
+  text-align: left;
+}
+.btn-style{
+  background: #393939;
+  border-radius: 5px;
+  width: 80px;
+  height: 30px;
+  color: #FFFFFF;
+  font-size: 14px;
+  vertical-align: top;
+  cursor: pointer;
+}

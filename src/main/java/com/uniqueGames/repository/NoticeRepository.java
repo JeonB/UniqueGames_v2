@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class NoticeDao {
+public class NoticeRepository {
 
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
