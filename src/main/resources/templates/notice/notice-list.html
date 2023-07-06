@@ -10,15 +10,9 @@
     <script src="/js/board.js"></script>
     <script src="/js/am-pagination.js"></script>
     <script th:inline="javascript">
-        /*<![CDATA[*/
         $(document).ready(function () {
             getPagination();
 
-            console.log(/*[[${session.get('loginMember')}]]*/)
-
-            $('button[name="getList"]').on("click", function () {
-                location.href = "notice_list";
-            })
         });
 
         function getPagination() {
@@ -43,14 +37,7 @@
             });
         }
 
-        /*]]>*/
     </script>
-    <!--  <th:block th:if="${result != null}">-->
-    <!--    <script th:inline="javascript">-->
-    <!--      var result = /*[[${result}]]*/ null;-->
-    <!--      writeSuccess(result);-->
-    <!--    </script>-->
-    <!--  </th:block>-->
 </head>
 
 <body>
@@ -64,8 +51,8 @@
     </div>
 </section>
 <div class="content" th:with="loginMember = ${session.get('loginMember')}">
-    <div id="board-list">
-        <div class="board-top-menu" th:if="${loginMember != null and #strings.contains(loginMember,'CompanyVo')}">
+    <div class="board-list">
+        <div class="board-top-menu" th:if="${loginMember != null and #strings.contains(loginMember,'Company')}">
             <p>Notice</p>
             <div>
                 <form name='boardSearch' action='notice_Search' method='get'>
@@ -92,14 +79,14 @@
                 </ul>
             </div>
         </div>
-        <div class="board-top-menu" th:unless="${loginMember != null and #strings.contains(loginMember,'CompanyVo')}">
+        <div class="board-top-menu" th:unless="${loginMember != null and #strings.contains(loginMember,'Company')}">
             <p>Notice</p>
             <div class='bsearch-box'>
                 <form name='boardSearch' action='notice_Search' method='get'>
                     <label>
                         <input type='text' name='keyword' placeholder='검색어를 입력해주세요.'>
                         <button type='button' class='btn-search'>
-                            <img src='/images/btn_boardSearch_press.png'>
+                            <img src='/images/btn-boardSearch-press.png'>
                         </button>
                     </label>
                 </form>
@@ -111,7 +98,7 @@
             </div>
             <div id='clearFix'></div>
         </div>
-        <div th:if="${loginMember != null and #strings.contains(loginMember,'CompanyVo')}">
+        <div th:if="${loginMember != null and #strings.contains(loginMember,'Company')}">
             <form name="boardManage" action="board_manage" method="post">
                 <table class="admin-btable">
                     <tr>
@@ -123,13 +110,13 @@
                     </tr>
                     <th:block th:unless="${#lists.isEmpty(list)}">
                         <tr th:each="notice : ${list}">
-                            <td><input type="checkbox" name="list" th:value="${notice.post_id}"></td>
-                            <td><span th:text="${notice.rno}"></span></td>
-                            <td><a href="notice_content?no=${notice.post_id}" th:text="${notice.title}"></a><span
-                                    th:if="${notice.cmtCount > 0}" th:text=" '[' + ${notice.cmtCount} + ']'"></span>
+                            <td><input type="checkbox" name="list" th:value="${notice.postId}"></td>
+                            <td><span th:text="${notice.rno}"/></td>
+                            <td><a th:href="@{content/{no}(no = ${notice.postId})}" th:text="${notice.title}"/><span
+                                    th:if="${notice.cmtCount > 0}" th:text=" '[' + ${notice.cmtCount} + ']'"/></td>
                             </td>
-                            <td><span th:text="${notice.name}"></span></td>
-                            <td><span th:text="${notice.date_output}"></span></td>
+                            <td><span th:text="${notice.name}"/></td>
+                            <td><span th:text="${notice.dateOutput}"/></td>
                         </tr>
                     </th:block>
                     <tr th:if="${#lists.isEmpty(list)}">
@@ -143,7 +130,7 @@
                 </table>
             </form>
         </div>
-        <div th:unless="${loginMember != null and #strings.contains(loginMember,'CompanyVo')}">
+        <div th:unless="${loginMember != null and #strings.contains(loginMember,'Company')}">
             <table class="user-btable">
                 <tr>
                     <th>번호</th>
@@ -153,11 +140,11 @@
                 </tr>
                 <th:block th:unless="${#lists.isEmpty(list)}">
                     <tr th:each="notice : ${list}">
-                        <td><span th:text="${notice.rno}"></span></td>
-                        <td><a href="notice_content?no=${notice.post_id}" th:text="${notice.title}"></a><span
-                                th:if="${notice.cmtCount > 0}" th:text=" '[' + ${notice.cmtCount} + ']'"></span></td>
-                        <td><span th:text="${notice.name}"></span></td>
-                        <td><span th:text="${notice.date_output}"></span></td>
+                        <td><span th:text="${notice.rno}"/></td>
+                        <td><a th:href="@{content/{no}(no = ${notice.postId})}" th:text="${notice.title}"/><span
+                                th:if="${notice.cmtCount > 0}" th:text=" '[' + ${notice.cmtCount} + ']'"/></td>
+                        <td><span th:text="${notice.name}"/></td>
+                        <td><span th:text="${notice.dateOutput}"/></td>
                     </tr>
                 </th:block>
                 <tr th:if="${#lists.isEmpty(list)}">

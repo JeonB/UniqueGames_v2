@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<div th:include="../main/header::headerFragment"></div>
+<div th:replace="~{main/header :: headerFragment}"></div>
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
@@ -19,9 +19,9 @@
     </div>
   </div>
 </section>
-<div id="content">
-  <div id="board-write">
-    <div id="board-top-menu">
+<div class="content">
+  <div class="board-write">
+    <div class="board-top-menu">
       <p>Notice</p>
       <div>
         <ul>
@@ -44,7 +44,7 @@
         <tr>
           <th>이미지</th>
           <td>
-            <div id="filebox">
+            <div class="filebox">
               <input id="upload-name" value="" placeholder="첨부파일" disabled>
               <button type="button" class="btn-style" name="file">파일 찾기</button>
               <input type="file" name="file" id="upload-hidden" accept="image/*">
@@ -57,6 +57,6 @@
     </form>
   </div>
 </div>
-<div th:include="../main/footer::footerFragment"></div>
+<div th:replace="~{main/footer::footerFragment}"></div>
 </body>
 </html>

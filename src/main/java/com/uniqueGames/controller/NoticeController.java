@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @SessionAttributes({SessionConstants.LOGIN_MEMBER, "list", "noticeVo"})
+@RequestMapping(value = "/notice")
 public class NoticeController {
 
     NoticeService noticeService;
@@ -38,7 +39,7 @@ public class NoticeController {
     /**
      * notice-list 공지사항 - 전체 리스트
      */
-    @GetMapping("/notice-list")
+    @GetMapping("/list")
     public String noticeList(String page, Model model) {
 
         // 페이징 처리 - startCount, endCount 구하기
@@ -56,7 +57,7 @@ public class NoticeController {
     /**
      * notice_write 공지사항 - 작성
      */
-    @RequestMapping(value = "/notice_write", method = RequestMethod.GET)
+    @GetMapping("/write")
     public String noticeWrite() {
         return "notice/notice-write";
     }
@@ -64,12 +65,12 @@ public class NoticeController {
     /**
      * notice_write_proc 공지사항 - 작성 처리
      */
-    @RequestMapping(value = "/notice_write_proc", method = RequestMethod.POST)
-    public String noticeWriteProc(Notice notice, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Company cvo,
+    @PostMapping("/notice_write_proc")
+    public String noticeWriteProc(Notice notice, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Company company,
                                   HttpServletRequest request, RedirectAttributes attributes) throws Exception {
 
         notice = boardUtil.fileUtil(request, notice);
-        notice.setCompanyId(cvo.getCompanyId());
+        notice.setCompanyId(company.getCompanyId());
         int result = noticeService.insert(notice);
 
         if (result == 1) {
@@ -87,14 +88,14 @@ public class NoticeController {
     /**
      * notice_content 공지사항 - 상세 보기
      */
-    @RequestMapping(value = "/notice_content", method = RequestMethod.GET)
-    public ModelAndView noticeContent(String stat, String no) {
+    @GetMapping("/content/{no}")
+    public ModelAndView noticeContent(String stat, @PathVariable("no") String no) {
         ModelAndView model = new ModelAndView();
 
         Notice notice = noticeService.getNoticeContent(stat, no);
         List<Comment> commList = commentService.select(no);
 
-        model.addObject("noticeVo", notice);
+        model.addObject("notice", notice);
         model.addObject("commList", commList);
         model.setViewName("/notice/notice-content");
 
@@ -160,7 +161,7 @@ public class NoticeController {
     /**
      * comment_write_proc 댓글 - 작성 처리
      */
-    @RequestMapping(value = "comment_write_proc", method = RequestMethod.POST)
+    @PostMapping("commentWriteProc")
     @ResponseBody
     public String commentWriteProc(Comment comment) {
 

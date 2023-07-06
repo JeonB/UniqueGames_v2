@@ -1,12 +1,14 @@
 package com.uniqueGames.fileutil;
 
 import com.uniqueGames.model.Notice;
+import com.uniqueGames.repository.CommentMapper;
 import com.uniqueGames.repository.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
@@ -20,10 +22,12 @@ public class BoardUtil {
 	private String root_path;
 	private String attach_path;
 	NoticeMapper noticeMapper;
+	CommentMapper commentMapper;
 
 	@Autowired
-	public BoardUtil(NoticeMapper noticeMapper) {
+	public BoardUtil(NoticeMapper noticeMapper, CommentMapper commentMapper) {
 		this.noticeMapper = noticeMapper;
+		this.commentMapper = commentMapper;
 	}
 
 	/**
@@ -95,24 +99,24 @@ public class BoardUtil {
 		int currentDay = now.getDayOfMonth();
 
 		for (Notice nvo : result) {
-//			LocalDateTime dbDateTime = nvo.getNotice_date().toInstant().atZone(ZoneId.systemDefault())
-//					.toLocalDateTime();
-//			int dbYear = dbDateTime.getYear();
-//			int dbMonth = dbDateTime.getMonthValue();
-//			int dbDay = dbDateTime.getDayOfMonth();
-//
-//			if (dbYear == currentYear && dbMonth == currentMonth && dbDay == currentDay) {
-//				// 날짜가 현재 날짜와 일치하는 경우, 시간만 출력
-//				String formattedTime = dbDateTime.format(timeFormatter);
-//				date_output = formattedTime;
-//			} else {
-//				// 날짜가 현재 날짜와 일치하지 않는 경우, 날짜만 출력
-//				String formattedDate = dbDateTime.format(dateFormatter);
-//				date_output = formattedDate;
-//			}
-//			// date_output 변수를 사용하여 필요한 작업 수행
-//			nvo.setDate_output(date_output);
-//			nvo.setCmtCount(noticeDao.getCmtCount(nvo.getPost_id()));
+			LocalDateTime dbDateTime = nvo.getNoticeDate().toInstant().atZone(ZoneId.systemDefault())
+					.toLocalDateTime();
+			int dbYear = dbDateTime.getYear();
+			int dbMonth = dbDateTime.getMonthValue();
+			int dbDay = dbDateTime.getDayOfMonth();
+
+			if (dbYear == currentYear && dbMonth == currentMonth && dbDay == currentDay) {
+				// 날짜가 현재 날짜와 일치하는 경우, 시간만 출력
+				String formattedTime = dbDateTime.format(timeFormatter);
+				date_output = formattedTime;
+			} else {
+				// 날짜가 현재 날짜와 일치하지 않는 경우, 날짜만 출력
+				String formattedDate = dbDateTime.format(dateFormatter);
+				date_output = formattedDate;
+			}
+			// date_output 변수를 사용하여 필요한 작업 수행
+			nvo.setDateOutput(date_output);
+			nvo.setCmtCount(commentMapper.getCmtCount(nvo.getPostId()));
 		}
 
 		return result;

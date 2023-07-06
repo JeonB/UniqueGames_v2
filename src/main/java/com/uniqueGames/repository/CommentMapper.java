@@ -23,4 +23,7 @@ public interface CommentMapper {
 	@Delete("DELETE FROM COMMENT WHERE COMMENT_ID = #{no}")
 	public int deleteComment(String no);
 
+	@Select("SELECT COUNT(*) FROM COMMENT WHERE POST_ID = #{no}")
+	public int getCmtCount(int no);
+
 }

@@ -53,7 +53,7 @@ $(document).ready(function() {
 
 				return false;
 			} else {
-				location.href = "notice_update?no=" + $(checked).val();
+				location.href = "notice-update?no=" + $(checked).val();
 			}
 		}
 	});
@@ -61,7 +61,7 @@ $(document).ready(function() {
 	// 작성 버튼 이벤트
 	$('button[name="listWrite"]').on("click", function() {
 
-		location.href = "notice_write";
+		location.href = "notice-write";
 	});
 	
 	// 검색 버튼 이벤트
@@ -80,7 +80,7 @@ $(document).ready(function() {
 	// 목록 버튼 이벤트
 	$('button[name="getList"]').on("click", function() {
 
-		location.href = "notice_list";
+		location.href = "/notice/list";
 	})
 
 	/**
@@ -114,9 +114,9 @@ $(document).ready(function() {
 	$('button[name="cancel"]').on("click", function() {
 		const URLSearch = new URLSearchParams(location.search);
 		if (window.location.href.indexOf("update") > -1) {
-			location.href = "notice_content?stat=up&no=" + URLSearch.get('no');
+			location.href = "notice-content?stat=up&no=" + URLSearch.get('no');
 		} else {
-			location.href = "notice_list";
+			location.href = "/notice/list";
 		}
 	});
 	
@@ -136,11 +136,11 @@ $(document).ready(function() {
 		if (fileType.startsWith("image/")) { 
 			$('#upload-name').val(file.name);
 
-			let output = "<button type='button' id='btn-style' name='filedel'>취소</button>";
+			let output = "<button type='button' class='btn-style' name='filedel'>취소</button>";
 			$('#fileDelbtn').html(output);
-			$("#filebox").css("margin-right", "78px");
+			$(".filebox").css("margin-right", "78px");
 				// 파일 취소 버튼 이벤트
-			$('#filebox button[name="filedel"]').on("click", function() {
+			$('.filebox button[name="filedel"]').on("click", function() {
 				hidden.value = null;
 				name.value = "";
 				$('button[name="filedel"]').remove();
@@ -160,11 +160,11 @@ $(document).ready(function() {
 	// 수정 버튼 이벤트
 	$('button[name="update"]').on("click", function() {
 		let id = document.getElementById("authorId").dataset.authorId;
-		let login = document.getElementById("member_id").value;
+		let login = document.getElementById("member-id").value;
 		let no = $("input[name='post_id']").val();
 
 		if (id == login) {
-			location.href = "notice_update?stat=up&no=" + no;
+			location.href = "notice-update?stat=up&no=" + no;
 
 		} else {
 			alert("권한이 없습니다.");
@@ -177,7 +177,7 @@ $(document).ready(function() {
 	$('button[name="delete"]').on("click", function() {
 		let id = document.getElementById("authorId").dataset.authorId;
 		let login = document.getElementById("member_id").value;
-		let no = $("input[name='post_id']").val();
+		let no = $("input[name='post-id']").val();
 
 		if (id == login) {
 			if (confirm("정말로 삭제하시겠습니까?")) {
@@ -193,7 +193,7 @@ $(document).ready(function() {
 	
 	// 목록 버튼 이벤트
 	$('button[name="list"]').on("click", function() {
-		location.href = "notice_list";
+		location.href = "/notice/list";
 	})
 
 	// 댓글 작성 이벤트
@@ -204,9 +204,8 @@ $(document).ready(function() {
 		if (login != "") {
 			if ($("#form-control").val() != "") {
 				$.ajax({
-					url: "comment_write_proc",
+					url: "commentWriteProc",
 					data: $("#comment-write").serialize(),
-					dataType: "text",
 					async: true,
 					Cache: false,
 					type: "POST",
@@ -220,6 +219,7 @@ $(document).ready(function() {
 					},
 					error: function (xhr, status, error) { 
 						alert("회사 ID는 댓글 작성이 불가합니다.");
+						console.log(status)
 					}
 				});
 
@@ -246,7 +246,7 @@ function commentDelete(commentId) {
 		let url = window.location.href;
 	
 		$.ajax({
-			url : "comment_delete",
+			url : "comment-delete",
 			data : {
 					no : commentId,
 			},
