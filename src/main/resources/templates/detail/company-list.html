@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>회사 소개페이지 리스트</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+  <style>
+    .btn-style{
+      background: #393939;
+      border-radius: 5px;
+      width: 80px;
+      height: 30px;
+      color: #FFFFFF;
+      font-size: 14px;
+      vertical-align: top;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<!--header-->
+<div th:replace="/main/header::headerFragment"></div>
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">All Company List</p>
+      <p id="top-subtitle">#전체 회사(개발팀)목록</p>
+    </div>
+  </div>
+</section>
+<section id="menu-main2">
+  <div id="board-top-menu">
+    <div>
+      <ul>
+        <li><button type="button" class="btn-style" name="listWrite">작성</button></li>
+        <li><button type="button" class="btn-style" name="listUpdate">수정</button></li>
+        <li><button type="button" class="btn-style" name="listDelete">삭제</button></li>
+        <li><button type="button" class="btn-style" name="listDeleteAll">전체삭제</button></li>
+      </ul>
+    </div>
+  </div>
+  <div id="menu-allList">
+    <div id="gameList">
+      <div th:each="intro : ${companyList}" id="gList">
+        <img th:src="@{/upload/{upload}(upload=${intro.upload})}"
+             width="260px" height="180px">
+        <ul>
+          <li><a th:href="@{getIntro(id=${intro.id})}" style="cursor: pointer" th:text="${intro.name}"></a>
+          </li>
+          <li th:text="${intro.id}"></li>
+          <li><img th:src="@{/images/img-icon-rPc.png}"></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!--footer-->
+<div th:replace="/main/footer::footerFragment"></div>
+<script>
+  const element = document.getElementById('board-top-menu');
+  const loginMember = '<%=session.getAttribute("loginMember")%>';
+  if(loginMember.includes('MemberVo') || loginMember === 'null'){
+    element.style.visibility = 'hidden';
+  }else if(loginMember.includes('CompanyVo')  && '${status}' === 'writeOnce'){
+    $('button[name="listWrite"]').on("click", function() {
+      alert("글 작성은 한번만 가능합니다!");
+    });
+  }else if(loginMember.includes('CompanyVo')){
+    $('button[name="listWrite"]').on("click", function() {
+      location.href = "../detail/insertIntro";
+    });
+  }
+
+</script>
+</body>
+</html>
