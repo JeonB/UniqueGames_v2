@@ -18,7 +18,7 @@ ol, ul, li {
 }
 
 /* Menu title(under the header) */
-.top-bg {
+#top-bg {
 	width: 100%;
 	margin: auto;
 	background-image: url( ../images/img-bg.png );
@@ -27,17 +27,17 @@ ol, ul, li {
 	background-repeat: no-repeat;
 }
 
-.base-layer {
+#base-layer {
 	width: 1100px;
 	margin: auto;
 }
 
-.top-bg-textarea {
+#top-bg-textarea {
 	color: white;
 	font-style: italic;
 }
 
-.top-title {
+#top-title {
 	font-family: "Apex New";
 	color: white;
 	font-size: 32px;
@@ -45,7 +45,7 @@ ol, ul, li {
 	padding-top: 70px;
 }
 
-.top-subtitle {
+#top-subtitle {
 	font-size: 20px;
 	font-style: normal;
 	padding-top: 15px;

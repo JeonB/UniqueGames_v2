@@ -29,7 +29,7 @@ public interface IndexMapper {
     @Select("SELECT G.ID, G.NAME, G.IMAGE_PATH, G.GAME_GENRE, G.DONATION_STATUS, G.DESCRIPTION, L.LIKE_COUNT FROM GAME G INNER JOIN (SELECT ID, LENGTH(LIKELIST) - LENGTH(REPLACE(LIKELIST, ',', '')) + 1 AS LIKE_COUNT FROM GAME) L ON G.ID = L.ID ORDER BY LIKE_COUNT DESC")
     List<Game> getRankingList();
 
-    @Insert("INSERT INTO GAME(NAME,IMAGE_PATH,GAME_GENRE,DONATION_STATUS,DESCRIPTION,LIKELIST) VALUES(#{name},#{image_path},#{game_genre},#{donation_status},#{description},0)")
+    @Insert("INSERT INTO GAME(NAME,IMAGE_PATH,GAME_GENRE,DONATION_STATUS,DESCRIPTION,LIKELIST) VALUES(#{name},#{imagePath},#{gameGenre},#{donationStatus},#{description},0)")
     void insertGame(Game vo);
 
     @Update("UPDATE GAME SET NAME=#{name} WHERE ID=#{id}")

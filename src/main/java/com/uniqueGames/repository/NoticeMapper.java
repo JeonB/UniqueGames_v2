@@ -1,7 +1,6 @@
 package com.uniqueGames.repository;
 
 
-import com.uniqueGames.model.Comment;
 import com.uniqueGames.model.Notice;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,5 +43,5 @@ public interface NoticeMapper {
 	int totRowCount();
 
 	@Select("SELECT COUNT(*) FROM NOTICE WHERE TITLE LIKE CONCAT('%', #{keyword}, '%')")
-	int totRowCount(String keyword);
+	int totRowCountSearch(String keyword);
 }
