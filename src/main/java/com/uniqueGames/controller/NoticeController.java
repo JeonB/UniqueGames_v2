@@ -8,39 +8,50 @@ import com.uniqueGames.model.Notice;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.CommentService;
 import com.uniqueGames.service.NoticeService;
-
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
+
 @Controller
+@RequiredArgsConstructor
 @SessionAttributes({SessionConstants.LOGIN_MEMBER, "list", "noticeVo"})
 @RequestMapping(value = "/notice")
 public class NoticeController {
 
-    NoticeService noticeService;
-    CommentService commentService;
-    BoardUtil boardUtil;
+    private final NoticeService noticeService;
+    private final CommentService commentService;
+    private final BoardUtil boardUtil;
 
-    @Autowired
-    public NoticeController(NoticeService noticeService, CommentService commentService, BoardUtil boardUtil) {
-        this.noticeService = noticeService;
-        this.commentService = commentService;
-        this.boardUtil = boardUtil;
-    }
+//    @Autowired
+//    public NoticeController(NoticeService noticeService, CommentService commentService, BoardUtil boardUtil) {
+//        this.noticeService = noticeService;
+//        this.commentService = commentService;
+//        this.boardUtil = boardUtil;
+//    }
 
     /**
-     * notice-list 공지사항 - 전체 리스트
+     * notice/list 공지사항 목록 조회
+     *
+     * @param page
+     * @param model
+     * @param request
+     * @return
      */
     @GetMapping("/list")
-    public String noticeList(String page, Model model) {
+    public String noticeList(String page, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Company company = new Company();
+        company.setCompanyId("test");
+        company.setName("TestGames");
+        session.setAttribute(SessionConstants.LOGIN_MEMBER, company);
 
         // 페이징 처리 - startCount, endCount 구하기
         Map<String, Integer> pageMap = boardUtil.getPagination(page, "list");
@@ -55,7 +66,9 @@ public class NoticeController {
     }
 
     /**
-     * notice_write 공지사항 - 작성
+     * notice/write 공지사항 작성 페이지 이동
+     *
+     * @return
      */
     @GetMapping("/write")
     public String noticeWrite() {
@@ -63,12 +76,18 @@ public class NoticeController {
     }
 
     /**
-     * notice_write_proc 공지사항 - 작성 처리
+     * noticeWriteProc 공지사항 작성 처리
+     *
+     * @param notice
+     * @param company
+     * @param request
+     * @param attributes
+     * @return
+     * @throws Exception
      */
-    @PostMapping("/notice_write_proc")
+    @PostMapping("/write")
     public String noticeWriteProc(Notice notice, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Company company,
                                   HttpServletRequest request, RedirectAttributes attributes) throws Exception {
-
         notice = boardUtil.fileUtil(request, notice);
         notice.setCompanyId(company.getCompanyId());
         int result = noticeService.insert(notice);
@@ -81,31 +100,37 @@ public class NoticeController {
             attributes.addFlashAttribute("result", "fail");
 
         }
-
-        return "redirect:/notice_content?no=" + notice.getPostId();
+        return "redirect:/notice/content/" + notice.getPostId();
     }
 
     /**
-     * notice_content 공지사항 - 상세 보기
+     * notice/content/{no} 공지사항 상세 보기
+     *
+     * @param stat
+     * @param no
+     * @param model
+     * @return
      */
     @GetMapping("/content/{no}")
-    public ModelAndView noticeContent(String stat, @PathVariable("no") String no) {
-        ModelAndView model = new ModelAndView();
-
+    public String noticeContent(String stat, @PathVariable("no") String no, Model model) {
         Notice notice = noticeService.getNoticeContent(stat, no);
         List<Comment> commList = commentService.select(no);
 
-        model.addObject("notice", notice);
-        model.addObject("commList", commList);
-        model.setViewName("/notice/notice-content");
+        model.addAttribute("notice", notice);
+        model.addAttribute("commList", commList);
 
-        return model;
+        return "/notice/notice-content";
     }
 
     /**
-     * notice_delete 공지사항 - 삭제
+     * notice/delete 공지사항 삭제 처리
+     *
+     * @param no
+     * @param imgdel
+     * @param attributes
+     * @return
      */
-    @RequestMapping(value = "/notice_delete", method = RequestMethod.POST)
+    @PostMapping("/delete")
     public String noticeDelete(String no, String imgdel, RedirectAttributes attributes) {
 
         int result = noticeService.delete(no);
@@ -118,28 +143,37 @@ public class NoticeController {
 
         }
 
-        return "redirect:/notice_list";
+        return "redirect:/notice/list";
     }
 
     /**
-     * notice_update 공지사항 - 수정
+     * notice/write/{stat}/{no} 공지사항 수정 페이지
+     *
+     * @param stat
+     * @param no
+     * @return
      */
-    @RequestMapping(value = "/notice_update", method = RequestMethod.GET)
-    public ModelAndView noticeUpdate(String stat, String no) {
+    @GetMapping("write/{stat}/{no}")
+    public ModelAndView noticeUpdate(@PathVariable("stat") String stat, @PathVariable("no") String no) {
         ModelAndView model = new ModelAndView();
 
         Notice notice = noticeService.getNoticeContent(stat, no);
 
-        model.addObject("noticeVo", notice);
+        model.addObject("notice", notice);
         model.setViewName("/notice/notice-update");
 
         return model;
     }
 
     /**
-     * notice_update_proc 공지사항 - 수정 처리
+     * noticeUpdateProc 공지사항 수정 처리
+     * @param notice
+     * @param request
+     * @param attributes
+     * @return
+     * @throws Exception
      */
-    @RequestMapping(value = "/notice_update_proc", method = RequestMethod.POST)
+    @PostMapping("write/{stat}/{no}")
     public String noticeUpdateProc(Notice notice, HttpServletRequest request, RedirectAttributes attributes)
             throws Exception {
         String oldFileName = notice.getImageId();
@@ -155,27 +189,7 @@ public class NoticeController {
 
         }
 
-        return "redirect:/notice_content?stat=up&no=" + notice.getPostId();
-    }
-
-    /**
-     * comment_write_proc 댓글 - 작성 처리
-     */
-    @PostMapping("commentWriteProc")
-    @ResponseBody
-    public String commentWriteProc(Comment comment) {
-
-        return commentService.commentInsert(comment);
-    }
-
-    /**
-     * comment_delete 댓글 - 삭제 처리
-     */
-    @RequestMapping(value = "comment_delete", method = RequestMethod.POST)
-    @ResponseBody
-    public String commentDelete(@RequestParam("no") String no) {
-
-        return commentService.delete(no);
+        return "redirect:/notice/content/" + notice.getPostId();
     }
 
     /**

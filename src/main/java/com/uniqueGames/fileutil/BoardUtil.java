@@ -4,6 +4,7 @@ import com.uniqueGames.model.Notice;
 import com.uniqueGames.repository.CommentMapper;
 import com.uniqueGames.repository.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -19,8 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class BoardUtil {
 
+	@Value("${upload-directory}")
 	private String root_path;
-	private String attach_path;
 	NoticeMapper noticeMapper;
 	CommentMapper commentMapper;
 
@@ -124,15 +125,13 @@ public class BoardUtil {
 
 	/**
 	 * 파일 체크
-	 * 
+	 *
 	 * @param request
 	 * @param notice
 	 * @return
 	 * @throws Exception
 	 */
 	public  Notice fileUtil(HttpServletRequest request, Notice notice) throws Exception {
-		root_path = request.getSession().getServletContext().getRealPath("/");
-		attach_path = "\\resources\\upload\\";
 
 		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
 
@@ -157,7 +156,7 @@ public class BoardUtil {
 	public  void fileSaveUtil(Notice notice) throws Exception {
 
 		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
-			File saveFile = new File(root_path + attach_path + notice.getImageId());
+			File saveFile = new File(root_path + notice.getImageId());
 			notice.getFile().transferTo(saveFile);
 
 		}
@@ -179,13 +178,13 @@ public class BoardUtil {
 		}
 		
 		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
-			File saveFile = new File(root_path + attach_path + notice.getImageId());
+			File saveFile = new File(root_path + notice.getImageId());
 			notice.getFile().transferTo(saveFile);
 
 		}
 
 		if (!notice.getFile().isEmpty() || stat.equals("delete")) {
-			File deleteFile = new File(root_path + attach_path + oldFileName);
+			File deleteFile = new File(root_path + oldFileName);
 
 			if (deleteFile.exists()) {
 				deleteFile.delete();
@@ -201,7 +200,7 @@ public class BoardUtil {
 	public void fileDeleteUtil(String imgdel) {
 
 		if (imgdel != null && !imgdel.equals("")) {
-			File deleteFile = new File(root_path + attach_path + imgdel);
+			File deleteFile = new File(root_path + imgdel);
 			if (deleteFile.exists()) {
 				deleteFile.delete();
 

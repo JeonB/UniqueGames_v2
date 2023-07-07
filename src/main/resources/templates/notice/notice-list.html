@@ -38,6 +38,14 @@
         }
 
     </script>
+    <th:block th:if="${result}">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            let result = '[[${result}]]';
+            getResult(result);
+            /*]]>*/
+        </script>
+    </th:block>
 </head>
 
 <body>
@@ -55,11 +63,11 @@
         <div class="board-top-menu" th:if="${loginMember != null and #strings.contains(loginMember,'Company')}">
             <p>Notice</p>
             <div>
-                <form name='boardSearch' action='notice_Search' method='get'>
+                <form name='boardSearch' action='/notice_Search' method='get'>
                     <label>
                         <input type='text' name='keyword' placeholder='검색어를 입력해주세요.'>
                         <button type='button' class='btn-search'>
-                            <img src='/images/btn_boardSearch_press.png'>
+                            <img th:src='@{/images/btn-boardSearch-press.png}'>
                         </button>
                     </label>
                 </form>
@@ -113,7 +121,7 @@
                             <td><input type="checkbox" name="list" th:value="${notice.postId}"></td>
                             <td><span th:text="${notice.rno}"/></td>
                             <td><a th:href="@{content/{no}(no = ${notice.postId})}" th:text="${notice.title}"/><span
-                                    th:if="${notice.cmtCount > 0}" th:text=" '[' + ${notice.cmtCount} + ']'"/></td>
+                                    th:if="${notice.cmtCount > 0}" th:text=" ' [' + ${notice.cmtCount} + ']'"/></td>
                             </td>
                             <td><span th:text="${notice.name}"/></td>
                             <td><span th:text="${notice.dateOutput}"/></td>
