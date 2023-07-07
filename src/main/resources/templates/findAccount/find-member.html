@@ -3,69 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <title>findAccount</title>
-  <link rel="stylesheet" href="/css/login.css">
-  <script src="/js/jquery-3.6.4.min.js"></script>
-  <script>
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" th:href="@{/css/login.css}">
+  <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
+  <script th:inline="javascript">
     //JavaScript 코드
     document.addEventListener('DOMContentLoaded', function() {
       // URL에서 selectedTab 파라미터 값을 가져옴
       var urlParams = new URLSearchParams(window.location.search);
       var selectedTab = urlParams.get('selectedTab');
 
-
       // 선택한 탭을 표시
       if (selectedTab) {
-        document.getElementByclass(selectedTab).checked = true;
+        document.getElementById(selectedTab).checked = true;
       }
     });
 
-    let c = "${find_result }";
-    if(c == "fail"){
-      alert("등록된 회원정보가 없습니다");
-      location.href="findclass";
-    }
   </script>
-  <script>
+  <script th:inline="javascript">
     $(document).ready(function(){
 
-      $("#button-gradient").click(function(){
-
-        if($("input[name='name']").val()==""){
+      $("#findIdButton").click(function() {
+        if ($("input[name='name']").val() === "") {
           alert("이름을 입력해주세요");
           $("input[name='name']").focus();
           return false;
-        }else if($("input[name='phone_num']").val()==""){
+        } else if ($("input[name='phoneNum']").val() === "") {
           alert("휴대전화를 입력해주세요");
-          $("input[name='phone_num']").focus();
+          $("input[name='phoneNum']").focus();
           return false;
-        }else {
+        } else {
           $.ajax({
-            url : "findclass_check",
-            type : "POST",
-            data : {
-              name : $("input[name='name']").val(),
-              phone_num : $("input[name='phone_num']").val()
+            url: "findIdCheck",
+            type: "POST",
+            data: {
+              name: $("input[name='name']").val(),
+              phone_num: $("input[name='phoneNum']").val()
             },
-
-            success : function(result) {
-              if(result=="") {
-                $("#modal2").show();
-                $("#agreement-content1").html($(".find-class-none").html());
-              }else {
-                $("#modal2").show();
-                $("#find-class-result").html(result);
-                $("#agreement-content1").html($(".deleteComplete").html());
+            success: function(result) {
+              if (result == "") {
+                alert("1");
+                $(".modal2").show();
+                $(".agreement-content1").html($(".find-id-none").html());
+              } else {
+                alert("2");
+                $(".modal2").show();
+                $(".find-id-result").html(result);
+                $(".agreement-content1").html($(".deleteComplete").html());
               }
             }
           });
         }
       });
 
-      $("#button-gradient-findPwd").click(function(){
+      $("#findPass").click(function(){
 
-        if($("input[name='member_class']").val()==""){
+        if($("input[name='memberId']").val()==""){
           alert("아이디를 입력해주세요");
-          $("input[name='member_class']").focus();
+          $("input[name='memberId']").focus();
           return false;
         }else if($("#input-common-name").val()==""){
           alert("이름을 입력해주세요");
@@ -82,74 +77,71 @@
 
       $(document).on("click", "#button-gradient-gotoFind", function(event){
 
-        $("#modal2").hclasse();
+        $("#modal2").hide();
         $("input[name='name']").val("").focus();
-        $("input[name='member_class']").val("").focus();
-        $("input[name='phone_num']").val("");
-
+        $("input[name='memberId']").val("").focus();
+        $("input[name='phoneNum']").val("");
 
       });
 
       $(document).on("click", "#button-gradient-gotoPwd", function(event){
 
-        $("#modal2").hclasse();
-        location.href="/findclass?selectedTab=findPwd";
+        $("#modal2").hide();
+        location.href="/find-member?selectedTab=findPwd";
 
       });
       $(document).on("click", "#button-gradient-gotoLogin", function(event){
 
-        $("#modal2").hclasse();
+        $("#modal2").hide();
         location.href="/login";
 
       });
 
       $(document).on("click", "#button-gradient-gotoJoin", function(event){
 
-        $("#modal2").hclasse();
+        $("#modal2").hide();
         location.href="/join";
 
       });
 
     })
-
   </script>
-
 </head>
 <body>
 <!--header-->
 <div th:replace="/main/header::headerFragment"></div>
-<section class="top-bg">
-  <div class="base-layer">
-    <div class="top-bg-textarea">
-      <p class="top-title">Login</p>
-      <p class="top-subtitle">#로그인</p>
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">Login</p>
+      <p id="top-subtitle">#로그인</p>
     </div>
   </div>
 </section>
 <section class="content-1"><!-- find-class -->
   <p class="intro">개인 회원</p>
-  <input id="findclass" type="radio" name="findAccount" checked>
-  <label for="findclass" class="findclass-tab">아이디 찾기</label>
+  <input id="findId" type="radio" name="findAccount" checked>
+  <label for="findId" class="findId-tab">아이디 찾기</label>
   <input id="findPwd" type="radio" name="findAccount">
   <label for="findPwd" class="findPwd-tab">비밀번호 찾기</label>
 
-  <form action="findclass_check" name="findclassForm" method="post" id="findclassForm">
+  <form action="findId_check" name="findIdForm" method="post" id="findIdForm">
     <ul>
       <li>
         <input type="text" name="name" placeholder="이름">
         <span class="msgName"></span>
       </li>
       <li>
-        <input type="text" name="phone_num" placeholder="휴대전화">
+        <input type="text" name="phoneNum" placeholder="휴대전화">
         <span class="msgPhone"></span>
       </li>
       <li>
-        <button type="button" class="button-gradient">아이디 찾기</button>
+        <button type="button" class="button-gradient" id="findIdButton">아이디 찾기</button>
       </li>
     </ul>
   </form>
 
-  <form action="findPwd_check" name="findPwdForm" method="post" class="findPwdForm">
+  <form action="findPwd_check" name="findPwdForm" method="post" id="findPwdForm">
     <p class="intro-2">비밀번호를 찾으려는 아이디</p>
     <ul>
       <li>
@@ -157,22 +149,22 @@
         <span class="msgclass"></span>
       </li>
       <li>
-        <input type="text" id="input-common-name" name="name" placeholder="이름">
+        <input type="text" name="name" placeholder="이름">
         <span class="msgName1"></span>
       </li>
       <li>
-        <input type="text" id="input-common-phone" name="phone_num" placeholder="휴대전화">
+        <input type="text" name="phoneNum" placeholder="휴대전화">
         <span class="msgPhone1"></span>
       </li>
       <li>
-        <button type="button" id="button-gradient-findPwd">비밀번호 찾기</button>
+        <button type="button" class="button-gradient" id="findPass">비밀번호 찾기</button>
       </li>
     </ul>
   </form>
 </section>
 
 <div class="modal2">
-  <div class="agreement2" class="agreement-findclass">
+  <div class="agreement2" id="agreement-findId">
     <div class="agreement-content1">
     </div>
   </div>
@@ -181,7 +173,7 @@
 <div class="deleteComplete">
   <p class="agreement-title">아이디 찾기</p>
   <span class="delete-span">아이디 :
-		<span class="find-class-result"></span>
+		<span class="find-id-result"></span>
 		</span>
   <ul>
     <li>
@@ -190,7 +182,7 @@
     </li>
   </ul>
 </div>
-<div class="find-class-none">
+<div class="find-id-none">
   <p class="agreement-title">아이디 찾기</p>
   <span class="delete-span">등록된 아이디가 없습니다</span>
   <ul>

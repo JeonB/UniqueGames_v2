@@ -5,20 +5,17 @@
   <title>로그인</title>
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/login.css}">
-  <script src="/js/jquery-3.6.4.min.js"></script>
-  <script src="/js/login_script.js"></script>
-  <script th:inline="javascript">
-    // JavaScript code goes here
-  </script>
+  <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
+  <script th:src="@{/js/login_script.js}"></script>
 </head>
 <body>
 <!--header-->
 <div th:replace="/main/header::headerFragment"></div>
-<section class="top-bg">
-  <div class="base-layer">
-    <div class="top-bg-textarea">
-      <p class="top-title">Login</p>
-      <p class="top-subtitle">#로그인</p>
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">Login</p>
+      <p id="top-subtitle">#로그인</p>
     </div>
   </div>
 </section>
@@ -29,23 +26,21 @@
   <input id="company-login" type="radio" name="loginSelect">
   <label for="company-login" id="company-login-tab">법인 회원</label>
 
-  <form action="/login" method="post" th:object="${member}" id="individual-loginForm">
+  <form action="/login" method="post" th:object="${member}" name="memberForm" id="individual-loginForm">
     <div>
       <ul>
         <li>
           <input type="text" name="memberId" placeholder="아이디" th:value="${member?.memberId}">
-          <span id="msgId"></span>
         </li>
         <li>
           <input type="password" name="password" placeholder="비밀번호" size="15" th:value="${member?.password}">
-          <span id="msgPwd"></span>
         </li>
         <li>
           <button type="button" class="button-gradient" onclick="memberIdPassCheck()">LOGIN</button>
         </li>
-        <li>`
-          <a th:href="@{/find-member}" class="link-findAccount">아이디 찾기</a>
-          <a th:href="@{/find-member?selectedTab=findPwd}" class="link-findAccount">비밀번호 찾기</a>
+        <li>
+          <a th:href="@{/findMember}" class="link-findAccount">아이디 찾기</a>
+          <a th:href="@{/findMember(selectedTab='findPwd')}" class="link-findAccount">비밀번호 찾기</a>
           <a th:href="@{/join}" class="link-signUp">
             <span>Sign Up</span>
           </a>
@@ -54,25 +49,21 @@
     </div>
   </form>
 
-  <form action="login" method="post" th:object="${company}" id="company-loginForm">
+  <form action="login" method="post" th:object="${company}" name="companyForm" id="company-loginForm">
     <div>
       <ul>
         <li>
-
-          <input type="text" id="input-common" name="company_id" placeholder="법인 아이디" th:value="${company?.company_id}">
-          <span id="msgId"></span>
+          <input type="text" name="companyId" placeholder="법인 아이디" th:value="${company?.companyId}">
         </li>
         <li>
-          <input type="password" id="c-input-common" name="password" placeholder="비밀번호" size="15" th:value="${company?.password}">
-          <span id="msgPwd"></span>
-
+          <input type="password" name="password" placeholder="비밀번호" id="companyPass" size="15" th:value="${company?.password}">
         </li>
         <li>
-          <button type="button" class="button-gradient" id="company">LOGIN</button>
+          <button type="button" class="button-gradient" id="companylogin" onclick="companyIdPassCheck()">LOGIN</button>
         </li>
         <li>
-          <a th:href="@{/find-company}" class="link-findAccount">아이디 찾기</a>
-          <a th:href="@{/find-company?selectedTab=findPwd}" class="link-findAccount">비밀번호 찾기</a>
+          <a th:href="@{/findCompany}" class="link-findAccount">아이디 찾기</a>
+          <a th:href="@{/findCompany(selectedTab='findPwd')}" class="link-findAccount">비밀번호 찾기</a>
           <a th:href="@{/join?selectedTab=company}" class="link-signUp">Company Sign Up</a>
         </li>
       </ul>

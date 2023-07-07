@@ -50,8 +50,8 @@ input[name="email-auth-check"] {
 }
 
 #btn-style, #address-btn-style, #company-address-btn-style,
-	#check-btn-style, #c-check-btn-style, #email-btn-style,
-	#c-email-btn-style, #company-address-btn-style {
+#check-btn-style, #c-check-btn-style, #email-btn-style,
+#c-email-btn-style, #company-address-btn-style {
 	width: 80px;
 	height: 30px;
 	background: #393939;
@@ -63,8 +63,8 @@ input[name="email-auth-check"] {
 }
 
 #button-gradient-gotoLogin, #button-gradient-gotoPwd,
-	#button-gradient-gotoFind, #button-gradient-gotoJoin,
-	#button-gradient-home {
+#button-gradient-gotoFind, #button-gradient-gotoJoin,
+#button-gradient-home {
 	width: 180px;
 	height: 50px;
 	margin-top: 20px;
@@ -76,8 +76,8 @@ input[name="email-auth-check"] {
 }
 
 #address-btn-style, #company-address-btn-style, #check-btn-style,
-	#c-check-btn-style, #email-btn-style, #c-email-btn-style,
-	#company-address-btn-style {
+#c-check-btn-style, #email-btn-style, #c-email-btn-style,
+#company-address-btn-style {
 	width: 90px;
 	height: 40px;
 	position: relative;
@@ -89,7 +89,7 @@ a:visited {
 	color: #DDDDDD;
 }
 */
-#detail1, #detail2 {
+.detail1, .detail2 {
 	text-decoration: underline;
 	color: Blue;
 	margin-left: 10px;
@@ -133,7 +133,7 @@ a:visited {
 
 /* CheckBox */
 li input[name="agreementAll"] {
-	height: 1rem;	width: 1rem;	
+	height: 1rem;	width: 1rem;
 	padding: 0px;
 	border: 2px solid #2C2C2C;
 	border-radius: 50%;
@@ -147,7 +147,7 @@ input[name="agreementAll"]:checked {
 
 input[name="chk-agree"], input[name="c-chk-agree"] {
 	width: 20px;	height: 20px;
-	background-image: url("../images/btn_check_normal.png");
+	background-image: url("../images/btn-check-normal.png");
 	background-repeat: no-repeat;
 	margin: 0px 4px;
 	padding: 0px;
@@ -157,7 +157,7 @@ input[name="chk-agree"], input[name="c-chk-agree"] {
 }
 
 input[name="chk-agree"]:checked, input[name="c-chk-agree"]:checked {
-	background-image: url("../images/btn_check_select.png");
+	background-image: url("../images/btn-check-select.png");
 	background-repeat: no-repeat;
 }
 
@@ -209,7 +209,7 @@ div.agreement, div.agreement2 {
 	box-shadow: inset 0px 3px 6px #0000001A, 0px 10px 20px #00000029;
 }
 
-#modal, #modal2 {
+.modal, .modal2 {
 	width: 100%;
 	height: 100%;
 	position: fixed;
@@ -220,7 +220,7 @@ div.agreement, div.agreement2 {
 	display: none;
 }
 
-#agreement-title {
+.agreement-title {
 	margin: 0px 0px 20px 0px;
 	padding-top: 30px;
 	text-align: center;
@@ -229,7 +229,7 @@ div.agreement, div.agreement2 {
 	font-size: 24px;
 }
 
-#agreement-content {
+.agreement-content {
 	text-align: center;
 	width: 370px;
 	height: 340px;
@@ -242,14 +242,14 @@ div.agreement, div.agreement2 {
 	overflow: auto;
 }
 
-div.agreement button#button-gradient {
+div.agreement button.button-gradient {
 	margin: 20px 0 10px 0;
 	width: 250px;
 	font-size: 20px;
 }
 
 div.detail1, div.detail2, div.deleteComplete, div.deleteComplete1, div.find-id-none,
-	div.find-pwd-none {
+div.find-pwd-none {
 	display: none;
 }
 
@@ -263,7 +263,7 @@ div.agreement2 {
 }
 
 /* Span */
-#msgId, #msgPwd, #msgName, #msgPhone, #msgName1, #msgPhone1 {
+.caution {
 	width: 394px;
 	margin: auto;
 	text-align: left;
@@ -332,8 +332,8 @@ li.address-input {
 }
 
 #idMsg, #pwdMsg, #pwdMsg-check, #nameMsg, #emailMsg, #emailAuth,
-	#phoneMsg, #c-idMsg, #c-pwdMsg, #c-pwdMsg-check, #c-nameMsg,
-	#c-emailMsg, #c-emailAuth, #c-phoneMsg {
+#phoneMsg, #c-idMsg, #c-pwdMsg, #c-pwdMsg-check, #c-nameMsg,
+#c-emailMsg, #c-emailAuth, #c-phoneMsg {
 	position: relative;
 	top: -1.5px;
 	left: 5px;
@@ -346,7 +346,7 @@ li.address-input {
 
 .pwd-check-img {
 	display: inline-block;
-	background-image: url("../images/btn_eye_normal.png");
+	background-image: url("../images/btn-eye-normal.png");
 	background-repeat: no-repeat;
 	appearance: none;
 	border: none; cursor : pointer;
@@ -361,14 +361,14 @@ li.address-input {
 }
 
 .pwd-check-img:checked {
-	background-image: url("../images/btn_eye_select.png");
+	background-image: url("../images/btn-eye-select.png");
 	background-repeat: no-repeat;
 }
 
 
 /* DeltePWD, DeleteCompany CSS */
 .intro-1, .intro-2, .intro-3 {
-	font-family: "YouandiModern", sans-serif; 
+	font-family: "YouandiModern", sans-serif;
 	width: 394px;
 	margin: auto;
 	text-align: left;
@@ -405,19 +405,19 @@ li.address-input {
 }
 
 #content-2, #content-3, #individual-loginForm, #company-loginForm,
-	#individual, #company, #findId, #findPwd, #individual-login,
-	#company-login, #findIdForm, #findPwdForm {
+#individual, #company, #findId, #findPwd, #individual-login,
+#company-login, #findIdForm, #findPwdForm {
 	display: none;
 }
 
-#individual:checked ~ #content-2, #company:checked ~ #content-3, #findId:checked 
-	~ #findIdForm, #findPwd:checked ~ #findPwdForm, #individual-login:checked 
-	~ #individual-loginForm, #company-login:checked ~ #company-loginForm {
+#individual:checked ~ #content-2, #company:checked ~ #content-3, #findId:checked
+~ #findIdForm, #findPwd:checked ~ #findPwdForm, #individual-login:checked
+~ #individual-loginForm, #company-login:checked ~ #company-loginForm {
 	display: block;
 }
 
-#individual-tab, #company-tab, #findId-tab, #findPwd-tab,
-	#individual-login-tab, #company-login-tab {
+#individual-tab, #company-tab, .findId-tab, .findPwd-tab,
+#individual-login-tab, #company-login-tab {
 	display: inline-block;
 	margin: 0 0 5px 0;
 	padding: 15px 63px;
@@ -427,17 +427,17 @@ li.address-input {
 	border: 1px solid transparent;
 }
 
-#individual-tab:hover, #company-tab:hover, #findId-tab:hover,
-	#findPwd-tab:hover, #individual-login-tab:hover, #company-login-tab:hover
-	{
+#individual-tab:hover, #company-tab:hover, .findId-tab:hover,
+.findPwd-tab:hover, #individual-login-tab:hover, #company-login-tab:hover
+{
 	color: #2e9cdf;
 	cursor: pointer;
 }
 
 #individual:checked+#individual-tab, #company:checked+#company-tab,
-	#findId:checked+#findId-tab, #findPwd:checked+#findPwd-tab,
-	#individual-login:checked+#individual-login-tab, #company-login:checked+#company-login-tab
-	{
+#findId:checked+.findId-tab, #findPwd:checked+.findPwd-tab,
+#individual-login:checked+#individual-login-tab, #company-login:checked+#company-login-tab
+{
 	color: #555;
 	border: 1px solid #ddd;
 	border-top: 2px solid #2e9cdf;
@@ -458,6 +458,6 @@ li.address-input {
 	padding: 60px 0 100px 0;
 }
 
-#findId-tab, #findPwd-tab {
+.findId-tab, .findPwd-tab {
 	padding: 15px 51px;
 }

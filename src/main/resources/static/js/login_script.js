@@ -1,7 +1,7 @@
 function memberIdPassCheck() {
 	var memberId = document.querySelector("input[name='memberId']");
 	var password = document.querySelector("input[name='password']");
-	var loginForm = document.getElementById("individual-loginForm");
+	var memberForm = document.getElementById("individual-loginForm");
 	if(memberId.value === "") {
 		alert("아이디는 필수입니다");
 		memberId.focus();
@@ -11,68 +11,77 @@ function memberIdPassCheck() {
 		password.focus();
 		return false;
 	}
-	if(loginForm != null) {
-		loginForm.submit();
+	if(memberForm != null) {
+		memberForm.submit();
 	}
 	return true;
 }
 
 function memberIdDuplicate() {
-  var memberId = document.querySelector("input[name='memberId']");
-  var idMsg = document.getElementById("idMsg");
+	var memberId = document.querySelector("input[name='memberId']");
+	var idMsg = document.getElementById("idMsg");
 
-  if (memberId.value === "") {
-    idMsg.textContent = "필수항목입니다";
-    idMsg.style.color = "red";
-    idMsg.style.fontSize = "11px";
-    idMsg.style.display = "inline";
-    memberId.focus();
-    return false;
-  } else if (!idCheck1(memberId.value)) {
-    idMsg.textContent = "영문 또는 숫자로 작성해주세요";
-    idMsg.style.color = "red";
-    idMsg.style.fontSize = "11px";
-    idMsg.style.display = "inline";
-    memberId.focus();
-    return false;
-  } else if (!idCheck2(memberId.value)) {
-    idMsg.textContent = "5~10자리로 작성해주세요";
-    idMsg.style.color = "red";
-    idMsg.style.fontSize = "11px";
-    idMsg.style.display = "inline";
-    memberId.focus();
-    return false;
-  } else {
-    var request = new XMLHttpRequest();
-    var url = "id_check.do?memberId=" + memberId.value;
-    request.open("GET", url, true);
+	if (memberId.value === "") {
+		idMsg.textContent = "필수항목입니다";
+		idMsg.style.color = "red";
+		idMsg.style.fontSize = "11px";
+		idMsg.style.display = "inline";
+		memberId.focus();
+		return false;
+	} else if (!idCheck1(memberId.value)) {
+		alert("영문")
+		idMsg.textContent = "영문 또는 숫자로 작성해주세요";
+		idMsg.style.color = "red";
+		idMsg.style.fontSize = "11px";
+		idMsg.style.display = "inline";
+		memberId.focus();
+		return false;
+	} else if (!idCheck2(memberId.value)) {
+		alert("5자리")
+		idMsg.textContent = "5~10자리로 작성해주세요";
+		idMsg.style.color = "red";
+		idMsg.style.fontSize = "11px";
+		idMsg.style.display = "inline";
+		memberId.focus();
+		return false;
+	} else {
+		alert("else")
+		var request = new XMLHttpRequest();
+		var url = "/idCheck";
+		var type = "GET";
+		var data = "memberId=" + encodeURIComponent(memberId.value);
 
-    request.onload = function() {
-      if (request.status === 200) {
-        var result = request.responseText;
-        if (result === "1") {
-          idMsg.textContent = "이미 사용중인 아이디 입니다. 다시 입력해주세요";
-          idMsg.style.color = "red";
-          idMsg.style.fontSize = "11px";
-          idMsg.style.display = "inline";
-          memberId.value = "";
-          memberId.focus();
-        } else if (result === "0") {
-          idMsg.textContent = "사용 가능한 아이디 입니다";
-          idMsg.style.color = "blue";
-          idMsg.style.fontSize = "11px";
-          idMsg.style.display = "inline";
-          document.querySelector("input[name='password']").focus();
-        }
-      }
-    };
-    request.send();
-  }
+		request.open(type, url + "?" + data, true);
+		request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+		request.onload = function() {
+			if (request.status === 200) {
+				var result = request.responseText;
+				if (result === "1") {
+					alert(memberId.value);
+					idMsg.textContent = "이미 사용중인 아이디 입니다. 다시 입력해주세요";
+					idMsg.style.color = "red";
+					idMsg.style.fontSize = "11px";
+					idMsg.style.display = "inline";
+					memberId.value = "";
+					memberId.focus();
+				} else if (result === "0") {
+					alert(memberId.value+"1231231123");
+					idMsg.textContent = "사용 가능한 아이디 입니다";
+					idMsg.style.color = "blue";
+					idMsg.style.fontSize = "11px";
+					idMsg.style.display = "inline";
+					// document.querySelector("input[name='password']").focus();
+				}
+			}
+		};
+		request.send();
+	}
 }
 
-function memberPassValid(){
+function memberPassValid(){ //회원가입, 비밀번호 변경 페이지
 	var password = document.querySelector("input[name='password']");
-	
+
 	if(!pwdCheck(password.value)){
 		alert("비밀번호는 영문,숫자,특수문자 1글자 이상 조합하여 작성해주세요");
 		password.focus();
@@ -81,7 +90,7 @@ function memberPassValid(){
 	return true;
 }
 
-function memberPassCheck() {
+function memberPassCheck() { //회원가입, 비밀번호 변경 페이지
 	var passwordCheck = document.querySelector("input[name='password-check']");
 
 	if (passwordCheck.value === "") {
@@ -92,10 +101,10 @@ function memberPassCheck() {
 	return true;
 }
 
-function memberPassVisible() {
+function memberPassVisible() { //회원가입, 비밀번호 변경 페이지
 	var isChecked = document.querySelector(".pwd-check-img").checked;
 	var password = document.querySelector("input[name='password']");
-	  
+
 	if (!isChecked) {
 		password.type = "password";
 	} else {
@@ -103,10 +112,10 @@ function memberPassVisible() {
 	}
 }
 
-function memberPassCheckVisible() {
+function memberPassCheckVisible() { //회원가입, 비밀번호 변경 페이지
 	var isChecked = document.getElementById("pwd-check-img-1").checked;
 	var passwordCheck = document.querySelector("input[name='password-check']");
-	  
+
 	if (!isChecked) {
 		passwordCheck.type = "password";
 	} else {
@@ -114,9 +123,9 @@ function memberPassCheckVisible() {
 	}
 }
 
-function memberNameCheck(){
+function memberNameCheck(){ //회원가입, 개인 마이페이지
 	var name = document.querySelector("input[name='name']");
-	
+
 	if(name.value === "") {
 		alert("이름은 필수입니다");
 		name.focus();
@@ -133,7 +142,7 @@ function findPwd() {
 	var id = document.getElementById("input-common-id");
 	var name = document.getElementById("input-common-name");
 	var phoneNum = document.getElementById("input-common-phone");
-	
+
 	if(id.value === "") {
 		alert("아이디는 필수입니다");
 		id.focus();
@@ -147,16 +156,16 @@ function findPwd() {
 		phoneNum.focus();
 		return false;
 	}
-	
+
 	findPwdForm.submit();
 }
 
 
-function memberEmailCheck(){
+function memberEmailCheck(){ //회원가입, 개인, 법인 마이페이지
 	var email1 = document.querySelector("input[name='email1']");
 	var email2 = document.querySelector("input[name='email2']");
 	var email3 = document.querySelector("#selectbox-email");
-	
+
 	if(email1.value === "") {
 		alert("이메일은 필수입니다");
 		email1.focus();
@@ -177,98 +186,98 @@ function memberEmailCheck(){
 	return true;
 }
 /* 옮기기 */
-function handleEmailBlur() {
-  var email1 = document.querySelector("input[name='email1']");
-  var email2 = document.querySelector("input[name='email2']");
-  var emailMsg = document.getElementById("emailMsg");
+function handleEmailBlur() { //회원가입, 개인, 법인 마이페이지
+	var email1 = document.querySelector("input[name='email1']");
+	var email2 = document.querySelector("input[name='email2']");
+	var emailMsg = document.getElementById("emailMsg");
 
-  if (email1.value === "" || email2.value === "") {
-    emailMsg.textContent = "필수항목입니다";
-    emailMsg.style.color = "red";
-    emailMsg.style.fontSize = "11px";
-    emailMsg.style.display = "inline";
-    return false;
-  } else {
-    var request = new XMLHttpRequest();
-    var url = "email_check.do";
-    var params = "email1=" + encodeURIComponent(email1.value) + "&email2=" + encodeURIComponent(email2.value);
-    request.open("POST", url, true);
-    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	if (email1.value === "" || email2.value === "") {
+		emailMsg.textContent = "필수항목입니다";
+		emailMsg.style.color = "red";
+		emailMsg.style.fontSize = "11px";
+		emailMsg.style.display = "inline";
+		return false;
+	} else {
+		var request = new XMLHttpRequest();
+		var url = "email_check.do";
+		var params = "email1=" + encodeURIComponent(email1.value) + "&email2=" + encodeURIComponent(email2.value);
+		request.open("POST", url, true);
+		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    request.onload = function() {
-      if (request.status === 200) {
-        var result = request.responseText;
-        if (result === "1") {
-          emailMsg.textContent = "중복된 이메일입니다";
-          emailMsg.style.color = "red";
-          emailMsg.style.fontSize = "11px";
-          emailMsg.style.display = "inline";
-          return false;
-        } else {
-          emailMsg.textContent = "";
-          emailMsg.style.color = "blue";
-          emailMsg.style.display = "none";
-        }
-      }
-    };
+		request.onload = function() {
+			if (request.status === 200) {
+				var result = request.responseText;
+				if (result === "1") {
+					emailMsg.textContent = "중복된 이메일입니다";
+					emailMsg.style.color = "red";
+					emailMsg.style.fontSize = "11px";
+					emailMsg.style.display = "inline";
+					return false;
+				} else {
+					emailMsg.textContent = "";
+					emailMsg.style.color = "blue";
+					emailMsg.style.display = "none";
+				}
+			}
+		};
 
-    request.send(params);
-  }
+		request.send(params);
+	}
 }
 
 var code = "";
 
-function sendEmail() {
-  var email1 = document.querySelector("input[name='email1']").value;
-  var email2 = document.querySelector("input[name='email2']").value;
-  var email = email1 + "@" + email2;
-  
+function sendEmail() { //회원가입, 개인, 법인 마이페이지
+	var email1 = document.querySelector("input[name='email1']").value;
+	var email2 = document.querySelector("input[name='email2']").value;
+	var email = email1 + "@" + email2;
 
-  var request = new XMLHttpRequest();
-  request.open("POST", "mailCheck.do", true);
-  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-  request.onreadystatechange = function () {
-    if (request.readyState === 4 && request.status === 200) {
-		alert("인증번호가 전송되었습니다");
-		code = request.responseText;
-		document.querySelector("#email-auth-check").disabled = false;
-    }
-  };
+	var request = new XMLHttpRequest();
+	request.open("POST", "mailCheck.do", true);
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-  request.send("email=" + email);
-  
-}
-    	
-function checkEmailAuth() {
-  var inputCode = document.querySelector('#email-auth-check').value;
-  var resultMsg = document.querySelector('#emailAuth');
-	
-  if (inputCode === code) {
-    resultMsg.textContent = '인증번호가 일치합니다.';
-    resultMsg.style.fontSize = '11px';
-    resultMsg.style.color = 'blue';
-    resultMsg.style.display = 'inline';
-    document.querySelector('#email-auth-check').disabled = true;
-    document.querySelector('input[name="email1"]').readOnly = true;
-    document.querySelector('input[name="email2"]').readOnly = true;
-    document.querySelector('#selectbox-email').disabled = true;
-    document.querySelector('#selectbox-email').setAttribute('onFocus', 'this.initialSelect = this.selectedIndex');
-    document.querySelector('#selectbox-email').setAttribute('onChange', 'this.selectedIndex = this.initialSelect');
-  } else {
-    resultMsg.textContent = '인증번호가 불일치합니다. 다시 확인해주세요!';
-    resultMsg.style.fontSize = '11px';
-    resultMsg.style.color = 'rgb(255, 0, 0)';
-    resultMsg.style.display = 'inline';
-  }
+	request.onreadystatechange = function () {
+		if (request.readyState === 4 && request.status === 200) {
+			alert("인증번호가 전송되었습니다");
+			code = request.responseText;
+			document.querySelector("#email-auth-check").disabled = false;
+		}
+	};
+
+	request.send("email=" + email);
+
 }
 
-function memberPhoneCheck() {
+function checkEmailAuth() { //회원가입, 개인, 법인 마이페이지
+	var inputCode = document.querySelector('#email-auth-check').value;
+	var resultMsg = document.querySelector('#emailAuth');
+
+	if (inputCode === code) {
+		resultMsg.textContent = '인증번호가 일치합니다.';
+		resultMsg.style.fontSize = '11px';
+		resultMsg.style.color = 'blue';
+		resultMsg.style.display = 'inline';
+		document.querySelector('#email-auth-check').disabled = true;
+		document.querySelector('input[name="email1"]').readOnly = true;
+		document.querySelector('input[name="email2"]').readOnly = true;
+		document.querySelector('#selectbox-email').disabled = true;
+		document.querySelector('#selectbox-email').setAttribute('onFocus', 'this.initialSelect = this.selectedIndex');
+		document.querySelector('#selectbox-email').setAttribute('onChange', 'this.selectedIndex = this.initialSelect');
+	} else {
+		resultMsg.textContent = '인증번호가 불일치합니다. 다시 확인해주세요!';
+		resultMsg.style.fontSize = '11px';
+		resultMsg.style.color = 'rgb(255, 0, 0)';
+		resultMsg.style.display = 'inline';
+	}
+}
+
+function memberPhoneCheck() { //회원가입, 개인, 법인 마이페이지
 	var tel = document.querySelector("#selectbox-mobile");
 	var phone1 = document.querySelector("#selectbox-phone");
 	var phone2 = document.querySelector("input[name='phone2']");
 	var phone3 = document.querySelector("input[name='phone3']");
-	
+
 	if(tel.value === "default") {
 		alert("휴대전화는 필수입니다");
 		tel.focus();
@@ -297,9 +306,9 @@ function memberPhoneCheck() {
 	return true;
 }
 
-function memberPhoneCheck1() {
+function memberPhoneCheck1() { //?
 	var phoneNum = document.querySelector("input[name='phoneNum']");
-	
+
 	if(phoneNum.value=="") {
 		alert("휴대전화는 필수입니다");
 		phoneNum.focus();
@@ -308,12 +317,12 @@ function memberPhoneCheck1() {
 }
 
 /*옮기기*/
-function handlePhoneBlur() {
+function handlePhoneBlur() { //회원가입, 개인, 법인 마이페이지
 	var phone1 = document.querySelector(".selectbox-phone");
 	var phone2 = document.querySelector("input[name='phone2']");
 	var phone3 = document.querySelector("input[name='phone3']");
 	var phoneMsg = document.getElementById("phoneMsg");
-	
+
 	if(phone1.value === "default" || phone2.value === "" || phone3.value === "") {
 		phoneMsg.textContent = "필수항목입니다";
 		phoneMsg.style.color = "red";
@@ -324,11 +333,11 @@ function handlePhoneBlur() {
 		var request = new XMLHttpRequest();
 		var url = "phone_check.do";
 		var params = "phone1=" + encodeURIComponent(phone1.value)
-				+ "&phone2=" + encodeURIComponent(phone2.value)
-				+ "&phone3=" + encodeURIComponent(phone3.value);
+			+ "&phone2=" + encodeURIComponent(phone2.value)
+			+ "&phone3=" + encodeURIComponent(phone3.value);
 		request.open("POST",url,true);
 		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		
+
 		request.onload = function() {
 			if(request.status === 200) {
 				var result = request.responseText;
@@ -374,29 +383,29 @@ function phoneCheck(asValue) {
 	return regex.test(asValue);
 }
 /********************이메일 선택 시 input창 자동 입력**************************/
-						
-function handleEmailSelection() {
-  var selectbox = document.getElementById("selectbox-email");
-  var email2 = document.querySelector("input[name='email2']");
-  var emailMsg = document.getElementById("emailMsg");
 
-  if (selectbox.value === "default") {
-    email2.value = "";
-    emailMsg.textContent = "이메일을 선택해주세요";
-    emailMsg.style.color = "red";
-    emailMsg.style.fontSize = "11px";
-    emailMsg.style.display = "inline";
-    selectbox.focus();
-    return false;
-  } else if (selectbox.value === "direct") {
-    email2.value = "";
-    email2.focus();
-  } else {
-    email2.value = selectbox.value;
-  }
+function handleEmailSelection() { //회원가입, 개인, 법인 마이페이지
+	var selectbox = document.getElementById("selectbox-email");
+	var email2 = document.querySelector("input[name='email2']");
+	var emailMsg = document.getElementById("emailMsg");
+
+	if (selectbox.value === "default") {
+		email2.value = "";
+		emailMsg.textContent = "이메일을 선택해주세요";
+		emailMsg.style.color = "red";
+		emailMsg.style.fontSize = "11px";
+		emailMsg.style.display = "inline";
+		selectbox.focus();
+		return false;
+	} else if (selectbox.value === "direct") {
+		email2.value = "";
+		email2.focus();
+	} else {
+		email2.value = selectbox.value;
+	}
 }
 /*********************************개인 회원가입; 전체 동의****************************************/
-function agreeAll() {
+function agreeAll() { //회원가입
 	var chkCircle = document.getElementById("chk-circle");
 	var chkAgree = document.querySelectorAll("input[name='chk-agree']");
 
@@ -407,122 +416,101 @@ function agreeAll() {
 	}
 }
 
-function updateCheckbox() {
-  var checkboxes = document.querySelectorAll("input[name='chk-agree']");
-  var total = checkboxes.length;
-  var checked = document.querySelectorAll("input[name='chk-agree']:checked").length;
+function updateCheckbox() { //회원가입
+	var checkboxes = document.querySelectorAll("input[name='chk-agree']");
+	var total = checkboxes.length;
+	var checked = document.querySelectorAll("input[name='chk-agree']:checked").length;
 
-  if (total !== checked) {
-    document.getElementById("chk-circle").checked = false;
-  } else if (total === checked) {
-    document.getElementById("chk-circle").checked = true;
-  }
+	if (total !== checked) {
+		document.getElementById("chk-circle").checked = false;
+	} else if (total === checked) {
+		document.getElementById("chk-circle").checked = true;
+	}
 }
 
-function memberValidation() {
+function memberValidation() { //회원가입
 	var memberId = document.querySelector("input[name='memberId']");
 	var password = document.querySelector("input[name='password']");
 	var passwordCheck = document.querySelector("input[name='password-check']");
 	var email1 = document.querySelector("input[name='email1']");
 	var phone1 = document.querySelector(".selectbox-phone");
-	
+
 	var idMsg = document.getElementById("idMsg");
 	var pwdMsg = document.getElementById("pwdMsg");
 	var emailMsg = document.getElementById("emailMsg");
 	var phoneMsg = document.getElementById("phoneMsg");
 	var emailAuth = document.querySelector('#emailAuth');
-	
+
 	var checkboxes = document.querySelectorAll("#checkbox-agreement:checked");
-  	var total = checkboxes.length;
-  	var checked = document.querySelector("input[name='agreementAll']:checked");
-	
+	var total = checkboxes.length;
+	var checked = document.querySelector("input[name='agreementAll']:checked");
+	var loginForm = document.getElementById("content-2");
+
 	if (!memberIdPassCheck()) {
-        return false;
-    }else if(!memberPassValid()){
-    	return false;
-    }else if(!memberPassCheck()){
-    	return false;
-    }else if(password.value !== passwordCheck.value){
-    	pwdMsg.textContent = "비밀번호가 일치하지 않습니다";
-    	pwdMsg.style.color = "red";
-    	pwdMsg.style.fontSize = "11px";
-    	pwdMsg.style.display = "inline";
-    	alert("비밀번호가 일치하지 않습니다");
-    	passwordCheck.focus();
-    	return false;
-    }else if(!memberNameCheck()){
-    	pwdMsg.style.display = "none";
-    	return false;
-    }else if(!memberEmailCheck()){
-    	return false;
-    }else if(emailMsg.style.color === "red"){
-    	alert("이메일을 확인하세요");
-    	email1.focus();
-    	return false;
-    }else if(emailAuth.style.color === "red"){
-    	alert("이메일을 확인하세요");
-    	email1.focus();
-    	return false;
-    }else if(!memberPhoneCheck()){
-    	return false;
-    }else if(phoneMsg.style.color === "red"){
-    	alert("휴대전화를 확인하세요");
-    	phone1.focus();
-    	return false;
-    }else if(total != 3 && !checked){
-    	alert("약관에 동의해주세요");
-    	return false;
-    }else if(idMsg.textContent === "" || idMsg.style.color === "red"){
-    	alert("아이디 중복체크를 진행해주세요");
-    	memberId.focus();
-    	return false;
-    }else {
-    	joinIndividual.submit();
-    }
+		return false;
+	}else if(password.value !== passwordCheck.value){
+		pwdMsg.textContent = "비밀번호가 일치하지 않습니다";
+		pwdMsg.style.color = "red";
+		pwdMsg.style.fontSize = "11px";
+		pwdMsg.style.display = "inline";
+		alert("비밀번호가 일치하지 않습니다");
+		passwordCheck.focus();
+		return false;
+	}else if(!memberNameCheck()){
+		pwdMsg.style.display = "none";
+		return false;
+	}else if(!memberEmailCheck()){
+		return false;
+	}else if(!memberPhoneCheck()){
+		return false;
+	}else {
+		loginForm.submit();
+	}
 }
 
 function companyIdPassCheck() {
-	var companyId = document.querySelector(input[name='companyId']);
-	var password = document.getElementById("company-pass");
-	var loginForm = document.getElementById("company-loginForm");
-	
+	var companyId = document.querySelector("input[name='companyId']");
+	var password = document.getElementById("companyPass");
+	var companyForm = document.getElementById("company-loginForm");
+
 	if(companyId.value === "") {
 		alert("아이디는 필수입니다");
 		companyId.focus();
 		return false;
-	}else if(password.value=="") {
+	}else if(password.value === "") {
 		alert("비밀번호는 필수입니다");
 		password.focus();
 		return false;
 	}
-	if(loginForm != null) {
-		loginForm.submit();
+	if(companyForm != null) {
+		companyForm.submit();
 	}
 	return true;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
 
+
 	var urlParams = new URLSearchParams(window.location.search);
-    var selectedTab = urlParams.get('selectedTab');
-    
-    if (selectedTab) {
-        document.getElementById(selectedTab).checked = true;
-    }
-    
-    document.getElementById("selectbox-email").addEventListener("change", handleEmailSelection);
+	var selectedTab = urlParams.get('selectedTab');
+
+	if (selectedTab) {
+		document.getElementById(selectedTab).checked = true;
+	}
+
+	document.getElementById("selectbox-email").addEventListener("change", handleEmailSelection);
 	document.querySelector("input[name='email2']").addEventListener("change", function(){
 		document.getElementById("selectbox-email").value = "default"
 	});
 	document.querySelectorAll("input[name='email1'], input[name='email2'], #selectbox-email").forEach(function(element) {
-  		element.addEventListener("blur", handleEmailBlur);
+		element.addEventListener("blur", handleEmailBlur);
 	});
 	document.querySelectorAll("#selectbox-phone, input[name='phone2'], input[name='phone3']").forEach(function(element) {
-  		element.addEventListener("blur", handlePhoneBlur);
+		element.addEventListener("blur", handlePhoneBlur);
 	});
 	document.querySelector('#email-auth-check').addEventListener('change', checkEmailAuth);
 	document.querySelectorAll("input[name='chk-agree']").forEach(function(checkbox) {
-  		checkbox.addEventListener("click", updateCheckbox);
+		checkbox.addEventListener("click", updateCheckbox);
 	});
-	
+
 });

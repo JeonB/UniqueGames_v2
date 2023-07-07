@@ -5,19 +5,19 @@
   <title>Join</title>
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/login.css}">
-  <script src="/js/jquery-3.6.4.min.js"></script>
-<!--  <script src="/js/join_jquery.js"></script>-->
-  <script src="/js/login_script.js"></script>
+  <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
+<!--  <script th:src="@{/js/join_jquery.js}"></script>-->
+  <script th:src="@{/js/login_script.js}"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 <!--header-->
 <div th:replace="/main/header::headerFragment"></div>
-<section class="top-bg">
-  <div class="base-layer">
-    <div class="top-bg-textarea">
-      <p class="top-title">Sign Up</p>
-      <p class="top-subtitle">#회원가입</p>
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">Sign Up</p>
+      <p id="top-subtitle">#회원가입</p>
     </div>
   </div>
 </section>
@@ -28,7 +28,7 @@
   <input id="company" type="radio" name="joinSelect">
   <label for="company" id="company-tab">법인 회원</label>
 
-  <form action="join_individual_proc" name="joinIndividual" method="post" id="content-2">
+  <form action="join" name="joinIndividual" method="post" id="content-2">
     <div>
       <ul>
         <li class="must-insert">
@@ -44,7 +44,7 @@
           <label>비밀번호</label><span id="pwdMsg"></span>
         </li>
         <li>
-          <input type="password" name="password" placeholder="숫자,영문,특수문자 조합 최소 8자" tabindex="2">
+          <input type="password" id="mpass" name="password" placeholder="숫자,영문,특수문자 조합 최소 8자" tabindex="2">
           <input type="checkbox" class="pwd-check-img" onclick="memberPassVisible()">
         </li>
         <li>
@@ -141,7 +141,7 @@
         </li>
 
         <li>
-          <button type="button" id="button-gradient" tabindex="16">가입하기</button>
+          <button type="button" class="button-gradient" tabindex="16" onclick="memberValidation()">가입하기</button>
         </li>
       </ul>
     </div>
@@ -245,11 +245,11 @@
         </li>
         <li>
           <input type="checkbox" class="c-checkbox-agreement" name="c-chk-agree">
-          <span class="agreement-color">[필수]</span> <span>이용 약관</span><a id="detail1">자세히</a>
+          <span class="agreement-color">[필수]</span> <span>이용 약관</span><a class="detail1">자세히</a>
         </li>
         <li>
           <input type="checkbox" class="c-checkbox-agreement" name="c-chk-agree">
-          <span class="agreement-color">[필수]</span> <span>개인정보 수집 및 이용 동의</span><a id="detail2">자세히</a>
+          <span class="agreement-color">[필수]</span> <span>개인정보 수집 및 이용 동의</span><a class="detail2">자세히</a>
         </li>
         <li>
           <input type="checkbox" class="c-agreement-choice" name="c-chk-agree">
@@ -265,7 +265,7 @@
 </section>
 
 
-<div id="modal">
+<div class="modal">
   <div class="agreement" id="agreement-join">
     <h1 id="agreement-title">이용 약관</h1>
     <div id="agreement-content">
@@ -318,3 +318,4 @@
 <div th:replace="/main/footer::footerFragment"></div>
 </body>
 </html>
+<script th:src="@{/js/login_script.js}"></script>
