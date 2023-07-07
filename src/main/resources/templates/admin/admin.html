@@ -7,7 +7,8 @@
     <link rel="stylesheet" th:href="@{/css/order.css}">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <script src="js/admin-script.js"></script>
-</head></head>
+</head>
+</head>
 <body>
 <!-- header -->
 <div th:replace="~{/main/header :: headerFragment}"></div>
@@ -22,10 +23,32 @@
     </div>
 </section>
 
-<div id="div-sidebar">
+<div id="div-admin">
+    <div id="div-sidebar">
+        <ul id="ul-sidebar">
+            <li id="li-sidebar">
+                <a href="#member-list" id="a-memberlist">회원 관리</a>
+                <a href="#game-list" id="a-gamelist">게임 관리</a>
+                <a href="#game-register" id="a-gameregister">게임 등록</a>
+                <a href="#donation" id="a-donation">정산 현황</a>
+            </li>
+        </ul>
+    </div>
+    <div id="div-viewer">
+        <div id="fra-memberlist">
 
+        </div>
+        <div id="fra-gamelist" >
+
+        </div>
+        <div id="fra-gameregister">
+
+        </div>
+        <div id="fra-donation">
+
+        </div>
+    </div>
 </div>
-
 <!-- footer -->
 <div th:replace="~{/main/footer::footerFragment}"></div>
 </body>
