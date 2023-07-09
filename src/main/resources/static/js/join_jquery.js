@@ -5,31 +5,36 @@ $(document).ready(function() {
 	var idMsg = $("#idMsg");
 
 	$("#check-btn-style").click(function() {
-
-		if(memberId.val() == "") {
+		if (memberId.val() == "") {
 			idMsg.text("아이디를 입력하세요").css("font-size","11px").css("color","red").css("display","inline");
 			memberId.focus();
 			return false;
-		}else if(!idCheck1(memberId.val())){
+		} else if (!idCheck1(memberId.val())){
 			idMsg.text("영문 또는 숫자로 작성해주세요").css("color","red").css("font-size","11px").css("display","inline");
 			memberId.focus();
 			return false;
-		}else if(!idCheck2(memberId.val())){
+		} else if (!idCheck2(memberId.val())){
 			idMsg.text("5~10자리로 작성해주세요").css("color","red").css("font-size","11px").css("display","inline");
-		}else {
+		} else {
+
+			const memberId = $("input[name='memberId']");
+
+
 			$.ajax({
-				url : "idcheck/" + $(memberId).val()+"/",
+				url: "idcheck",
+				type: "get",
+				data: {
+					member_id : memberId.val()
+				},
 				success: function(result) {
-					alert(memberId.val());
-					console.log(result);
-					if(result == 1) {
-						idMsg.text("이미 사용중인 아이디 입니다. 다시 입력해주세요")
+					if(result == 1){
+						$("#idMsg").text("이미 사용중인 아이디 입니다. 다시 입력해주세요")
 							.css("color","red").css("font-size","11px").css("display","inline");
-						memberId.val("").focus();
-					}else {
-						idMsg.text("사용 가능한 아이디 입니다")
+						$("input[name='member_id']").val("").focus();
+					}else if(result == 0){
+						$("#idMsg").text("사용 가능한 아이디 입니다")
 							.css("color","blue").css("font-size","11px").css("display","inline");
-						memberPass.focus();
+						$("#mpass").focus();
 					}
 				}
 			});

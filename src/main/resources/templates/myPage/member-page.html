@@ -98,11 +98,18 @@
           <p class="label-dot">*</p>
           <label>주소</label><span id="addressMsg"></span>
         </li>
-        <li>
-          <input type="text" name="addr1" th:value="${member.addr1}" readonly="readonly">
+        <li th:if = "${member.addr != null}">
+          <input type="text" name="addr1" th:value="" readonly="readonly">
           <button type="button" id="address-btn-style">주소 찾기</button>
         </li>
-        <li>
+        <li th:unless = "${member.addr != null}">
+          <input type="text" name="addr1" th:value="${member.addr1}" readonly="readonly">
+          <button type="button">주소 찾기</button>
+        </li>
+        <li th:if = "${member.addr2 != null}">
+          <input type="text" name="addr2" th:value="" readonly="readonly">
+        </li>
+        <li th:unless = "${member.addr2 != null}">
           <input type="text" name="addr2" th:value="${member.addr2}" readonly="readonly">
         </li>
         <li>

@@ -8,6 +8,7 @@
   <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
   <script th:inline="javascript">
     //JavaScript 코드
+
     document.addEventListener('DOMContentLoaded', function() {
       // URL에서 selectedTab 파라미터 값을 가져옴
       var urlParams = new URLSearchParams(window.location.search);
@@ -18,35 +19,45 @@
         document.getElementById(selectedTab).checked = true;
       }
     });
+    /*<![CDATA[*/
+    const error = [[${result}]];
+    const url = [[${url}]];
+
+    if(error == "error") {
+      alert("등록된 회원정보가 없습니다");
+      location.href = url;
+    }
+
+
+    /*]]>*/
+
 
   </script>
   <script th:inline="javascript">
     $(document).ready(function(){
 
       $("#findIdButton").click(function() {
-        if ($("input[name='name']").val() === "") {
+        if ($("input[name='email']").val() === "") {
+          alert("이메일을 입력해주세요");
+          $("input[name='email']").focus();
+          return false;
+        } else if ($("input[name='name']").val() === "") {
           alert("이름을 입력해주세요");
           $("input[name='name']").focus();
           return false;
-        } else if ($("input[name='phoneNum']").val() === "") {
-          alert("휴대전화를 입력해주세요");
-          $("input[name='phoneNum']").focus();
-          return false;
         } else {
           $.ajax({
-            url: "findIdCheck",
+            url: "findmid",
             type: "POST",
             data: {
-              name: $("input[name='name']").val(),
-              phone_num: $("input[name='phoneNum']").val()
+              email : $("input[name='email']").val(),
+              name: $("input[name='name']").val()
             },
             success: function(result) {
               if (result == "") {
-                alert("1");
                 $(".modal2").show();
                 $(".agreement-content1").html($(".find-id-none").html());
               } else {
-                alert("2");
                 $(".modal2").show();
                 $(".find-id-result").html(result);
                 $(".agreement-content1").html($(".deleteComplete").html());
@@ -58,17 +69,17 @@
 
       $("#findPass").click(function(){
 
-        if($("input[name='memberId']").val()==""){
+        if($("#email").val()==""){
+          alert("이메일을 입력해주세요");
+          $("#email").focus();
+          return false;
+        }else if($("input[name='memberId']").val()==""){
           alert("아이디를 입력해주세요");
           $("input[name='memberId']").focus();
           return false;
-        }else if($("#input-common-name").val()==""){
-          alert("이름을 입력해주세요");
-          $("#input-common-name").focus();
-          return false;
-        }else if($("#input-common-phone").val()==""){
+        }else if($("#name").val()==""){
           alert("휴대전화를 입력해주세요");
-          $("#input-common-phone").focus();
+          $("#name").focus();
           return false;
         }else {
           findPwdForm.submit();
@@ -87,7 +98,7 @@
       $(document).on("click", "#button-gradient-gotoPwd", function(event){
 
         $("#modal2").hide();
-        location.href="/find-member?selectedTab=findPwd";
+        location.href="/findMember?selectedTab=findPwd";
 
       });
       $(document).on("click", "#button-gradient-gotoLogin", function(event){
@@ -128,11 +139,11 @@
   <form action="findId_check" name="findIdForm" method="post" id="findIdForm">
     <ul>
       <li>
-        <input type="text" name="name" placeholder="이름">
+        <input type="text" name="email" placeholder="이메일">
         <span class="msgName"></span>
       </li>
       <li>
-        <input type="text" name="phoneNum" placeholder="휴대전화">
+        <input type="text" name="name" placeholder="이름">
         <span class="msgPhone"></span>
       </li>
       <li>
@@ -141,23 +152,26 @@
     </ul>
   </form>
 
-  <form action="findPwd_check" name="findPwdForm" method="post" id="findPwdForm">
+  <form action="changepass" name="findPwdForm" method="post" id="findPwdForm">
     <p class="intro-2">비밀번호를 찾으려는 아이디</p>
     <ul>
       <li>
-        <input type="text" name="memberId" placeholder="아이디">
+        <input type="text" name="email" id="email" placeholder="이메일">
         <span class="msgclass"></span>
       </li>
       <li>
-        <input type="text" name="name" placeholder="이름">
+        <input type="text" name="memberId" placeholder="아이디">
         <span class="msgName1"></span>
       </li>
       <li>
-        <input type="text" name="phoneNum" placeholder="휴대전화">
+        <input type="text" name="name" id="name" placeholder="이름">
         <span class="msgPhone1"></span>
       </li>
       <li>
         <button type="button" class="button-gradient" id="findPass">비밀번호 찾기</button>
+      </li>
+      <li>
+        <a th:href = "@{/login}">return to login</a>
       </li>
     </ul>
   </form>

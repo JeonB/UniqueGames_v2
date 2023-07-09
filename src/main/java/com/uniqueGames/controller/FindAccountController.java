@@ -4,18 +4,20 @@ package com.uniqueGames.controller;
 import com.uniqueGames.repository.MemberRepositoryMapper;
 import com.uniqueGames.service.CompanyMemberService;
 
+import com.uniqueGames.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class FindAccountController {
 
-	@Autowired
-	private CompanyMemberService companyMemberService;
+	private MemberService memberService;
 
-	@Autowired
-	private MemberRepositoryMapper memberRepositoryMapper;
+	public FindAccountController(MemberService memberService) {
+		this.memberService = memberService;
+	}
 
 	@GetMapping("findMember")
 	public String findId() {
@@ -31,6 +33,31 @@ public class FindAccountController {
 	public String findCompany() {
 		return "findAccount/find-company";
 	}
+
+//	@ResponseBody
+//	@PostMapping("findmid")
+//	public String findmid(@RequestParam("email")String email, @RequestParam("name")String name) {
+//		String result = memberService.findMid(email, name);
+//		System.out.println("아이디 찾기 result="+result);
+//		return result;
+//	}
+//
+//	@PostMapping("changepass")
+//	public String moveChangePass(Model model,
+//								 @RequestParam("email")String email,
+//								 @RequestParam("memberId")String memberId,
+//								 @RequestParam("name") String name) {
+//		String viewName = "";
+//		int result = memberService.findMpass(email, memberId, name);
+//		if(result == 1) {
+//			return "findAccount/member-newpass";
+//		}else {
+//			model.addAttribute("result", "error");
+//			model.addAttribute("url", "/findMember?selectedTab=findPwd");
+//			return "findAccount/find-member";
+//		}
+//
+//	}
 
 //	@PostMapping("findId_check")
 //	@ResponseBody

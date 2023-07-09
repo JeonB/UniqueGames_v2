@@ -19,72 +19,66 @@ public class MyPageController {
         this.memberService = memberService;
     }
     
-    @GetMapping("/mypage")
-    public String mypage(HttpSession session, Model model) {
-        String viewName = "";
-        String mode = session.getAttribute("login").toString();
-
-        if(mode.equals("member")) {
-            System.out.println("개인");
-            Member member = (Member)session.getAttribute(SessionConstants.LOGIN_MEMBER);
-            String password = member.getPassword();
-			String email1 = member.getEmail().split("@")[0];
-			String email2 = member.getEmail().split("@")[1];
-			String email3 = member.getEmail().split("@")[1];
-			String tel = member.getTel();
-			String phone1 = member.getPhoneNum().split("-")[0];
-			String phone2 = member.getPhoneNum().split("-")[1];
-			String phone3 = member.getPhoneNum().split("-")[2];
-            System.out.println("member tel="+tel);
-            System.out.println("member phone1="+phone1);
-            System.out.println("member phone2="+phone2);
-            System.out.println("member phone3="+phone3);
-			String addr = member.getAddr();
-            System.out.println("member addr= "+ member.getAddr());
-
-            if (addr == null) {
-                System.out.println("주소 자체가 없을 때? 이게 필요있나="+member.getAddr());
-				member.setAddr1("");
-				member.setAddr2("");
-			}else {
-				String[] addrSplit = addr.split("   ");
-				if (addrSplit.length == 1) {
-					String addr1 = addrSplit[0];
-					member.setAddr1(addr1);
-					member.setAddr2("");
-                    System.out.println("주소 하나만 있을 때 addr1="+ member.getAddr1());
-				} else if (addrSplit.length == 2) {
-					String addr1 = addrSplit[0];
-					String addr2 = addrSplit[1];
-					member.setAddr1(addr1);
-					member.setAddr2(addr2);
-                    System.out.println("주소 두개 다 있을 때 addr1="+ member.getAddr1());
-                    System.out.println("주소 두개 다 있을 때 addr2="+ member.getAddr2());
-				} else {
-					member.setAddr1("");
-					member.setAddr2("");
-                    System.out.println("주소 다 없을 때 addr1="+ member.getAddr1());
-                    System.out.println("주소 다 없을 때 addr2="+ member.getAddr2());
-				}
-			}
-			member.setEmail1(email1);
-			member.setEmail2(email2);
-			member.setEmail3(email3);
-			member.setTel(tel);
-			member.setPhone1(phone1);
-			member.setPhone2(phone2);
-			member.setPhone3(phone3);
-            model.addAttribute("member", member);
-            System.out.println("member addr1="+ member.getAddr1());
-            System.out.println("member addr1="+ member.getAddr2());
-
-            viewName = "myPage/member-page";
-        }else if(mode.equals("company")) {
-            System.out.println("법인");
-            viewName = "company-page";
-        }
-        return viewName;
-    }
+//    @GetMapping("/mypage")
+//    public String mypage(HttpSession session, Model model) {
+//        String viewName = "";
+//        String mode = session.getAttribute("login").toString();
+//
+//        if(mode.equals("member")) {
+//            Member member = (Member)session.getAttribute(SessionConstants.LOGIN_MEMBER);
+//            String password = member.getPassword();
+//			String email1 = member.getEmail().split("@")[0];
+//			String email2 = member.getEmail().split("@")[1];
+//			String email3 = member.getEmail().split("@")[1];
+//			String tel = member.getTel();
+//			String phone1 = member.getPhoneNum().split("-")[0];
+//			String phone2 = member.getPhoneNum().split("-")[1];
+//			String phone3 = member.getPhoneNum().split("-")[2];
+//			String addr = member.getAddr();
+//
+//            if (addr == null) {
+//                System.out.println("주소 자체가 없을 때? 이게 필요있나="+member.getAddr());
+//				member.setAddr1("");
+//				member.setAddr2("");
+//			}else {
+//				String[] addrSplit = addr.split("   ");
+//				if (addrSplit.length == 1) {
+//					String addr1 = addrSplit[0];
+//					member.setAddr1(addr1);
+//					member.setAddr2("");
+//                    System.out.println("주소 하나만 있을 때 addr1="+ member.getAddr1());
+//				} else if (addrSplit.length == 2) {
+//					String addr1 = addrSplit[0];
+//					String addr2 = addrSplit[1];
+//					member.setAddr1(addr1);
+//					member.setAddr2(addr2);
+//                    System.out.println("주소 두개 다 있을 때 addr1="+ member.getAddr1());
+//                    System.out.println("주소 두개 다 있을 때 addr2="+ member.getAddr2());
+//				} else {
+//					member.setAddr1("");
+//					member.setAddr2("");
+//                    System.out.println("주소 다 없을 때 addr1="+ member.getAddr1());
+//                    System.out.println("주소 다 없을 때 addr2="+ member.getAddr2());
+//				}
+//			}
+//			member.setEmail1(email1);
+//			member.setEmail2(email2);
+//			member.setEmail3(email3);
+//			member.setTel(tel);
+//			member.setPhone1(phone1);
+//			member.setPhone2(phone2);
+//			member.setPhone3(phone3);
+//            model.addAttribute("member", member);
+//            System.out.println("member addr1="+ member.getAddr1());
+//            System.out.println("member addr2="+ member.getAddr2());
+//
+//            viewName = "myPage/member-page";
+//        }else if(mode.equals("company")) {
+//            System.out.println("법인");
+//            viewName = "company-page";
+//        }
+//        return viewName;
+//    }
     
     
     
