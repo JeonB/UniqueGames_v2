@@ -13,13 +13,12 @@ public class IndexServiceMapper {
     @Autowired
     IndexMapper indexMapper;
 
-    public List<Game> getGameList() {
-        return indexMapper.getGameList();
-    }
+    public List<Game> getGameList() { return indexMapper.getGameList(); }
 
     public Game getGame(Game vo) {
         return indexMapper.getGame(vo);
     }
+
     public Game getGameForIndex(int id) {
         return indexMapper.getGameForIndex(id);
     }
@@ -44,16 +43,16 @@ public class IndexServiceMapper {
         indexMapper.deleteGame(vo);
     }
 
-    public int hasLiked(int gid, int mid) {
-        return indexMapper.hasLiked(gid, mid);
-    }
-
-    public void addLikeInfo(int gid, int mid) {
-        indexMapper.addLikeInfo(gid, mid);
-    }
-
-    public void removeLikeInfo(int gid, int mid) {
-        indexMapper.removeLikeInfo(gid, mid);
-    }
+//    public int hasLiked(int gid, int mid) {
+//        return indexMapper.hasLiked(gid, mid);
+//    }
+//
+//    public void addLikeInfo(int gid, int mid) {
+//        indexMapper.addLikeInfo(gid, mid);
+//    }
+//
+//    public void removeLikeInfo(int gid, int mid) {
+//        indexMapper.removeLikeInfo(gid, mid);
+//    }
 
 }

@@ -156,7 +156,7 @@
 .tList {
     display: inline-block;
     width: 500px;
-    height: 320px;
+    height: 380px;
     position: relative;
     margin-right: 40px;
     margin-bottom: 20px;
@@ -165,7 +165,7 @@
 .tList div p:nth-child(1) {
     position: absolute;
     float: left;
-    top: 260px;
+    top: 300px;
     left: 20px;
     font-family: "Apex New", sans-serif;
     font-weight: bold;
@@ -194,9 +194,9 @@
 .readmore-plus {
     position: absolute;
     float: right;
-    top: 270px;
+    top: 310px;
     right: 20px;
-    border: 1px solid #fff;
+    border: 1px solid rgba(255, 255, 255, 0);
     background-color: rgba(255, 255, 255, 0);
 }
 
@@ -232,7 +232,7 @@
     text-overflow: ellipsis;
     display: inline-block;
     width: 260px;
-    height: 392px;
+    height: 386px;
     box-shadow: 0px 5px 10px #0000001A;
     position: relative;
     margin: 0 5px;
@@ -318,8 +318,6 @@
 }
 
 .rList div {
-    position: absolute;
-    bottom: 0px;
     float: left;
     display: block;
 }
