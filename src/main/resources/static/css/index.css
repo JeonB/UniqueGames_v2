@@ -121,7 +121,7 @@
 .cyber {
     position: relative;
     float: left;
-    top: 10px;
+    top: 60px;
     left: 64px;
     font-family: "YouandiModern", sans-serif;
     font-weight: bold;
@@ -200,7 +200,7 @@
     background-color: rgba(255, 255, 255, 0);
 }
 
-.menu-main1, .menu-main3 {
+#menu-main1, .menu-main3 {
     background-color: #F2F2F2;
     background-size: cover;
     width: auto;
@@ -537,4 +537,11 @@
 }
 .menu-solution>table tr>th:nth-child(2) {
     width: 600px;
+}
+
+.intro-allList {
+    font-family: "YouandiModern", sans-serif;
+    font-size: 24px;
+    padding-bottom: 60px;
+    text-align: center;
 }

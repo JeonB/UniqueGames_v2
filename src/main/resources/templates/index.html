@@ -104,7 +104,7 @@
         </div>
     </div>
 </div>
-<section class="menu-main1">
+<section id="menu-main1">
     <img class="recommendations-title" src="/images/img-title-recommendations.png" width="262px" height="26px">
     <p class="sub-title">#최근 반응이 좋은</p>
     <div class="menu-recommendations">
@@ -136,7 +136,7 @@
                         <li><a th:href="@{'detail/' + ${game.id}}" th:text="${game.name}"></a></li>
                         <li th:text="${game.gameGenre}"></li>
                         <li><a th:href="@{'detail/' + ${game.id}}"><button class="btn-like-style" type="button"data-game-id="${game.id}"></button></a></li>
-                        <li th:text="${game.likeCount}"></li>
+                        <li></li>
                         <li><img src="/images/img-icon-rPc.png"></li>
                     </ul>
                 </div>
@@ -154,14 +154,6 @@
                 <th>작성자</th>
                 <th>작성일</th>
             </tr>
-<!--            <div th:each="noticeVo : ${noticeList}">-->
-<!--                <tr>-->
-<!--                    <td th:text="${noticeVo.rno}"></td>-->
-<!--                    <td><a th:href="@{'notice_content?no=' + ${noticeVo.post_id}}}">${noticeVo.title}</a></td>-->
-<!--                    <td th:text="${noticeVo.company_id}"></td>-->
-<!--                    <td th:text="${noticeVo.date_output}"></td>-->
-<!--                </tr>-->
-<!--            </div>-->
         </table>
         <div class="solution-btn-area">
             <a href="notice_list"><button class="btn-solution" type="button">자세히보기</button></a>

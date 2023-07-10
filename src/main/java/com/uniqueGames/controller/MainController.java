@@ -4,13 +4,13 @@ package com.uniqueGames.controller;
 import com.uniqueGames.service.IndexServiceMapper;
 import com.uniqueGames.service.NoticeService;
 import java.io.IOException;
-import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 @Controller
@@ -26,12 +26,6 @@ public class MainController {
 
 	}
 
-//	@RequestMapping(value="/", method=RequestMethod.GET)
-//	public String index2() {
-//		return  "/main/index";
-//	}
-
-
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String index(Model model) throws IOException {
 		model.addAttribute("gameList",indexServiceMapper.getGameList());
@@ -42,17 +36,16 @@ public class MainController {
         return "index";
 	}
 
-	
-	@RequestMapping(value="/allList", method=RequestMethod.GET)
-	public String allList(Model model) {
+	@GetMapping("alllist")
+	public String allList(Model model) throws IOException  {
 		model.addAttribute("gameList", indexServiceMapper.getGameList());
-		return "main/allList";
+		return "main/alllist";
 	}
-	
-	@RequestMapping(value="/topgame", method=RequestMethod.GET)
-	public String topgame(Model model) {
+
+	@GetMapping("topgame")
+	public String topgame(Model model) throws IOException  {
 		model.addAttribute("ranking", indexServiceMapper.getRankingList());
-		return "main/topGame";
+		return "main/topgame";
 	}
 
 //	@RequestMapping(value = "/like", method = RequestMethod.POST)

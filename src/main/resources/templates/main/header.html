@@ -56,7 +56,7 @@
         <ul>
           <li><a href="/login">Login</a></li>
           <li><a href="/join">Join</a></li>
-          <li><button type="button" class="btn-hearder-search" onclick="toggleSearch()"><img src="/images/img-icon-search.png"></button></li>
+<!--          <li><button type="button" class="btn-hearder-search" onclick="toggleSearch()"><img src="/images/img-icon-search.png"></button></li>-->
         </ul>
       </nav>
     </div>
@@ -66,8 +66,8 @@
           <li class="member_id_header" th:text="${session.loginMember?.name + '님 반갑습니다.'}"></li>
           <li class="logout_header"><a href="/logout" target="_parent">Logout</a></li>
           <li><a href="/myPage"><img src="/images/img-icon-mypage.png"></a></li>
-          <li th:if="${session.login == 'member'}"><a href="/cart"><img src="/images/img-icon-cart.png"></a></li>
-          <li><button type="button" class="btn-hearder-search" onclick="toggleSearch()"><img src="/images/img-icon-search.png"></button></li>
+          <li th:if="${session.login == 'member'}"><a href="/cart"><img src="../images/img-icon-cart.png"></a></li>
+<!--          <li><button type="button" class="btn-hearder-search" onclick="toggleSearch()"><img src="../images/img-icon-search.png"></button></li>-->
         </ul>
       </nav>
     </div>
@@ -81,7 +81,7 @@
     <nav class="nav2">
       <ul>
         <li><a href="/topgame">Top Game</a></li>
-        <li><a href="/allList">All List</a></li>
+        <li><a href="/alllist">All List</a></li>
         <li><a href="/#menu-main1">Recommendations</a></li>
         <li><a href="/notice_list">Notice</a></li>
         <li><a href="/detail/getIntroList">Team Intro</a></li>
