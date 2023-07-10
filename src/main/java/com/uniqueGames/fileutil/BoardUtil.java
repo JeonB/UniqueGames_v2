@@ -38,7 +38,8 @@ public class BoardUtil {
 	 * @param page
 	 * @return Map<String, Integer>
 	 */
-	public Page getPagination(Page page) {
+	public Map<String, Integer> getPagination(String page, String keyword) {
+		Map<String, Integer> result = new HashMap();
 
 		int startCount = 0;
 		int endCount = 0;
@@ -47,11 +48,11 @@ public class BoardUtil {
 		int pageCount = 1; // 전체 페이지 수
 		int dbCount = 0; // DB에서 가져온 전체 행수
 
-		if (page.getKeyword().equals("list")) { // 검색 키워드가 없는 전체 리스트
+		if (keyword.equals("list")) { // 검색 키워드가 없는 전체 리스트
 			dbCount = noticeMapper.totRowCount();
 
 		} else {
-			dbCount = noticeMapper.totRowCountSearch(page.getKeyword());
+			dbCount = noticeMapper.totRowCountSearch(keyword);
 
 		}
 
@@ -64,7 +65,7 @@ public class BoardUtil {
 
 		// 요청 페이지 계산
 		if (page != null) {
-			reqPage = Integer.parseInt(page.getPage());
+			reqPage = Integer.parseInt(page);
 			startCount = (reqPage - 1) * pageSize + 1;
 			endCount = reqPage * pageSize;
 		} else {
@@ -72,21 +73,21 @@ public class BoardUtil {
 			endCount = pageSize;
 		}
 
-//		result.put("startCount", startCount);
-//		result.put("endCount", endCount);
-//		result.put("pageSize", pageSize);
-//		result.put("reqPage", reqPage);
-//		result.put("pageCount", pageCount);
-//		result.put("dbCount", dbCount);
+		result.put("startCount", startCount);
+		result.put("endCount", endCount);
+		result.put("pageSize", pageSize);
+		result.put("reqPage", reqPage);
+		result.put("pageCount", pageCount);
+		result.put("dbCount", dbCount);
 
-		page.setStartCount(startCount);
-		page.setEndCount(endCount);
-		page.setPageSize(pageSize);
-		page.setReqPage(reqPage);
-		page.setPageCount(pageCount);
-		page.setDbCount(dbCount);
+//		page.setStartCount(startCount);
+//		page.setEndCount(endCount);
+//		page.setPageSize(pageSize);
+//		page.setReqPage(reqPage);
+//		page.setPageCount(pageCount);
+//		page.setDbCount(dbCount);
 
-		return page;
+		return result;
 	}
 
 	/**

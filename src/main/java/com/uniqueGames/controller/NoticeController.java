@@ -2,9 +2,14 @@ package com.uniqueGames.controller;
 
 
 import com.uniqueGames.fileutil.BoardUtil;
-import com.uniqueGames.model.*;
+import com.uniqueGames.model.Comment;
+import com.uniqueGames.model.Company;
+import com.uniqueGames.model.Notice;
+import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.CommentService;
 import com.uniqueGames.service.NoticeService;
+import com.uniqueGames.test.GenericDemo;
+import com.uniqueGames.test.GenericImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,11 +54,11 @@ public class NoticeController {
         session.setAttribute(SessionConstants.LOGIN_MEMBER, company);
 
         // 페이징 처리 - startCount, endCount 구하기
-//        Map<String, Integer> pageMap = boardUtil.getPagination(page, "list");
-        Page pageInfo = boardUtil.getPagination(new Page(page, "list"));
-        List<Notice> list = noticeService.getNoticeList(pageInfo);
+        Map<String, Integer> pageMap = boardUtil.getPagination(page, "list");
+//        Page pageInfo = boardUtil.getPagination(new Page(page, "list"));
+        List<Notice> list = noticeService.getNoticeList(pageMap.get("startCount"), pageMap.get("endCount"));
         model.addAttribute("list", list);
-        model.addAttribute("page", pageInfo);
+//        model.addAttribute("page", pageInfo);
 
         return "notice/notice-list";
     }
@@ -81,7 +86,9 @@ public class NoticeController {
     @PostMapping("/write")
     public String noticeWriteProc(Notice notice, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Company company,
                                   HttpServletRequest request, RedirectAttributes attributes) throws Exception {
-        notice = boardUtil.fileUtil(request, notice);
+        GenericImpl<Notice> test = new GenericImpl<>(notice);
+//        notice = boardUtil.fileUtil(request, notice);
+        notice = (Notice) test.fileCheck();
         notice.setCompanyId(company.getCompanyId());
         int result = noticeService.insert(notice);
 
