@@ -1,6 +1,7 @@
 package com.uniqueGames.fileutil;
 
 import com.uniqueGames.model.Notice;
+import com.uniqueGames.model.Page;
 import com.uniqueGames.repository.CommentMapper;
 import com.uniqueGames.repository.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class BoardUtil {
 	CommentMapper commentMapper;
 
 	@Autowired
-	public BoardUtil(NoticeMapper noticeMapper, CommentMapper commentMapper) {
+	private BoardUtil(NoticeMapper noticeMapper, CommentMapper commentMapper) {
 		this.noticeMapper = noticeMapper;
 		this.commentMapper = commentMapper;
 	}
@@ -37,9 +38,7 @@ public class BoardUtil {
 	 * @param page
 	 * @return Map<String, Integer>
 	 */
-	public Map<String, Integer> getPagination(String page, String keyword) {
-
-		Map<String, Integer> result = new HashMap<String, Integer>();
+	public Page getPagination(Page page) {
 
 		int startCount = 0;
 		int endCount = 0;
@@ -48,11 +47,11 @@ public class BoardUtil {
 		int pageCount = 1; // 전체 페이지 수
 		int dbCount = 0; // DB에서 가져온 전체 행수
 
-		if (keyword.equals("list")) { // 검색 키워드가 없는 전체 리스트
+		if (page.getKeyword().equals("list")) { // 검색 키워드가 없는 전체 리스트
 			dbCount = noticeMapper.totRowCount();
 
 		} else {
-			dbCount = noticeMapper.totRowCountSearch(keyword);
+			dbCount = noticeMapper.totRowCountSearch(page.getKeyword());
 
 		}
 
@@ -65,22 +64,29 @@ public class BoardUtil {
 
 		// 요청 페이지 계산
 		if (page != null) {
-			reqPage = Integer.parseInt(page);
+			reqPage = Integer.parseInt(page.getPage());
 			startCount = (reqPage - 1) * pageSize + 1;
 			endCount = reqPage * pageSize;
 		} else {
 			startCount = 1;
 			endCount = pageSize;
 		}
-//
-		result.put("startCount", startCount);
-		result.put("endCount", endCount);
-		result.put("pageSize", pageSize);
-		result.put("reqPage", reqPage);
-		result.put("pageCount", pageCount);
-		result.put("dbCount", dbCount);
 
-		return result;
+//		result.put("startCount", startCount);
+//		result.put("endCount", endCount);
+//		result.put("pageSize", pageSize);
+//		result.put("reqPage", reqPage);
+//		result.put("pageCount", pageCount);
+//		result.put("dbCount", dbCount);
+
+		page.setStartCount(startCount);
+		page.setEndCount(endCount);
+		page.setPageSize(pageSize);
+		page.setReqPage(reqPage);
+		page.setPageCount(pageCount);
+		page.setDbCount(dbCount);
+
+		return page;
 	}
 
 	/**

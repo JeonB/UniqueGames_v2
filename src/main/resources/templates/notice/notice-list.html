@@ -33,7 +33,7 @@
 
             jQuery('#ampaginationsm').on('am.pagination.change', function (e) {
                 jQuery('.showlabelsm').text('The selected page no: ' + e.page);
-                $(location).attr('href', "/notice_list?page=" + e.page);
+                $(location).attr('href', "/notice_list/" + e.page);
             });
         }
 

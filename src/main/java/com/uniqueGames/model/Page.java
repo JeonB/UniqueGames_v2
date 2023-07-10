@@ -15,7 +15,7 @@ public class Page {
     private int pageCount; // 전체 페이지 수
     private int dbCount; // DB 에서 가져온 전체 행수
 
-    private Page(String page, String keyword) {
+    public Page(String page, String keyword) {
         this.page = page;
         this.keyword = keyword;
 
