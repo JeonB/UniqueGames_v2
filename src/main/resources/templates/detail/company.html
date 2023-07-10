@@ -3,114 +3,27 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   <title>제작사(팀) 소개</title>
+  <link rel="stylesheet" th:href="@{/css/board.css}">
+  <link rel="stylesheet" th:href="@{/css/company.css}">
+  <script th:src="@{/js/company.js}"></script>
+
   <!--css 초기화-->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">-->
+
   <!-- SWIPER 외부 라이브러리 연결-->
   <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
   <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-  <!--google material icon 사용 class="material-icons"-->
+
+  <!-- Google material icon 사용 class="material-icons"-->
   <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
 
   <!--  bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/css/board.css">
-  <link rel="stylesheet" href="/css/company.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-  <style>
-    .container {
-      margin-right: auto;
-      margin-left: auto;
-      padding-left: 16px;
-      padding-right: 16px
-    }
 
-    .card h6{
-      text-align: left;
-      font: italic normal 900 18px Apex New;
-    }
-    .card-text{
-      color: #6E6E6E;
-    }
-
-    .swiper {
-      margin-top: 50px;
-      margin-bottom: 50px;
-      width: 1000px!important;
-      height: 500px!important;
-      overflow: hidden!important;
-    }
-
-    .swiper .swiper-slide {
-      height: 300px!important;
-      display: flex!important;
-      justify-content: center;
-    }
-
-    .material-icons {
-      font-size: 30px;
-      color: #A8A8A8;
-    }
-
-    .swiper-button-prev::after,
-    .swiper-button-next::after{
-      content: "";
-      display: none;
-    }
-    .swiper-button-prev,
-    .swiper-button-next {
-      width: 30px!important;
-      height: 30px!important;
-      border: 2px solid rgba(136, 20, 20, 0.03)!important;
-      border-radius: 50%!important;
-      position: absolute!important;
-      top: 300px!important;
-      z-index: 1!important;
-      cursor: pointer!important;
-      display: flex!important;
-      justify-content: center!important;
-      align-items: center!important;
-    }
-    .swiper-button-prev {
-      margin-left: -70px;
-      left: 50px!important;
-    }
-    .swiper-button-next {
-      right: 10px;
-    }
-    .card-footer a{
-      text-decoration: none;
-      color: white !important;
-      font: normal normal normal 16px YouandiModern;
-    }
-    p{
-      text-align: left;
-      font: normal normal normal 16px YouandiModern;
-      letter-spacing: 0px;
-      opacity: 1;
-      color: #000000;
-    }
-    #introduce{
-      position: relative;
-      letter-spacing: -1px;
-      color: #000000;
-      text-align: left;
-    }
-    .btn-style{
-      background: #393939;
-      border-radius: 5px;
-      width: 80px;
-      height: 30px;
-      color: #FFFFFF;
-      font-size: 14px;
-      vertical-align: top;
-      cursor: pointer;
-    }
-
-  </style>
 </head>
 
 <body style="padding: 0">
@@ -205,7 +118,7 @@
       </div>
       <div class="swiper-slide">
         <div class="card">
-          <img src="/images/img-game_thumbnail-4-260180.png" class="card-img-top" style="height: 150px; width: 234px">
+          <img src="/images/img-game-thumbnail-4-260180.png" class="card-img-top" style="height: 150px; width: 234px">
           <div class="card-body">
             <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
             <h6 class="card-title">New Game of Music</h6>
@@ -249,7 +162,7 @@
 
         <p>Notice</p>
         <div id='bsearch-box'>
-          <form name='boardSearch' action='notice_Search' method='get'>
+          <form name='boardSearch' action='/notice_Search' method='get'>
             <label>
               <input type='text' name='keyword' placeholder='검색어를 입력해주세요.'>
               <button type='button' id='btn-search'>
@@ -287,7 +200,7 @@
   <div class="swiper">
     <p style=" text-align: center;"><img style="display: block;padding: 50px; margin: 0 auto" src="/images/img-title-recommendations.png"></p>
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
+      <div class="swiper-slide" th:each="game : ${gameList}">
         <div class="card">
           <img src="/images/img-game-thumbnail-3-500240.png" class="card-img-top" style="height: 150px; width: 234px">
           <div class="card-body">
@@ -297,7 +210,7 @@
           </div>
           <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
             <small class="text-muted" >
-              <a href="detail.jsp" ><a href="detail.jsp" >자세히 보기</a></a>
+             <a th:href="@{'detail/1'}" >자세히 보기</a>
             </small>
           </div>
         </div>
@@ -324,7 +237,7 @@
             <p class="card-text">Action RPG</p>
           </div>
           <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a href="detail.jsp" >자세히 보기</a></small>
+            <small class="text-muted" ><a th:href="@{'/detail/1'}" >자세히 보기</a></small>
           </div>
         </div>
       </div>
@@ -337,7 +250,7 @@
             <p class="card-text">Action RPG</p>
           </div>
           <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a href="detail.jsp" >자세히 보기</a></small>
+            <small class="text-muted" ><a href="@{'/detail/3'}" >자세히 보기</a></small>
           </div>
         </div>
       </div>
@@ -350,7 +263,7 @@
             <p class="card-text">Action RPG</p>
           </div>
           <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a href="detail.jsp" >자세히 보기</a></small>
+            <small class="text-muted" ><a href="detail4.jsp" >자세히 보기</a></small>
           </div>
         </div>
       </div>
@@ -373,43 +286,6 @@
 
   </div>
 </div>
-
-
-<!--  slider 스크립트-->
-<script>
-  new Swiper('.swiper', {
-    autoplay: {
-      delay: 4000
-    },
-    loop: true,
-    slidesPerView: 4,
-    spaceBetween: 20,
-    // centeredSlides: true,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true
-    },
-    navigation: {
-      prevEl: '.swiper-button-prev',
-      nextEl: '.swiper-button-next'
-    }
-  })
-  /* 수정, 삭제 버튼 스크립트*/
-  const element = document.getElementById('board-top-menu');
-  const loginMember = '<%=session.getAttribute("loginMember")%>';
-  if(loginMember.includes('MemberVo') || loginMember === 'null'){
-    element.style.visibility = 'hidden';
-  }
-  else if(loginMember.includes('CompanyVo')){
-    $('button[name="listUpdate"]').on("click", function() {
-      location.href = "../detail/updateIntro";
-    });
-    $('button[name="listDelete"]').on("click", function() {
-      location.href = "../detail/deleteIntro";
-    });
-  }
-
-</script>
 
 </body>
 
