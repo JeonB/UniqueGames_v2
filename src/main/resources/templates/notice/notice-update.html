@@ -63,11 +63,10 @@
 <!--footer-->
 <div th:replace="~{main/footer::footerFragment}"></div>
 
-<script th:inline="javascript">
-  /*<![CDATA[*/
+<script type="text/javascript">
   let hidden = document.getElementById("upload-hidden");
   let name = document.getElementById("upload-name");
-  let hiddenImageId = document.getElementsByName("image_id");
+  let hiddenImageId = document.getElementsByName("imageId");
 
   if ($('#upload-name').val() !== "") {
     let output = "<button type='button' class='btn-style' name='filedel'>취소</button>";
@@ -83,7 +82,6 @@
       $(".filebox").css("margin-right", "164px");
     });
   }
-  /*]]>*/
 </script>
 </body>
 

@@ -1,7 +1,6 @@
 package com.uniqueGames.fileutil;
 
 import com.uniqueGames.model.Notice;
-import com.uniqueGames.model.Page;
 import com.uniqueGames.repository.CommentMapper;
 import com.uniqueGames.repository.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;

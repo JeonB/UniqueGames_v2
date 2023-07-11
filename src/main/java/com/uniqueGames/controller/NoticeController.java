@@ -8,8 +8,6 @@ import com.uniqueGames.model.Notice;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.CommentService;
 import com.uniqueGames.service.NoticeService;
-import com.uniqueGames.test.GenericDemo;
-import com.uniqueGames.test.GenericImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +56,10 @@ public class NoticeController {
 //        Page pageInfo = boardUtil.getPagination(new Page(page, "list"));
         List<Notice> list = noticeService.getNoticeList(pageMap.get("startCount"), pageMap.get("endCount"));
         model.addAttribute("list", list);
-//        model.addAttribute("page", pageInfo);
+        model.addAttribute("dbCount", pageMap.get("dbCount"));
+        model.addAttribute("pageSize", pageMap.get("pageSize"));
+        model.addAttribute("pageCount", pageMap.get("pageCount"));
+        model.addAttribute("page", pageMap.get("reqPage"));
 
         return "notice/notice-list";
     }
@@ -78,28 +79,24 @@ public class NoticeController {
      *
      * @param notice
      * @param company
-     * @param request
      * @param attributes
      * @return
      * @throws Exception
      */
     @PostMapping("/write")
     public String noticeWriteProc(Notice notice, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Company company,
-                                  HttpServletRequest request, RedirectAttributes attributes) throws Exception {
-        GenericImpl<Notice> test = new GenericImpl<>(notice);
-//        notice = boardUtil.fileUtil(request, notice);
-        notice = (Notice) test.fileCheck();
+                                  RedirectAttributes attributes) {
+
         notice.setCompanyId(company.getCompanyId());
         int result = noticeService.insert(notice);
-
         if (result == 1) {
-            boardUtil.fileSaveUtil(notice);
             attributes.addFlashAttribute("result", "insuccess");
 
         } else {
             attributes.addFlashAttribute("result", "fail");
 
         }
+        System.out.println(attributes.getFlashAttributes().toString());
         return "redirect:/notice/content/" + notice.getPostId();
     }
 
@@ -175,12 +172,12 @@ public class NoticeController {
     @PostMapping("write/{stat}/{no}")
     public String noticeUpdateProc(Notice notice, HttpServletRequest request, RedirectAttributes attributes)
             throws Exception {
-        String oldFileName = notice.getImageId();
-
-        notice = boardUtil.fileUtil(request, notice);
+//        String oldFileName = notice.getImageId();
+//
+//        notice = boardUtil.fileUtil(request, notice);
         int result = noticeService.update(notice);
         if (result == 1) {
-            boardUtil.fileUpdateUtil(notice, oldFileName);
+//            boardUtil.fileUpdateUtil(notice, oldFileName);
             attributes.addFlashAttribute("result", "upsuccess");
 
         } else {
@@ -199,7 +196,7 @@ public class NoticeController {
 
         noticeService.deleteList(list);
 
-        return "redirect:/notice_list";
+        return "redirect:/notice/list";
     }
 
     /**

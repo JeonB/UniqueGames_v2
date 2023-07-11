@@ -1,6 +1,5 @@
 package com.uniqueGames.model;
 
-import com.uniqueGames.test.GenericSuper;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +8,7 @@ import java.util.Date;
 
 @Setter
 @Getter
-public class Notice extends GenericSuper {
+public class Notice {
 	int rno;
 	int postId;
 	String companyId;

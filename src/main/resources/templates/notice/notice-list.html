@@ -33,7 +33,7 @@
 
             jQuery('#ampaginationsm').on('am.pagination.change', function (e) {
                 jQuery('.showlabelsm').text('The selected page no: ' + e.page);
-                $(location).attr('href', "/notice_list/" + e.page);
+                $(location).attr('href', "/notice/list/" + e.page);
             });
         }
 
@@ -120,7 +120,7 @@
                         <tr th:each="notice : ${list}">
                             <td><input type="checkbox" name="list" th:value="${notice.postId}"></td>
                             <td><span th:text="${notice.rno}"/></td>
-                            <td><a th:href="@{content/{no}(no = ${notice.postId})}" th:text="${notice.title}"/><span
+                            <td><a th:href="@{/notice/content/{no}(no = ${notice.postId})}" th:text="${notice.title}"/><span
                                     th:if="${notice.cmtCount > 0}" th:text=" ' [' + ${notice.cmtCount} + ']'"/></td>
                             </td>
                             <td><span th:text="${notice.name}"/></td>
