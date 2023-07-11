@@ -10,26 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <!-- SWIPER 외부 라이브러리 연결-->
-    <script>
-        document.addEventListener('click', function (event) {
-            // 클릭된 요소가 버튼인지 확인
-            if (event.target.matches('#btn-like-style')) {
-                var gameId = event.target.getAttribute('data-game-id');
 
-                // AJAX 요청을 통해 서버에 좋아요 처리 요청 전송
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/like', true);
-                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        var response = JSON.parse(xhr.responseText);
-                        alert(response.message);
-                        // 좋아요 처리 후 추가적인 작업을 수행할 수 있습니다.
-                    }
-                };
-                xhr.send('gameId=' + gameId);
-            }
-        });
+    <script>
     </script>
 </head>
 <body>
@@ -135,7 +117,8 @@
                     <ul>
                         <li><a th:href="@{'detail/' + ${game.id}}" th:text="${game.name}"></a></li>
                         <li th:text="${game.gameGenre}"></li>
-                        <li><a th:href="@{'detail/' + ${game.id}}"><button class="btn-like-style" type="button"data-game-id="${game.id}"></button></a></li>
+                        <li><a th:href="@{'/addlike/' + ${game.id}}">
+                            <button class="btn-like-style" type="button" data-game-id="${game.id}"></button></a></li>
                         <li></li>
                         <li><img src="/images/img-icon-rPc.png"></li>
                     </ul>
