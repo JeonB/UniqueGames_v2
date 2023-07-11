@@ -40,7 +40,7 @@ CREATE TABLE TB_COMPANY (
                          ADDR VARCHAR(100),
                          TEL VARCHAR(20),
                          PHONE_NUM VARCHAR(30),
-                         PROFILE_PIC VARCHAR(200),
+                         PROFILE_IMG VARCHAR(200),
                          G_ID INT UNSIGNED,
                          CONSTRAINT FK_COMPANY_GAME FOREIGN KEY (G_ID) REFERENCES TB_GAME (ID) ON UPDATE CASCADE ON DELETE CASCADE,
                          INDEX idx_company_id(COMPANY_ID),
