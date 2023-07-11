@@ -4,7 +4,7 @@ $(document).ready(function() {
     const sessionAccount = '${sessionScope.loginMember}';
     let parentURL = window.opener.location.href; // 부모 창의 URL 가져오기
     let id = parentURL.substring(parentURL.lastIndexOf('/') + 1, parentURL.lastIndexOf('')); // 사이트 동적 처리하기 위해 숫자 추출
-    if (sessionAccount.includes("MemberVo")) {
+    if (sessionAccount.includes("Member")) {
       $.ajax({
         url: '../cart',
         method: 'POST',
@@ -19,7 +19,7 @@ $(document).ready(function() {
           alert('에러가 발생했습니다: ' + error);
         }
       });
-    } else if(sessionAccount.includes("CompanyVo")){
+    } else if(sessionAccount.includes("Company")){
       alert("일반 회원만 후원 가능합니다!");
     }
     else {
