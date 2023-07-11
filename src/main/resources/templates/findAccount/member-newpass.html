@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
-  <link rel="stylesheet" href="/css/login.css">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" th:href="@{/css/login.css}">
   <script src="/js/jquery-3.6.4.min.js"></script>
   <script>
     //현재 비밀번호와 다르게 하는 설정 & 값 입력하라는 유효성 체크
@@ -77,15 +78,15 @@
       <li>
         <input type="password" name="mnewpassword" placeholder="새로운 비밀번호">
         <input type="checkbox" class="pwd-check-img">
-        <input type="hclassden" name="memberId" th:value="${memberId}">
+        <input type="hidden" name="memberId" th:value="${memberId}">
       </li>
       <li>
         <input type="password" name="mnewpassword-check" placeholder="새로운 비밀번호 확인">
-        <input type="checkbox" class="pwd-check-img-1">
+        <input type="checkbox" class="pwd-check-img">
         <span class="msgPassword"></span>
       </li>
       <li>
-        <button type="button" id="button-gradient">수정하기</button>
+        <button type="button" class="button-gradient">수정하기</button>
       </li>
     </ul>
   </form>

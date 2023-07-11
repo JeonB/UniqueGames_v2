@@ -4,8 +4,17 @@
   <meta charset="UTF-8">
   <title>myPage</title>
   <link rel="stylesheet" th:href="@{/css/login.css}">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
   <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
+  <script th:src="@{/js/join_jquery.js}"></script>
+  <script th:src="@{/js/login_script.js}"></script>
   <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+  <script th:inline="javascript">
+    //JavaScript 코드
+    /*<![CDATA[*/
+
+    /*]]>*/
+  </script>
 </head>
 <body>
 <header th:include="main/header"></header>
@@ -17,109 +26,63 @@
     </div>
   </div>
 </section>
-<section class="content-1">
-  <p class="intro">마이페이지</p>
-  <form action="memberupdate" name="myPageForm" method="post" id="content-myPage">
+<section class="content-mypage">
+  <div class="sidebar">
+    <ul>
+      <li class="mypage-profile">
+        <img src="/images/mypage-profile.png" class="profile-picture">
+      </li>
+      <li class="mypage-info" th:text="${member.name}"></li>
+      <li class="mypage-info" id="mypage-id" th:text="${member.memberId}"></li>
+      <li class="mUpdate"><a th:href="@{/mypage}">개인 정보</a></li>
+      <li class="mUpdate"><a href="member-order">결제 내역</a></li>
+      <li class="mUpdate"><a th:href="@{/deleteAccount}">회원탈퇴</a></li>
+    </ul>
+  </div>
+  <div class="memberChangeTab">
+  <p class="intro-4">개인정보 수정</p>
+  <form action="memberupdate" name="myPageForm" method="post" id="content-myPage" th:checked="true">
+    <input type="hidden" name="memberId" th:value="${member.memberId}">
     <div>
       <ul>
-        <li class="must-insert">
+        <li class="must-insert-5">
           <p class="label-dot">*</p>
-          <label>아이디</label><span id="idMsg"></span>
+          <label>이메일</label><span id="emailMsg"></span>
         </li>
         <li>
-          <input type="text" name="memberId" th:value="${member.memberId}" disabled="disabled">
-          <input type="hidden" name="memberId" th:value="${member.memberId}">
+          <input type="text" name="email" th:value="${member.email}" class="mypage-input">
+          <button type="button" id="mypage-email-btn">인증 번호</button>
         </li>
-        <li class="must-insert">
-          <p class="label-dot">*</p>
-          <label>비밀번호</label><span id="pwdMsg"></span>
-        </li>
-        <li>
-          <input type="password" name="password">
-          <input type="checkbox" class="pwd-check-img">
-        </li>
-<!--        <li>-->
-<!--          <a th:href="@{/myPageChangePassword(memberId=${member.memberId})}" class="link-changePassword">-->
-<!--            <span>비밀번호 변경 ></span>-->
-<!--          </a>-->
-<!--        </li>-->
-        <li class="must-insert">
-          <p class="label-dot">*</p>
-          <label>이름</label><span id="nameMsg"></span>
-        </li>
-        <li>
-          <input type="text" name="name" th:value="${member.name}" disabled="disabled">
-          <input type="hidden" name="name" th:value="${member.name}">
-        </li>
-        <li class="must-insert">
-          <p class="label-dot">*</p>
-          <label>이메일</label>
-          <span id="emailMsg"></span>
-          <span id="emailAuth"></span>
-        </li>
-        <li>
-          <input type="text" name="email1" th:value="${member.email1}">
-          @
-          <input type="text" name="email2" th:value="${member.email2}">
-          <select name="email3" id="selectbox-email">
-            <option value="choose">선택</option>
-            <option value="naver.com" th:selected="${member.email3 == 'naver.com'}">naver.com</option>
-            <option value="gmail.com" th:selected="${member.email3 == 'gmail.com'}">gmail.com</option>
-            <option value="daum.net" th:selected="${member.email3 == 'daum.net'}">daum.net</option>
-            <option value="direct">직접입력</option>
-          </select>
-          <button type="button" id="email-btn-style">인증 번호</button>
-          <input type="text" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리 입력" disabled="disabled">
-        </li>
-        <li class="must-insert">
+        <li class="must-insert-5" id="mypage-phoneNum">
           <p class="label-dot">*</p>
           <label>휴대전화</label><span id="phoneMsg"></span>
         </li>
         <li>
-          <select name="mobile" id="selectbox-mobile">
-            <option value="choose">선택</option>
-            <option value="SKT" th:selected="${member.mobile == 'SKT'}">SKT</option>
-            <option value="KT" th:selected="${member.mobile == 'KT'}">KT</option>
-            <option value="LGU+" th:selected="${member.mobile == 'LGU+'}">LGU+</option>
-          </select>
-          <span>-</span>
-          <select name="phone1" id="selectbox-phone">
-            <option value="choose">선택</option>
-            <option value="010" th:selected="${member.phone1 == '010'}">010</option>
-            <option value="011" th:selected="${member.phone1 == '011'}">011</option>
-            <option value="012" th:selected="${member.phone1 == '012'}">012</option>
-          </select>
-          <span>-</span>
-          <input type="text" name="phone2" th:value="${member.phone2}">
-          <span>-</span>
-          <input type="text" name="phone3" th:value="${member.phone3}">
+          <input type="text" name="phoneNum" class="mypage-input" th:value="${member.phoneNum}" placeholder="-제외하고 입력하세요">
         </li>
-        <li class="must-insert">
+        <li class="must-insert-5">
           <p class="label-dot">*</p>
-          <label>주소</label><span id="addressMsg"></span>
-        </li>
-        <li th:if = "${member.addr != null}">
-          <input type="text" name="addr1" th:value="" readonly="readonly">
-          <button type="button" id="address-btn-style">주소 찾기</button>
-        </li>
-        <li th:unless = "${member.addr != null}">
-          <input type="text" name="addr1" th:value="${member.addr1}" readonly="readonly">
-          <button type="button">주소 찾기</button>
-        </li>
-        <li th:if = "${member.addr2 != null}">
-          <input type="text" name="addr2" th:value="" readonly="readonly">
-        </li>
-        <li th:unless = "${member.addr2 != null}">
-          <input type="text" name="addr2" th:value="${member.addr2}" readonly="readonly">
+          <label>비밀번호</label><span id="nameMsg"></span>
         </li>
         <li>
-          <button type="button" id="button-gradient">수정 완료</button>
+          <input type="password" name="password" class="mypage-input" placeholder="현재 비밀번호">
+          <input type="checkbox" class="mypage-pwd-check-img" id="pwd-check-img" onclick="memberPassVisible()">
+          <input type="password" name="newPassword" class="mypage-input" id="newpassInput" placeholder="새로운 비밀번호">
+          <input type="checkbox" class="mypage-pwd-check-img">
+          <input type="password" name="newPasswordCheck" class="mypage-input" id="newpassInputCheck" placeholder="새로운 비밀번호 재입력">
+          <input type="checkbox" class="mypage-pwd-check-img" id="pwd-check-img-1" onclick="memberPassCheckVisible()">
+        </li>
+        <li>
+          <button type="button" id="mypage-pass-change">재설정</button>
+        </li>
+        <li>
+          <button type="button" class="button-gradient" id="mypage-update">수정 완료</button>
         </li>
       </ul>
     </div>
   </form>
+  </div>
 </section>
 <footer th:include="main/footer"></footer>
-<!--<script th:src="@{/js/common.js}"></script>-->
 </body>
 </html>

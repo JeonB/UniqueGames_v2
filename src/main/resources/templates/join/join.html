@@ -45,7 +45,7 @@
         </li>
         <li>
           <input type="password" id="mpass" name="password" placeholder="숫자,영문,특수문자 조합 최소 8자" tabindex="2">
-          <input type="checkbox" class="pwd-check-img" onclick="memberPassVisible()">
+          <input type="checkbox" class="pwd-check-img" id="pwd-check-img" onclick="memberPassVisible()">
         </li>
         <li>
           <label>비밀번호 확인</label><span id="pwdMsg-check"></span>
@@ -68,16 +68,7 @@
           <span id="emailAuth"></span>
         </li>
         <li>
-          <input type="text" name="email1" tabindex="5">
-          <span>@</span>
-          <input type="text" name="email2" tabindex="6">
-          <select name="email3" id="selectbox-email" tabindex="7">
-            <option value="default">선택</option>
-            <option value="naver.com">naver.com</option>
-            <option value="gmail.com">gmail.com</option>
-            <option value="daum.net">daum.net</option>
-            <option value="direct">직접입력</option>
-          </select>
+          <input type="text" name="email" tabindex="5">
           <button type="button" id="email-btn-style" onclick="sendEmail()">인증 번호</button>
           <input type="text" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리" disabled="disabled">
         </li>
@@ -129,11 +120,11 @@
         </li>
         <li>
           <input type="checkbox" class="checkbox-agreement" name="chk-agree">
-          <span class="agreement-color">[필수]</span> <span>이용 약관</span><a id="detail1">자세히</a>
+          <span class="agreement-color">[필수]</span> <span>이용 약관</span><a class="detail1">자세히</a>
         </li>
         <li>
           <input type="checkbox" class="checkbox-agreement" name="chk-agree">
-          <span class="agreement-color">[필수]</span> <span>개인정보 수집 및 이용 동의</span><a id="detail2">자세히</a>
+          <span class="agreement-color">[필수]</span> <span>개인정보 수집 및 이용 동의</span><a class="detail2">자세히</a>
         </li>
         <li>
           <input type="checkbox" class="agreement-choice" name="chk-agree">
@@ -267,10 +258,10 @@
 
 <div class="modal">
   <div class="agreement" id="agreement-join">
-    <h1 id="agreement-title">이용 약관</h1>
-    <div id="agreement-content">
+    <h1 class="agreement-title">이용 약관</h1>
+    <div class="agreement-content">
     </div>
-    <button id="button-gradient" name="btn-agreement">확인</button>
+    <button class="button-gradient" name="btn-agreement">확인</button>
   </div>
 </div>
 

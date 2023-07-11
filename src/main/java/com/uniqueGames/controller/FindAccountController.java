@@ -34,30 +34,19 @@ public class FindAccountController {
 		return "findAccount/find-company";
 	}
 
-//	@ResponseBody
-//	@PostMapping("findmid")
-//	public String findmid(@RequestParam("email")String email, @RequestParam("name")String name) {
-//		String result = memberService.findMid(email, name);
-//		System.out.println("아이디 찾기 result="+result);
-//		return result;
-//	}
-//
-//	@PostMapping("changepass")
-//	public String moveChangePass(Model model,
-//								 @RequestParam("email")String email,
-//								 @RequestParam("memberId")String memberId,
-//								 @RequestParam("name") String name) {
-//		String viewName = "";
-//		int result = memberService.findMpass(email, memberId, name);
-//		if(result == 1) {
-//			return "findAccount/member-newpass";
-//		}else {
-//			model.addAttribute("result", "error");
-//			model.addAttribute("url", "/findMember?selectedTab=findPwd");
-//			return "findAccount/find-member";
-//		}
-//
-//	}
+	@PostMapping("/mchangepass")
+	public String mChangePass(Model model,
+								 @RequestParam("memberId") String memberId, @RequestParam("mnewpassword") String mnewpassword) {
+		System.out.println("왜 안돼");
+		int result = memberService.changeMpass(memberId, mnewpassword);
+		if(result == 1) {
+			model.addAttribute("result", "success");
+			return "redirect:/login";
+		}else {
+			model.addAttribute("result", "error");
+			return "redirect:/findMember";
+		}
+	}
 
 //	@PostMapping("findId_check")
 //	@ResponseBody

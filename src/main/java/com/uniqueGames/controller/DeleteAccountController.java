@@ -10,10 +10,8 @@ import com.uniqueGames.service.MemberService;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -27,22 +25,16 @@ public class DeleteAccountController {
 
 
 	@GetMapping("deleteAccount")
-	public ModelAndView deletePwd(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-
-		String mode = session.getAttribute(SessionConstants.LOGIN_MEMBER).toString();
-
-		if(mode.contains("MemberVo")) {
+	public String deletePwd(HttpSession session, Model model) {
+		String viewName = "";
+		String mode = session.getAttribute("login").toString();
+		System.out.println("mode=" + mode);
+		if(mode.equals("member")) {
 			Member member = (Member)session.getAttribute(SessionConstants.LOGIN_MEMBER);
-			mav.addObject("memberVo", member);
-			mav.setViewName("member-delete");
-		}else if(mode.contains("CompanyVo")) {
-			Company company = (Company)session.getAttribute(SessionConstants.LOGIN_MEMBER);
-			mav.addObject("companyVo", company);
-			mav.setViewName("company-delete");
+			model.addAttribute("member", member.getMemberId());
+			viewName = "deleteAccount/member-delete";
 		}
-
-		return mav;
+		return viewName;
 	}
 
 //	@RequestMapping(value="/delete_check", method=RequestMethod.POST)

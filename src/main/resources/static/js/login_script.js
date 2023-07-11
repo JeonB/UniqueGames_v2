@@ -102,7 +102,7 @@ function memberPassCheck() { //회원가입, 비밀번호 변경 페이지
 }
 
 function memberPassVisible() { //회원가입, 비밀번호 변경 페이지
-	var isChecked = document.querySelector(".pwd-check-img").checked;
+	var isChecked = document.getElementById("pwd-check-img").checked;
 	var password = document.querySelector("input[name='password']");
 
 	if (!isChecked) {
@@ -228,18 +228,16 @@ function handleEmailBlur() { //회원가입, 개인, 법인 마이페이지
 var code = "";
 
 function sendEmail() { //회원가입, 개인, 법인 마이페이지
-	var email1 = document.querySelector("input[name='email1']").value;
-	var email2 = document.querySelector("input[name='email2']").value;
-	var email = email1 + "@" + email2;
-
+	var email = document.querySelector("input[name='email']").value;
 
 	var request = new XMLHttpRequest();
-	request.open("POST", "mailCheck.do", true);
+	request.open("POST", "mailCheck", true);
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
 	request.onreadystatechange = function () {
 		if (request.readyState === 4 && request.status === 200) {
 			alert("인증번호가 전송되었습니다");
+			alert(email);
 			code = request.responseText;
 			document.querySelector("#email-auth-check").disabled = false;
 		}
@@ -259,11 +257,7 @@ function checkEmailAuth() { //회원가입, 개인, 법인 마이페이지
 		resultMsg.style.color = 'blue';
 		resultMsg.style.display = 'inline';
 		document.querySelector('#email-auth-check').disabled = true;
-		document.querySelector('input[name="email1"]').readOnly = true;
-		document.querySelector('input[name="email2"]').readOnly = true;
-		document.querySelector('#selectbox-email').disabled = true;
-		document.querySelector('#selectbox-email').setAttribute('onFocus', 'this.initialSelect = this.selectedIndex');
-		document.querySelector('#selectbox-email').setAttribute('onChange', 'this.selectedIndex = this.initialSelect');
+		document.querySelector('input[name="email"]').readOnly = true;
 	} else {
 		resultMsg.textContent = '인증번호가 불일치합니다. 다시 확인해주세요!';
 		resultMsg.style.fontSize = '11px';
@@ -459,8 +453,6 @@ function memberValidation() { //회원가입
 	}else if(!memberNameCheck()){
 		pwdMsg.style.display = "none";
 		return false;
-	}else if(!memberEmailCheck()){
-		return false;
 	}else if(!memberPhoneCheck()){
 		return false;
 	}else {
@@ -488,6 +480,23 @@ function companyIdPassCheck() {
 	return true;
 }
 
+function changePassword() {
+
+	var changePassForm = $("#changePassForm");
+
+	if ($("input[name='mnewpassword']").val() == "") {
+		alert("새 비밀번호를 입력하세요");
+		$("input[name='mnewpassword']").focus();
+		return false;
+	} else if ($("input[name='mnewpassword']").val() != $("input[name='mnewpassword-check']").val()) {
+		alert("비밀번호가 일치하지 않습니다");
+		$("input[name='mnewpassword-check']").focus();
+		return false;
+	} else {
+		changePassForm.submit();
+	}
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 
 
@@ -498,16 +507,16 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.getElementById(selectedTab).checked = true;
 	}
 
-	document.getElementById("selectbox-email").addEventListener("change", handleEmailSelection);
-	document.querySelector("input[name='email2']").addEventListener("change", function(){
-		document.getElementById("selectbox-email").value = "default"
-	});
-	document.querySelectorAll("input[name='email1'], input[name='email2'], #selectbox-email").forEach(function(element) {
-		element.addEventListener("blur", handleEmailBlur);
-	});
-	document.querySelectorAll("#selectbox-phone, input[name='phone2'], input[name='phone3']").forEach(function(element) {
-		element.addEventListener("blur", handlePhoneBlur);
-	});
+	// document.getElementById("selectbox-email").addEventListener("change", handleEmailSelection);
+	// document.querySelector("input[name='email2']").addEventListener("change", function(){
+	// 	document.getElementById("selectbox-email").value = "default"
+	// });
+	// document.querySelectorAll("input[name='email1'], input[name='email2'], #selectbox-email").forEach(function(element) {
+	// 	element.addEventListener("blur", handleEmailBlur);
+	// });
+	// document.querySelectorAll("#selectbox-phone, input[name='phone2'], input[name='phone3']").forEach(function(element) {
+	// 	element.addEventListener("blur", handlePhoneBlur);
+	// });
 	document.querySelector('#email-auth-check').addEventListener('change', checkEmailAuth);
 	document.querySelectorAll("input[name='chk-agree']").forEach(function(checkbox) {
 		checkbox.addEventListener("click", updateCheckbox);

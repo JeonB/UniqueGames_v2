@@ -51,7 +51,7 @@ input[name="email-auth-check"] {
 
 #btn-style, #address-btn-style, #company-address-btn-style,
 #check-btn-style, #c-check-btn-style, #email-btn-style,
-#c-email-btn-style, #company-address-btn-style {
+#c-email-btn-style, #company-address-btn-style, #mypage-email-btn, #mypage-pass-change {
 	width: 80px;
 	height: 30px;
 	background: #393939;
@@ -62,9 +62,8 @@ input[name="email-auth-check"] {
 	cursor: pointer;
 }
 
-#button-gradient-gotoLogin, #button-gradient-gotoPwd,
-#button-gradient-gotoFind, #button-gradient-gotoJoin,
-#button-gradient-home {
+
+.find-button-gradient {
 	width: 180px;
 	height: 50px;
 	margin-top: 20px;
@@ -77,12 +76,21 @@ input[name="email-auth-check"] {
 
 #address-btn-style, #company-address-btn-style, #check-btn-style,
 #c-check-btn-style, #email-btn-style, #c-email-btn-style,
-#company-address-btn-style {
+#company-address-btn-style, #mypage-email-btn, #mypage-pass-change {
 	width: 90px;
 	height: 40px;
 	position: relative;
 	top: -55px;
 	left: 405px;
+}
+
+#mypage-email-btn {
+	left: 510px;
+}
+
+#mypage-pass-change {
+	left: 510px;
+	top : -84px;
 }
 /*
 a:visited {
@@ -248,18 +256,23 @@ div.agreement button.button-gradient {
 	font-size: 20px;
 }
 
+#changepassbutton {
+	margin-top: 20px;
+}
+
 div.detail1, div.detail2, div.deleteComplete, div.deleteComplete1, div.find-id-none,
-div.find-pwd-none {
+div.find-pwd-none, div.mchangepass {
 	display: none;
 }
 
 .delete-span {
 	display: inline-block;
 	margin: 25px 0;
+	font-size: 16px;
 }
 
 div.agreement2 {
-	height: 300px;
+	height: 350px;
 }
 
 /* Span */
@@ -344,7 +357,7 @@ li.address-input {
 	margin: 0 5px;
 }
 
-.pwd-check-img {
+.pwd-check-img, .mypage-pwd-check-img {
 	display: inline-block;
 	background-image: url("../images/btn-eye-normal.png");
 	background-repeat: no-repeat;
@@ -358,6 +371,11 @@ li.address-input {
 	outline: none;
 	padding: 0;
 	margin: 0;
+}
+
+.mypage-pwd-check-img {
+	left: 450px;
+	top: -46px;
 }
 
 .pwd-check-img:checked {
@@ -417,7 +435,7 @@ li.address-input {
 }
 
 #individual-tab, #company-tab, .findId-tab, .findPwd-tab,
-#individual-login-tab, #company-login-tab {
+#individual-login-tab, #company-login-tab, #update-tab, #order-tab {
 	display: inline-block;
 	margin: 0 0 5px 0;
 	padding: 15px 63px;
@@ -427,14 +445,18 @@ li.address-input {
 	border: 1px solid transparent;
 }
 
+#delete-tab {
+	margin-bottom: 0px;
+}
+
 #individual-tab:hover, #company-tab:hover, .findId-tab:hover,
-.findPwd-tab:hover, #individual-login-tab:hover, #company-login-tab:hover
+.findPwd-tab:hover, #individual-login-tab:hover, #company-login-tab:hover, #update-tab:hover, #order-tab:hover, #delete-tab:hover
 {
 	color: #2e9cdf;
 	cursor: pointer;
 }
 
-#individual:checked+#individual-tab, #company:checked+#company-tab,
+#individual:checked+#individual-tab, #company:checked+#company-tab, #mUpdate:checked+#update-tab, #mOrder:checked+#order-tab, #mDelete:checked+#delete-tab,
 #findId:checked+.findId-tab, #findPwd:checked+.findPwd-tab,
 #individual-login:checked+#individual-login-tab, #company-login:checked+#company-login-tab
 {
@@ -451,7 +473,7 @@ li.address-input {
 	padding-bottom: 60px;
 }
 
-.content-1 {
+.content-1, .content-4, .content-5, .content-mypage {
 	width: 1100px;
 	margin: auto;
 	text-align: center;
@@ -460,4 +482,97 @@ li.address-input {
 
 .findId-tab, .findPwd-tab {
 	padding: 15px 51px;
+}
+
+.sidebar {
+	width: 200px;
+	height: 880px;
+	float:left;
+	background-color: #FBFBFB;
+	border: 1px;
+	border-color: #DDD;
+	position: relative;
+	/*margin : 0px 10px 10px 400px;*/
+}
+
+.member-delete {
+	position: absolute;
+	bottom: 0;
+}
+
+.mypage-profile {
+	margin: 45px 0 0 45px;
+	width: 110px;
+	height: 110px;
+	border-radius: 55px;
+	background: #D9D9D9;
+}
+.mypage-info {
+	margin-top: 20px;
+	text-align: center;
+}
+
+#mypage-id {
+	margin-top: -5px;
+	font-size: 15px;
+}
+
+.mypage-update {
+	margin-top : 269px;
+}
+
+.profile-picture {
+	margin: 18px 20px;
+}
+
+.mypage-input {
+	margin-left: 98px;
+}
+
+.intro-4 {
+	font-family: "YouandiModern", sans-serif;
+	font-size: 24px;
+	padding: 60px 0;
+	margin-left: 98px;
+}
+
+.must-insert-5, #mypage-update {
+	margin: 20px 0 0 98px;
+}
+
+#newpassInput, #newpassInputCheck {
+	margin-top: -40px;
+}
+
+#mypage-phoneNum, #mypage-update {
+	margin-top: -20px;
+}
+
+input[type="radio"] {
+	display: none;
+}
+
+#update-tab {
+	margin-top: 40px;
+}
+
+#mUpdate:checked+#update-tab, #mOrder:checked+#order-tab, #mDelete:checked+#delete-tab{
+	border-bottom: 1px solid #ddd;
+}
+
+.content-mypage {
+	padding: 0 0 100px 0;
+}
+
+.sidebar ul {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.mUpdate {
+	padding: 20px 10px;
+	margin-top: 5px;
+	border: 2px;
 }
