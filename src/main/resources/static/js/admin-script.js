@@ -1,32 +1,27 @@
 $(document).ready(function () {
-    $("#a-memberlist").css("background", "linear-gradient(to right,#682CAD,#2FC0CC)").css("color", "white");
-    hideDiv();
-    $("#fra-donation-memberlist").css("display", "inline-block");
+    setButtonColor();
 
-    $("a").click(function () {
-        let id = $(this).attr("id");
+    function setButtonColor() {
+        let id = $("#admin-type").val();
+
         $("a").css("background", "none").css("color", "black");
-        $(this).css("background", "linear-gradient(to right,#682CAD,#2FC0CC)").css("color", "white");
+        $("#" + id).css("background", "linear-gradient(to right,#682CAD,#2FC0CC)").css("color", "white");
 
-        if (id = "a-memberlist") {
-            hideDiv();
-            $("#fra-donation-memberlist").css("display", "inline-block");
-        } else if (id = "a-gamelist") {
-            hideDiv();
-            $("#fra-donation-gamelist").css("display", "inline-block");
-        } else if (id = "a-gameregister") {
-            hideDiv();
-            $("#fra-donation-gameregister").css("display", "inline-block");
-        } else if (id = "a-donation") {
-            hideDiv();
-            $("#fra-donation-donation").css("display", "inline-block");
+        if (id == "a-memberlist") {
+            $("#btn-member-personal").css("background", "white").css("color", "rgba(57, 57, 57, 1)");
         }
+    }
+
+    $('button[name = "btn-member"]').click(function () {
+        $('button[name = "btn-member"]').css("background", "rgba(233, 233, 233, 1)").css("color", "rgba(110, 110, 110, 1)");
+        $(this).css("background", "white").css("color", "rgba(57, 57, 57, 1)");
     });
 
-    function hideDiv() {
-        $("#fra-donation-memberlist").css("display", "none");
-        $("#fra-donation-gamelist").css("display", "none");
-        $("#fra-donation-gameregister").css("display", "none");
-        $("#fra-donation-donation").css("display", "none");
-    }
+    $("#btn-fk").click(function (){
+        $("#modal-admin").css("display", "inline-block");
+    });
+
+    $("#btn-modal").click(function (){
+        $("#modal-admin").css("display", "none");
+    });
 });

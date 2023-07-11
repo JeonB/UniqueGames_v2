@@ -57,21 +57,35 @@ hr {
 select {
     border: 1px solid #DDDDDD;
     border-collapse: collapse;
+    border-radius: 5px;
     float: right;
     padding: 5px 10px;
-    margin-bottom: 5px;
+    margin-right: 10px;
 
     font-family: "YouandiModern";
+    font-size: 12px;
     text-align: center;
 }
 
+select:focus, select:hover, select:default {
+    border: 1px solid rgba(85, 85, 85, 1);
+    outline: none;
+}
+
+#select-genre {
+    width: 120px;
+    height: 40px;
+    padding: 0px;
+    font-size: 16px;
+    float: none;
+}
 
 /******* Table *******/
 #div-table {
     padding-bottom: 100px;
 }
 
-#table-gameList, #cart-price {
+#table-gameList, #cart-price, #table-member-list, #table-game-list, #table-donation {
     border: 1px solid #DDDDDD;
     border-collapse: collapse;
     width: 100%;
@@ -81,11 +95,15 @@ select {
     text-align: center;
 }
 
+#table-member-list, #table-game-list, #table-donation {
+    width: 790px;
+}
+
 #cart-price {
     width: 600px;
 }
 
-#table-gameList th, #cart-price th {
+#table-gameList th, #cart-price th, #table-member-list th, #table-game-list th, #table-donation th {
     padding: 6px 0 6px 0;
     border-bottom: 1px solid #DDDDDD;
 
@@ -93,12 +111,12 @@ select {
     color: #000000;
 }
 
-#table-gameList td, #cart-price td {
+#table-gameList td, #cart-price td, #table-member-list td, #table-game-list td, #table-donation td {
     padding: 10px 0 10px 0;
     border-bottom: 1px solid #DDDDDD;
 
     font-size: 14px;
-    color: #A9A9A9;
+    color: black;
     text-align: center;
 }
 
@@ -127,7 +145,9 @@ select {
 }
 
 /******* Button *******/
-#btn-deleteAll, #btn-deleteSelected, #btn-deleteOne, #btn-refund {
+#btn-deleteAll, #btn-deleteSelected, #btn-deleteOne, #btn-refund, #btn-mslect-delete,
+#btn-member-detail, #btn-game-detail, #btn-game-update, #btn-inquiry, #btn-fk, #label-file,
+#btn-search-company, #btn-url {
     padding: 3px 10px;
     background: #393939;
     border-radius: 5px;
@@ -138,7 +158,16 @@ select {
     cursor: pointer;
 }
 
-#btn-cart, #btn-order, #btn-main, #btn-list, #btn-method, #btn-modal, #btn-goCart {
+#btn-fk, #label-file, #btn-url {
+    padding: 0px;
+    display: inline-block;
+    padding: 5px 13px;
+    font-size: 14px;
+    text-align: center;
+}
+
+#btn-cart, #btn-order, #btn-main, #btn-list, #btn-method, #btn-modal, #btn-goCart, #btn-register,
+#btn-delete-member {
     padding: 12px 80px;
     border: none;
     border-radius: 3px;
@@ -148,6 +177,10 @@ select {
     font-family: "Apex New";
     font-size: 20px;
     cursor: pointer;
+}
+
+#btn-register,#btn-delete-member {
+    margin-top: 50px;
 }
 
 #btn-method {
@@ -185,6 +218,21 @@ input[name="checkOne"] {
     background-image: url("../images/btn-check-normal.png");
     background-repeat: no-repeat;
     cursor: pointer;
+}
+
+input[name="chk-admin"] {
+    width: 16px;
+    height: 16px;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 8px;
+    background: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+input[name="chk-admin"]:checked {
+    background: black;
 }
 
 input[name="checkOne"]:checked {
@@ -339,7 +387,7 @@ a:visited {
 }
 
 /******* modal *******/
-div#modal {
+div#modal, #modal-admin {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -350,7 +398,7 @@ div#modal {
     display: none;
 }
 
-div.modal-agreement {
+div.modal-agreement, #modal-find-company {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -364,6 +412,11 @@ div.modal-agreement {
     box-shadow: inset 0px 3px 6px #0000001A, 0px 10px 20px #00000029;
 }
 
+#modal-find-company {
+    width: 500px;
+    height: 650px;
+}
+
 #modal-title {
     margin: 0px 0px 20px 0px;
     padding-top: 30px;
@@ -373,7 +426,7 @@ div.modal-agreement {
     font-size: 24px;
 }
 
-#modal-content {
+#modal-content, #modal-content-company {
     text-align: center;
     width: 370px;
     height: 340px;
@@ -384,6 +437,11 @@ div.modal-agreement {
     text-align: justify;
     margin: auto;
     overflow: auto;
+}
+
+#modal-content-company {
+    width: 370px;
+    height: 400px;
 }
 
 div.detail1, div.detail2, div.detail3, div.detail4 {
@@ -415,8 +473,8 @@ div.detail1, div.detail2, div.detail3, div.detail4 {
     height: 800px;
     display: inline-block;
     margin: 25px 0px 25px 50px;
-    background: cornsilk;
     float: left;
+    text-align: center;
 }
 
 #ul-sidebar, #li-sidebar {
@@ -445,23 +503,179 @@ div.detail1, div.detail2, div.detail3, div.detail4 {
     margin-top: 80px;
 }
 
-#fra-memberlist, #fra-gamelist, #fra-gameregister, #fra-donation {
-    display: none;
+#div-member-menu {
+    text-align: center;
 }
 
-#div-memberlist, #div-gamelist, #div-gameregister, #div-donation {
-    width: 1100px;  height: 800px;
-    background: blue;
+#div-member-info, #div-donation-info {
+    width: 800px;
+    margin: auto;
+    padding: 0px 10px 10px 10px;
+    overflow: hidden;
+    border-bottom: 2px solid rgba(57, 57, 57, 1);
 }
 
-#div-gamelist {
-    background: red;
+button[name="btn-member"] {
+    margin: 0px 0px 20px 0px;
+    width: 300px;
+    height: 60px;
+    border: 2px solid rgba(229, 229, 229, 1);
+    border-bottom: none;
+    background: rgba(233, 233, 233, 1);
+
+    font-family: "Apex New";
+    font-size: 16px;
+    color: rgba(110, 110, 110, 1);
+    text-align: center;
+    cursor: pointer;
 }
 
-#div-gameregister {
-    background: green;
+#btn-member-company {
+    margin-left: -10px;
 }
 
-#div-donation {
-    background: yellow;
+#p-title, p-member-count {
+    margin-bottom: 30px;
+    color: rgba(43, 43, 43, 1);
+    font-size: 24px;
+    font-weight: bold;
 }
+
+#p-member-count {
+    padding-top: 10px;
+    display: inline-block;
+    float: left;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+#div-member-info #select-order, #btn-mslect-delete {
+    display: inline-block;
+    float: right;
+}
+
+#select-year, #select-month, #btn-inquiry {
+    display: inline-block;
+    float: left;
+}
+
+#div-member-table, #div-game-table, #div-donation-table {
+    margin-top: 10px;
+}
+
+input[type="file"] {
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: none;
+}
+
+#ul-regi {
+    width: 800px;
+    margin: auto;
+    padding: 30px 0px 0px 100px;
+
+    text-align: left;
+}
+
+#ul-regi li {
+    width: 700px;
+}
+
+#ul-regi input[type="text"], #img-path, #description, #company-name, #selected-company,
+#ul-detail input[type="text"] {
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;
+    outline: none;
+    display: inline-block;
+    width: 350px;   height: 40px;
+    padding: 0 10px;
+    margin-bottom: 20px;
+    background: none;
+    resize: none;
+
+    font-family: "YouandiModern";
+    font-size: 14px;
+    text-align: left;
+}
+
+#ul-detail input[type="text"]{
+    border: none;
+    width: 300px;
+    font-size: 15px;
+}
+
+#company-name, #selected-company {
+    width: 200px;
+}
+
+#selected-company {
+    display: block;
+    margin: auto;
+}
+
+#ul-regi input[type="text"]:hover, #description:hover {
+    border: 1px solid black;
+}
+
+#description {
+    width: 420px;
+    height: 200px;
+    padding: 5px 10px;
+    word-break: break-word;
+}
+
+#li-btn-register, #ul-company-list {
+    padding: 0px 10px;
+    text-align: center;
+}
+
+#p-regi, #p-detail {
+    width: 120px;   height: 40px;
+    display: inline-block;
+    margin: 0px 10px 20px 0px;
+
+    font-family: "YouandiModern";
+    font-size: 18px;
+    text-align: right;
+}
+
+p[name="p-desc"] {
+    vertical-align: top;
+}
+
+button[name="company-list"] {
+    width: 300px;
+    height: 40px;
+    border: none;
+    outline: none;
+    background: none;
+
+    font-family: "YouandiModern";
+    font-size: 14px;
+    color: black;
+    cursor: pointer;
+}
+
+button[name="company-list"]:hover {
+    background: #DDDDDD;
+    font-weight: bold;
+}
+
+#div-company-result {
+    margin: 10px 0px;
+}
+
+#btn-back {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    float: left;
+    outline: none;
+    border: none;
+    background-image: url("../images/icon_back.png");
+    cursor: pointer;
+}
+
+

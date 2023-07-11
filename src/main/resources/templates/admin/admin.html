@@ -14,6 +14,7 @@
 <div th:replace="~{/main/header :: headerFragment}"></div>
 
 <!-- content -->
+<input type="hidden" id="admin-type" value="a-memberlist">
 <section id="top-bg">
     <div id="base-layer">
         <div id="top-bg-textarea">
@@ -27,25 +28,47 @@
     <div id="div-sidebar">
         <ul id="ul-sidebar">
             <li id="li-sidebar">
-                <a href="#member-list" id="a-memberlist">회원 관리</a>
-                <a href="#game-list" id="a-gamelist">게임 관리</a>
-                <a href="#game-register" id="a-gameregister">게임 등록</a>
-                <a href="#donation" id="a-donation">정산 현황</a>
+                <a href="/admin" id="a-memberlist">회원 관리</a>
+                <a href="/admin-game-list" id="a-gamelist">게임 관리</a>
+                <a href="/admin-game-register" id="a-gameregister">게임 등록</a>
+                <a href="/admin-donation" id="a-donation">정산 현황</a>
             </li>
         </ul>
     </div>
     <div id="div-viewer">
-        <div id="fra-memberlist">
-
+        <p id="p-title">회원 관리</p>
+        <div id="div-member-menu">
+            <button type="button" id="btn-member-personal" name="btn-member" value="member">개인 회원</button>
+            <button type="button" id="btn-member-company" name="btn-member" value="company">법인 회원</button>
         </div>
-        <div id="fra-gamelist" >
-
+        <div id="div-member-info">
+            <p id="p-member-count">전체 개인 회원 : 100명</p>
+            <button type="button" id="btn-mslect-delete">선택 삭제</button>
+            <select id="select-order">
+                <option value="orderdate_desc">최근 날짜순</option>
+                <option value="orderdate_asc">오래된 날짜순</option>
+                <option value="amount_asc">높은 후원금순</option>
+                <option value="amount_desc">낮은 후원금순</option>
+            </select>
         </div>
-        <div id="fra-gameregister">
-
-        </div>
-        <div id="fra-donation">
-
+        <div id="div-member-table">
+            <table id="table-member-list">
+                <tr>
+                    <th>선택</th>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>메뉴</th>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="chk-admin"></td>
+                    <td>mtest</td>
+                    <td>엠길동</td>
+                    <td>
+                        <a href="/admin-detail-member"><button type="button" id="btn-member-detail" value="mtest">자세히 보기</button></a>
+                        <a href="/payment-detail"><button type="button" id="btn-member-detail" value="mtest">결제 내역</button></a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

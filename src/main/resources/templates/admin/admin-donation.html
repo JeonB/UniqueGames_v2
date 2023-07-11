@@ -10,9 +10,81 @@
 </head>
 </head>
 <body>
-<!-- content -->
-<div id="div-donation" th:fragment="donationFragment">
+<!-- header -->
+<div th:replace="~{/main/header :: headerFragment}"></div>
 
+<!-- content -->
+<input type="hidden" id="admin-type" value="a-donation">
+<section id="top-bg">
+    <div id="base-layer">
+        <div id="top-bg-textarea">
+            <p id="top-title">Admin</p>
+            <p id="top-subtitle">#관리자_페이지</p>
+        </div>
+    </div>
+</section>
+
+<div id="div-admin">
+    <div id="div-sidebar">
+        <ul id="ul-sidebar">
+            <li id="li-sidebar">
+                <a href="/admin" id="a-memberlist">회원 관리</a>
+                <a href="/admin-game-list" id="a-gamelist">게임 관리</a>
+                <a href="/admin-game-register" id="a-gameregister">게임 등록</a>
+                <a href="/admin-donation" id="a-donation">정산 현황</a>
+            </li>
+        </ul>
+    </div>
+    <div id="div-viewer">
+        <p id="p-title">정산금 조회</p>
+        <div id="div-donation-info">
+            <select id="select-year">
+                <option value="default">전체</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+            </select>
+            <select id="select-month">
+                <option value="default">전체</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+            <button type="button" id="btn-inquiry">조회</button>
+            <select id="select-order">
+                <option value="orderdate_desc">최근 날짜순</option>
+                <option value="orderdate_asc">오래된 날짜순</option>
+                <option value="amount_asc">높은 후원금순</option>
+                <option value="amount_desc">낮은 후원금순</option>
+            </select>
+        </div>
+        <div id="div-donation-table">
+            <table id="table-donation">
+                <tr>
+                    <th>번호</th>
+                    <th>회사</th>
+                    <th>게임</th>
+                    <th>정산 금액 (단위 : 원)</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>메이플 스토리</td>
+                    <td>Nexon</td>
+                    <td>100,000,000원</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
+<!-- footer -->
+<div th:replace="~{/main/footer::footerFragment}"></div>
 </body>
 </html>

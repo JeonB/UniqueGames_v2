@@ -14,7 +14,7 @@
 <div th:replace="~{/main/header :: headerFragment}"></div>
 
 <!-- content -->
-<input type="hidden" id="admin-type" value="a-gameregister">
+<input type="hidden" id="admin-type" value="a-gamelist">
 <section id="top-bg">
     <div id="base-layer">
         <div id="top-bg-textarea">
@@ -36,16 +36,17 @@
         </ul>
     </div>
     <div id="div-viewer">
-        <p id="p-title">게임 등록</p>
-        <form name="form-register" action="admin-game-register" method="post">
+        <a href="/admin-game-list"><button id="btn-back"></button></a>
+        <p id="p-title">게임 정보 수정</p>
+        <form name="form-update" action="admin-game-update" method="post">
             <ul id="ul-regi">
                 <li>
                     <p id="p-regi">제목</p>
-                    <input type="text" id="title" placeholder="40자 이내로 입력해주세요.">
+                    <input type="text" id="title" placeholder="40자 이내로 입력해주세요." value="메이플 스토리">
                 </li>
                 <li>
                     <p id="p-regi">회사명</p>
-                    <input type="text" id="company">
+                    <input type="text" id="company" value="Nexon">
                     <button type="button" id="btn-fk">찾기</button>
                 </li>
                 <li>
@@ -67,15 +68,15 @@
                 </li>
                 <li id="li-desciption">
                     <p id="p-regi" name="p-desc">상세 설명</p>
-                    <textarea name="description" cols="70" rows="10" id="description"></textarea>
+                    <textarea name="description" cols="70" rows="10" id="description" ></textarea>
                 </li>
                 <li>
                     <p id="p-regi">디테일 페이지</p>
-                    <input type="text" id="url">
-                    <button type="button" id="btn-url">이동</button>
+                    <input type="text" id="url" value="/detail">
+                    <a href="/detail"><button type="button" id="btn-url">이동</button></a>
                 </li>
                 <li id="li-btn-register">
-                    <button type="button" id="btn-register">등록</button>
+                    <button type="button" id="btn-register">수정</button>
                 </li>
             </ul>
         </form>
