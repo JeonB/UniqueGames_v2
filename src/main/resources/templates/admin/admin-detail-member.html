@@ -42,26 +42,26 @@
             <ul id="ul-detail">
                 <li>
                     <p id="p-detail">아이디</p>
-                    <input type="text" id="id" disabled="disabled" value="mtest">
+                    <input type="text" id="id" disabled="disabled" th:value="${id}">
                 </li>
                 <li>
                     <p id="p-detail">이름</p>
-                    <input type="text" id="name" disabled="disabled" value="엠길동">
+                    <input type="text" id="name" disabled="disabled" th:value="${name}">
                 </li>
                 <li>
                     <p id="p-detail">비밀번호</p>
-                    <input type="text" id="password" disabled="disabled" value="123">
+                    <input type="text" id="password" disabled="disabled" th:value="${password}">
                 </li>
                 <li>
                     <p id="p-detail">휴대전화</p>
-                    <input type="text" id="phone" disabled="disabled" value="KT 010-1234-1234">
+                    <input type="text" id="phone" disabled="disabled" th:value="${phone}">
                 </li>
                 <li>
                     <p id="p-detail">주소</p>
-                    <input type="text" id="addr" disabled="disabled" value="서울시 강남구">
+                    <input type="text" id="addr" disabled="disabled" th:value="${addr}">
                 </li>
                 <li>
-                    <button type="button" id="btn-delete-member">탈퇴</button>
+                    <button type="button" id="btn-delete-member" th:value="${id}">탈퇴</button>
                 </li>
             </ul>
         </div>

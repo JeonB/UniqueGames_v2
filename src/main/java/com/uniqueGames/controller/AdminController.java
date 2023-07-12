@@ -34,6 +34,7 @@ public class AdminController {
     public String admin_member_list(String type, Model model) {
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
+        jObj.addProperty("mType", type);
 
         if(type.equals("member") || !type.equals("company") || type == null){
             ArrayList<Member> list = memberService.aGetMemberList();
@@ -97,7 +98,17 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin-detail-member")
-    public String admin_detail_member() {
+    public String admin_detail_member(String id, String type, Model model) {
+
+        if(type.equals("member")){
+            Member member = memberService.aGetDetailMember(id);
+
+        } else if (type.equals("company")) {
+            Company member = companyMemberService.aGetDetailMember(id);
+        }
+        model.addAttribute("type", type);
+
+        model.addAttribute("id", )
         return "admin/admin-detail-member";
     }
 

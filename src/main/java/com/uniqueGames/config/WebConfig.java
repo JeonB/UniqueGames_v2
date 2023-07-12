@@ -18,7 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/mybatis",
             "/error", "/cart", "/main/**","/findAccount",
             "/admin-game-list", "/admin-member-list", "/admin-game-register", "/admin-donation", "/admin",
-            "/admin-detail-member", "/admin-update-game"
+            "/admin-detail-member", "/admin-update-game",
             "/error", "/cart", "/main/**","/findAccount","/detail/**","/favicon.ico",
             "/upload/**","/notice/content/**", "/notice/list","/topgame", "/alllist",
             "/findMember", "/findCompany", "/idcheck", "/findmid", "/changepass", "/phonecheck", "/emailcheck", "/mailCheck", "/mchangepass"

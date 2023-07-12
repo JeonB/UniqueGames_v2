@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Mapper
 public interface MemberMapper {
@@ -29,4 +31,10 @@ public interface MemberMapper {
 
     @Select("select count(*) from member where email=#{email}")
     int emailCheck(String email);
+
+    @Select("SELECT member_id, name FROM MEMBER")
+    List<Member> aGetMemberList();
+
+    @Select("SELECT * FROM MEMBER WHERE MEMBER_ID=#{id}")
+    Member aGetDetailMember(String id);
 }

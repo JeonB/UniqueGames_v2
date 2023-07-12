@@ -59,5 +59,7 @@
 		SELECT company_id, name FROM COMPANY
 	</select>
 
-
+	<select id="aGetDetailMember" parameterType="java.lang.String" resultType="Company">
+		SELECT * FROM COMPANY WHERE COMPANY_ID=#{id}
+	</select>
 </mapper>
