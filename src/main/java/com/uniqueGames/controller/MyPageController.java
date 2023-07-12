@@ -4,7 +4,6 @@ import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.CompanyMemberService;
-import com.uniqueGames.service.MemberService;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
