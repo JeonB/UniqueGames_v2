@@ -7,7 +7,101 @@
     <link rel="stylesheet" th:href="@{/css/order.css}">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <script src="js/admin-script.js"></script>
-</head>
+    <script>
+        $(document).ready(function () {
+            getPage("member");
+
+            $("#btn-member-personal").click(function () {
+                getPage("member");
+            });
+            $("#btn-member-company").click(function () {
+                getPage("company");
+            });
+
+            function getPage(type="member") {
+                $.ajax({
+                    url: "/admin-member-list",
+                    data: {type: type},
+                    success: function (result){
+                        let jdata = JSON.parse(result);
+                        let output = "";
+
+                        if(jdata.nothing){
+                            alert("데이터가 존재하지 않습니다.");
+                        }
+                        else{
+                            output += '<div id="div-member-info">';
+                            output += '<p id="p-member-count">전체 개인 회원 : 100명</p>';
+                            output += '';
+                            output += '';
+                            output += '';
+                            output += '';
+                            output += '';
+                            output += '';
+
+                            /*[# th:each="obj : ${jdata.jlist}"]*/
+                            output += "<tr>";
+                            output += "<td th:text='${obj.rno}'></td>";
+                            output += "<td th:text='${obj.orderdate}'></td>";
+                            output += "<td th:text='${obj.gametitle}'></td>";
+                            output += "<td th:text='${obj.amount}'></td>";
+                            output += "</tr>";
+                            /*[/]*/
+
+                            output += '</table>';
+                            output += '<div id="div-price">';
+                            output += '<table id="cart-price">';
+                            output += '<tr><th>개수</th><th>총 금액</th></tr>';
+                            output += '<tr>';
+                            output += "<td th:text='|총 ${jdata.count}개|'></td>";
+                            output += "<td th:text='${jdata.totalAmount}'></td>";
+                            output += '</tr></table></div>';
+                            output += '<div id="div-margin">';
+
+
+
+
+                                <button type="button" id="btn-mslect-delete">선택 삭제</button>
+                                <select id="select-order">
+                                    <option value="orderdate_desc">최근 날짜순</option>
+                                    <option value="orderdate_asc">오래된 날짜순</option>
+                                    <option value="amount_asc">높은 후원금순</option>
+                                    <option value="amount_desc">낮은 후원금순</option>
+                                </select>
+                            </div>
+                            <div id="div-member-table">
+                                <table id="table-member-list">
+                                    <tr>
+                                        <th>선택</th>
+                                        <th>아이디</th>
+                                        <th>이름</th>
+                                        <th>메뉴</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" name="chk-admin"></td>
+                                        <td>mtest</td>
+                                        <td>엠길동</td>
+                                        <td>
+                                            <a href="/admin-detail-member">
+                                                <button type="button" id="btn-member-detail" value="mtest">자세히 보기</button>
+                                            </a>
+                                            <a href="/payment-detail">
+                                                <button type="button" id="btn-member-payment" value="mtest">결제 내역</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        }
+                    },
+                    result: function (result){
+                        alert(result);
+                    }
+                });
+            }
+        });
+    </script>
 </head>
 <body>
 <!-- header -->
@@ -41,6 +135,7 @@
             <button type="button" id="btn-member-personal" name="btn-member" value="member">개인 회원</button>
             <button type="button" id="btn-member-company" name="btn-member" value="company">법인 회원</button>
         </div>
+
         <div id="div-member-info">
             <p id="p-member-count">전체 개인 회원 : 100명</p>
             <button type="button" id="btn-mslect-delete">선택 삭제</button>
@@ -64,12 +159,17 @@
                     <td>mtest</td>
                     <td>엠길동</td>
                     <td>
-                        <a href="/admin-detail-member"><button type="button" id="btn-member-detail" value="mtest">자세히 보기</button></a>
-                        <a href="/payment-detail"><button type="button" id="btn-member-detail" value="mtest">결제 내역</button></a>
+                        <a href="/admin-detail-member">
+                            <button type="button" id="btn-member-detail" value="mtest">자세히 보기</button>
+                        </a>
+                        <a href="/payment-detail">
+                            <button type="button" id="btn-member-payment" value="mtest">결제 내역</button>
+                        </a>
                     </td>
                 </tr>
             </table>
         </div>
+
     </div>
 </div>
 <!-- footer -->

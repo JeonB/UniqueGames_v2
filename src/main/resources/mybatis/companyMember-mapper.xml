@@ -55,6 +55,9 @@
 		select count(*) from company where phone_num=#{phoneNum}
 	</select>
 
+	<select id="aGetMemberList" resultType="Company">
+		SELECT company_id, name FROM COMPANY
+	</select>
 
 
 </mapper>

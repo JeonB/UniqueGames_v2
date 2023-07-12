@@ -2,6 +2,9 @@ package com.uniqueGames.service;
 
 import com.uniqueGames.model.Member;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public interface MemberService {
 	
 	int memberLoginResult(Member member);
@@ -16,5 +19,6 @@ public interface MemberService {
 	int memberDeleteResult(Member member);
 	int memberEmailCheckResult(String email);
 	int memberPhoneCheckResult(String phoneNum);
+	ArrayList<Member> aGetMemberList();
 
 }

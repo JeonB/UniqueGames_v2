@@ -147,7 +147,7 @@ select:focus, select:hover, select:default {
 /******* Button *******/
 #btn-deleteAll, #btn-deleteSelected, #btn-deleteOne, #btn-refund, #btn-mslect-delete,
 #btn-member-detail, #btn-game-detail, #btn-game-update, #btn-inquiry, #btn-fk, #label-file,
-#btn-search-company, #btn-url {
+#btn-search-company, #btn-url, #btn-member-payment {
     padding: 3px 10px;
     background: #393939;
     border-radius: 5px;

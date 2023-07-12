@@ -49,7 +49,10 @@
 	<select id="phoneCheck" parameterType="java.lang.String" resultType="int">
 		select count(*) from member where phone_num=#{phoneNum}
 	</select>
-	
+
+	<select id="aGetMemberList" resultType="Member">
+		SELECT member_id, name FROM MEMBER
+	</select>
 	
 	
 	
