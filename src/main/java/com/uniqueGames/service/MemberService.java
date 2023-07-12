@@ -38,9 +38,9 @@ public class MemberService {
 		return memberMapper.emailCheck(email);
 	}
 
-	public ArrayList<Member> aGetMemberList(){
+	public ArrayList<Member> aGetMemberList(String order1, String order2){
 		ArrayList<Member> mList = new ArrayList<>();
-		for(Member member : memberMapper.aGetMemberList()){
+		for(Member member : memberMapper.aGetMemberList(order1, order2)){
 			mList.add(member);
 		}
 		return mList;

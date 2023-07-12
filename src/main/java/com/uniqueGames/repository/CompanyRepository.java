@@ -77,6 +77,6 @@ public class CompanyRepository {
     }
 
     public Company aGetDetailMember(String id) {
-        return sqlSession.aGetDetailMember("mapper.companyMember.aGetDetailMember", id);
+        return sqlSession.selectOne("mapper.companyMember.aGetDetailMember", id);
     }
 }

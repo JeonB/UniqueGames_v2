@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Member;
+import com.uniqueGames.model.Notice;
 import com.uniqueGames.model.Order;
 import com.uniqueGames.service.CompanyMemberService;
 import com.uniqueGames.service.CompanyService;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 @Controller
 public class AdminController {
@@ -25,27 +29,44 @@ public class AdminController {
     CompanyMemberService companyMemberService;
 
     @RequestMapping(value = "/admin")
-    public String admin(){
+    public String admin() {
         return "admin/admin";
     }
 
     @RequestMapping(value = "/admin-member-list", produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String admin_member_list(String type, Model model) {
+    public String admin_member_list(String type, String array, Model model) {
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
-        jObj.addProperty("mType", type);
+        String order1;
+        String order2;
 
-        if(type.equals("member") || !type.equals("company") || type == null){
-            ArrayList<Member> list = memberService.aGetMemberList();
+        if (array.equals("id_asc")) {
+            order1 = "ID";
+            order2 = "ASC";
+        } else if (array.equals("id_desc")) {
+            order1 = "ID";
+            order2 = "DESC";
+        } else if (array.equals("name_asc")) {
+            order1 = "NAME";
+            order2 = "ASC";
+        } else {
+            order1 = "NAME";
+            order2 = "DESC";
+        }
+
+        if (type.equals("member") || !type.equals("company") || type == null) {
+            if (order1.equals("ID")) {
+                order1 = "MEMBER_ID";
+            }
+            ArrayList<Member> list = memberService.aGetMemberList(order1, order2);
 
             if (list.size() == 0) {
                 jObj.addProperty("nothing", true);
             } else {
                 jObj.addProperty("nothing", false);
-                jObj.addProperty("memberCount", list.size());
-                jObj.addProperty("memberType", "개인 회원");
                 jObj.addProperty("name", "이름");
+                jObj.addProperty("str", "전체 개인 회원 : " + list.size() + "명");
 
                 for (Member member : list) {
                     JsonObject obj = new JsonObject();
@@ -57,15 +78,17 @@ public class AdminController {
                 }
             }
         } else if (type.equals("company")) {
+            if (order1.equals("ID")) {
+                order1 = "COMPANY_ID";
+            }
             ArrayList<Company> list = companyMemberService.aGetMemberList();
 
             if (list.size() == 0) {
                 jObj.addProperty("nothing", true);
             } else {
                 jObj.addProperty("nothing", false);
-                jObj.addProperty("memberCount", list.size());
-                jObj.addProperty("memberType", "법인 회원");
                 jObj.addProperty("name", "회사명");
+                jObj.addProperty("str", "전체 법인 회원 : " + list.size() + "명");
 
                 for (Company member : list) {
                     JsonObject obj = new JsonObject();
@@ -77,7 +100,19 @@ public class AdminController {
                 }
             }
         }
+
+//        // 페이징 처리 - startCount, endCount 구하기
+//        Map<String, Integer> pageMap = boardUtil.getPagination(page, "list");
+////        Page pageInfo = boardUtil.getPagination(new Page(page, "list"));
+//        List<Notice> list = noticeService.getNoticeList(pageMap.get("startCount"), pageMap.get("endCount"));
+//        model.addAttribute("list", list);
+//        model.addAttribute("dbCount", pageMap.get("dbCount"));
+//        model.addAttribute("pageSize", pageMap.get("pageSize"));
+//        model.addAttribute("pageCount", pageMap.get("pageCount"));
+//        model.addAttribute("page", pageMap.get("reqPage"));
+
         jObj.add("memberList", jArray);
+        jObj.addProperty("mType", type);
 
         return new Gson().toJson(jObj);
     }
@@ -100,15 +135,28 @@ public class AdminController {
     @RequestMapping(value = "/admin-detail-member")
     public String admin_detail_member(String id, String type, Model model) {
 
-        if(type.equals("member")){
+        if (type.equals("member")) {
             Member member = memberService.aGetDetailMember(id);
+            String pn = member.getTel() + ") " + member.getPhoneNum();
 
+            model.addAttribute("id", member.getMemberId());
+            model.addAttribute("name", member.getName());
+            model.addAttribute("password", member.getPassword());
+            model.addAttribute("phone", pn);
+            model.addAttribute("addr", member.getAddr());
         } else if (type.equals("company")) {
             Company member = companyMemberService.aGetDetailMember(id);
+            String pn = member.getTel() + ") " + member.getPhoneNum();
+
+            model.addAttribute("id", member.getCompanyId());
+            model.addAttribute("name", member.getName());
+            model.addAttribute("password", member.getPassword());
+            model.addAttribute("phone", pn);
+            model.addAttribute("addr", member.getAddr());
         }
         model.addAttribute("type", type);
 
-        model.addAttribute("id", )
+
         return "admin/admin-detail-member";
     }
 

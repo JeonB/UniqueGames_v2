@@ -5,40 +5,41 @@
     <title>Unique Games</title>
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="stylesheet" th:href="@{/css/order.css}">
+    <link rel="stylesheet" th:href="@{/css/am-pagination.css}">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <script src="js/admin-script.js"></script>
+    <script src="js/am-pagination.js"></script>
     <script>
         $(document).ready(function () {
-            getPage("member");
+            getPage("member", 1);
 
             $("#btn-member-personal").click(function () {
-                getPage("member");
+                getPage("member", 1);
             });
             $("#btn-member-company").click(function () {
-                getPage("company");
+                getPage("company", 1);
             });
 
-            function getPage(type = "member") {
+            $("#select-order").change(function () {
+                var type = $("#table-type").val();
+                getPage(type, 1);
+            });
+
+
+            function getPage(type = "member", page = 1) {
+                var array = $("#select-order").val();
+
                 $.ajax({
                     url: "/admin-member-list",
-                    data: {type: type},
+                    data: {type: type, array: array, page: page},
                     success: function (result) {
                         let returnData = JSON.parse(result);
+                        let str = '<p id="p-member-count">' + returnData.str + '</p>';
                         let output = "";
 
                         if (returnData.nothing) {
                             alert("데이터가 존재하지 않습니다.");
                         } else {
-                            output += '<div id="div-member-info">';
-                            output += '<p id="p-member-count">전체 ' + returnData.memberType + ' : ' + returnData.memberCount + '명</p>';
-                            output += '<button type="button" id="btn-mslect-delete">선택 삭제</button>';
-                            output += '<select id="select-order">';
-                            output += '<option value="orderdate_desc">최근 가입순</option>';
-                            output += '<option value="orderdate_asc">오래된 가입순</option>';
-                            output += '<option value="amount_asc">높은 후원금순</option>';
-                            output += '<option value="amount_desc">낮은 후원금순</option>';
-                            output += '</select></div>';
-
                             output += '<div id="div-member-table"> <table id="table-member-list">';
                             output += '<tr> <th>선택</th> <th>아이디</th> <th>' + returnData.name + '</th> <th>메뉴</th> </tr>';
                             for (let member of returnData.memberList) {
@@ -50,16 +51,46 @@
                                 output += '<button type="button" id="btn-member-detail">자세히 보기</button> </a> ';
                                 output += '<a href="/payment-detail"> <button type="button" id="btn-member-payment" th:value="' + member.id + '">결제 내역</button> </a> </td> </tr>';
                             }
+                            output += '<tr> <td colspan="5"> <div id="ampaginationsm"></div> </td> </tr>';
                             output += '</table> </div>';
 
-                            $("#div-member-info").remove();
+                            $("#p-member-count").remove();
+                            $("#div-hidden").after(str);
                             $("#div-member-table").remove();
-                            $("#div-member-menu").after(output);
+                            $("#div-member-info").after(output);
+
+                            //페이징 처리 함수 호출
+                            pager(returnDate.totals, returnDate.maxSize, returnDate.pageSize, returnDate.page);
+
+                            //페이지 번호 클릭 이벤트 처리
+                            jQuery('#ampaginationsm').on('am.pagination.change', function (e) {
+                                var type = $("#table-type").val();
+                                jQuery('.showlabelsm').text('The selected page no: ' + e.page);
+
+                                getPage(type, e.page);
+                            });
                         }
-                    },
-                    result: function (result) {
-                        alert(result);
                     }
+                });
+            }
+
+            function pager(totals, maxSize, pageSize, page) {
+                //alert(totals+","+maxSize+","+pageSize+","+page);
+
+                var pager = jQuery('#ampaginationsm').pagination({
+
+                    maxSize: maxSize,	    		// max page size
+                    totals: totals,	// total pages
+                    page: page,		// initial page
+                    pageSize: pageSize,			// max number items per page
+
+                    // custom labels
+                    lastText: '&raquo;&raquo;',
+                    firstText: '&laquo;&laquo;',
+                    prevText: '&laquo;',
+                    nextText: '&raquo;',
+
+                    btnSize: 'sm'	// 'sm'  or 'lg'
                 });
             }
         });
@@ -71,6 +102,7 @@
 
 <!-- content -->
 <input type="hidden" id="admin-type" value="a-memberlist">
+<input type="hidden" id="table-type" value="member">
 <section id="top-bg">
     <div id="base-layer">
         <div id="top-bg-textarea">
@@ -98,40 +130,18 @@
             <button type="button" id="btn-member-company" name="btn-member" value="company">법인 회원</button>
         </div>
 
-        <!--        <div id="div-member-info">-->
-        <!--            <p id="p-member-count">전체 개인 회원 : 100명</p>-->
-        <!--            <button type="button" id="btn-mslect-delete">선택 삭제</button>-->
-        <!--            <select id="select-order">-->
-        <!--                <option value="orderdate_desc">최근 날짜순</option>-->
-        <!--                <option value="orderdate_asc">오래된 날짜순</option>-->
-        <!--                <option value="amount_asc">높은 후원금순</option>-->
-        <!--                <option value="amount_desc">낮은 후원금순</option>-->
-        <!--            </select>-->
-        <!--        </div>-->
-        <!--        <div id="div-member-table">-->
-        <!--            <table id="table-member-list">-->
-        <!--                <tr>-->
-        <!--                    <th>선택</th>-->
-        <!--                    <th>아이디</th>-->
-        <!--                    <th>이름</th>-->
-        <!--                    <th>메뉴</th>-->
-        <!--                </tr>-->
-        <!--                <tr>-->
-        <!--                    <td><input type="checkbox" name="chk-admin"></td>-->
-        <!--                    <td>mtest</td>-->
-        <!--                    <td>엠길동</td>-->
-        <!--                    <td>-->
-        <!--                        <a href="/admin-detail-member">-->
-        <!--                            <button type="button" id="btn-member-detail" value="mtest">자세히 보기</button>-->
-        <!--                        </a>-->
-        <!--                        <a href="/payment-detail">-->
-        <!--                            <button type="button" id="btn-member-payment" value="mtest">결제 내역</button>-->
-        <!--                        </a>-->
-        <!--                    </td>-->
-        <!--                </tr>-->
-        <!--            </table>-->
-        <!--        </div>-->
+        <div id="div-member-info">
+            <input type="hidden" id="div-hidden">
 
+            <button type="button" id="btn-mslect-delete">선택 삭제</button>
+            <select id="select-order">
+                <option value="id_asc">아이디 (A~Z)</option>
+                <option value="id_desc">아이디 (Z~A)</option>
+                <option value="name_asc">이름 (ㄱ~ㅎ)</option>
+                <option value="name_desc">이름 (ㅎ~ㄱ)</option>
+            </select>
+        </div>
+        ';
     </div>
 </div>
 <!-- footer -->

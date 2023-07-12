@@ -2,6 +2,7 @@ package com.uniqueGames.repository;
 
 import com.uniqueGames.model.Member;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -32,8 +33,8 @@ public interface MemberMapper {
     @Select("select count(*) from member where email=#{email}")
     int emailCheck(String email);
 
-    @Select("SELECT member_id, name FROM MEMBER")
-    List<Member> aGetMemberList();
+    @Select("SELECT member_id, name FROM MEMBER ORDER BY ${order1} ${order2}")
+    List<Member> aGetMemberList(@Param("order1") String order1, @Param("order2") String order2);
 
     @Select("SELECT * FROM MEMBER WHERE MEMBER_ID=#{id}")
     Member aGetDetailMember(String id);
