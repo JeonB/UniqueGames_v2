@@ -87,4 +87,9 @@ public class CompanyMemberServiceImpl implements CompanyMemberService {
         return cList;
     }
 
+    @Override
+    public Company aGetDetailMember(String id) {
+        return companyRepository.aGetDetailMember(id);
+    }
+
 }

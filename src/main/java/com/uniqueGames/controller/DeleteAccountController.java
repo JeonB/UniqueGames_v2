@@ -24,29 +24,24 @@ public class DeleteAccountController {
 	private CompanyMemberService companyMemberService;
 
 
-	@GetMapping("deleteAccount")
+	@GetMapping("deleteaccount")
 	public String deletePwd(HttpSession session, Model model) {
 		String viewName = "";
 		String mode = session.getAttribute("login").toString();
 		System.out.println("mode=" + mode);
+
 		if(mode.equals("member")) {
 			Member member = (Member)session.getAttribute(SessionConstants.LOGIN_MEMBER);
-			model.addAttribute("member", member.getMemberId());
+			model.addAttribute("member", member);
 			viewName = "deleteAccount/member-delete";
+		}else if(mode.equals("company")){
+			Company company = (Company)session.getAttribute(SessionConstants.LOGIN_MEMBER);
+			model.addAttribute("company", company);
+			viewName = "deleteAccount/company-delete";
 		}
 		return viewName;
 	}
 
-//	@RequestMapping(value="/delete_check", method=RequestMethod.POST)
-//	@ResponseBody
-//	public String delete_check(Member member, HttpSession session) {
-//		int result = memberSerivce.memberDeleteResult(member);
-//
-//		if(result==1) {
-//			session.invalidate();
-//		}
-//		return String.valueOf(result);
-//	}
 
 	/**************************회원 탈퇴***************************************
 	 @RequestMapping(value="/deleteCompany", method=RequestMethod.GET)
@@ -68,7 +63,6 @@ public class DeleteAccountController {
 		if(result==1) {
 			session.invalidate();
 		}
-
 		return String.valueOf(result);
 	}
 

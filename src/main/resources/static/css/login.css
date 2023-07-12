@@ -36,7 +36,7 @@ input[name="email-auth-check"] {
 }
 
 /* Button */
-.button-gradient {
+.button-gradient, .find-button-gradient {
 	border: none;
 	width: 394px;
 	height: 60px;
@@ -49,9 +49,7 @@ input[name="email-auth-check"] {
 	font-size: 20px;
 }
 
-#btn-style, #address-btn-style, #company-address-btn-style,
-#check-btn-style, #c-check-btn-style, #email-btn-style,
-#c-email-btn-style, #company-address-btn-style, #mypage-email-btn, #mypage-pass-change {
+.button-style {
 	width: 80px;
 	height: 30px;
 	background: #393939;
@@ -74,9 +72,7 @@ input[name="email-auth-check"] {
 	border-radius: 3px;
 }
 
-#address-btn-style, #company-address-btn-style, #check-btn-style,
-#c-check-btn-style, #email-btn-style, #c-email-btn-style,
-#company-address-btn-style, #mypage-email-btn, #mypage-pass-change {
+.button-style {
 	width: 90px;
 	height: 40px;
 	position: relative;
@@ -84,13 +80,10 @@ input[name="email-auth-check"] {
 	left: 405px;
 }
 
-#mypage-email-btn {
-	left: 510px;
-}
-
-#mypage-pass-change {
-	left: 510px;
-	top : -84px;
+#mypage-email-btn, #mypage-addr-btn {
+	position: relative;
+	top: -57px;
+	left: 250px;
 }
 /*
 a:visited {
@@ -203,7 +196,7 @@ select[name='phone1'] {
 
 
 /* Modal */
-div.agreement, div.agreement2 {
+div.agreement, div.agreement2, div.agreement3 {
 	width: 450px;
 	height: 550px;
 	position: fixed;
@@ -217,7 +210,7 @@ div.agreement, div.agreement2 {
 	box-shadow: inset 0px 3px 6px #0000001A, 0px 10px 20px #00000029;
 }
 
-.modal, .modal2 {
+.modal, .modal2, .modal3 {
 	width: 100%;
 	height: 100%;
 	position: fixed;
@@ -229,7 +222,7 @@ div.agreement, div.agreement2 {
 }
 
 .agreement-title {
-	margin: 0px 0px 20px 0px;
+	margin: 20px 0px;
 	padding-top: 30px;
 	text-align: center;
 	font-family: "YouandiModern", sans-serif;
@@ -272,7 +265,11 @@ div.find-pwd-none, div.mchangepass {
 }
 
 div.agreement2 {
-	height: 350px;
+	height: 300px;
+}
+
+div.agreement3 {
+	height: 380px;
 }
 
 /* Span */
@@ -293,7 +290,7 @@ li.address-input {
 	margin-top: -40px;
 }
 
-#content-2, #content-myPage, #newPasswordForm {
+#content-2, #newPasswordForm {
 	width: 40%;
 	margin: auto;
 	text-align: left;
@@ -374,9 +371,11 @@ li.address-input {
 }
 
 .mypage-pwd-check-img {
-	left: 450px;
-	top: -46px;
+	top: -47.5px;
+	left: 165px;
+
 }
+
 
 .pwd-check-img:checked {
 	background-image: url("../images/btn-eye-select.png");
@@ -525,27 +524,22 @@ li.address-input {
 	margin: 18px 20px;
 }
 
-.mypage-input {
-	margin-left: 98px;
-}
-
 .intro-4 {
 	font-family: "YouandiModern", sans-serif;
 	font-size: 24px;
 	padding: 60px 0;
-	margin-left: 98px;
 }
 
-.must-insert-5, #mypage-update {
-	margin: 20px 0 0 98px;
+/*.must-insert-5,  {*/
+/*	margin: 20px 0 0 98px;*/
+/*}*/
+
+#mypage-update {
+	margin-top: 30px;
 }
 
 #newpassInput, #newpassInputCheck {
 	margin-top: -40px;
-}
-
-#mypage-phoneNum, #mypage-update {
-	margin-top: -20px;
 }
 
 input[type="radio"] {
@@ -561,7 +555,8 @@ input[type="radio"] {
 }
 
 .content-mypage {
-	padding: 0 0 100px 0;
+	display: flex;
+	padding: 0px;
 }
 
 .sidebar ul {
@@ -572,7 +567,43 @@ input[type="radio"] {
 }
 
 .mUpdate {
+	margin-top: 40px;
+}
+
+.mUpdate, .mUpdate1 {
 	padding: 20px 10px;
-	margin-top: 5px;
-	border: 2px;
+}
+
+.delete-intro {
+	margin-right: 330px;
+	display: inline-block;
+}
+
+.toLogin {
+	font-size: 15px;
+	color: rgb(173,173,173);
+}
+
+
+
+.div-update {
+	margin-right: 10px;
+}
+
+.deleteForm {
+	margin-left: 150px;
+}
+
+li#active {
+	border: 1px solid rgb(217, 217, 217);
+	border-top: 2px solid #2e9cdf;
+	border-bottom: none;
+}
+
+.mypage-insert {
+	margin-right: 340px;
+}
+
+.mypage-insert-1 {
+	margin: -40px 330px 0 0;
 }

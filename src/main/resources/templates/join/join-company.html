@@ -11,7 +11,6 @@
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
-<!--header-->
 <div th:replace="/main/header::headerFragment"></div>
 <section id="top-bg">
   <div id="base-layer">
@@ -23,122 +22,6 @@
 </section>
 <section class="content-1">
   <p class="intro">회원가입</p>
-  <input id="individual" type="radio" name="joinSelect" checked>
-  <label for="individual" id="individual-tab">개인 회원</label>
-  <input id="company" type="radio" name="joinSelect">
-  <label for="company" id="company-tab">법인 회원</label>
-
-  <form action="join" name="joinIndividual" method="post" id="content-2">
-    <div>
-      <ul>
-        <li class="must-insert">
-          <p class="label-dot">*</p>
-          <label>아이디</label><span id="idMsg"></span>
-        </li>
-        <li>
-          <input type="text" name="memberId" id="memberId" placeholder="영문,숫자 5~10자리" tabindex="1">
-          <button type="button" class="button-style" id="check-btn-style">중복 체크</button>
-        </li>
-        <li class="must-insert-1">
-          <p class="label-dot-1">*</p>
-          <label>비밀번호</label><span id="pwdMsg"></span>
-        </li>
-        <li>
-          <input type="password" id="mpass" name="password" placeholder="숫자,영문,특수문자 조합 최소 8자" tabindex="2">
-          <input type="checkbox" class="pwd-check-img" id="pwd-check-img" onclick="memberPassVisible()">
-        </li>
-        <li>
-          <label>비밀번호 확인</label><span id="pwdMsg-check"></span>
-        </li>
-        <li>
-          <input type="password" name="password-check" placeholder="비밀번호 재입력" tabindex="3">
-          <input type="checkbox" class="pwd-check-img" id="pwd-check-img-1"  onclick="memberPassCheckVisible()">
-        </li>
-        <li class="must-insert">
-          <p class="label-dot">*</p>
-          <label>이름</label><span id="nameMsg"></span>
-        </li>
-        <li>
-          <input type="text" name="name" tabindex="4">
-        </li>
-        <li class="must-insert">
-          <p class="label-dot">*</p>
-          <label>이메일</label>
-          <span id="emailMsg"></span>
-          <span id="emailAuth"></span>
-        </li>
-        <li>
-          <input type="text" name="email" tabindex="5">
-          <button type="button" class="button-style" id="email-btn-style" onclick="sendEmail()">인증 번호</button>
-          <input type="text" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리" disabled="disabled">
-        </li>
-        <li>
-          <label>주소</label>
-        </li>
-        <li>
-          <input type="text" name="addr1" tabindex="8">
-          <button type="button" class="button-style" id="address-btn-style" tabindex="9">주소 검색</button>
-        </li>
-        <li class="address-input">
-          <label>상세 주소</label>
-        </li>
-        <li>
-          <input type="text" id="input-common" name="addr2" tabindex="10">
-        </li>
-        <li class="must-insert">
-          <p class="label-dot">*</p>
-          <label>휴대전화</label><span id="phoneMsg"></span>
-        </li>
-        <li>
-          <select id="selectbox-mobile" name="tel" tabindex="11">
-            <option value="default">선택</option>
-            <option value="SKT">SKT</option>
-            <option value="KT">KT</option>
-            <option value="LGU+">LGU+</option>
-            <option value="MVNO">알뜰폰</option>
-          </select>
-          <select id="selectbox-phone" name="phone1" tabindex="12">
-            <option value="default">선택</option>
-            <option value="010">010</option>
-            <option value="011">011</option>
-            <option value="012">012</option>
-          </select>
-          -
-          <input type="text" name="phone2" tabindex="13">
-          -
-          <input type="text" name="phone3" tabindex="14">
-        </li>
-      </ul>
-      <ul class="ul-agreement">
-        <li class="agreement-box">
-          <input type="checkbox" name="agreementAll" id="chk-circle" tabindex="15">
-          <span class="span_agreementAll">전체 동의하기</span>
-        </li>
-        <li>
-          <input type="checkbox" class="checkbox-agreement" name="chk-agree">
-          <span class="agreement-color">[필수]</span> <span>만 14세 이상입니다.</span>
-        </li>
-        <li>
-          <input type="checkbox" class="checkbox-agreement" name="chk-agree">
-          <span class="agreement-color">[필수]</span> <span>이용 약관</span><a class="detail1">자세히</a>
-        </li>
-        <li>
-          <input type="checkbox" class="checkbox-agreement" name="chk-agree">
-          <span class="agreement-color">[필수]</span> <span>개인정보 수집 및 이용 동의</span><a class="detail2">자세히</a>
-        </li>
-        <li>
-          <input type="checkbox" class="agreement-choice" name="chk-agree">
-          <span class="choice-span">[선택]</span> <span>마케팅 정보 메일, SMS 수신동의</span>
-        </li>
-
-        <li>
-          <button type="button" class="button-gradient" tabindex="16" onclick="memberValidation()">가입하기</button>
-        </li>
-      </ul>
-    </div>
-  </form>
-
-  <!-- 법인 등록 -->
   <form action="join_company_proc" name="joinCompany" method="post" id="content-3">
     <div>
       <ul>
@@ -252,9 +135,7 @@
       </ul>
     </div>
   </form>
-
 </section>
-
 
 <div class="modal">
   <div class="agreement" id="agreement-join">
@@ -309,4 +190,3 @@
 <div th:replace="/main/footer::footerFragment"></div>
 </body>
 </html>
-<script th:src="@{/js/login_script.js}"></script>
