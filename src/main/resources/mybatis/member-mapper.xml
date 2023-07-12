@@ -3,54 +3,11 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mapper.member">
+<mapper namespace="com.uniqueGames.repository.MemberMapper">
 
-	<select id="login" parameterType="Member" resultType="int">
-		select count(*) from member where member_id=#{memberId} and password=#{password}
-	</select>
-
-	<insert id="insert" parameterType="Member">
+	<insert id="save" parameterType="com.uniqueGames.model.Member">
 		insert into member (member_id, password, name, email, phone_num, addr, tel)
 		values (#{memberId},#{password},#{name},#{email},#{phoneNum},#{addr},#{tel})
 	</insert>
-	
-	<select id="idCheck" parameterType="String" resultType="int">
-		select count(*) from member where member_id=#{memberId}
-	</select>
-	
-	<select id="findId" parameterType="Member" resultType="java.lang.String">
-		select member_id from member where name=#{name} and phone_num=#{phoneNum}
-	</select>
-	
-	<select id="select" parameterType="Member" resultType="int">
-		select count(*) from member where member_id=#{memberId} and name=#{name} and phone_num=#{phoneNum}
-	</select>
-	
-	<update id="update" parameterType="Member">
-		update member set email=#{email}, addr=#{addr}, phone_num=#{phoneNum}, tel=#{tel} where member_id=#{memberId} and password=#{password}
-	</update>
-	
-	<update id="changeMpassword" parameterType="java.lang.String">
-		update member set password=#{mnewpassword} where member_id=#{memberId}
-	</update>
-	
-	<select id="myPage" parameterType="java.lang.String" resultType="Member">
-		select member_id, password, name, email, phone_num, addr, tel from member where member_id=#{memberId}
-	</select>
-	
-	<delete id="delete" parameterType="Member">
-		delete from member where member_id=#{memberId} and password=#{password}
-	</delete>
-	
-	<select id="emailCheck" parameterType="java.lang.String" resultType="int">
-		select count(*) from member where email=#{email}
-	</select>
-	
-	<select id="phoneCheck" parameterType="java.lang.String" resultType="int">
-		select count(*) from member where phone_num=#{phoneNum}
-	</select>
-	
-	
-	
 	
 </mapper>   

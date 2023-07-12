@@ -50,8 +50,8 @@ input[name="email-auth-check"] {
 }
 
 #btn-style, #address-btn-style, #company-address-btn-style,
-	#check-btn-style, #c-check-btn-style, #email-btn-style,
-	#c-email-btn-style, #company-address-btn-style {
+#check-btn-style, #c-check-btn-style, #email-btn-style,
+#c-email-btn-style, #company-address-btn-style, #mypage-email-btn, #mypage-pass-change {
 	width: 80px;
 	height: 30px;
 	background: #393939;
@@ -62,9 +62,8 @@ input[name="email-auth-check"] {
 	cursor: pointer;
 }
 
-#button-gradient-gotoLogin, #button-gradient-gotoPwd,
-	#button-gradient-gotoFind, #button-gradient-gotoJoin,
-	#button-gradient-home {
+
+.find-button-gradient {
 	width: 180px;
 	height: 50px;
 	margin-top: 20px;
@@ -76,20 +75,29 @@ input[name="email-auth-check"] {
 }
 
 #address-btn-style, #company-address-btn-style, #check-btn-style,
-	#c-check-btn-style, #email-btn-style, #c-email-btn-style,
-	#company-address-btn-style {
+#c-check-btn-style, #email-btn-style, #c-email-btn-style,
+#company-address-btn-style, #mypage-email-btn, #mypage-pass-change {
 	width: 90px;
 	height: 40px;
 	position: relative;
 	top: -55px;
 	left: 405px;
 }
+
+#mypage-email-btn {
+	left: 510px;
+}
+
+#mypage-pass-change {
+	left: 510px;
+	top : -84px;
+}
 /*
 a:visited {
 	color: #DDDDDD;
 }
 */
-#detail1, #detail2 {
+.detail1, .detail2 {
 	text-decoration: underline;
 	color: Blue;
 	margin-left: 10px;
@@ -133,7 +141,7 @@ a:visited {
 
 /* CheckBox */
 li input[name="agreementAll"] {
-	height: 1rem;	width: 1rem;	
+	height: 1rem;	width: 1rem;
 	padding: 0px;
 	border: 2px solid #2C2C2C;
 	border-radius: 50%;
@@ -147,7 +155,7 @@ input[name="agreementAll"]:checked {
 
 input[name="chk-agree"], input[name="c-chk-agree"] {
 	width: 20px;	height: 20px;
-	background-image: url("../images/btn_check_normal.png");
+	background-image: url("../images/btn-check-normal.png");
 	background-repeat: no-repeat;
 	margin: 0px 4px;
 	padding: 0px;
@@ -157,7 +165,7 @@ input[name="chk-agree"], input[name="c-chk-agree"] {
 }
 
 input[name="chk-agree"]:checked, input[name="c-chk-agree"]:checked {
-	background-image: url("../images/btn_check_select.png");
+	background-image: url("../images/btn-check-select.png");
 	background-repeat: no-repeat;
 }
 
@@ -209,7 +217,7 @@ div.agreement, div.agreement2 {
 	box-shadow: inset 0px 3px 6px #0000001A, 0px 10px 20px #00000029;
 }
 
-#modal, #modal2 {
+.modal, .modal2 {
 	width: 100%;
 	height: 100%;
 	position: fixed;
@@ -220,7 +228,7 @@ div.agreement, div.agreement2 {
 	display: none;
 }
 
-#agreement-title {
+.agreement-title {
 	margin: 0px 0px 20px 0px;
 	padding-top: 30px;
 	text-align: center;
@@ -229,7 +237,7 @@ div.agreement, div.agreement2 {
 	font-size: 24px;
 }
 
-#agreement-content {
+.agreement-content {
 	text-align: center;
 	width: 370px;
 	height: 340px;
@@ -242,28 +250,33 @@ div.agreement, div.agreement2 {
 	overflow: auto;
 }
 
-div.agreement button#button-gradient {
+div.agreement button.button-gradient {
 	margin: 20px 0 10px 0;
 	width: 250px;
 	font-size: 20px;
 }
 
+#changepassbutton {
+	margin-top: 20px;
+}
+
 div.detail1, div.detail2, div.deleteComplete, div.deleteComplete1, div.find-id-none,
-	div.find-pwd-none {
+div.find-pwd-none, div.mchangepass {
 	display: none;
 }
 
 .delete-span {
 	display: inline-block;
 	margin: 25px 0;
+	font-size: 16px;
 }
 
 div.agreement2 {
-	height: 300px;
+	height: 350px;
 }
 
 /* Span */
-#msgId, #msgPwd, #msgName, #msgPhone, #msgName1, #msgPhone1 {
+.caution {
 	width: 394px;
 	margin: auto;
 	text-align: left;
@@ -332,8 +345,8 @@ li.address-input {
 }
 
 #idMsg, #pwdMsg, #pwdMsg-check, #nameMsg, #emailMsg, #emailAuth,
-	#phoneMsg, #c-idMsg, #c-pwdMsg, #c-pwdMsg-check, #c-nameMsg,
-	#c-emailMsg, #c-emailAuth, #c-phoneMsg {
+#phoneMsg, #c-idMsg, #c-pwdMsg, #c-pwdMsg-check, #c-nameMsg,
+#c-emailMsg, #c-emailAuth, #c-phoneMsg {
 	position: relative;
 	top: -1.5px;
 	left: 5px;
@@ -344,9 +357,9 @@ li.address-input {
 	margin: 0 5px;
 }
 
-.pwd-check-img {
+.pwd-check-img, .mypage-pwd-check-img {
 	display: inline-block;
-	background-image: url("../images/btn_eye_normal.png");
+	background-image: url("../images/btn-eye-normal.png");
 	background-repeat: no-repeat;
 	appearance: none;
 	border: none; cursor : pointer;
@@ -360,15 +373,20 @@ li.address-input {
 	margin: 0;
 }
 
+.mypage-pwd-check-img {
+	left: 450px;
+	top: -46px;
+}
+
 .pwd-check-img:checked {
-	background-image: url("../images/btn_eye_select.png");
+	background-image: url("../images/btn-eye-select.png");
 	background-repeat: no-repeat;
 }
 
 
 /* DeltePWD, DeleteCompany CSS */
 .intro-1, .intro-2, .intro-3 {
-	font-family: "YouandiModern", sans-serif; 
+	font-family: "YouandiModern", sans-serif;
 	width: 394px;
 	margin: auto;
 	text-align: left;
@@ -405,19 +423,19 @@ li.address-input {
 }
 
 #content-2, #content-3, #individual-loginForm, #company-loginForm,
-	#individual, #company, #findId, #findPwd, #individual-login,
-	#company-login, #findIdForm, #findPwdForm {
+#individual, #company, #findId, #findPwd, #individual-login,
+#company-login, #findIdForm, #findPwdForm {
 	display: none;
 }
 
-#individual:checked ~ #content-2, #company:checked ~ #content-3, #findId:checked 
-	~ #findIdForm, #findPwd:checked ~ #findPwdForm, #individual-login:checked 
-	~ #individual-loginForm, #company-login:checked ~ #company-loginForm {
+#individual:checked ~ #content-2, #company:checked ~ #content-3, #findId:checked
+~ #findIdForm, #findPwd:checked ~ #findPwdForm, #individual-login:checked
+~ #individual-loginForm, #company-login:checked ~ #company-loginForm {
 	display: block;
 }
 
-#individual-tab, #company-tab, #findId-tab, #findPwd-tab,
-	#individual-login-tab, #company-login-tab {
+#individual-tab, #company-tab, .findId-tab, .findPwd-tab,
+#individual-login-tab, #company-login-tab, #update-tab, #order-tab {
 	display: inline-block;
 	margin: 0 0 5px 0;
 	padding: 15px 63px;
@@ -427,17 +445,21 @@ li.address-input {
 	border: 1px solid transparent;
 }
 
-#individual-tab:hover, #company-tab:hover, #findId-tab:hover,
-	#findPwd-tab:hover, #individual-login-tab:hover, #company-login-tab:hover
-	{
+#delete-tab {
+	margin-bottom: 0px;
+}
+
+#individual-tab:hover, #company-tab:hover, .findId-tab:hover,
+.findPwd-tab:hover, #individual-login-tab:hover, #company-login-tab:hover, #update-tab:hover, #order-tab:hover, #delete-tab:hover
+{
 	color: #2e9cdf;
 	cursor: pointer;
 }
 
-#individual:checked+#individual-tab, #company:checked+#company-tab,
-	#findId:checked+#findId-tab, #findPwd:checked+#findPwd-tab,
-	#individual-login:checked+#individual-login-tab, #company-login:checked+#company-login-tab
-	{
+#individual:checked+#individual-tab, #company:checked+#company-tab, #mUpdate:checked+#update-tab, #mOrder:checked+#order-tab, #mDelete:checked+#delete-tab,
+#findId:checked+.findId-tab, #findPwd:checked+.findPwd-tab,
+#individual-login:checked+#individual-login-tab, #company-login:checked+#company-login-tab
+{
 	color: #555;
 	border: 1px solid #ddd;
 	border-top: 2px solid #2e9cdf;
@@ -451,13 +473,106 @@ li.address-input {
 	padding-bottom: 60px;
 }
 
-.content-1 {
+.content-1, .content-4, .content-5, .content-mypage {
 	width: 1100px;
 	margin: auto;
 	text-align: center;
 	padding: 60px 0 100px 0;
 }
 
-#findId-tab, #findPwd-tab {
+.findId-tab, .findPwd-tab {
 	padding: 15px 51px;
+}
+
+.sidebar {
+	width: 200px;
+	height: 880px;
+	float:left;
+	background-color: #FBFBFB;
+	border: 1px;
+	border-color: #DDD;
+	position: relative;
+	/*margin : 0px 10px 10px 400px;*/
+}
+
+.member-delete {
+	position: absolute;
+	bottom: 0;
+}
+
+.mypage-profile {
+	margin: 45px 0 0 45px;
+	width: 110px;
+	height: 110px;
+	border-radius: 55px;
+	background: #D9D9D9;
+}
+.mypage-info {
+	margin-top: 20px;
+	text-align: center;
+}
+
+#mypage-id {
+	margin-top: -5px;
+	font-size: 15px;
+}
+
+.mypage-update {
+	margin-top : 269px;
+}
+
+.profile-picture {
+	margin: 18px 20px;
+}
+
+.mypage-input {
+	margin-left: 98px;
+}
+
+.intro-4 {
+	font-family: "YouandiModern", sans-serif;
+	font-size: 24px;
+	padding: 60px 0;
+	margin-left: 98px;
+}
+
+.must-insert-5, #mypage-update {
+	margin: 20px 0 0 98px;
+}
+
+#newpassInput, #newpassInputCheck {
+	margin-top: -40px;
+}
+
+#mypage-phoneNum, #mypage-update {
+	margin-top: -20px;
+}
+
+input[type="radio"] {
+	display: none;
+}
+
+#update-tab {
+	margin-top: 40px;
+}
+
+#mUpdate:checked+#update-tab, #mOrder:checked+#order-tab, #mDelete:checked+#delete-tab{
+	border-bottom: 1px solid #ddd;
+}
+
+.content-mypage {
+	padding: 0 0 100px 0;
+}
+
+.sidebar ul {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.mUpdate {
+	padding: 20px 10px;
+	margin-top: 5px;
+	border: 2px;
 }
