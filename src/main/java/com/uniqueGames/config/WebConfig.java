@@ -16,7 +16,8 @@ public class WebConfig implements WebMvcConfigurer {
             "/member/**",
             "/search/**",
             "/mybatis",
-            "/error", "/cart", "/main/**",
+            "/error", "/cart", "/main/**","/findAccount","/detail/**","/favicon.ico",
+            "/upload/**","/notice/content/**", "/notice/list","/topgame", "/alllist",
             "/findMember", "/findCompany", "/idcheck", "/findmid", "/changepass", "/phonecheck", "/emailcheck", "/mailCheck", "/mchangepass"
 
     };

@@ -1,4 +1,4 @@
-package com.uniqueGames;
+    package com.uniqueGames;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

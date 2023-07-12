@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Unique Games</title>
-  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
 <!--header-->
-<div th:replace="header::headerFragment"></div>
+<div th:replace="~{/main/header :: headerFragment}"></div>
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
@@ -18,14 +19,14 @@
 </section>
 <section id="menu-main2">
   <div class="menu-allList">
-    <div id="gameList">
-      <div th:each="game : ${gameList}" id="gList">
+    <div class="gameList">
+      <div th:each="game : ${gameList}" class="gList">
         <img th:src="${game.imagePath}" width="260px" height="180px">
         <ul>
           <li><a th:href="'detail/' + ${game.description}" th:text="${game.name}"></a></li>
           <li th:text="${game.gameGenre}"></li>
-          <li><button id="btn-like-style" type="button" th:data-game-id="${game.id}"></button></li>
-          <li th:text="${game.likeCount}"></li>
+          <li><button class="btn-like-style" type="button" th:data-game-id="${game.id}"></button></li>
+          <li></li>
           <li><img src="/images/img-icon-rPc.png"></li>
         </ul>
       </div>
@@ -33,6 +34,6 @@
   </div>
 </section>
 <!--footer-->
-<div th:replace="footer::footerFragment"></div>
+<div th:replace="~{/main/footer::footerFragment}"></div>
 </body>
 </html>
