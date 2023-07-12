@@ -7,11 +7,13 @@ import com.uniqueGames.repository.NoticeMapper;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import com.uniqueGames.test.GenericImpl2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NoticeServiceImpl implements NoticeService {
+public class NoticeServiceImpl extends GenericImpl2 implements NoticeService {
 
 	private NoticeMapper noticeMapper;
 	private BoardUtil boardUtil;
@@ -20,6 +22,15 @@ public class NoticeServiceImpl implements NoticeService {
 	public NoticeServiceImpl(NoticeMapper noticeMapper, BoardUtil boardUtil) {
 		this.noticeMapper = noticeMapper;
 		this.boardUtil = boardUtil;
+	}
+
+	@Override
+	protected void extractFile(Object obj) {
+		if (obj.toString().contains("Notice")) {
+			Notice notice = (Notice) obj;
+			super.setFile(notice.getFile());
+		}
+
 	}
 
 	/**
@@ -53,16 +64,17 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	/**
-	 * 공지사항 - 작성
-	 * 
-	 * @throws Exception
+	 * 공지사항 작성
+	 * @param notice
+	 * @return
 	 */
 	@Override
 	public int insert(Notice notice) {
-
+		notice.setImageId(super.fileCheck(notice));
 		int insResult = noticeMapper.insertNotice(notice);
 		if (notice.getImageId() != null) {
 			noticeMapper.insertFile(notice);
+			super.fileSaveUtil();
 		}
 
 		return insResult;
@@ -73,10 +85,13 @@ public class NoticeServiceImpl implements NoticeService {
 	 */
 	@Override
 	public int update(Notice notice) {
-		int result = 0;
+		String oldFileName = notice.getImageId();
 
-		result = noticeMapper.updateNotice(notice);
+//		notice.setImageId(super.fileCheck(notice));
+//		super.fileUpdateUtil(notice.getImageId());
+		System.out.println(notice.getImageId());
 
+		int result = noticeMapper.updateNotice(notice);
 		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
 
 			if (noticeMapper.fileCheck(notice) == 1) {

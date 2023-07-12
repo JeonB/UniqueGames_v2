@@ -43,16 +43,15 @@ public class LoginController {
 //		MemberVo loginMember = memberRepositoryMapper.findById(member.getMember_id());
 //		CompanyVo loginMemberCom = companyRepositoryMapper.findById(company.getCompany_id());
 
-		session.setAttribute("login", "not");
 		/* member */
 		if (member != null && memberRepositoryMapper.passEqual(member) == 1) {
 			// loginMember != null && loginMember.getPassword().equals(member.getPassword())
 			session.setAttribute(SessionConstants.LOGIN_MEMBER, memberRepositoryMapper.findById(member.getMemberId()));
 			session.setAttribute("login", "member");
-
-			if (redirectURL.equals("notice_write") || redirectURL.equals("detail/insertIntro")) {
-				return "redirect:/";
-			}
+//
+//			if (redirectURL.equals("notice_write") || redirectURL.equals("detail/insertIntro")) {
+//				return "redirect:/";
+//			}
 		}
 		/* company */
 		else if (company != null && companyRepositoryMapper.passEqual(company) == 1) {

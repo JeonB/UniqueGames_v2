@@ -121,7 +121,7 @@
                                 <span class="vm-price-desc" >제작 </span>
                                 <span class="PricebasePrice" ><a href="../detail/getIntro?id=2" style="font: italic normal 900 18px Apex New; letter-spacing: 0px;color: #1c2025">에픽콘솔게임 Team</a>
                                   </span>
-                                <span id="company_id" style="display: none">${company.company_id}</span>
+                                <span id="company_id" style="display: none" th:text="${company.companyId}"></span>
                               </div>
                               <span class="price-crossed" ></span>
                             </div>
@@ -169,11 +169,11 @@
                                 <span class="amount">200,000,000원</span>
                               </div>
                               <div class="donation-amount" style="margin-bottom: 30px">
-                                <%--                                  <span class="label">후원금액</span>--%>
-                                <%--                                  <span class="don-amount">2,000,000원</span>--%>
+                               <span class="label">후원금액</span>
+                                <span class="don-amount">2,000,000원</span>
                               </div>
-                              <button type="button" class="btn btn-default btn-lg" id="btn_wishlist" data="50004122" style="width: 90px;">
-                                <img th:src="@{/images/btn_like_select.png}">
+                              <button type="button" class="btn btn-default btn-lg" id="btn_wishlist" style="width: 90px;">
+                                <img th:src="@{/images/btn-like-select.png}">
                                 Like</button>
                               <button type="button" class="btn btn-warning btn-lg" id="btn_donate" style="width: 150px">후원하기</button>
 

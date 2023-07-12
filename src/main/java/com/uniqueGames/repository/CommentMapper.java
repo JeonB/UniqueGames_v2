@@ -17,10 +17,13 @@ public interface CommentMapper {
 	public List<Comment> selectComment(String no);
 
 	@Insert("INSERT INTO COMMENT (POST_ID, MEMBER_ID, COMMENT_CONTENT)"
-			+ " VALUES (#{post_id}, #{member_id}, #{comment_content})")
+			+ " VALUES (#{postId}, #{memberId}, #{commentContent})")
 	public int insertComment(Comment comment);
 
 	@Delete("DELETE FROM COMMENT WHERE COMMENT_ID = #{no}")
 	public int deleteComment(String no);
+
+	@Select("SELECT COUNT(*) FROM COMMENT WHERE POST_ID = #{no}")
+	public int getCmtCount(int no);
 
 }
