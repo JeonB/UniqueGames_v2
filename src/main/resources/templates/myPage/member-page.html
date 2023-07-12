@@ -4,262 +4,85 @@
   <meta charset="UTF-8">
   <title>myPage</title>
   <link rel="stylesheet" th:href="@{/css/login.css}">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
   <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
+  <script th:src="@{/js/join_jquery.js}"></script>
+  <script th:src="@{/js/login_script.js}"></script>
   <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
   <script th:inline="javascript">
+    //JavaScript 코드
     /*<![CDATA[*/
-    $(document).ready(function(){
-      var password = /*[[${member.password}]]*/ "";
-      var phone1 = /*[[${member.phone1}]]*/ "";
-      var phone2 = /*[[${member.phone2}]]*/ "";
-      var phone3 = /*[[${member.phone3}]]*/ "";
-      var email1 = /*[[${member.email1}]]*/ "";
-      var email2 = /*[[${member.email2}]]*/ "";
 
-      function emailCheck(asValue){
-        var regex = /[A-za-z0-9]{4,20}$/;
-        return regex.test(asValue);
-      }
-
-      function phoneCheck(asValue) {
-        var regex = /^\d{3,4}$/;
-        return regex.test(asValue);
-      }
-
-      $("#button-gradient").click(function(){
-        if($("input[name='password']").val()==""){
-          alert("비밀번호를 입력해주세요");
-          $("input[name='password']").focus();
-          return false;
-        } else if($("input[name='password']").val() != password){
-          alert("비밀번호가 일치하지 않습니다");
-          $("input[name='password']").focus();
-          return false;
-        } else if($("input[name='email1']").val()==""){
-          alert("이메일은 필수 입력 항목입니다");
-          $("input[name='email1']").focus();
-          return false;
-        } else if(!emailCheck($("input[name='email1']").val())){
-          alert("이메일은 영문 또는 숫자로 4자리 이상 입력해주세요");
-          $("input[name='email1']").focus();
-          return false;
-        } else if($("input[name='email2']").val()=="" && $("#selectbox-email").val()=="choose" || $("input[name='email2']").val()=="" && $("#selectbox-email").val()=="direct"){
-          alert("이메일 주소를 전부 작성해주세요");
-          $("input[name='email2']").focus();
-          return false;
-        } else if($("#emailAuth").css("color") === "rgb(255, 0, 0)") {
-          alert("이메일 인증번호를 확인해주세요");
-          $("#email-auth-check").focus();
-          return false;
-        } else if($("#selectbox-mobile").val()=="choose") {
-          alert("통신사를 선택해주세요");
-          $("#selectbox-mobile").focus();
-          return false;
-        } else if($("#selectbox-phone").val()=="choose") {
-          alert("휴대전화는 필수 입력 항목입니다");
-          $("#selectbox-phone").focus();
-          return false;
-        } else if($("input[name='phone2']").val()=="") {
-          alert("휴대전화는 필수 입력 항목입니다");
-          $("input[name='phone2']").focus();
-          return false;
-        } else if(!phoneCheck($("input[name='phone2']").val())) {
-          alert("휴대전화는 숫자 3~4자리로 입력해주세요");
-          $("input[name='phone2']").focus();
-          return false;
-        } else if($("input[name='phone3']").val()=="") {
-          alert("휴대전화는 필수 입력 항목입니다");
-          $("input[name='phone3']").focus();
-          return false;
-        } else if(!phoneCheck($("input[name='phone3']").val())) {
-          alert("휴대전화는 숫자 4자리로 입력해주세요");
-          $("input[name='phone3']").focus();
-          return false;
-        } else {
-          document.myPageForm.submit();
-        }
-      });
-
-      $("#address-btn-style").click(function(){
-        new daum.Postcode({
-          oncomplete: function(data) {
-            $("input[name='addr1']").val(data.zonecode);
-            $("input[name='addr2']").val(data.address);
-          }
-        }).open();
-      });
-
-      $("#email-btn-style").click(function(){
-        var email1 = $("input[name='email1']").val();
-        var email2 = $("input[name='email2']").val();
-        var email3 = $("#selectbox-email").val();
-        var email = email1 + "@" + email2;
-
-        if(email1 == ""){
-          alert("이메일은 필수 입력 항목입니다");
-          $("input[name='email1']").focus();
-          return false;
-        } else if(!emailCheck(email1)){
-          alert("이메일은 영문 또는 숫자로 4자리 이상 입력해주세요");
-          $("input[name='email1']").focus();
-          return false;
-        } else if(email2 == "" && email3 == "choose" || email2 == "" && email3 == "direct"){
-          alert("이메일 주소를 전부 작성해주세요");
-          $("input[name='email2']").focus();
-          return false;
-        } else {
-          var params = { email: email };
-          $.ajax({
-            type: "POST",
-            url: "myPageEmailAuth",
-            data: params,
-            success: function(result){
-              if(result == "success"){
-                $("#email-auth-check").removeAttr("disabled");
-                $("#emailAuth").text("인증번호가 전송되었습니다");
-                $("#emailAuth").css("color", "#777");
-              }
-            },
-            error: function(e){
-              console.log(e);
-            }
-          });
-        }
-      });
-
-      $("#email-auth-check").keyup(function(){
-        var authCode = $("#email-auth-check").val();
-        var params = { authCode: authCode };
-
-        $.ajax({
-          type: "POST",
-          url: "myPageEmailAuthCheck",
-          data: params,
-          success: function(result){
-            if(result == "success"){
-              $("#emailAuth").text("인증이 완료되었습니다");
-              $("#emailAuth").css("color", "green");
-            } else {
-              $("#emailAuth").text("인증번호가 일치하지 않습니다");
-              $("#emailAuth").css("color", "red");
-            }
-          },
-          error: function(e){
-            console.log(e);
-          }
-        });
-      });
-    });
     /*]]>*/
   </script>
 </head>
 <body>
 <header th:include="main/header"></header>
-<section class="top-bg">
-  <div class="base-layer">
-    <div class="top-bg-textarea">
-      <p class="top-title">My Page</p>
-      <p class="top-subtitle">#마이페이지</p>
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">My Page</p>
+      <p id="top-subtitle">#마이페이지</p>
     </div>
   </div>
 </section>
-<section class="content-1">
-  <p class="intro">마이페이지</p>
-  <form th:action="@{/myPage_proc}" name="myPageForm" method="post" id="content-myPage">
+<section class="content-mypage">
+  <div class="sidebar">
+    <ul>
+      <li class="mypage-profile">
+        <img src="/images/mypage-profile.png" class="profile-picture">
+      </li>
+      <li class="mypage-info" th:text="${member.name}"></li>
+      <li class="mypage-info" id="mypage-id" th:text="${member.memberId}"></li>
+      <li class="mUpdate"><a th:href="@{/mypage}">개인 정보</a></li>
+      <li class="mUpdate"><a href="member-order">결제 내역</a></li>
+      <li class="mUpdate"><a th:href="@{/deleteAccount}">회원탈퇴</a></li>
+    </ul>
+  </div>
+  <div class="memberChangeTab">
+  <p class="intro-4">개인정보 수정</p>
+  <form action="memberupdate" name="myPageForm" method="post" id="content-myPage" th:checked="true">
+    <input type="hidden" name="memberId" th:value="${member.memberId}">
     <div>
       <ul>
-        <li class="must-insert">
+        <li class="must-insert-5">
           <p class="label-dot">*</p>
-          <label>아이디</label><span id="idMsg"></span>
+          <label>이메일</label><span id="emailMsg"></span>
         </li>
         <li>
-          <input type="text" name="memberId" th:value="${member.memberId}" disabled="disabled">
-          <input type="hidden" name="memberId" th:value="${member.memberId}">
+          <input type="text" name="email" th:value="${member.email}" class="mypage-input">
+          <button type="button" id="mypage-email-btn">인증 번호</button>
         </li>
-        <li class="must-insert">
-          <p class="label-dot">*</p>
-          <label>비밀번호</label><span id="pwdMsg"></span>
-        </li>
-        <li>
-          <input type="password" name="password">
-          <input type="checkbox" class="pwd-check-img">
-        </li>
-        <li>
-          <a th:href="@{/myPageChangePassword(memberId=${member.memberId})}" class="link-changePassword">
-            <span>비밀번호 변경 ></span>
-          </a>
-        </li>
-        <li class="must-insert">
-          <p class="label-dot">*</p>
-          <label>이름</label><span id="nameMsg"></span>
-        </li>
-        <li>
-          <input type="text" name="name" th:value="${member.name}" disabled="disabled">
-          <input type="hidden" name="name" th:value="${member.name}">
-        </li>
-        <li class="must-insert">
-          <p class="label-dot">*</p>
-          <label>이메일</label>
-          <span id="emailMsg"></span>
-          <span id="emailAuth"></span>
-        </li>
-        <li>
-          <input type="text" name="email1" th:value="${member.email1}">
-          @
-          <input type="text" name="email2" th:value="${member.email2}">
-          <select name="email3" id="selectbox-email">
-            <option value="choose">선택</option>
-            <option value="naver.com" th:selected="${member.email3 == 'naver.com'}">naver.com</option>
-            <option value="gmail.com" th:selected="${member.email3 == 'gmail.com'}">gmail.com</option>
-            <option value="daum.net" th:selected="${member.email3 == 'daum.net'}">daum.net</option>
-            <option value="direct">직접입력</option>
-          </select>
-          <button type="button" id="email-btn-style">인증 번호</button>
-          <input type="text" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리 입력" disabled="disabled">
-        </li>
-        <li class="must-insert">
+        <li class="must-insert-5" id="mypage-phoneNum">
           <p class="label-dot">*</p>
           <label>휴대전화</label><span id="phoneMsg"></span>
         </li>
         <li>
-          <select name="mobile" id="selectbox-mobile">
-            <option value="choose">선택</option>
-            <option value="SKT" th:selected="${member.mobile == 'SKT'}">SKT</option>
-            <option value="KT" th:selected="${member.mobile == 'KT'}">KT</option>
-            <option value="LGU+" th:selected="${member.mobile == 'LGU+'}">LGU+</option>
-          </select>
-          <span>-</span>
-          <select name="phone1" id="selectbox-phone">
-            <option value="choose">선택</option>
-            <option value="010" th:selected="${member.phone1 == '010'}">010</option>
-            <option value="011" th:selected="${member.phone1 == '011'}">011</option>
-            <option value="016" th:selected="${member.phone1 == '016'}">016</option>
-            <option value="017" th:selected="${member.phone1 == '017'}">017</option>
-            <option value="018" th:selected="${member.phone1 == '018'}">018</option>
-            <option value="019" th:selected="${member.phone1 == '019'}">019</option>
-          </select>
-          <span>-</span>
-          <input type="text" name="phone2" th:value="${member.phone2}">
-          <span>-</span>
-          <input type="text" name="phone3" th:value="${member.phone3}">
+          <input type="text" name="phoneNum" class="mypage-input" th:value="${member.phoneNum}" placeholder="-제외하고 입력하세요">
         </li>
-        <li class="must-insert">
+        <li class="must-insert-5">
           <p class="label-dot">*</p>
-          <label>주소</label><span id="addressMsg"></span>
+          <label>비밀번호</label><span id="nameMsg"></span>
         </li>
         <li>
-          <input type="text" name="addr1" th:value="${member.addr1}" readonly="readonly">
-          <button type="button" id="address-btn-style">주소 찾기</button>
+          <input type="password" name="password" class="mypage-input" placeholder="현재 비밀번호">
+          <input type="checkbox" class="mypage-pwd-check-img" id="pwd-check-img" onclick="memberPassVisible()">
+          <input type="password" name="newPassword" class="mypage-input" id="newpassInput" placeholder="새로운 비밀번호">
+          <input type="checkbox" class="mypage-pwd-check-img">
+          <input type="password" name="newPasswordCheck" class="mypage-input" id="newpassInputCheck" placeholder="새로운 비밀번호 재입력">
+          <input type="checkbox" class="mypage-pwd-check-img" id="pwd-check-img-1" onclick="memberPassCheckVisible()">
         </li>
         <li>
-          <input type="text" name="addr2" th:value="${member.addr2}" readonly="readonly">
+          <button type="button" id="mypage-pass-change">재설정</button>
+        </li>
+        <li>
+          <button type="button" class="button-gradient" id="mypage-update">수정 완료</button>
         </li>
       </ul>
     </div>
-    <button type="button" id="button-gradient">수정 완료</button>
   </form>
+  </div>
 </section>
 <footer th:include="main/footer"></footer>
-<script th:src="@{/js/common.js}"></script>
 </body>
 </html>

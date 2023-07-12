@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Unique Games</title>
-  <link rel="stylesheet" th:href="@{/css/main.css}">
-  <link rel="stylesheet" th:href="@{/css/order.css}">
+  <link rel="stylesheet" href="/css/order.css">
+  <link rel="stylesheet" href="/css/main.css">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
   <script src="js/cart-script.js"></script>
 </head>
@@ -81,6 +81,6 @@
 </section>
 
 <!-- footer -->
-<div th:replace="~{/main/footer::footerFragment}"></div>
+<div th:replace="/main/footer::footerFragment"></div>
 </body>
 </html>

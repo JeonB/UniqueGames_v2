@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Unique Games</title>
-  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-<header th:replace="header::headerFragment"></header>
+<div th:replace="~{/main/header :: headerFragment}"></div>
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
@@ -15,19 +16,19 @@
     </div>
   </div>
 </section>
-<section id="menu-main2">
+<section class="menu-main2">
   <div class="menu-allList">
     <div class="gameList">
-      <p id="intro-allList">게임 순위</p>
+      <p class="intro-allList">게임 순위</p>
       <div>
         <div>
-          <div th:each="ranking, loop: ${ranking}" th:if="${loop.count le 10}" id="tList-detail">
+          <div th:each="ranking, loop: ${ranking}" th:if="${loop.count le 10}" class="tList-detail">
             <img alt="#" th:src="${ranking.imagePath}" width="500px" height="240px">
             <div>
               <p th:text="${loop.count}"></p>
-              <p id="cyber" th:text="${ranking.name}"></p>
+              <p class="cyber" th:text="${ranking.name}"></p>
               <p th:text="${ranking.description}"></p>
-              <button id="btn-readmore-topGame" type="button">자세히보기</button>
+              <button class="btn-readmore-topGame" type="button">자세히보기</button>
             </div>
           </div>
         </div>
@@ -35,6 +36,6 @@
     </div>
   </div>
 </section>
-<footer th:replace="footer::footerFragment"></footer>
+<div th:replace="~{/main/footer::footerFragment}"></div>
 </body>
 </html>

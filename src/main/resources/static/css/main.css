@@ -257,8 +257,8 @@ header div img {
 
 .nav1>ul>li>a {
 	display: block;
-	width: 40px;
-	padding: 4px 6px 4px 6px;
+	height: auto;
+	padding: 4px 10px 4px 10px;
 	text-decoration: none;
 	color: #fff;
 	font-size: 16px;
@@ -326,3 +326,13 @@ header div img {
 	padding: 5px;
 }
 
+.member_id_header {
+	display: block;
+	height: auto;
+	padding: 4px 10px 4px 10px;
+	text-decoration: none;
+	color: #fff;
+	font-size: 16px;
+	font-family: "YouandiModern", sans-serif;
+	text-align: center;
+}

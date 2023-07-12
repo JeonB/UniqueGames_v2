@@ -2,6 +2,7 @@ package com.uniqueGames.service;
 
 
 import com.uniqueGames.model.Game;
+import com.uniqueGames.model.Member;
 import com.uniqueGames.repository.IndexMapper;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,12 @@ public class IndexServiceMapper {
     @Autowired
     IndexMapper indexMapper;
 
-    public List<Game> getGameList() {
-        return indexMapper.getGameList();
-    }
+    public List<Game> getGameList() { return indexMapper.getGameList(); }
 
     public Game getGame(Game vo) {
         return indexMapper.getGame(vo);
     }
+
     public Game getGameForIndex(int id) {
         return indexMapper.getGameForIndex(id);
     }
@@ -44,16 +44,16 @@ public class IndexServiceMapper {
         indexMapper.deleteGame(vo);
     }
 
-    public int hasLiked(int gid, int mid) {
-        return indexMapper.hasLiked(gid, mid);
+    public int hasLiked(String mid, String gid) {
+        return indexMapper.hasLiked(mid, gid);
     }
 
-    public void addLikeInfo(int gid, int mid) {
-        indexMapper.addLikeInfo(gid, mid);
+    public void addLikeInfo(String mid, String gid) {
+        indexMapper.addLikeInfo(mid, gid);
     }
 
-    public void removeLikeInfo(int gid, int mid) {
-        indexMapper.removeLikeInfo(gid, mid);
+    public void removeLikeInfo(String mid, String gid) {
+        indexMapper.removeLikeInfo(mid, gid);
     }
 
 }

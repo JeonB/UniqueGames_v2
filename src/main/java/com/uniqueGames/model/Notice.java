@@ -1,10 +1,10 @@
 package com.uniqueGames.model;
 
-import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Date;
 
 @Setter
 @Getter
@@ -18,7 +18,7 @@ public class Notice {
 	int noticeHits;
 	Date noticeDate;
 	String dateOutput;
-	CommonsMultipartFile file;
+	MultipartFile file;
 	String imageId;
 	String uploadFile;
 	int cmtCount;

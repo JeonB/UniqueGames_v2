@@ -1,0 +1,117 @@
+/* version : MySQL 8.0.33
+    DB, 계정 생성 및 권한 부여 쿼리문
+    CREATE DATABASE uniquegames;
+    CREATE USER 'unique_games'@'localhost' IDENTIFIED BY '1234';
+    GRANT ALL PRIVILEGES ON uniquegames.* TO 'unique_games'@'localhost';
+    FLUSH PRIVILEGES;
+*/
+
+DROP TABLE IF EXISTS `TB_MEMBER`;
+CREATE TABLE TB_MEMBER (
+                         MEMBER_ID VARCHAR(30) NOT NULL PRIMARY KEY,
+                         PASSWORD VARCHAR(30) NOT NULL,
+                         NAME VARCHAR(30) NOT NULL,
+                         EMAIL VARCHAR(30) NOT NULL,
+                         ADDR VARCHAR(100),
+                         TEL VARCHAR(20),
+                         PHONE_NUM VARCHAR(30),
+                         PROFILE_IMG VARCHAR(200),
+                         INDEX idx_member_id (MEMBER_ID)
+);
+
+DROP TABLE IF EXISTS `TB_GAME`;
+CREATE TABLE TB_GAME (
+                        ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                        NAME VARCHAR(30) NOT NULL,
+                        IMAGE_PATH VARCHAR(200) NOT NULL,
+                        GAME_GENRE VARCHAR(50) NOT NULL,
+                        DONATION_STATUS INT NOT NULL DEFAULT 0,
+                        DESCRIPTION VARCHAR(200),
+                        LIKE_LIST VARCHAR(200),
+                        INDEX idx_company_game(ID)
+);
+
+DROP TABLE IF EXISTS `TB_COMPANY`;
+CREATE TABLE TB_COMPANY (
+                         COMPANY_ID VARCHAR(30) NOT NULL PRIMARY KEY,
+                         PASSWORD VARCHAR(30) NOT NULL,
+                         NAME VARCHAR(30) NOT NULL,
+                         EMAIL VARCHAR(30) NOT NULL,
+                         ADDR VARCHAR(100),
+                         TEL VARCHAR(20),
+                         PHONE_NUM VARCHAR(30),
+                         PROFILE_IMG VARCHAR(200),
+                         G_ID INT UNSIGNED,
+                         CONSTRAINT FK_COMPANY_GAME FOREIGN KEY (G_ID) REFERENCES TB_GAME (ID) ON UPDATE CASCADE ON DELETE CASCADE,
+                         INDEX idx_company_id(COMPANY_ID),
+                         INDEX idx_company_intro(NAME)
+);
+
+DROP TABLE IF EXISTS `TB_NOTICE`;
+CREATE TABLE TB_NOTICE (
+                        ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                        C_ID VARCHAR(30) NOT NULL,
+                        TITLE VARCHAR(50),
+                        CONTENT VARCHAR(300),
+                        NOTICE_HITS INT,
+                        NOTICE_DATE DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        CONSTRAINT FK_NOTICE_COMPANY FOREIGN KEY (C_ID) REFERENCES TB_COMPANY (COMPANY_ID) ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS `TB_NOTICE_IMAGE`;
+CREATE TABLE TB_NOTICE_IMAGE (
+                        ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                        POST_ID INT UNSIGNED,
+                        UPLOAD_IMG VARCHAR(100) NOT NULL PRIMARY KEY,
+                        UPLOAD_DATE DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        CONSTRAINT FK_NOTICEIMG_NOTICE FOREIGN KEY (POST_ID) REFERENCES TB_NOTICE (ID) ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS `TB_COMMENT`;
+CREATE TABLE TB_COMMENT (
+                         ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                         POST_ID INT UNSIGNED NOT NULL,
+                         M_ID VARCHAR(30) NOT NULL,
+                         COMMENT_CONTENT VARCHAR(50),
+                         COMMENT_DATE DATETIME DEFAULT CURRENT_TIMESTAMP,
+                         CONSTRAINT FK_COMMENT_NOTICE FOREIGN KEY (POST_ID) REFERENCES TB_NOTICE (ID) ON DELETE CASCADE,
+                         CONSTRAINT FK_COMMENT_MEMBER FOREIGN KEY (M_ID) REFERENCES TB_MEMBER (MEMBER_ID) ON DELETE CASCADE
+);
+
+-- GAMETITLE, GAMEIMG, AMOUNT_CHECK 삭제
+DROP TABLE IF EXISTS `TB_ORDER`;
+CREATE TABLE TB_ORDER (
+                        ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                        M_ID VARCHAR(30) NOT NULL,
+                        C_ID VARCHAR(30) NOT NULL,
+                        G_ID INT UNSIGNED NOT NULL,
+                        ORDER_DATE DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        AMOUNT INT NOT NULL,
+                        METHOD VARCHAR(20),
+                        PAYMENT_STATUS VARCHAR(30) DEFAULT 'NOT' NOT NULL,
+                        CONSTRAINT FK_ORDERS_MEMBER FOREIGN KEY (M_ID) REFERENCES TB_MEMBER (MEMBER_ID),
+                        CONSTRAINT FK_ORDERS_COMPANY FOREIGN KEY (C_ID) REFERENCES TB_COMPANY (COMPANY_ID),
+                        CONSTRAINT FK_ORDERS_GAME FOREIGN KEY (G_ID) REFERENCES TB_GAME (ID)
+#                         CONSTRAINT AMOUNT_CHECK CHECK (AMOUNT >= 10000)
+);
+
+DROP TABLE IF EXISTS `TB_INTRO`;
+CREATE TABLE TB_INTRO (
+                       ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                       C_ID VARCHAR(30),
+                       NAME VARCHAR(30),
+                       TITLE VARCHAR(100) NOT NULL,
+                       CONTENT VARCHAR(500) NOT NULL,
+                       UPLOAD_IMG VARCHAR(100),
+                       CONSTRAINT FK_INTRO_COMPANY FOREIGN KEY (C_ID) REFERENCES TB_COMPANY (COMPANY_ID) ON DELETE CASCADE ON UPDATE CASCADE,
+                       CONSTRAINT FK_INTRO_COMPANY2 FOREIGN KEY (NAME) REFERENCES TB_COMPANY (NAME) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS `TB_LIKE`;
+CREATE TABLE TB_LIKE (
+                       ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                       G_ID INT UNSIGNED NOT NULL,
+                       M_ID VARCHAR(30) NOT NULL,
+                       CONSTRAINT FK_LIKES_GID FOREIGN KEY (G_ID) REFERENCES TB_GAME (ID) ON UPDATE CASCADE ON DELETE CASCADE,
+                       CONSTRAINT FK_LIKES_MID FOREIGN KEY (M_ID) REFERENCES TB_MEMBER (MEMBER_ID) ON UPDATE CASCADE ON DELETE CASCADE
+);

@@ -5,7 +5,7 @@
   <title>회원탈퇴</title>
   <link rel="stylesheet" th:href="@{/css/login.css}">
   <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
-  <script th:src="@{/js/join_jquery.js}"></script>
+  <script th:src="@{/js/join.js}"></script>
   <script th:inline="javascript">
     /*<![CDATA[*/
     $(document).ready(function() {
@@ -65,11 +65,11 @@
 </head>
 <body>
 <div th:replace="~{/main/header::headerFragment}"></div>
-<section class="top-bg">
-  <div class="base-layer">
-    <div class="top-bg-textarea">
-      <p class="top-title">My Page</p>
-      <p class="top-subtitle">#마이페이지</p>
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">My Page</p>
+      <p id="top-subtitle">#마이페이지</p>
     </div>
   </div>
 </section>
