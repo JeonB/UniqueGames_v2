@@ -7,7 +7,7 @@
   <title>제작사(팀) 소개</title>
   <link rel="stylesheet" th:href="@{/css/board.css}">
   <link rel="stylesheet" th:href="@{/css/company.css}">
-  <script th:src="@{/js/company.js}"></script>
+
 
   <!--css 초기화-->
 <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">-->
@@ -184,11 +184,11 @@
           <th>작성일</th>
         </tr>
         <th:block th:if="${list != null}">
-          <tr th:each="noticeVo : ${list}">
-            <td th:text="${noticeVo.rno}"></td>
-            <td><a th:href="'notice_content?no=' + ${noticeVo.post_id}" th:text="${noticeVo.title}"></a></td>
-            <td th:text="${noticeVo.writer}"></td>
-            <td th:text="${noticeVo.date}"></td>
+          <tr th:each="notice : ${list}">
+            <td th:text="${notice.rno}"></td>
+            <td><a th:href="'notice_content?no=' + ${notice.postId}" th:text="${notice.title}"></a></td>
+            <td th:text="${notice.name}"></td>
+            <td th:text="${notice.dateOutput}"></td>
           </tr>
         </th:block>
       </table>
@@ -287,6 +287,7 @@
   </div>
 </div>
 
-</body>
 
+<script th:inline="javascript" th:src="@{/js/company.js}"></script>
+</body>
 </html>

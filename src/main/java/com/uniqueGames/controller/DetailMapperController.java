@@ -14,8 +14,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +29,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * CRUD 메소드 구현
  */
 @Controller
-@SessionAttributes({"intro","status","game","gameName","companyVo","list","noticeVo","company"})
+@SessionAttributes({"intro","status","game","gameName","company","list","notice"})
 @RequestMapping(value = "/detail")
 public class DetailMapperController {
 
@@ -47,12 +49,12 @@ public class DetailMapperController {
     /** goDetail()
      * @return 회사 상세페이지 리턴
      */
-    @RequestMapping(value = "/{detailId}", method = RequestMethod.GET)
+    @GetMapping("/{detailId}")
     public String goDetail(@PathVariable("detailId") int detailId, Model model) {
         Game game = indexServiceMapper.getGameForIndex(detailId);
         model.addAttribute("game", game);
         Company company = companyRepositoryMapper.findByIndex(detailId);
-        model.addAttribute("companyVo", company);
+        model.addAttribute("company", company);
         // 요청된 detailId에 따라 해당 페이지로 이동
         switch (detailId) {
             case 1:
@@ -84,7 +86,7 @@ public class DetailMapperController {
         if(intro.getTitle() == null || intro.getName() == null){
                 Company company = (Company) session.getAttribute(SessionConstants.LOGIN_MEMBER);
                 model.addAttribute("company",company);
-                return "detail/company_regi";
+                return "detail/company-regi";
          }
         else{
                 companyServiceMapper.insertIntro(intro);
@@ -95,7 +97,7 @@ public class DetailMapperController {
     @RequestMapping(value = "/updateIntro", method = RequestMethod.POST)
     public String updateIntro(@ModelAttribute("intro") Intro vo, @ModelAttribute("company") Company company){
         companyServiceMapper.updateIntro(vo);
-        return "detail/company_regi";
+        return "detail/company-regi";
     }
 
     @RequestMapping(value = "/deleteIntro")
@@ -105,25 +107,41 @@ public class DetailMapperController {
         return "redirect:getIntroList";
     }
 
-    @RequestMapping(value = "/getIntro")
-    public String getIntro(Model model, Intro vo, @ModelAttribute("noticeVo") Notice notice, @ModelAttribute("list") ArrayList<Notice> list){
+    /**
+     * @param model  회사 소개 객체 담는 모델
+     * @param vo     회사 소개 객체
+     * @param notice 회사 공지사항 객체
+     * @param list 공지사항 리스트
+     * @return 회사 소개 페이지
+     */
+    // TODO: 2023-07-12 Notice 의존성 삭제하기
+    @GetMapping("/getIntro")
+    public String getIntro(Model model, Intro vo, @ModelAttribute("notice") Notice notice, @ModelAttribute("list") ArrayList<Notice> list){
         model.addAttribute("intro",companyServiceMapper.getIntro(vo.getId()));
         return "detail/company";
     }
-    @RequestMapping(value = "/getIntroList")
+
+    /**
+     * @param model 회사 소개페이지 리스트 담는 객체
+     * @return 회사 소개페이지 리스트 
+     */
+    @GetMapping("/getIntroList")
     public String getIntroList(Model model){
         model.addAttribute("companyList", companyServiceMapper.getIntroList());
         return "detail/company-list";
     }
 
-    @RequestMapping(value="/popUp", method = RequestMethod.POST)
+    @PostMapping("/popUp")
     public String postPopUp(@RequestParam(value = "gameName",defaultValue = "default") String gameName, Model model){
         model.addAttribute("gameName", gameName);
         return "detail/pop-up";
     }
 
-    @RequestMapping(value="/popUp", method = RequestMethod.GET)
-    public String getPopUp(@ModelAttribute("companyVo") Company company){
+    /**
+     * @return 후원 팝업창 리턴
+     */
+    @GetMapping("/popUp")
+    public String getPopUp(){
         return "detail/pop-up";
     }
 }
