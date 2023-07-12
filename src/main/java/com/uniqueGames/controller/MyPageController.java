@@ -26,44 +26,56 @@ public class MyPageController {
 
         if(mode.equals("member")) {
             Member member = (Member)session.getAttribute(SessionConstants.LOGIN_MEMBER);
-            String password = member.getPassword();
-			String email1 = member.getEmail().split("@")[0];
-			String email2 = member.getEmail().split("@")[1];
-			String email3 = member.getEmail().split("@")[1];
-			String tel = member.getTel();
-			String phoneNum = member.getPhoneNum();
-			String addr = member.getAddr();
+            String addr = member.getAddr();
+            String addr1 = "";
+            String addr2 = "";
+            if(addr!=null) {
+                addr1 = member.getAddr().split("   ")[0];
+                addr2 = member.getAddr().split("   ")[1];
+            }else if(addr == "") {
+                addr1 = "";
+                addr2 = "";
+            }
 
-            if (addr == null) {
-                System.out.println("주소 자체가 없을 때? 이게 필요있나="+member.getAddr());
-				member.setAddr1("");
-				member.setAddr2("");
-			}else {
-				String[] addrSplit = addr.split("   ");
-				if (addrSplit.length == 1) {
-					String addr1 = addrSplit[0];
-					member.setAddr1(addr1);
-					member.setAddr2("");
-                    System.out.println("주소 하나만 있을 때 addr1="+ member.getAddr1());
-				} else if (addrSplit.length == 2) {
-					String addr1 = addrSplit[0];
-					String addr2 = addrSplit[1];
-					member.setAddr1(addr1);
-					member.setAddr2(addr2);
-                    System.out.println("주소 두개 다 있을 때 addr1="+ member.getAddr1());
-                    System.out.println("주소 두개 다 있을 때 addr2="+ member.getAddr2());
-				} else {
-					member.setAddr1("");
-					member.setAddr2("");
-                    System.out.println("주소 다 없을 때 addr1="+ member.getAddr1());
-                    System.out.println("주소 다 없을 때 addr2="+ member.getAddr2());
-				}
-			}
-			member.setEmail1(email1);
-			member.setEmail2(email2);
-			member.setEmail3(email3);
-			member.setTel(tel);
-			member.setPhoneNum(phoneNum);
+            member.setAddr1(addr1);
+            member.setAddr2(addr2);
+            System.out.println("addr1= "+member.getAddr1());
+            System.out.println("addr2= "+member.getAddr2());
+
+
+
+//            String password = member.getPassword();
+//			String tel = member.getTel();
+//			String phoneNum = member.getPhoneNum();
+//			String addr = member.getAddr();
+//
+//            if (addr == null) {
+//                System.out.println("주소 자체가 없을 때? 이게 필요있나="+member.getAddr());
+//				member.setAddr1("");
+//				member.setAddr2("");
+//			}else {
+//				String[] addrSplit = addr.split("   ");
+//				if (addrSplit.length == 1) {
+//					String addr1 = addrSplit[0];
+//					member.setAddr1(addr1);
+//					member.setAddr2("");
+//                    System.out.println("주소 하나만 있을 때 addr1="+ member.getAddr1());
+//				} else if (addrSplit.length == 2) {
+//					String addr1 = addrSplit[0];
+//					String addr2 = addrSplit[1];
+//					member.setAddr1(addr1);
+//					member.setAddr2(addr2);
+//                    System.out.println("주소 두개 다 있을 때 addr1="+ member.getAddr1());
+//                    System.out.println("주소 두개 다 있을 때 addr2="+ member.getAddr2());
+//				} else {
+//					member.setAddr1("");
+//					member.setAddr2("");
+//                    System.out.println("주소 다 없을 때 addr1="+ member.getAddr1());
+//                    System.out.println("주소 다 없을 때 addr2="+ member.getAddr2());
+//				}
+//			}
+//			member.setTel(tel);
+//			member.setPhoneNum(phoneNum);
             model.addAttribute("member", member);
             System.out.println("member addr1="+ member.getAddr1());
             System.out.println("member addr2="+ member.getAddr2());
@@ -75,6 +87,13 @@ public class MyPageController {
         }
 
         return viewName;
+    }
+
+    @GetMapping("mnewpass")
+    public String mnewPass(HttpSession session, Model model) {
+        Member member = (Member)session.getAttribute(SessionConstants.LOGIN_MEMBER);
+        model.addAttribute("member", member);
+        return "findAccount/member-newpass";
     }
     
     

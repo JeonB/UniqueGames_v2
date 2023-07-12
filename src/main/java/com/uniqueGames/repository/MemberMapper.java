@@ -1,6 +1,7 @@
 package com.uniqueGames.repository;
 
 import com.uniqueGames.model.Member;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -29,4 +30,7 @@ public interface MemberMapper {
 
     @Select("select count(*) from member where email=#{email}")
     int emailCheck(String email);
+
+    @Delete("delete from member where member_id=#{memberId} and password=#{password}")
+    int delete(String memberId, String password);
 }

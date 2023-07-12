@@ -1,9 +1,13 @@
 package com.uniqueGames.controller;
 
+import com.uniqueGames.model.Member;
+import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.MailSendService;
 import com.uniqueGames.service.MemberService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class CheckRestController {
@@ -57,8 +61,14 @@ public class CheckRestController {
         return result;
     }
 
+    @RequestMapping(value="/deletecheck", method=RequestMethod.POST)
+	public String deleteCheck(HttpSession session) {
+        Member member = (Member)session.getAttribute(SessionConstants.LOGIN_MEMBER);
+		int result = memberService.delete(member.getMemberId(), member.getPassword());
 
-
-
-
+		if(result==1) {
+			session.invalidate();
+		}
+		return String.valueOf(result);
+	}
 }

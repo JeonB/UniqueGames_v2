@@ -5,14 +5,14 @@
   <title>회원탈퇴</title>
   <link rel="stylesheet" th:href="@{/css/login.css}">
   <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
-  <script th:src="@{/js/join.js}"></script>
   <script th:inline="javascript">
     /*<![CDATA[*/
     $(document).ready(function() {
-      var company_class = /*[[${company.company_class}]]*/ '';
-      var password = /*[[${company.password}]]*/ '';
 
-      $("#button-gradient-delete").click(function() {
+      $(".button-gradient").click(function() {
+        var companyId = [[${company.companyId}]];
+        var password = [[${company.password}]];
+        var inputpass = $("input[name='password']");
         if ($("input[name='password']").val() == "") {
           alert("비밀번호를 입력하세요");
           $("input[name='password']").focus();
@@ -36,22 +36,6 @@
               }
             }
           });
-        }
-      });
-
-      $("input[name='company_class']").blur(function() {
-        if ($("input[name='company_class']").val() == "") {
-          $("#msgclass").text("필수항목입니다").css("color", "red").css("font-size", "11px").css("display", "block");
-        } else {
-          $("#msgclass").css("display", "none");
-        }
-      });
-
-      $("input[name='password']").blur(function() {
-        if ($("input[name='password']").val() == "") {
-          $("#msgPwd").text("필수항목입니다").css("color", "red").css("font-size", "11px").css("display", "block");
-        } else {
-          $("#msgPwd").css("display", "none");
         }
       });
 
@@ -109,7 +93,7 @@
           </p>
         </li>
         <li>
-          <button type="button" class="button-gradient-delete">회원 탈퇴</button>
+          <button type="button" class="button-gradient">회원 탈퇴</button>
         </li>
 
       </ul>
@@ -118,7 +102,7 @@
 </section>
 
 <div class="modal2">
-  <div class="agreement2" class="agreement-deleteAccount">
+  <div class="agreement2">
     <div class="agreement-content1">
     </div>
   </div>
