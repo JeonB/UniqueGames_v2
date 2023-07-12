@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Unique Games</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/order.css}">
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+    <script src="js/admin-script.js"></script>
+    <script>
+        $(document).ready(function () {
+            getPage("member");
+
+            $("#btn-member-personal").click(function () {
+                getPage("member");
+            });
+            $("#btn-member-company").click(function () {
+                getPage("company");
+            });
+
+            function getPage(type = "member") {
+                $.ajax({
+                    url: "/admin-member-list",
+                    data: {type: type},
+                    success: function (result) {
+                        let returnData = JSON.parse(result);
+                        let output = "";
+
+                        if (returnData.nothing) {
+                            alert("데이터가 존재하지 않습니다.");
+                        } else {
+                            output += '<div id="div-member-info">';
+                            output += '<p id="p-member-count">전체 ' + returnData.memberType + ' : ' + returnData.memberCount + '명</p>';
+                            output += '<button type="button" id="btn-mslect-delete">선택 삭제</button>';
+                            output += '<select id="select-order">';
+                            output += '<option value="orderdate_desc">최근 가입순</option>';
+                            output += '<option value="orderdate_asc">오래된 가입순</option>';
+                            output += '<option value="amount_asc">높은 후원금순</option>';
+                            output += '<option value="amount_desc">낮은 후원금순</option>';
+                            output += '</select></div>';
+
+                            output += '<div id="div-member-table"> <table id="table-member-list">';
+                            output += '<tr> <th>선택</th> <th>아이디</th> <th>' + returnData.name + '</th> <th>메뉴</th> </tr>';
+                            for (let member of returnData.memberList) {
+                                output += '<tr>';
+                                output += '<td><input type="checkbox" name="chk-admin" id="' + member.id + '"></td>';
+                                output += '<td>' + member.id + '</td>';
+                                output += '<td>' + member.name + '</td>';
+                                output += '<td> <a href="/admin-detail-member"> <button type="button" id="btn-member-detail" value="' + member.id + '">자세히 보기</button> </a>';
+                                output += '<a href="/payment-detail"> <button type="button" id="btn-member-payment" th:value="' + member.id + '">결제 내역</button> </a> </td> </tr>';
+                            }
+                            output += '</table> </div>';
+
+                            $("#div-member-info").remove();
+                            $("#div-member-table").remove();
+                            $("#div-member-menu").after(output);
+                        }
+                    },
+                    result: function (result) {
+                        alert(result);
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+<!-- header -->
+<div th:replace="~{/main/header :: headerFragment}"></div>
+
+<!-- content -->
+<input type="hidden" id="admin-type" value="a-memberlist">
+<section id="top-bg">
+    <div id="base-layer">
+        <div id="top-bg-textarea">
+            <p id="top-title">Admin</p>
+            <p id="top-subtitle">#관리자_페이지</p>
+        </div>
+    </div>
+</section>
+
+<div id="div-admin">
+    <div id="div-sidebar">
+        <ul id="ul-sidebar">
+            <li id="li-sidebar">
+                <a href="/admin" id="a-memberlist">회원 관리</a>
+                <a href="/admin-game-list" id="a-gamelist">게임 관리</a>
+                <a href="/admin-game-register" id="a-gameregister">게임 등록</a>
+                <a href="/admin-donation" id="a-donation">정산 현황</a>
+            </li>
+        </ul>
+    </div>
+    <div id="div-viewer">
+        <p id="p-title">회원 관리</p>
+        <div id="div-member-menu">
+            <button type="button" id="btn-member-personal" name="btn-member" value="member">개인 회원</button>
+            <button type="button" id="btn-member-company" name="btn-member" value="company">법인 회원</button>
+        </div>
+
+        <!--        <div id="div-member-info">-->
+        <!--            <p id="p-member-count">전체 개인 회원 : 100명</p>-->
+        <!--            <button type="button" id="btn-mslect-delete">선택 삭제</button>-->
+        <!--            <select id="select-order">-->
+        <!--                <option value="orderdate_desc">최근 날짜순</option>-->
+        <!--                <option value="orderdate_asc">오래된 날짜순</option>-->
+        <!--                <option value="amount_asc">높은 후원금순</option>-->
+        <!--                <option value="amount_desc">낮은 후원금순</option>-->
+        <!--            </select>-->
+        <!--        </div>-->
+        <!--        <div id="div-member-table">-->
+        <!--            <table id="table-member-list">-->
+        <!--                <tr>-->
+        <!--                    <th>선택</th>-->
+        <!--                    <th>아이디</th>-->
+        <!--                    <th>이름</th>-->
+        <!--                    <th>메뉴</th>-->
+        <!--                </tr>-->
+        <!--                <tr>-->
+        <!--                    <td><input type="checkbox" name="chk-admin"></td>-->
+        <!--                    <td>mtest</td>-->
+        <!--                    <td>엠길동</td>-->
+        <!--                    <td>-->
+        <!--                        <a href="/admin-detail-member">-->
+        <!--                            <button type="button" id="btn-member-detail" value="mtest">자세히 보기</button>-->
+        <!--                        </a>-->
+        <!--                        <a href="/payment-detail">-->
+        <!--                            <button type="button" id="btn-member-payment" value="mtest">결제 내역</button>-->
+        <!--                        </a>-->
+        <!--                    </td>-->
+        <!--                </tr>-->
+        <!--            </table>-->
+        <!--        </div>-->
+
+    </div>
+</div>
+<!-- footer -->
+<div th:replace="~{/main/footer::footerFragment}"></div>
+</body>
+</html>

@@ -28,21 +28,6 @@ public class MemberService {
 		return memberMapper.findMid(member);
 	}
 
-	public String findMpass(String email, String memberId, String name) {
-		Member member = new Member();
-		member.setEmail(email);
-		member.setMemberId(memberId);
-		member.setName(name);
-		return memberMapper.findMpass(member);
-	}
-
-	public int changeMpass(String memberId, String mnewpassword) {
-		Member member = new Member();
-		member.setMemberId(memberId);
-		member.setMnewpassword(mnewpassword);
-		return memberMapper.changeMpass(member);
-	}
-
 	public int phoneCheck(String phoneNum) {
 		return memberMapper.phoneCheck(phoneNum);
 	}

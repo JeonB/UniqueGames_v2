@@ -9,5 +9,5 @@
 		insert into member (member_id, password, name, email, phone_num, addr, tel)
 		values (#{memberId},#{password},#{name},#{email},#{phoneNum},#{addr},#{tel})
 	</insert>
-	
+
 </mapper>   
