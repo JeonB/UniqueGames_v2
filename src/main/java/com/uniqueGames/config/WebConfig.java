@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/search/**",
             "/mybatis",
             "/error", "/cart", "/main/**","/findAccount","/detail/**","/favicon.ico",
-            "/upload/**","/notice/content/**", "/notice/list"
+            "/upload/**","/notice/content/**", "/notice/list","/topgame", "/alllist
 
     };
     //whitelist 같은 경우 로그인하지 않아도 접근할 수 있는 자원들 목록
