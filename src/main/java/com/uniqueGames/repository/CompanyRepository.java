@@ -75,4 +75,8 @@ public class CompanyRepository {
     public List<Company> aGetMemberList() {
         return sqlSession.selectList("mapper.companyMember.aGetMemberList");
     }
+
+    public Company aGetDetailMember(String id) {
+        return sqlSession.selectOne("mapper.companyMember.aGetDetailMember", id);
+    }
 }

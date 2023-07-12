@@ -17,6 +17,7 @@ $(document).ready(function () {
     $('button[name = "btn-member"]').click(function () {
         $('button[name = "btn-member"]').css("background", "rgba(233, 233, 233, 1)").css("color", "rgba(110, 110, 110, 1)");
         $(this).css("background", "white").css("color", "rgba(57, 57, 57, 1)");
+        $("#table-type").val($(this).val());
     });
 
     // show modal

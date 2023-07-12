@@ -21,4 +21,6 @@ public interface CompanyMemberService {
 	int companyPhoneCheckResult(String phoneNum);
 
     ArrayList<Company> aGetMemberList();
+
+    Company aGetDetailMember(String id);
 }
