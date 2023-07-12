@@ -67,11 +67,6 @@ public class DetailMapperController {
                 return "redirect:/";
         }
     }
-//    @RequestMapping(value = "/{detailId}", method = RequestMethod.POST)
-//    public void getCompanyId(@PathVariable("detailId") int detailId,@RequestParam("companyId") String companyId, Model model){
-//        Company companyVo = companyRepositoryMapper.findById(companyId);
-//        model.addAttribute("companyVo", companyVo);
-//    }
 
     /**
      * @param vo 회사 소개 저장객체
@@ -97,11 +92,6 @@ public class DetailMapperController {
                 return "redirect:getIntroList";
             }
     }
-//    @RequestMapping(value = "/updateIntro")
-//    public String updateIntro(@ModelAttribute("intro") Intro vo, @ModelAttribute("company") Company companyVo){
-//        companyServiceMapper.updateIntro(vo);
-//        return "redirect:getIntroList";
-//    }
     @RequestMapping(value = "/updateIntro", method = RequestMethod.POST)
     public String updateIntro(@ModelAttribute("intro") Intro vo, @ModelAttribute("company") Company company){
         companyServiceMapper.updateIntro(vo);
@@ -123,17 +113,17 @@ public class DetailMapperController {
     @RequestMapping(value = "/getIntroList")
     public String getIntroList(Model model){
         model.addAttribute("companyList", companyServiceMapper.getIntroList());
-        return "detail/company_list";
+        return "detail/company-list";
     }
 
     @RequestMapping(value="/popUp", method = RequestMethod.POST)
     public String postPopUp(@RequestParam(value = "gameName",defaultValue = "default") String gameName, Model model){
         model.addAttribute("gameName", gameName);
-        return "detail/popup";
+        return "detail/pop-up";
     }
 
     @RequestMapping(value="/popUp", method = RequestMethod.GET)
     public String getPopUp(@ModelAttribute("companyVo") Company company){
-        return "detail/popup";
+        return "detail/pop-up";
     }
 }
