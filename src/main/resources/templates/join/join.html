@@ -5,19 +5,19 @@
   <title>Join</title>
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/login.css}">
-  <script src="/js/jquery-3.6.4.min.js"></script>
-<!--  <script src="/js/join_jquery.js"></script>-->
-  <script src="/js/login_script.js"></script>
+  <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
+  <script th:src="@{/js/join_jquery.js}"></script>
+  <script th:src="@{/js/login_script.js}"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 <!--header-->
 <div th:replace="/main/header::headerFragment"></div>
-<section class="top-bg">
-  <div class="base-layer">
-    <div class="top-bg-textarea">
-      <p class="top-title">Sign Up</p>
-      <p class="top-subtitle">#회원가입</p>
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">Sign Up</p>
+      <p id="top-subtitle">#회원가입</p>
     </div>
   </div>
 </section>
@@ -28,7 +28,7 @@
   <input id="company" type="radio" name="joinSelect">
   <label for="company" id="company-tab">법인 회원</label>
 
-  <form action="join_individual_proc" name="joinIndividual" method="post" id="content-2">
+  <form action="join" name="joinIndividual" method="post" id="content-2">
     <div>
       <ul>
         <li class="must-insert">
@@ -36,7 +36,7 @@
           <label>아이디</label><span id="idMsg"></span>
         </li>
         <li>
-          <input type="text" name="memberId" placeholder="영문,숫자 5~10자리" tabindex="1">
+          <input type="text" name="memberId" id="memberId" placeholder="영문,숫자 5~10자리" tabindex="1">
           <button type="button" id="check-btn-style">중복 체크</button>
         </li>
         <li class="must-insert-1">
@@ -44,8 +44,8 @@
           <label>비밀번호</label><span id="pwdMsg"></span>
         </li>
         <li>
-          <input type="password" name="password" placeholder="숫자,영문,특수문자 조합 최소 8자" tabindex="2">
-          <input type="checkbox" class="pwd-check-img" onclick="memberPassVisible()">
+          <input type="password" id="mpass" name="password" placeholder="숫자,영문,특수문자 조합 최소 8자" tabindex="2">
+          <input type="checkbox" class="pwd-check-img" id="pwd-check-img" onclick="memberPassVisible()">
         </li>
         <li>
           <label>비밀번호 확인</label><span id="pwdMsg-check"></span>
@@ -68,16 +68,7 @@
           <span id="emailAuth"></span>
         </li>
         <li>
-          <input type="text" name="email1" tabindex="5">
-          <span>@</span>
-          <input type="text" name="email2" tabindex="6">
-          <select name="email3" id="selectbox-email" tabindex="7">
-            <option value="default">선택</option>
-            <option value="naver.com">naver.com</option>
-            <option value="gmail.com">gmail.com</option>
-            <option value="daum.net">daum.net</option>
-            <option value="direct">직접입력</option>
-          </select>
+          <input type="text" name="email" tabindex="5">
           <button type="button" id="email-btn-style" onclick="sendEmail()">인증 번호</button>
           <input type="text" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리" disabled="disabled">
         </li>
@@ -129,11 +120,11 @@
         </li>
         <li>
           <input type="checkbox" class="checkbox-agreement" name="chk-agree">
-          <span class="agreement-color">[필수]</span> <span>이용 약관</span><a id="detail1">자세히</a>
+          <span class="agreement-color">[필수]</span> <span>이용 약관</span><a class="detail1">자세히</a>
         </li>
         <li>
           <input type="checkbox" class="checkbox-agreement" name="chk-agree">
-          <span class="agreement-color">[필수]</span> <span>개인정보 수집 및 이용 동의</span><a id="detail2">자세히</a>
+          <span class="agreement-color">[필수]</span> <span>개인정보 수집 및 이용 동의</span><a class="detail2">자세히</a>
         </li>
         <li>
           <input type="checkbox" class="agreement-choice" name="chk-agree">
@@ -141,7 +132,7 @@
         </li>
 
         <li>
-          <button type="button" id="button-gradient" tabindex="16">가입하기</button>
+          <button type="button" class="button-gradient" tabindex="16" onclick="memberValidation()">가입하기</button>
         </li>
       </ul>
     </div>
@@ -245,11 +236,11 @@
         </li>
         <li>
           <input type="checkbox" class="c-checkbox-agreement" name="c-chk-agree">
-          <span class="agreement-color">[필수]</span> <span>이용 약관</span><a id="detail1">자세히</a>
+          <span class="agreement-color">[필수]</span> <span>이용 약관</span><a class="detail1">자세히</a>
         </li>
         <li>
           <input type="checkbox" class="c-checkbox-agreement" name="c-chk-agree">
-          <span class="agreement-color">[필수]</span> <span>개인정보 수집 및 이용 동의</span><a id="detail2">자세히</a>
+          <span class="agreement-color">[필수]</span> <span>개인정보 수집 및 이용 동의</span><a class="detail2">자세히</a>
         </li>
         <li>
           <input type="checkbox" class="c-agreement-choice" name="c-chk-agree">
@@ -265,12 +256,12 @@
 </section>
 
 
-<div id="modal">
+<div class="modal">
   <div class="agreement" id="agreement-join">
-    <h1 id="agreement-title">이용 약관</h1>
-    <div id="agreement-content">
+    <h1 class="agreement-title">이용 약관</h1>
+    <div class="agreement-content">
     </div>
-    <button id="button-gradient" name="btn-agreement">확인</button>
+    <button class="button-gradient" name="btn-agreement">확인</button>
   </div>
 </div>
 
@@ -318,3 +309,4 @@
 <div th:replace="/main/footer::footerFragment"></div>
 </body>
 </html>
+<script th:src="@{/js/login_script.js}"></script>

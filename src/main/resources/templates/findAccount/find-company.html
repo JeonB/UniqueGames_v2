@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>findAccount</title>
-  <link rel="stylesheet" href="/css/login.css">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" th:href="@{/css/login.css}">
   <script src="/js/jquery-3.6.4.min.js"></script>
   <script>
     //JavaScript 코드
@@ -15,7 +16,7 @@
 
       // 선택한 탭을 표시
       if (selectedTab) {
-        document.getElementByclass(selectedTab).checked = true;
+        document.getElementById(selectedTab).checked = true;
       }
     });
 
@@ -83,30 +84,30 @@
 
       $(document).on("click", "#button-gradient-gotoFind", function(event){
 
-        $("#modal2").hclasse();
+        $("#modal2").hide();
         $("input[name='name']").val("").focus();
-        $("input[name='member_class']").val("").focus();
-        $("input[name='phone_num']").val("");
+        $("input[name='memberId']").val("").focus();
+        $("input[name='phoneNum']").val("");
 
 
       });
 
       $(document).on("click", "#button-gradient-gotoPwd", function(event){
 
-        $("#modal2").hclasse();
+        $("#modal2").hide();
         location.href="/findCompany?selectedTab=findPwd";
 
       });
       $(document).on("click", "#button-gradient-gotoLogin", function(event){
 
-        $("#modal2").hclasse();
+        $("#modal2").hide();
         location.href="/login?selectedTab=company-login";
 
       });
 
       $(document).on("click", "#button-gradient-gotoJoin", function(event){
 
-        $("#modal2").hclasse();
+        $("#modal2").hide();
         location.href="/join?selectedTab=company";
 
       });
@@ -119,29 +120,29 @@
 <body>
 <!--header-->
 <div th:replace="/main/header::headerFragment"></div>
-<section class="top-bg">
-  <div class="base-layer">
-    <div class="top-bg-textarea">
-      <p class="top-title">Login</p>
-      <p class="top-subtitle">#로그인</p>
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">Login</p>
+      <p id="top-subtitle">#로그인</p>
     </div>
   </div>
 </section>
 <section class="content-1"><!-- find-class -->
   <p class="intro">법인 회원</p>
-  <input id="findclass" type="radio" name="findAccount" checked>
-  <label for="findclass" class="findclass-tab">아이디 찾기</label>
+  <input id="findId" type="radio" name="findAccount" checked>
+  <label for="findId" class="findId-tab">아이디 찾기</label>
   <input id="findPwd" type="radio" name="findAccount">
   <label for="findPwd" class="findPwd-tab">비밀번호 찾기</label>
 
-  <form action="cfindclass_check" name="cfindclassForm" method="post" id="findclassForm">
+  <form action="cfindId_check" name="cfindIdForm" method="post" id="findIdForm">
     <ul>
       <li>
         <input type="text" name="name" placeholder="이름">
         <span class="msgName"></span>
       </li>
       <li>
-        <input type="text" name="phone_num" placeholder="휴대전화">
+        <input type="text" name="phoneNum" placeholder="휴대전화">
         <span class="msgPhone"></span>
       </li>
       <li>
@@ -155,25 +156,27 @@
     <ul>
       <li>
         <input type="text" name="companyId" placeholder="아이디">
-        <span class="msgclass"></span>
+        <span class="msgId"></span>
       </li>
       <li>
         <input type="text" name="name" placeholder="이름">
         <span class="msgName1"></span>
       </li>
       <li>
-        <input type="text" name="phone_num" placeholder="휴대전화">
+        <input type="text" name="phoneNum" placeholder="휴대전화">
         <span class="msgPhone1"></span>
       </li>
       <li>
-        <button type="button" class="button-gradient-findPwd">비밀번호 찾기</button>
+        <button type="button" class="button-gradient" id="findPass">비밀번호 찾기</button>
+      </li>
+      <li>
+        <a th:href = "@{/login(selectedTab='company-login')}">return to login</a>
       </li>
     </ul>
   </form>
 </section>
-
 <div class="modal2">
-  <div class="agreement2" class="agreement-findclass">
+  <div id="agreement2">
     <div class="agreement-content1">
     </div>
   </div>
@@ -182,7 +185,7 @@
 <div class="deleteComplete">
   <p class="agreement-title">아이디 찾기</p>
   <span class="delete-span">아이디 :
-		<span class="find-class-result"></span>
+		<span class="find-Id-result"></span>
 		</span>
   <ul>
     <li>

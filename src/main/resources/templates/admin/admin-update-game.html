@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Unique Games</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/order.css}">
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+    <script src="js/admin-script.js"></script>
+</head>
+</head>
+<body>
+<!-- header -->
+<div th:replace="~{/main/header :: headerFragment}"></div>
+
+<!-- content -->
+<input type="hidden" id="admin-type" value="a-gamelist">
+<section id="top-bg">
+    <div id="base-layer">
+        <div id="top-bg-textarea">
+            <p id="top-title">Admin</p>
+            <p id="top-subtitle">#관리자_페이지</p>
+        </div>
+    </div>
+</section>
+
+<div id="div-admin">
+    <div id="div-sidebar">
+        <ul id="ul-sidebar">
+            <li id="li-sidebar">
+                <a href="/admin" id="a-memberlist">회원 관리</a>
+                <a href="/admin-game-list" id="a-gamelist">게임 관리</a>
+                <a href="/admin-game-register" id="a-gameregister">게임 등록</a>
+                <a href="/admin-donation" id="a-donation">정산 현황</a>
+            </li>
+        </ul>
+    </div>
+    <div id="div-viewer">
+        <a href="/admin-game-list"><button id="btn-back"></button></a>
+        <p id="p-title">게임 정보 수정</p>
+        <form name="form-update" action="admin-game-update" method="post">
+            <ul id="ul-regi">
+                <li>
+                    <p id="p-regi">제목</p>
+                    <input type="text" id="title" placeholder="40자 이내로 입력해주세요." value="메이플 스토리">
+                </li>
+                <li>
+                    <p id="p-regi">회사명</p>
+                    <input type="text" id="company" value="Nexon">
+                    <button type="button" id="btn-fk">찾기</button>
+                </li>
+                <li>
+                    <p id="p-regi">장르</p>
+                    <select id="select-genre">
+                        <option value="horror">공포</option>
+                        <option value="rpg">RPG</option>
+                        <option value="tycoon">타이쿤</option>
+                        <option value="action">액션</option>
+                        <option value="fps">FPS</option>
+                        <option value="etc">기타</option>
+                    </select>
+                </li>
+                <li>
+                    <p id="p-regi">사진 업로드</p>
+                    <input id="img-path" value="" placeholder="사진 업로드" disabled>
+                    <label for="upload-file" id="label-file">파일찾기</label>
+                    <input type="file" name="file" id="upload-file" accept="image/*">
+                </li>
+                <li id="li-desciption">
+                    <p id="p-regi" name="p-desc">상세 설명</p>
+                    <textarea name="description" cols="70" rows="10" id="description" ></textarea>
+                </li>
+                <li>
+                    <p id="p-regi">디테일 페이지</p>
+                    <input type="text" id="url" value="/detail/1">
+                    <button type="button" id="btn-url">이동</button>
+                </li>
+                <li id="li-btn-register">
+                    <button type="button" id="btn-register">수정</button>
+                </li>
+            </ul>
+        </form>
+
+        <!-- modal -->
+        <div id="modal-admin">
+            <div id="modal-find-company">
+                <p id="modal-title">회사 찾기</p>
+                <div id="div-search">
+                    <input type="text" id="company-name" placeholder="회사명을 입력해주세요.">
+                    <button type="button" id="btn-search-company">검색</button>
+                </div>
+                <div id="modal-content-company">
+                    <div id="div-company-result">
+                        <ul id="ul-company-list">
+                            <li>
+                                <button type="button" name="company-list">Nexon</button>
+                            </li>
+                            <li>
+                                <button type="button" name="company-list">NC Soft</button>
+
+                            </li>
+                            <li>
+                                <button type="button" name="company-list">Smile gate</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <button id="btn-modal">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer -->
+<div th:replace="~{/main/footer::footerFragment}"></div>
+</body>
+</html>

@@ -16,14 +16,14 @@ INSERT INTO MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES('mtest', '123', '엠길동', 'mtest@naver.com', '서울시 렛잇구', 'SKT', '010-1122-3344');
 
 -- 게임 등록
-INSERT INTO GAME (ID, NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
-VALUES(1, '디 엑시트 이터널 매터스 ', '/images/img-game-deexit4.jpg', '액션 어드벤처', 1,'죽음을 넘어선 생명을 느끼다');
-INSERT INTO GAME (ID, NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
-VALUES(2, '스트리트 파이터 6 디럭스', '/images/img-game-street2.jpg', '격투', 1,'시리즈 최신작 『Street Fighter 6(스트리트 파이터 6)』');
-INSERT INTO GAME (ID, NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
-VALUES(3, '뱀파이어: 마스커레이드', '/images/img-game-vampire2.jpg', '액션 어드벤처', 1,'월드 오브 다크니스에 오신 것을 환영합니다');
-INSERT INTO GAME (ID, NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
-VALUES(4, '더 라스트 오브 어스 파트 1', '/images/img-game-last1.jpg', '액션', 1,'살기 위해 오늘도 길을 나선다 탐험 액션');
+INSERT INTO GAME (NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
+VALUES('디 엑시트 이터널 매터스 ', '../images/img-game-deexit4.jpg', '액션 어드벤처', 1,'죽음을 넘어선 생명을 느끼다');
+INSERT INTO GAME (NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
+VALUES('스트리트 파이터 6 디럭스', '../images/img-game-street2.jpg', '격투', 1,'시리즈 최신작 『Street Fighter 6(스트리트 파이터 6)』');
+INSERT INTO GAME (NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
+VALUES('뱀파이어: 마스커레이드', '../images/img-game-vampire2.jpg', '액션 어드벤처', 1,'월드 오브 다크니스에 오신 것을 환영합니다');
+INSERT INTO GAME (NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
+VALUES('더 라스트 오브 어스 파트 1', '../images/img-game-last1.jpg', '액션', 1,'살기 위해 오늘도 길을 나선다 탐험 액션');
 
 -- 게임사 등록
 DELETE FROM COMPANY WHERE PASSWORD = '123';

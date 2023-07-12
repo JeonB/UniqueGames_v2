@@ -39,7 +39,7 @@
 		update company set password=#{cnewpassword} where company_id=#{companyId}
 	</update>
 	
-	<select id="getGameName" parameterType="java.lang.String" resultType="java.lang.String">
+	<select id="getGameName" parameterType="String" resultType="String">
 		select b.name from company a, game b where a.G_ID = b.ID and company_id=#{companyId}
 	</select>
 
@@ -55,6 +55,9 @@
 		select count(*) from company where phone_num=#{phoneNum}
 	</select>
 
+	<select id="aGetMemberList" resultType="Company">
+		SELECT company_id, name FROM COMPANY
+	</select>
 
 
 </mapper>

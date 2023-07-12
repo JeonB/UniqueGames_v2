@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Unique Games</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/order.css}">
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+    <script src="js/admin-script.js"></script>
+</head>
+</head>
+<body>
+<!-- header -->
+<div th:replace="~{/main/header :: headerFragment}"></div>
+
+<!-- content -->
+<input type="hidden" id="admin-type" value="a-gamelist">
+<section id="top-bg">
+    <div id="base-layer">
+        <div id="top-bg-textarea">
+            <p id="top-title">Admin</p>
+            <p id="top-subtitle">#관리자_페이지</p>
+        </div>
+    </div>
+</section>
+
+<div id="div-admin">
+    <div id="div-sidebar">
+        <ul id="ul-sidebar">
+            <li id="li-sidebar">
+                <a href="/admin" id="a-memberlist">회원 관리</a>
+                <a href="/admin-game-list" id="a-gamelist">게임 관리</a>
+                <a href="/admin-game-register" id="a-gameregister">게임 등록</a>
+                <a href="/admin-donation" id="a-donation">정산 현황</a>
+            </li>
+        </ul>
+    </div>
+    <div id="div-viewer">
+        <p id="p-title">게임 관리</p>
+        <div id="div-member-info">
+            <p id="p-member-count">전체 개인 회원 : 100명</p>
+            <button type="button" id="btn-mslect-delete">선택 삭제</button>
+            <select id="select-order">
+                <option value="orderdate_desc">최근 날짜순</option>
+                <option value="orderdate_asc">오래된 날짜순</option>
+                <option value="amount_asc">높은 후원금순</option>
+                <option value="amount_desc">낮은 후원금순</option>
+            </select>
+        </div>
+        <div id="div-game-table">
+            <table id="table-game-list">
+                <tr>
+                    <th>선택</th>
+                    <th>제목</th>
+                    <th>회사</th>
+                    <th>메뉴</th>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="chk-admin"></td>
+                    <td>메이플 스토리</td>
+                    <td>Nexon</td>
+                    <td>
+                        <button type="button" id="btn-game-detail" value="mtest">상세 페이지</button>
+                        <a href="/admin-update-game"><button type="button" id="btn-game-update" value="mtest">정보 수정</button></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- footer -->
+<div th:replace="~{/main/footer::footerFragment}"></div>
+</body>
+</html>

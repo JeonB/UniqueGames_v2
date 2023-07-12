@@ -5,7 +5,7 @@
   <title>회원탈퇴</title>
   <link rel="stylesheet" href="/css/login.css">
   <script src="/js/jquery-3.6.4.min.js"></script>
-  <script src="/js/join_jquery.js"></script>
+  <script src="/js/join.js"></script>
   <script th:inline="javascript">
     $(document).ready(function() {
       var memberId = /*[[${member.memberId}]]*/ '';
@@ -40,9 +40,9 @@
 
       $("input[name='member_class']").blur(function() {
         if ($("input[name='member_class']").val() === "") {
-          $("#msgclass").text("필수항목입니다").css("color", "red").css("font-size", "11px").css("display", "block");
+          $("#msgId").text("필수항목입니다").css("color", "red").css("font-size", "11px").css("display", "block");
         } else {
-          $("#msgclass").css("display", "none");
+          $("#msgId").css("display", "none");
         }
       });
 
@@ -64,61 +64,61 @@
 <body>
 <!--header-->
 <div th:replace="/main/header :: headerFragment"></div>
-<section class="top-bg">
-  <div class="base-layer">
-    <div class="top-bg-textarea">
-      <p class="top-title">My Page</p>
-      <p class="top-subtitle">#마이페이지</p>
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">My Page</p>
+      <p id="top-subtitle">#마이페이지</p>
     </div>
   </div>
 </section>
 <section class="content-1">
   <p class="intro">회원탈퇴</p>
-  <form action="delete_check" name="loginForm" method="post">
-    <div class="div-delete">
-      <p class="intro-1">탈퇴 사유</p>
-      <ul>
-        <li>
-          <select class="selectbox-find">
-            <option value="default">사유를 선택해주세요</option>
-            <option value="1">너무 많은 시간을 소비해서</option>
-            <option value="2">서비스가 좋지 않아서</option>
-            <option value="3">타 사이트가 더 좋아서</option>
-            <option value="4">삭제하고싶은 내용이 있어서</option>
-            <option value="5">사용빈도가 너무 적어서</option>
-            <option value="6">콘텐츠 불만</option>
-            <option value="7">기타</option>
-          </select>
-        </li>
-        <li>
-          <!-- disabled 속성은 Thymeleaf의 th:disabled로 변경됩니다 -->
-          <input type="text" name="member_class" th:value="${member.member_class}" th:disabled="disabled">
-          <input type="hclassden" name="member_class" th:value="${member.member_class}">
-          <span class="msgclass"></span>
-        </li>
-        <li>
-          <input type="password" name="password" placeholder="비밀번호">
-          <span class="msgPwd"></span>
-        </li>
-        <li class="intro-3">
-          <p class="delete-class" th:text="${member.memberId}"></p>
-          <p class="delete-content">
-            회원 탈퇴하려고 하신다니 저희 사이트의 서비스가 많이 부족하고 미흡했나 봅니다.<br>
-            불만사항이나 사유를 알려주신다면 적극 반영해서 고객님의 불편함을 해결해드리도록 노력하겠습니다.
-            회원 탈퇴시의 아래 사항을 숙지하시기 바랍니다.
-          </p>
-          <p class="delete-caution">
-            1. 회원 탈퇴 시 고객님의 정보는 모두 삭제됩니다.<br>
-            2. 후원하셨던 게임의 후원금을 반환받지 못합니다.<br>
-            3. 회원 탈퇴 후 2주간 재가입이 불가능합니다.<br>
-          </p>
-        </li>
-        <li>
-          <button type="button" class="button-gradient">회원 탈퇴</button>
-        </li>
-      </ul>
-    </div>
-  </form>
+<!--  <form action="delete_check" name="loginForm" method="post">-->
+<!--    <div class="div-delete">-->
+<!--      <p class="intro-1">탈퇴 사유</p>-->
+<!--      <ul>-->
+<!--        <li>-->
+<!--          <select class="selectbox-find">-->
+<!--            <option value="default">사유를 선택해주세요</option>-->
+<!--            <option value="1">너무 많은 시간을 소비해서</option>-->
+<!--            <option value="2">서비스가 좋지 않아서</option>-->
+<!--            <option value="3">타 사이트가 더 좋아서</option>-->
+<!--            <option value="4">삭제하고싶은 내용이 있어서</option>-->
+<!--            <option value="5">사용빈도가 너무 적어서</option>-->
+<!--            <option value="6">콘텐츠 불만</option>-->
+<!--            <option value="7">기타</option>-->
+<!--          </select>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          &lt;!&ndash; disabled 속성은 Thymeleaf의 th:disabled로 변경됩니다 &ndash;&gt;-->
+<!--          <input type="text" name="memberId" th:value="${member.memberId}" th:disabled="disabled">-->
+<!--          <input type="hidden" name="memberId" th:value="${member.memberId}">-->
+<!--          <span class="msgId"></span>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <input type="password" name="password" placeholder="비밀번호">-->
+<!--          <span class="msgPwd"></span>-->
+<!--        </li>-->
+<!--        <li class="intro-3">-->
+<!--          <p class="delete-class" th:text="${member.memberId}"></p>-->
+<!--          <p class="delete-content">-->
+<!--            회원 탈퇴하려고 하신다니 저희 사이트의 서비스가 많이 부족하고 미흡했나 봅니다.<br>-->
+<!--            불만사항이나 사유를 알려주신다면 적극 반영해서 고객님의 불편함을 해결해드리도록 노력하겠습니다.-->
+<!--            회원 탈퇴시의 아래 사항을 숙지하시기 바랍니다.-->
+<!--          </p>-->
+<!--          <p class="delete-caution">-->
+<!--            1. 회원 탈퇴 시 고객님의 정보는 모두 삭제됩니다.<br>-->
+<!--            2. 후원하셨던 게임의 후원금을 반환받지 못합니다.<br>-->
+<!--            3. 회원 탈퇴 후 2주간 재가입이 불가능합니다.<br>-->
+<!--          </p>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <button type="button" class="button-gradient">회원 탈퇴</button>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </form>-->
 </section>
 
 <div class="modal2">

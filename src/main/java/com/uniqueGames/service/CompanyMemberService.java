@@ -3,6 +3,8 @@ package com.uniqueGames.service;
 
 import com.uniqueGames.model.Company;
 
+import java.util.ArrayList;
+
 public interface CompanyMemberService {
 	
 	int companyLoginResult(Company company);
@@ -18,4 +20,5 @@ public interface CompanyMemberService {
 	int companyEmailCheckResult(String email);
 	int companyPhoneCheckResult(String phoneNum);
 
+    ArrayList<Company> aGetMemberList();
 }
