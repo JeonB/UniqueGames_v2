@@ -5,7 +5,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Member;
+import com.uniqueGames.model.Order;
 import com.uniqueGames.service.CompanyMemberService;
+import com.uniqueGames.service.CompanyService;
+import com.uniqueGames.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +35,6 @@ public class AdminController {
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
 
-        System.out.println(type);
-
         if(type.equals("member") || !type.equals("company") || type == null){
             ArrayList<Member> list = memberService.aGetMemberList();
 
@@ -41,6 +42,9 @@ public class AdminController {
                 jObj.addProperty("nothing", true);
             } else {
                 jObj.addProperty("nothing", false);
+                jObj.addProperty("memberCount", list.size());
+                jObj.addProperty("memberType", "개인 회원");
+                jObj.addProperty("name", "이름");
 
                 for (Member member : list) {
                     JsonObject obj = new JsonObject();
@@ -59,6 +63,8 @@ public class AdminController {
             } else {
                 jObj.addProperty("nothing", false);
                 jObj.addProperty("memberCount", list.size());
+                jObj.addProperty("memberType", "법인 회원");
+                jObj.addProperty("name", "회사명");
 
                 for (Company member : list) {
                     JsonObject obj = new JsonObject();
@@ -70,7 +76,7 @@ public class AdminController {
                 }
             }
         }
-        jObj.add("jObj", jArray);
+        jObj.add("memberList", jArray);
 
         return new Gson().toJson(jObj);
     }
