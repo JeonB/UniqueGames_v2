@@ -3,16 +3,19 @@ package com.uniqueGames.controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.uniqueGames.fileutil.AdminUtil;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.model.Notice;
 import com.uniqueGames.model.Order;
 import com.uniqueGames.service.CompanyMemberService;
+import com.uniqueGames.service.CompanyMemberService2;
 import com.uniqueGames.service.CompanyService;
 import com.uniqueGames.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,9 +27,11 @@ import java.util.StringTokenizer;
 @Controller
 public class AdminController {
     @Autowired
-    MemberService memberService;
+    private MemberService memberService;
     @Autowired
-    CompanyMemberService companyMemberService;
+    private CompanyMemberService2 companyMemberService;
+    @Autowired
+    private AdminUtil adminUtil;
 
     @RequestMapping(value = "/admin")
     public String admin() {
@@ -35,7 +40,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin-member-list", produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String admin_member_list(String type, String array, Model model) {
+    public String admin_member_list(String type, String array, String page, Model model) {
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
         String order1;
@@ -55,11 +60,12 @@ public class AdminController {
             order2 = "DESC";
         }
 
+        Map<String, Integer> pageMap = adminUtil.getPagination(page, "list", type);
         if (type.equals("member") || !type.equals("company") || type == null) {
             if (order1.equals("ID")) {
                 order1 = "MEMBER_ID";
             }
-            ArrayList<Member> list = memberService.aGetMemberList(order1, order2);
+            ArrayList<Member> list = memberService.aGetMemberList(order1, order2, pageMap.get("startCount"), pageMap.get("endCount"));
 
             if (list.size() == 0) {
                 jObj.addProperty("nothing", true);
@@ -81,7 +87,7 @@ public class AdminController {
             if (order1.equals("ID")) {
                 order1 = "COMPANY_ID";
             }
-            ArrayList<Company> list = companyMemberService.aGetMemberList();
+            ArrayList<Company> list = companyMemberService.aGetMemberList(order1, order2);
 
             if (list.size() == 0) {
                 jObj.addProperty("nothing", true);
@@ -101,18 +107,12 @@ public class AdminController {
             }
         }
 
-//        // 페이징 처리 - startCount, endCount 구하기
-//        Map<String, Integer> pageMap = boardUtil.getPagination(page, "list");
-////        Page pageInfo = boardUtil.getPagination(new Page(page, "list"));
-//        List<Notice> list = noticeService.getNoticeList(pageMap.get("startCount"), pageMap.get("endCount"));
-//        model.addAttribute("list", list);
-//        model.addAttribute("dbCount", pageMap.get("dbCount"));
-//        model.addAttribute("pageSize", pageMap.get("pageSize"));
-//        model.addAttribute("pageCount", pageMap.get("pageCount"));
-//        model.addAttribute("page", pageMap.get("reqPage"));
-
         jObj.add("memberList", jArray);
         jObj.addProperty("mType", type);
+        jObj.addProperty("dbCount", pageMap.get("dbCount"));
+        jObj.addProperty("pageSize", pageMap.get("pageSize"));
+        jObj.addProperty("maxSize", pageMap.get("maxSize"));
+        jObj.addProperty("page", pageMap.get("reqPage"));
 
         return new Gson().toJson(jObj);
     }

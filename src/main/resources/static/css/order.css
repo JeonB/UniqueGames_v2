@@ -86,7 +86,7 @@ select:focus, select:hover, select:default {
 }
 
 #table-gameList, #cart-price, #table-member-list, #table-game-list, #table-donation {
-    border: 1px solid #DDDDDD;
+
     border-collapse: collapse;
     width: 100%;
     margin: auto;
@@ -105,6 +105,7 @@ select:focus, select:hover, select:default {
 
 #table-gameList th, #cart-price th, #table-member-list th, #table-game-list th, #table-donation th {
     padding: 6px 0 6px 0;
+    border-top: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
 
     font-size: 16px;
@@ -113,11 +114,17 @@ select:focus, select:hover, select:default {
 
 #table-gameList td, #cart-price td, #table-member-list td, #table-game-list td, #table-donation td {
     padding: 10px 0 10px 0;
+    border-top: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
 
     font-size: 14px;
     color: black;
     text-align: center;
+}
+
+#td-page {
+    border-bottom: none;
+    background: ivory;
 }
 
 #table-gameList td img {

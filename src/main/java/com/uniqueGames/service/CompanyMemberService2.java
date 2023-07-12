@@ -6,6 +6,9 @@ import com.uniqueGames.repository.CompanyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CompanyMemberService2 {
 
@@ -54,4 +57,24 @@ public class CompanyMemberService2 {
         return companyMapper.delete(companyId, password);
     }
 
+    // ADMIN
+    public ArrayList<Company> aGetMemberList(String order1, String order2) {
+        ArrayList<Company> cList = new ArrayList<>();
+        for (Company company : companyMapper.aGetMemberList(order1, order2)) {
+            cList.add(company);
+        }
+        return cList;
+    }
+
+    public Company aGetDetailMember(String id){
+        return companyMapper.aGetDetailMember(id);
+    }
+
+    public int totRowCount() {
+        return companyMapper.totRowCount();
+    }
+
+    public int totRowCountSearch(String keyword) {
+        return companyMapper.totRowCountSearch(keyword);
+    }
 }

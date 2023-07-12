@@ -51,7 +51,7 @@
                                 output += '<button type="button" id="btn-member-detail">자세히 보기</button> </a> ';
                                 output += '<a href="/payment-detail"> <button type="button" id="btn-member-payment" th:value="' + member.id + '">결제 내역</button> </a> </td> </tr>';
                             }
-                            output += '<tr> <td colspan="5"> <div id="ampaginationsm"></div> </td> </tr>';
+                            output += '<tr> <td id="td-page" colspan="5"> <div id="ampaginationsm"></div> </td> </tr>';
                             output += '</table> </div>';
 
                             $("#p-member-count").remove();
@@ -60,7 +60,7 @@
                             $("#div-member-info").after(output);
 
                             //페이징 처리 함수 호출
-                            pager(returnDate.totals, returnDate.maxSize, returnDate.pageSize, returnDate.page);
+                            pager(returnData.totals, returnData.maxSize, returnData.pageSize, returnData.page);
 
                             //페이지 번호 클릭 이벤트 처리
                             jQuery('#ampaginationsm').on('am.pagination.change', function (e) {
@@ -90,7 +90,7 @@
                     prevText: '&laquo;',
                     nextText: '&raquo;',
 
-                    btnSize: 'sm'	// 'sm'  or 'lg'
+                    btnSize: 'lg'	// 'sm'  or 'lg'
                 });
             }
         });
