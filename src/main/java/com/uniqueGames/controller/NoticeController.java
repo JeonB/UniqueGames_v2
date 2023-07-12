@@ -8,25 +8,25 @@ import com.uniqueGames.model.Notice;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.CommentService;
 import com.uniqueGames.service.NoticeService;
-
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @SessionAttributes({SessionConstants.LOGIN_MEMBER, "list", "noticeVo"})
+@RequestMapping(value = "/notice")
 public class NoticeController {
 
-    NoticeService noticeService;
-    CommentService commentService;
-    BoardUtil boardUtil;
+    private NoticeService noticeService;
+    private CommentService commentService;
+    private BoardUtil boardUtil;
 
     @Autowired
     public NoticeController(NoticeService noticeService, CommentService commentService, BoardUtil boardUtil) {
@@ -36,13 +36,24 @@ public class NoticeController {
     }
 
     /**
-     * notice-list 공지사항 - 전체 리스트
+     * notice/list 공지사항 목록 조회
+     *
+     * @param page
+     * @param model
+     * @param request
+     * @return
      */
-    @GetMapping("/notice-list")
-    public String noticeList(String page, Model model) {
+    @GetMapping({"/list", "/list/{page}"})
+    public String noticeList(@PathVariable(value = "page", required = false) String page, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Company company = new Company();
+        company.setCompanyId("test");
+        company.setName("TestGames");
+        session.setAttribute(SessionConstants.LOGIN_MEMBER, company);
 
         // 페이징 처리 - startCount, endCount 구하기
         Map<String, Integer> pageMap = boardUtil.getPagination(page, "list");
+//        Page pageInfo = boardUtil.getPagination(new Page(page, "list"));
         List<Notice> list = noticeService.getNoticeList(pageMap.get("startCount"), pageMap.get("endCount"));
         model.addAttribute("list", list);
         model.addAttribute("dbCount", pageMap.get("dbCount"));
@@ -54,57 +65,69 @@ public class NoticeController {
     }
 
     /**
-     * notice_write 공지사항 - 작성
+     * notice/write 공지사항 작성 페이지 이동
+     *
+     * @return
      */
-    @RequestMapping(value = "/notice_write", method = RequestMethod.GET)
+    @GetMapping("/write")
     public String noticeWrite() {
         return "notice/notice-write";
     }
 
     /**
-     * notice_write_proc 공지사항 - 작성 처리
+     * noticeWriteProc 공지사항 작성 처리
+     *
+     * @param notice
+     * @param company
+     * @param attributes
+     * @return
+     * @throws Exception
      */
-    @RequestMapping(value = "/notice_write_proc", method = RequestMethod.POST)
-    public String noticeWriteProc(Notice notice, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Company cvo,
-                                  HttpServletRequest request, RedirectAttributes attributes) throws Exception {
+    @PostMapping("/write")
+    public String noticeWriteProc(Notice notice, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Company company,
+                                  RedirectAttributes attributes) {
 
-        notice = boardUtil.fileUtil(request, notice);
-        notice.setCompanyId(cvo.getCompanyId());
+        notice.setCompanyId(company.getCompanyId());
         int result = noticeService.insert(notice);
-
         if (result == 1) {
-            boardUtil.fileSaveUtil(notice);
             attributes.addFlashAttribute("result", "insuccess");
 
         } else {
             attributes.addFlashAttribute("result", "fail");
 
         }
-
-        return "redirect:/notice_content?no=" + notice.getPostId();
+        System.out.println(attributes.getFlashAttributes().toString());
+        return "redirect:/notice/content/" + notice.getPostId();
     }
 
     /**
-     * notice_content 공지사항 - 상세 보기
+     * notice/content/{no} 공지사항 상세 보기
+     *
+     * @param stat
+     * @param no
+     * @param model
+     * @return
      */
-    @RequestMapping(value = "/notice_content", method = RequestMethod.GET)
-    public ModelAndView noticeContent(String stat, String no) {
-        ModelAndView model = new ModelAndView();
-
+    @GetMapping("/content/{no}")
+    public String noticeContent(String stat, @PathVariable("no") String no, Model model) {
         Notice notice = noticeService.getNoticeContent(stat, no);
         List<Comment> commList = commentService.select(no);
 
-        model.addObject("noticeVo", notice);
-        model.addObject("commList", commList);
-        model.setViewName("/notice/notice-content");
+        model.addAttribute("notice", notice);
+        model.addAttribute("commList", commList);
 
-        return model;
+        return "/notice/notice-content";
     }
 
     /**
-     * notice_delete 공지사항 - 삭제
+     * notice/delete 공지사항 삭제 처리
+     *
+     * @param no
+     * @param imgdel
+     * @param attributes
+     * @return
      */
-    @RequestMapping(value = "/notice_delete", method = RequestMethod.POST)
+    @PostMapping("/delete")
     public String noticeDelete(String no, String imgdel, RedirectAttributes attributes) {
 
         int result = noticeService.delete(no);
@@ -117,36 +140,44 @@ public class NoticeController {
 
         }
 
-        return "redirect:/notice_list";
+        return "redirect:/notice/list";
     }
 
     /**
-     * notice_update 공지사항 - 수정
+     * notice/write/{stat}/{no} 공지사항 수정 페이지
+     *
+     * @param stat
+     * @param no
+     * @return
      */
-    @RequestMapping(value = "/notice_update", method = RequestMethod.GET)
-    public ModelAndView noticeUpdate(String stat, String no) {
-        ModelAndView model = new ModelAndView();
+    @GetMapping("write/{stat}/{no}")
+    public String noticeUpdate(@PathVariable("stat") String stat, @PathVariable("no") String no, Model model) {
 
         Notice notice = noticeService.getNoticeContent(stat, no);
 
-        model.addObject("noticeVo", notice);
-        model.setViewName("/notice/notice-update");
+        model.addAttribute("notice", notice);
 
-        return model;
+        return "/notice/notice-update";
     }
 
     /**
-     * notice_update_proc 공지사항 - 수정 처리
+     * noticeUpdateProc 공지사항 수정 처리
+     *
+     * @param notice
+     * @param request
+     * @param attributes
+     * @return
+     * @throws Exception
      */
-    @RequestMapping(value = "/notice_update_proc", method = RequestMethod.POST)
+    @PostMapping("write/{stat}/{no}")
     public String noticeUpdateProc(Notice notice, HttpServletRequest request, RedirectAttributes attributes)
             throws Exception {
-        String oldFileName = notice.getImageId();
-
-        notice = boardUtil.fileUtil(request, notice);
+//        String oldFileName = notice.getImageId();
+//
+//        notice = boardUtil.fileUtil(request, notice);
         int result = noticeService.update(notice);
         if (result == 1) {
-            boardUtil.fileUpdateUtil(notice, oldFileName);
+//            boardUtil.fileUpdateUtil(notice, oldFileName);
             attributes.addFlashAttribute("result", "upsuccess");
 
         } else {
@@ -154,27 +185,7 @@ public class NoticeController {
 
         }
 
-        return "redirect:/notice_content?stat=up&no=" + notice.getPostId();
-    }
-
-    /**
-     * comment_write_proc 댓글 - 작성 처리
-     */
-    @RequestMapping(value = "comment_write_proc", method = RequestMethod.POST)
-    @ResponseBody
-    public String commentWriteProc(Comment comment) {
-
-        return commentService.commentInsert(comment);
-    }
-
-    /**
-     * comment_delete 댓글 - 삭제 처리
-     */
-    @RequestMapping(value = "comment_delete", method = RequestMethod.POST)
-    @ResponseBody
-    public String commentDelete(@RequestParam("no") String no) {
-
-        return commentService.delete(no);
+        return "redirect:/notice/content/" + notice.getPostId();
     }
 
     /**
@@ -185,7 +196,7 @@ public class NoticeController {
 
         noticeService.deleteList(list);
 
-        return "redirect:/notice_list";
+        return "redirect:/notice/list";
     }
 
     /**
@@ -193,21 +204,18 @@ public class NoticeController {
      */
     @RequestMapping(value = "/notice_Search")
     @SuppressWarnings("unchecked")
-    public ModelAndView boardSearchProc(String keyword, String page) {
-        ModelAndView model = new ModelAndView();
+    public String boardSearchProc(String keyword, String page, Model model) {
 
         Map<String, Integer> pageMap = boardUtil.getPagination(page, keyword);
         List<Notice> list = (List<Notice>) noticeService.search(keyword, pageMap.get("startCount"),
                 pageMap.get("endCount"));
 
-        model.addObject("list", list);
-        model.addObject("dbCount", pageMap.get("dbCount"));
-        model.addObject("pageSize", pageMap.get("pageSize"));
-        model.addObject("pageCount", pageMap.get("pageCount"));
-        model.addObject("page", pageMap.get("reqPage"));
+        model.addAttribute("list", list);
+        model.addAttribute("dbCount", pageMap.get("dbCount"));
+        model.addAttribute("pageSize", pageMap.get("pageSize"));
+        model.addAttribute("pageCount", pageMap.get("pageCount"));
+        model.addAttribute("page", pageMap.get("reqPage"));
 
-        model.setViewName("/notice/notice-list");
-
-        return model;
+        return "/notice/notice-list";
     }
 }
