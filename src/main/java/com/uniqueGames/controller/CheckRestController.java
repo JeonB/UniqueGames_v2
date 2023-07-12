@@ -57,9 +57,8 @@ public class CheckRestController {
                                  @RequestParam("member_id")String memberId,
                                  @RequestParam("name") String name) {
 
-//        String result = memberService.findMpass(email, memberId, name);
-//        return result;
-            return "";
+        String result = memberService.findMpass(email, memberId, name);
+        return result;
     }
 
     @RequestMapping(value="/deletecheck", method=RequestMethod.POST)

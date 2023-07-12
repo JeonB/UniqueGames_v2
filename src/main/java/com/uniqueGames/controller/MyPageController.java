@@ -26,19 +26,19 @@ public class MyPageController {
 
         if(mode.equals("member")) {
             Member member = (Member)session.getAttribute(SessionConstants.LOGIN_MEMBER);
-            String addr = member.getAddr();
-            String addr1 = "";
-            String addr2 = "";
-            if(addr!=null) {
-                addr1 = member.getAddr().split("   ")[0];
-                addr2 = member.getAddr().split("   ")[1];
-            }else if(addr == "") {
-                addr1 = "";
-                addr2 = "";
-            }
-
-            member.setAddr1(addr1);
-            member.setAddr2(addr2);
+//            String addr = member.getAddr();
+//            String addr1 = "";
+//            String addr2 = "";
+//            if(addr!=null) {
+//                addr1 = member.getAddr().split("   ")[0];
+//                addr2 = member.getAddr().split("   ")[1];
+//            }else if(addr == "") {
+//                addr1 = "";
+//                addr2 = "";
+//            }
+//
+//            member.setAddr1(addr1);
+//            member.setAddr2(addr2);
             System.out.println("addr1= "+member.getAddr1());
             System.out.println("addr2= "+member.getAddr2());
 
