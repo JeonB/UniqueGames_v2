@@ -1,10 +1,7 @@
 package com.uniqueGames.repository;
 
 import com.uniqueGames.model.Member;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -38,4 +35,7 @@ public interface MemberMapper {
 
     @Select("SELECT * FROM MEMBER WHERE MEMBER_ID=#{id}")
     Member aGetDetailMember(String id);
+
+    @Delete("delete from member where member_id=#{memberId} and password=#{password}")
+    int delete(String memberId, String password);
 }

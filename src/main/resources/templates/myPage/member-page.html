@@ -15,6 +15,11 @@
 
     /*]]>*/
   </script>
+  <style>
+    .mypage-addr {
+      margin-right: 360px;
+    }
+  </style>
 </head>
 <body>
 <header th:include="main/header"></header>
@@ -32,56 +37,60 @@
       <li class="mypage-profile">
         <img src="/images/mypage-profile.png" class="profile-picture">
       </li>
-      <li class="mypage-info" th:text="${member.name}"></li>
-      <li class="mypage-info" id="mypage-id" th:text="${member.memberId}"></li>
-      <li class="mUpdate"><a th:href="@{/mypage}">개인 정보</a></li>
-      <li class="mUpdate"><a href="member-order">결제 내역</a></li>
-      <li class="mUpdate"><a th:href="@{/deleteAccount}">회원탈퇴</a></li>
+      <li class="mypage-info" th:text="${member?.name}"></li>
+      <li class="mypage-info" id="mypage-id" th:text="${member?.memberId}"></li>
+      <li class="mUpdate" id="active"><a th:href="@{/mypage}">개인 정보</a></li>
+      <li class="mUpdate1"><a th:href="@{/mnewpass}">비밀번호 재설정</a> </li>
+      <li class="mUpdate1"><a href="member-order">결제 내역</a></li>
+      <li class="mUpdate1"><a th:href="@{/deleteaccount}">회원탈퇴</a></li>
     </ul>
   </div>
-  <div class="memberChangeTab">
-  <p class="intro-4">개인정보 수정</p>
-  <form action="memberupdate" name="myPageForm" method="post" id="content-myPage" th:checked="true">
-    <input type="hidden" name="memberId" th:value="${member.memberId}">
-    <div>
+  <form action="memberupdate" name="myPageForm" method="post" class="deleteForm" th:checked="true">
+    <p class="intro-4">개인정보 수정</p>
+    <input type="hidden" name="memberId" th:value="${member?.memberId}">
+    <div class="div-update">
       <ul>
-        <li class="must-insert-5">
+        <li>
           <p class="label-dot">*</p>
-          <label>이메일</label><span id="emailMsg"></span>
+          <label class="mypage-insert">이메일</label><span id="emailMsg"></span>
         </li>
         <li>
-          <input type="text" name="email" th:value="${member.email}" class="mypage-input">
-          <button type="button" id="mypage-email-btn">인증 번호</button>
-        </li>
-        <li class="must-insert-5" id="mypage-phoneNum">
-          <p class="label-dot">*</p>
-          <label>휴대전화</label><span id="phoneMsg"></span>
+          <input type="text" name="email" th:value="${member?.email}">
         </li>
         <li>
-          <input type="text" name="phoneNum" class="mypage-input" th:value="${member.phoneNum}" placeholder="-제외하고 입력하세요">
-        </li>
-        <li class="must-insert-5">
-          <p class="label-dot">*</p>
-          <label>비밀번호</label><span id="nameMsg"></span>
+          <button type="button" class="button-style" id="mypage-email-btn">인증 번호</button>
         </li>
         <li>
-          <input type="password" name="password" class="mypage-input" placeholder="현재 비밀번호">
-          <input type="checkbox" class="mypage-pwd-check-img" id="pwd-check-img" onclick="memberPassVisible()">
-          <input type="password" name="newPassword" class="mypage-input" id="newpassInput" placeholder="새로운 비밀번호">
-          <input type="checkbox" class="mypage-pwd-check-img">
-          <input type="password" name="newPasswordCheck" class="mypage-input" id="newpassInputCheck" placeholder="새로운 비밀번호 재입력">
-          <input type="checkbox" class="mypage-pwd-check-img" id="pwd-check-img-1" onclick="memberPassCheckVisible()">
+          <input type="text" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리" disabled="disabled">
         </li>
         <li>
-          <button type="button" id="mypage-pass-change">재설정</button>
+          <label class="mypage-insert">휴대전화</label><span id="phoneMsg"></span>
         </li>
+        <li>
+          <input type="text" name="phoneNum" th:value="${member?.phoneNum}" placeholder="-제외하고 입력하세요">
+        </li>
+        <li>
+          <label class="mypage-addr">주소</label>
+        </li>
+<!--        <li th:if="">-->
+<!--          <input type="text" name="addr1" th:value="${member?.addr1}" tabindex="8">-->
+<!--        </li>-->
+        <li>
+          <button type="button" class="button-style" id="mypage-addr-btn" tabindex="9">주소 검색</button>
+        </li>
+        <li class="mypage-insert-1">
+          <label>상세 주소</label>
+        </li>
+        <li>
+          <input type="text" id="input-common" name="addr2" tabindex="10">
+        </li>
+
         <li>
           <button type="button" class="button-gradient" id="mypage-update">수정 완료</button>
         </li>
       </ul>
     </div>
   </form>
-  </div>
 </section>
 <footer th:include="main/footer"></footer>
 </body>

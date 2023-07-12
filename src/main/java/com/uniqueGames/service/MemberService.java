@@ -49,4 +49,23 @@ public class MemberService {
 	public Member aGetDetailMember(String id) {
 		return memberMapper.aGetDetailMember(id);
 	}
+
+	public int delete(String memberId, String password) {
+		return memberMapper.delete(memberId, password);
+	}
+
+	public String findMpass(String email, String memberId, String name) {
+		Member member = new Member();
+		member.setEmail(email);
+		member.setMemberId(memberId);
+		member.setName(name);
+		return memberMapper.findMpass(member);
+	}
+
+	public int changeMpass(String memberId, String mnewpassword) {
+		Member member = new Member();
+		member.setMemberId(memberId);
+		member.setMnewpassword(mnewpassword);
+		return memberMapper.changeMpass(member);
+	}
 }

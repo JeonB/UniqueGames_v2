@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
@@ -66,29 +66,52 @@
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
-      <p id="top-title">Login</p>
-      <p id="top-subtitle">#로그인</p>
+      <p id="top-title">My Page</p>
+      <p id="top-subtitle">#마이페이지</p>
     </div>
   </div>
 </section>
-<section class="content-1">
-  <p class="intro">개인 회원</p>
-  <form action="mChangePassword" name="mChangePassword" method="post" id="newPasswordForm">
+<section class="content-mypage">
+  <div class="sidebar">
     <ul>
-      <li>
-        <input type="password" name="mnewpassword" placeholder="새로운 비밀번호">
-        <input type="checkbox" class="pwd-check-img">
-        <input type="hidden" name="memberId" th:value="${memberId}">
+      <li class="mypage-profile">
+        <img src="/images/mypage-profile.png" class="profile-picture">
       </li>
-      <li>
-        <input type="password" name="mnewpassword-check" placeholder="새로운 비밀번호 확인">
-        <input type="checkbox" class="pwd-check-img">
-        <span class="msgPassword"></span>
-      </li>
-      <li>
-        <button type="button" class="button-gradient">수정하기</button>
-      </li>
+      <li class="mypage-info" th:text="${member?.name}"></li>
+      <li class="mypage-info" id="mypage-id" th:text="${member?.memberId}"></li>
+      <li class="mUpdate"><a th:href="@{/mypage}">개인 정보</a></li>
+      <li class="mUpdate1" id="active"><a th:href="@{/mnewpass}">비밀번호 재설정</a> </li>
+      <li class="mUpdate1"><a href="member-order">결제 내역</a></li>
+      <li class="mUpdate1"><a th:href="@{/deleteaccount}">회원탈퇴</a></li>
     </ul>
+  </div>
+  <form action="changempass" name="myPageForm" method="post" class="deleteForm" th:checked="true">
+    <p class="intro-4">비밀번호 재설정</p>
+    <input type="hidden" name="memberId" th:value="${member?.memberId}">
+    <div class="div-update">
+      <ul>
+        <li>
+          <input type="password" name="password" class="mypage-input" placeholder="현재 비밀번호">
+        </li>
+        <li>
+          <input type="checkbox" class="mypage-pwd-check-img" id="pwd-check-img" onclick="memberPassVisible()">
+        </li>
+        <li>
+          <input type="password" name="newPassword" class="mypage-input" id="newpassInput" placeholder="새로운 비밀번호">
+        </li>
+        <li>
+          <input type="checkbox" class="mypage-pwd-check-img">
+        </li>
+        <li>
+          <input type="password" name="newPasswordCheck" class="mypage-input" id="newpassInputCheck" placeholder="새로운 비밀번호 재입력">
+        <li>
+          <input type="checkbox" class="mypage-pwd-check-img" id="pwd-check-img-1" onclick="memberPassCheckVisible()">
+        </li>
+        <li>
+          <button type="button" class="button-gradient" id="mypage-newpass">수정 하기</button>
+        </li>
+      </ul>
+    </div>
   </form>
 </section>
 

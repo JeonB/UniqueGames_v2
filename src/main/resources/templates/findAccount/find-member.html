@@ -102,9 +102,9 @@
                 $(".modal2").show();
                 $(".agreement-content1").html($(".find-id-none").html());
               }else {
-                $(".modal2").show();
+                $(".modal3").show();
                 $("#memberId1").attr("value", result);
-                $(".agreement-content1").html($(".mchangepass").html());
+                $(".agreement-content2").html($(".mchangepass").html());
                 /* $("#find-id-result").html(result); */
                 /* $("#agreement-content1").html($(".deleteComplete").html()); */
               }
@@ -116,9 +116,9 @@
       $(document).on("click", "#gotoFind", function(event){
 
         $(".modal2").hide();
-        $("#email").val("").focus();
-        $("#memberId").val("");
-        $("#name").val("");
+        $("input[name='email']").val("").focus();
+        $("input[name='memberId']").val("");
+        $("input[name='name']").val("");
 
       });
 
@@ -178,7 +178,7 @@
         <button type="button" class="button-gradient" id="findIdButton">아이디 찾기</button>
       </li>
       <li>
-        <a th:href = "@{/login}">return to login</a>
+        <a th:href = "@{/login}" class="toLogin">return to login</a>
       </li>
     </ul>
   </form>
@@ -202,7 +202,7 @@
         <button type="button" class="button-gradient" id="findPass">비밀번호 찾기</button>
       </li>
       <li>
-        <a th:href = "@{/login}">return to login</a>
+        <a th:href = "@{/login}" class="toLogin">return to login</a>
       </li>
     </ul>
   </form>
@@ -215,9 +215,16 @@
   </div>
 </div>
 
+<div class="modal3">
+  <div class="agreement3">
+    <div class="agreement-content2">
+    </div>
+  </div>
+</div>
+
 <div class="deleteComplete">
   <p class="agreement-title">아이디 찾기</p>
-  <span class="delete-span"></span>님의 아이디 :
+  <span class="delete-span"></span> 님의 아이디 :
 		<span class="find-id-result"></span>
   <ul>
     <li>
@@ -245,7 +252,7 @@
           <button type="button" class="button-gradient" onclick="changePassword()">비밀번호 변경</button>
         </li>
         <li>
-          <a th:href = "@{/login}">return to login</a>
+          <a th:href = "@{/login}" class="toLogin">return to login</a>
         </li>
       </ul>
     </div>
