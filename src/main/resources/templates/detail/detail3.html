@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<div th:replace="/main/header::headerFragment"></div>
+<div th:replace="~{/main/header::headerFragment}"></div>
 <div id="image-top-bg"></div>
 <div class="parent-container" style="display: grid">
   <div class="main-container">
@@ -280,7 +280,7 @@
   </div>
 </div>
 
-<div th:replace="/main/footer::footerFragament"></div>
+<div th:replace="~{main/footer :: footerFragment}"></div>
 </body>
 
 </html>

@@ -20,7 +20,7 @@
 </head>
 <body>
 <!--header-->
-<div th:replace="/main/header::headerFragment"></div>
+<div th:replace="~{main/header :: headerFragment}"></div>
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
@@ -54,9 +54,34 @@
       </div>
     </div>
   </div>
+
+
+  <div class="Frame2" style="width: 100%; height: 100%; padding-top: 56px; padding-bottom: 56px; padding-left: 410px; padding-right: 398px; background: white; justify-content: flex-end; align-items: center; display: inline-flex">
+    <div class="Group18" style="width: 1112px; height: 388px; position: relative">
+      <div class="Group17" style="width: 330px; height: 388px; left: 0px; top: 0px; position: absolute">
+        <div class="Rectangle39" style="width: 330px; height: 388px; left: 0px; top: 0px; position: absolute; background: white; box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.10); border-radius: 10px; border: 1px #CECECE solid"></div>
+        <div style="left: 31px; top: 80px; position: absolute; color: black; font-size: 30px; font-family: Inter; font-weight: 700; word-wrap: break-word">NEXON KOREA</div>
+        <div style="left: 31px; top: 130px; position: absolute; color: black; font-size: 18px; font-family: Inter; font-weight: 400; word-wrap: break-word">넥슨코리아</div>
+        <div class="Line1" style="width: 50px; height: 0px; left: 31px; top: 60px; position: absolute; border: 0.50px black solid"></div>
+        <div class="MaskGroup" style="width: 110px; height: 110px; left: 191px; top: 248px; position: absolute">
+          <div class="Vector1" style="width: 110px; height: 110px; left: 0px; top: 0px; position: absolute; background: #D9D9D9"></div>
+          <img class="Image3" style="width: 317.24px; height: 91.70px; left: 6.60px; top: 13.23px; position: absolute" src="https://via.placeholder.com/317x92" />
+        </div>
+      </div>
+      <div style="left: 408px; top: 84px; position: absolute; color: black; font-size: 16px; font-family: Inter; font-weight: 400; line-height: 24px; word-wrap: break-word">게임을사랑하는사람들이모여즐겁게게임을만드는곳,넥슨.<br/>이곳에서전세계게이머들에게최고의재미와경험을선사하기위한도전은계속됩니다.<br/>그들의 추억으로 버는 수익은 언제까지 지속될까?</div>
+      <div class="Info" style="left: 408px; top: 40px; position: absolute; color: #6630AD; font-size: 24px; font-family: Inter; font-style: italic; font-weight: 700; line-height: 24px; word-wrap: break-word">INFO</div>
+      <div class="Games" style="left: 408px; top: 191px; position: absolute; color: #31BBCB; font-size: 24px; font-family: Inter; font-style: italic; font-weight: 700; line-height: 24px; word-wrap: break-word">GAMES</div>
+      <img class="Rectangle41" style="width: 230px; height: 120px; left: 408px; top: 240px; position: absolute; box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.10)" src="https://via.placeholder.com/230x120" />
+      <img class="Rectangle42" style="width: 230px; height: 120px; left: 673px; top: 240px; position: absolute; box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.10)" src="https://via.placeholder.com/230x120" />
+      <img class="Rectangle43" style="width: 162px; height: 120px; left: 938px; top: 240px; position: absolute; box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.10)" src="https://via.placeholder.com/162x120" />
+      <div class="Rectangle44" style="width: 174px; height: 174px; left: 938px; top: 213px; position: absolute; background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, white 100%)"></div>
+      <div class="ExpandMoreFill1Wght400Grad0Opsz48" style="width: 32px; height: 18px; left: 370px; top: 316px; position: absolute; transform: rotate(-90deg); transform-origin: 0 0; background: black"></div>
+      <div class="ExpandMoreFill1Wght400Grad0Opsz48" style="width: 32px; height: 18px; left: 1060px; top: 284px; position: absolute; transform: rotate(90deg); transform-origin: 0 0; background: black"></div>
+    </div>
+  </div>
 </section>
 <!--footer-->
-<div th:replace="/main/footer::footerFragment"></div>
+<div th:replace="~{main/footer :: footerFragment}"></div>
 <script>
   const element = document.getElementById('board-top-menu');
   const loginMember = '<%=session.getAttribute("loginMember")%>';
