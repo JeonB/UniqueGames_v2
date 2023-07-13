@@ -1,7 +1,9 @@
 package com.uniqueGames.config;
 
 import com.uniqueGames.interceptor.LoginCheckInterceptor;
+
 import java.util.List;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -16,11 +18,11 @@ public class WebConfig implements WebMvcConfigurer {
             "/member/**",
             "/search/**",
             "/mybatis",
-            "/error", "/cart", "/main/**","/findAccount",
+            "/error", "/cart", "/main/**", "/findAccount",
             "/admin-game-list", "/admin-member-list", "/admin-game-register", "/admin-donation", "/admin",
             "/admin-detail-member", "/admin-update-game",
-            "/error", "/cart", "/main/**","/findAccount","/detail/**","/favicon.ico",
-            "/upload/**","/notice/content/**", "/notice/list","/topgame", "/alllist",
+            "/error", "/cart", "/main/**", "/findAccount", "/detail/**", "/favicon.ico",
+            "/upload/**", "/notice/content/**", "/notice/list/**", "/notice/search/**", "/topgame", "/alllist",
             "/findMember", "/findCompany", "/idcheck", "/findmid", "/changepass", "/phonecheck", "/emailcheck", "/mailCheck", "/mchangepass"
 
     };

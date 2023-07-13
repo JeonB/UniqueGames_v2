@@ -6,12 +6,13 @@ $(document).ready(function () {
     // 전체 삭제 버튼 이벤트
     $('button[name="listDeleteAll"]').on("click", function () {
 
-        let list = $("input[name='list']");
+        let list = document.getElementsByName("list")
 
         if (list[0] != null) {
             if (confirm("모든 게시글을 삭제하시겠습니까?")) {
-
-                list.prop("checked", true);
+                list.forEach(e => {
+                    e.checked = true
+                })
                 boardManage.submit();
 
             }
@@ -273,7 +274,7 @@ function commentDelete(commentId) {
 
 // 검색 이벤트
 function searchScript() {
-    if ($('input[name="keyword"]').val() == "") {
+    if ($('input[name="q"]').val() == "") {
         alert("검색어를 입력하세요");
 
         return false;

@@ -1,6 +1,7 @@
 package com.uniqueGames.service;
 
 
+import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public interface NoticeService {
 	
 	int delete(String no, String imgDel);
 	
-	int deleteList(String[] list);
-	
+	int deleteList(String[] list, Company company);
+
 	Object search(String keyWord, int startCount, int endCount);
 	
 }

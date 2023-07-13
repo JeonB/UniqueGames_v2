@@ -12,6 +12,7 @@
     <script th:inline="javascript">
         $(document).ready(function () {
             getPagination();
+            console.log(location.href)
 
         });
 
@@ -33,7 +34,11 @@
 
             jQuery('#ampaginationsm').on('am.pagination.change', function (e) {
                 jQuery('.showlabelsm').text('The selected page no: ' + e.page);
-                $(location).attr('href', "/notice/list/" + e.page);
+                if (location.href.includes("search")) {
+                    $(location).attr('href', location.href + "&page=" + e.page)
+                } else {
+                    $(location).attr('href', "/notice/list/" + e.page);
+                }
             });
         }
 
@@ -63,10 +68,16 @@
         <div class="board-top-menu" th:if="${loginMember != null and #strings.contains(loginMember,'Company')}">
             <p>Notice</p>
             <div>
-                <form name='boardSearch' action='/notice_Search' method='get'>
+                <form name='boardSearch' action='search' method='get'>
+                    <select>
+                        <option value="">제목+내용</option>
+                        <option value="">제목</option>
+                        <option value="">내용</option>
+                        <option value="">작성자</option>
+                    </select>
                     <label>
-                        <input type='text' name='keyword' placeholder='검색어를 입력해주세요.'>
-                        <button type='button' class='btn-search'>
+                        <input type='text' name='q' placeholder='검색어를 입력해주세요.'>
+                        <button type='button' id='btn-search'>
                             <img th:src='@{/images/btn-boardSearch-press.png}'>
                         </button>
                     </label>
@@ -90,10 +101,16 @@
         <div class="board-top-menu" th:unless="${loginMember != null and #strings.contains(loginMember,'Company')}">
             <p>Notice</p>
             <div class='bsearch-box'>
-                <form name='boardSearch' action='notice_Search' method='get'>
+                <form name='boardSearch' action='search' method='get'>
+                    <select>
+                        <option value="">제목+내용</option>
+                        <option value="">제목</option>
+                        <option value="">내용</option>
+                        <option value="">작성자</option>
+                    </select>
                     <label>
-                        <input type='text' name='keyword' placeholder='검색어를 입력해주세요.'>
-                        <button type='button' class='btn-search'>
+                        <input type='text' name='q' placeholder='검색어를 입력해주세요.'>
+                        <button type='button' id='btn-search'>
                             <img src='/images/btn-boardSearch-press.png'>
                         </button>
                     </label>

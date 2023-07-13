@@ -1,6 +1,7 @@
 package com.uniqueGames.repository;
 
 
+import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface NoticeMapper {
 
     List<String> deleteListBefore(String[] list);
 
-    int deleteList(String[] list);
+    int deleteList(@Param("list") String[] list, @Param("company") Company company);
 
     List<Notice> searchList(@Param("keyword") String keyword, @Param("start") int startCount,
                             @Param("end") int endCount);

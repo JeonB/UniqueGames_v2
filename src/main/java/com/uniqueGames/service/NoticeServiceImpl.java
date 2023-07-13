@@ -3,6 +3,7 @@ package com.uniqueGames.service;
 
 import com.uniqueGames.fileutil.BoardUtil;
 import com.uniqueGames.fileutil.FileUploadUtil;
+import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
 import com.uniqueGames.repository.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,10 +123,10 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
      * @return
      */
     @Override
-    public int deleteList(String[] list) {
+    public int deleteList(String[] list, Company company) {
         fileListDelete(noticeMapper.deleteListBefore(list));
 
-        return noticeMapper.deleteList(list);
+        return noticeMapper.deleteList(list, company);
     }
 
     /**

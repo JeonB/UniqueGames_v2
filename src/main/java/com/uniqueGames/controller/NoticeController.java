@@ -15,13 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 @SessionAttributes({SessionConstants.LOGIN_MEMBER, "list", "noticeVo"})
 @RequestMapping(value = "/notice")
+@Slf4j
 public class NoticeController {
 
     private NoticeService noticeService;
@@ -103,7 +103,7 @@ public class NoticeController {
      * @return
      */
     @GetMapping("/content/{no}")
-    public String noticeContent(String stat, @PathVariable("no") String no, Model model, @ModelAttribute("result")String result) {
+    public String noticeContent(String stat, @PathVariable("no") String no, Model model, @ModelAttribute("result") String result) {
         Notice notice = noticeService.getNoticeContent(stat, no);
         List<Comment> commList = commentService.select(no);
 
@@ -180,9 +180,9 @@ public class NoticeController {
      * board_manage 리스트 선택 삭제 처리
      */
     @PostMapping("board-manage")
-    public String boardManage(String[] list) {
+    public String boardManage(String[] list, @ModelAttribute(SessionConstants.LOGIN_MEMBER)Company company) {
 
-        noticeService.deleteList(list);
+        noticeService.deleteList(list, company);
 
         return "redirect:/notice/list";
     }
@@ -190,12 +190,13 @@ public class NoticeController {
     /**
      * notice_Search 리스트 검색 처리
      */
-    @RequestMapping(value = "/notice_Search")
+    @RequestMapping(value = "/list/search")
     @SuppressWarnings("unchecked")
-    public String boardSearchProc(String keyword, String page, Model model) {
-
-        Map<String, Integer> pageMap = boardUtil.getPagination(page, keyword);
-        List<Notice> list = (List<Notice>) noticeService.search(keyword, pageMap.get("startCount"),
+    public String boardSearchProc(String q, String page, Model model) {
+        log.info(q);
+        log.info(page);
+        Map<String, Integer> pageMap = boardUtil.getPagination(page, q);
+        List<Notice> list = (List<Notice>) noticeService.search(q, pageMap.get("startCount"),
                 pageMap.get("endCount"));
 
         model.addAttribute("list", list);
