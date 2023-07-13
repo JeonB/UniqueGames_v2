@@ -15,7 +15,7 @@ public interface NoticeService {
 	
 	int update(Notice notice);
 	
-	int delete(String no);
+	int delete(String no, String imgDel);
 	
 	int deleteList(String[] list);
 	

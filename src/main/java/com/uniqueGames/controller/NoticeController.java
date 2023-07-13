@@ -8,6 +8,7 @@ import com.uniqueGames.model.Notice;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.CommentService;
 import com.uniqueGames.service.NoticeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -40,16 +40,10 @@ public class NoticeController {
      *
      * @param page
      * @param model
-     * @param request
      * @return
      */
     @GetMapping({"/list", "/list/{page}"})
-    public String noticeList(@PathVariable(value = "page", required = false) String page, Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Company company = new Company();
-        company.setCompanyId("test");
-        company.setName("TestGames");
-        session.setAttribute(SessionConstants.LOGIN_MEMBER, company);
+    public String noticeList(@PathVariable(value = "page", required = false) String page, Model model, @ModelAttribute("result") String result) {
 
         // 페이징 처리 - startCount, endCount 구하기
         Map<String, Integer> pageMap = boardUtil.getPagination(page, "list");
@@ -60,6 +54,7 @@ public class NoticeController {
         model.addAttribute("pageSize", pageMap.get("pageSize"));
         model.addAttribute("pageCount", pageMap.get("pageCount"));
         model.addAttribute("page", pageMap.get("reqPage"));
+        model.addAttribute("result", result);
 
         return "notice/notice-list";
     }
@@ -96,7 +91,6 @@ public class NoticeController {
             attributes.addFlashAttribute("result", "fail");
 
         }
-        System.out.println(attributes.getFlashAttributes().toString());
         return "redirect:/notice/content/" + notice.getPostId();
     }
 
@@ -109,12 +103,13 @@ public class NoticeController {
      * @return
      */
     @GetMapping("/content/{no}")
-    public String noticeContent(String stat, @PathVariable("no") String no, Model model) {
+    public String noticeContent(String stat, @PathVariable("no") String no, Model model, @ModelAttribute("result")String result) {
         Notice notice = noticeService.getNoticeContent(stat, no);
         List<Comment> commList = commentService.select(no);
 
         model.addAttribute("notice", notice);
         model.addAttribute("commList", commList);
+        model.addAttribute("result", result);
 
         return "/notice/notice-content";
     }
@@ -123,16 +118,15 @@ public class NoticeController {
      * notice/delete 공지사항 삭제 처리
      *
      * @param no
-     * @param imgdel
+     * @param imgDel
      * @param attributes
      * @return
      */
     @PostMapping("/delete")
-    public String noticeDelete(String no, String imgdel, RedirectAttributes attributes) {
+    public String noticeDelete(String no, String imgDel, RedirectAttributes attributes) {
 
-        int result = noticeService.delete(no);
+        int result = noticeService.delete(no, imgDel);
         if (result == 1) {
-            boardUtil.fileDeleteUtil(imgdel);
             attributes.addFlashAttribute("result", "complete");
 
         } else {
@@ -164,20 +158,14 @@ public class NoticeController {
      * noticeUpdateProc 공지사항 수정 처리
      *
      * @param notice
-     * @param request
      * @param attributes
      * @return
      * @throws Exception
      */
     @PostMapping("write/{stat}/{no}")
-    public String noticeUpdateProc(Notice notice, HttpServletRequest request, RedirectAttributes attributes)
-            throws Exception {
-//        String oldFileName = notice.getImageId();
-//
-//        notice = boardUtil.fileUtil(request, notice);
+    public String noticeUpdateProc(Notice notice, RedirectAttributes attributes) {
         int result = noticeService.update(notice);
         if (result == 1) {
-//            boardUtil.fileUpdateUtil(notice, oldFileName);
             attributes.addFlashAttribute("result", "upsuccess");
 
         } else {
@@ -191,7 +179,7 @@ public class NoticeController {
     /**
      * board_manage 리스트 선택 삭제 처리
      */
-    @RequestMapping(value = "board_manage", method = RequestMethod.POST)
+    @PostMapping("board-manage")
     public String boardManage(String[] list) {
 
         noticeService.deleteList(list);

@@ -41,8 +41,8 @@
     <th:block th:if="${result}">
         <script th:inline="javascript">
             /*<![CDATA[*/
-            let result = '[[${result}]]';
-            getResult(result);
+            let result = [[${result}]]
+            getResult(result)
             /*]]>*/
         </script>
     </th:block>
@@ -107,7 +107,7 @@
             <div id='clearFix'></div>
         </div>
         <div th:if="${loginMember != null and #strings.contains(loginMember,'Company')}">
-            <form name="boardManage" action="board_manage" method="post">
+            <form name="boardManage" action="board-manage" method="post">
                 <table class="admin-btable">
                     <tr>
                         <th>선택</th>

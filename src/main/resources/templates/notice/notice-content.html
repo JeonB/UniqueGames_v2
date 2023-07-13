@@ -10,7 +10,7 @@
     <th:block th:if="${result}">
         <script th:inline="javascript">
             /*<![CDATA[*/
-            let result = '[[${result}]]';
+            let result = [[${result}]];
             getResult(result);
             /*]]>*/
         </script>
@@ -116,7 +116,7 @@
     </section>
     <form name="noticeDelete" action="/notice/delete" method="post"><input type="hidden" name="no"
                                                                           th:value="${notice.postId}"/>
-        <input th:if="${notice.imageId != null}" type="hidden" name="imgdel" th:value="${notice.imageId}"/>
+        <input th:if="${notice.imageId}" type="hidden" name="imgDel" th:value="${notice.imageId}"/>
     </form>
 </div>
 <div th:replace="~{main/footer :: footerFragment}"></div>
