@@ -6,18 +6,14 @@ import com.google.gson.JsonObject;
 import com.uniqueGames.fileutil.AdminUtil;
 import com.uniqueGames.model.*;
 import com.uniqueGames.service.*;
-import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 @Controller
 public class AdminController {
@@ -27,6 +23,8 @@ public class AdminController {
     private CompanyMemberService2 companyMemberService;
     @Autowired
     private GameService gameService;
+    @Autowired
+    private OrderService orderService;
     @Autowired
     private AdminUtil adminUtil;
 
@@ -171,20 +169,52 @@ public class AdminController {
 
     // ADMIN - GAME REGISTER
     @RequestMapping(value = "/admin-game-register")
-    public String admim_game_register() {
+    public String admim_game_register(Model model) {
+        ArrayList<Company> cList = companyMemberService.aGetAllCompanyList();
+
+        model.addAttribute("companyList", cList);
+        model.addAttribute("modalDisplay", "none");
         return "admin/admin-game-register";
+    }
+
+    @RequestMapping(value = "/admin-company-selector", produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String admin_company_selector(String keyword, Model model){
+        JsonObject jObj = new JsonObject();
+        JsonArray jArray = new JsonArray();
+
+        ArrayList<Company> list = companyMemberService.aGetSearched(keyword.toUpperCase());
+
+        if (list.size() == 0) {
+            jObj.addProperty("nothing", true);
+        } else {
+            jObj.addProperty("nothing", false);
+
+            for (Company company : list) {
+                JsonObject obj = new JsonObject();
+                obj.addProperty("id", company.getCompanyId());
+                obj.addProperty("name", company.getName());
+
+                jArray.add(obj);
+            }
+        }
+
+        jObj.add("companyList", jArray);
+
+        return new Gson().toJson(jObj);
     }
 
     // ADMIN - DONATION
     @RequestMapping(value = "/admin-donation")
-    public String admim_donation() {
+    public String admim_donation(Model model) {
+//        ArrayList<Integer> yearList = new OrderService();
+
         return "admin/admin-donation";
     }
 
     // ADMIN - DETAIL : MEMBER / COMPANY
     @RequestMapping(value = "/admin-detail-member")
     public String admin_detail_member(String id, String type, Model model) {
-
         if (type.equals("member")) {
             Member member = memberService.aGetDetailMember(id);
             String pn = member.getTel() + ") " + member.getPhoneNum();
@@ -212,7 +242,21 @@ public class AdminController {
 
     // ADMIN - GAME UPDATE
     @RequestMapping(value = "/admin-update-game")
-    public String admin_update_game() {
+    public String admin_update_game(int id, Model model) {
+        Game game = gameService.aGetGame(id);
+        Company company = companyMemberService.aGetCompany(id);
+        ArrayList<Company> cList = companyMemberService.aGetAllCompanyList();
+        String url = "/detail/" + id;
+
+        model.addAttribute("id", game.getId());
+        model.addAttribute("title", game.getName());
+        model.addAttribute("company", company.getName());
+        model.addAttribute("genre", game.getGameGenre());
+        model.addAttribute("img", game.getImagePath());
+        model.addAttribute("desciption", game.getDescription());
+        model.addAttribute("url", url);
+        model.addAttribute("companyList", cList);
+
         return "admin/admin-update-game";
     }
 }

@@ -30,4 +30,8 @@ public class GameService {
         }
         return gList;
     }
+
+    public Game aGetGame(int id) {
+        return gameMapper.aGetGame(id);
+    }
 }

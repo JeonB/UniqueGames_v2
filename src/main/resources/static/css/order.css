@@ -173,7 +173,7 @@ select:focus, select:hover, select:default {
 }
 
 #btn-cart, #btn-order, #btn-main, #btn-list, #btn-method, #btn-modal, #btn-goCart, #btn-register,
-#btn-delete-member {
+#btn-delete-member, #btn-modal-close {
     padding: 12px 80px;
     border: none;
     border-radius: 3px;
@@ -637,7 +637,7 @@ input[type="file"] {
     text-align: center;
 }
 
-#p-regi, #p-detail {
+p[name="p-regi"], #p-detail {
     width: 120px;   height: 40px;
     display: inline-block;
     margin: 0px 10px 20px 0px;
@@ -647,7 +647,7 @@ input[type="file"] {
     text-align: right;
 }
 
-p[name="p-desc"] {
+#p-desc {
     vertical-align: top;
 }
 
@@ -660,13 +660,9 @@ button[name="company-list"] {
 
     font-family: "YouandiModern";
     font-size: 14px;
+    font-weight: normal;
     color: black;
     cursor: pointer;
-}
-
-button[name="company-list"]:hover {
-    background: #DDDDDD;
-    font-weight: bold;
 }
 
 #div-company-result {

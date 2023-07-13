@@ -39,7 +39,7 @@
                                 output += '<td><input type="checkbox" name="chk-admin" value="' + game.id + '"></td>';
                                 output += '<td>' + game.title + '</td>';
                                 output += '<td><a href="/admin-detail-member?id=' + game.cId + '&type=company">' + game.company + '</a></td>';
-                                output += '<td> <a href=""><button type="button" id="btn-game-detail">상세 페이지</button></a>';
+                                output += '<td> <a href="/detail/' + game.id + '" target="_blank"><button type="button" id="btn-game-detail">상세 페이지</button></a>';
                                 output += '<a href="/admin-update-game?id=' + game.id + '"><button type="button" id="btn-game-update">정보 수정</button></a> </td>';
                             }
                             output += '<tr> <td colspan="5"> <div id="ampaginationsm"></div> </td> </tr>';

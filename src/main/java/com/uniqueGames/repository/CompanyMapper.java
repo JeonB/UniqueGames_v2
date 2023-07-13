@@ -49,4 +49,10 @@ public interface CompanyMapper {
 
     @Select("SELECT * FROM COMPANY WHERE G_ID = #{id}")
     Company aGetCompany(int id);
+
+    @Select("SELECT * FROM COMPANY")
+    List<Company> aGetAllCompanyList();
+
+    @Select("SELECT * FROM COMPANY WHERE UPPER(NAME) LIKE CONCAT('%', #{companyName}, '%')")
+    List<Company> aGetSearched(String companyName);
 }

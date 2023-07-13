@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/error", "/cart", "/main/**","/findAccount","/detail/**","/favicon.ico",
             "/upload/**","/notice/content/**", "/notice/list","/topgame", "/alllist",
             "/findMember", "/findCompany", "/idcheck", "/findmid", "/changepass", "/phonecheck", "/emailcheck", "/mailCheck", "/mchangepass",
-            "/admin-game-list-data"
+            "/admin-game-list-data", "/admin-company-selector"
     };
     //whitelist 같은 경우 로그인하지 않아도 접근할 수 있는 자원들 목록
 

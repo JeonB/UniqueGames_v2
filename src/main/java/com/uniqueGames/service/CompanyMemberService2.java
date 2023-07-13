@@ -81,4 +81,20 @@ public class CompanyMemberService2 {
     public Company aGetCompany(int id) {
         return companyMapper.aGetCompany(id);
     }
+
+    public ArrayList<Company> aGetAllCompanyList() {
+        ArrayList<Company> cList = new ArrayList<>();
+        for (Company company : companyMapper.aGetAllCompanyList()) {
+            cList.add(company);
+        }
+        return cList;
+    }
+
+    public ArrayList<Company> aGetSearched(String companyName) {
+        ArrayList<Company> cList = new ArrayList<>();
+        for (Company company : companyMapper.aGetSearched(companyName)) {
+            cList.add(company);
+        }
+        return cList;
+    }
 }
