@@ -5,9 +5,94 @@
     <title>Unique Games</title>
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="stylesheet" th:href="@{/css/order.css}">
+    <link rel="stylesheet" th:href="@{/css/am-pagination.css}">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <script src="js/admin-script.js"></script>
-</head>
+    <script src="js/am-pagination.js"></script>
+    <script>
+        $(document).ready(function () {
+            getPage("game", 1);
+
+            $("#select-order").change(function () {
+                getPage("game", 1);
+            });
+
+            function getPage(type = "game", page = 1) {
+                var array = $("#select-order").val();
+
+                $.ajax({
+                    url: "/admin-game-list-data",
+                    data: {type: type, array: array, page: page},
+                    success: function (result) {
+                        let returnData = JSON.parse(result);
+                        let str = '<p id="p-member-count">등록된 게임 : ' + returnData.gameCount + '개</p>';
+                        let output = "";
+
+                        if (returnData.nothing) {
+                            alert("데이터가 존재하지 않습니다.");
+                        } else {
+                            output += '<div id="div-game-table">';
+                            output += '<table id="table-game-list">';
+                            output += '<tr> <th>선택</th> <th>제목</th> <th>회사</th> <th>메뉴</th> </tr>';
+                            for (let game of returnData.gameList) {
+                                output += '<tr>';
+                                output += '<td><input type="checkbox" name="chk-admin" value="' + game.id + '"></td>';
+                                output += '<td>' + game.title + '</td>';
+                                output += '<td><a href="/admin-detail-member?id=' + game.cId + '&type=company">' + game.company + '</a></td>';
+                                output += '<td> <a href=""><button type="button" id="btn-game-detail">상세 페이지</button></a>';
+                                output += '<a href="/admin-update-game?id=' + game.id + '"><button type="button" id="btn-game-update">정보 수정</button></a> </td>';
+                            }
+                            output += '<tr> <td colspan="5"> <div id="ampaginationsm"></div> </td> </tr>';
+                            output += '</table>';
+                            output += '</div>';
+
+                            $("#p-member-count").remove();
+                            $("#div-hidden").after(str);
+                            $("#div-game-table").remove();
+                            $("#div-member-info").after(output);
+
+                            //페이징 처리 함수 호출
+                            pager(returnData.totals, returnData.maxSize, returnData.pageSize, returnData.page);
+
+                            //페이지 번호 클릭 이벤트 처리
+                            jQuery('#ampaginationsm').on('am.pagination.change', function (e) {
+                                var type = $("#table-type").val();
+                                jQuery('.showlabelsm').text('The selected page no: ' + e.page);
+
+                                getPage(type, e.page);
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                        console.log(status);
+                        console.log(error);
+                        alert("error");
+                    }
+                });
+            }
+
+            function pager(totals, maxSize, pageSize, page) {
+                //alert(totals+","+maxSize+","+pageSize+","+page);
+
+                var pager = jQuery('#ampaginationsm').pagination({
+
+                    maxSize: maxSize,	    		// max page size
+                    totals: totals,	// total pages
+                    page: page,		// initial page
+                    pageSize: pageSize,			// max number items per page
+
+                    // custom labels
+                    lastText: '&raquo;&raquo;',
+                    firstText: '&laquo;&laquo;',
+                    prevText: '&laquo;',
+                    nextText: '&raquo;',
+
+                    btnSize: 'lg'	// 'sm'  or 'lg'
+                });
+            }
+        });
+    </script>
 </head>
 <body>
 <!-- header -->
@@ -15,6 +100,7 @@
 
 <!-- content -->
 <input type="hidden" id="admin-type" value="a-gamelist">
+<input type="hidden" id="table-type" value="game">
 <section id="top-bg">
     <div id="base-layer">
         <div id="top-bg-textarea">
@@ -38,34 +124,15 @@
     <div id="div-viewer">
         <p id="p-title">게임 관리</p>
         <div id="div-member-info">
-            <p id="p-member-count">전체 개인 회원 : 100명</p>
+            <input type="hidden" id="div-hidden">
+            <!-- p Tag-->
             <button type="button" id="btn-mslect-delete">선택 삭제</button>
             <select id="select-order">
-                <option value="orderdate_desc">최근 날짜순</option>
-                <option value="orderdate_asc">오래된 날짜순</option>
-                <option value="amount_asc">높은 후원금순</option>
-                <option value="amount_desc">낮은 후원금순</option>
+                <option value="name_asc">제목 (ㄱ~ㅎ)</option>
+                <option value="name_desc">제목 (ㅎ~ㄱ)</option>
             </select>
         </div>
-        <div id="div-game-table">
-            <table id="table-game-list">
-                <tr>
-                    <th>선택</th>
-                    <th>제목</th>
-                    <th>회사</th>
-                    <th>메뉴</th>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name="chk-admin"></td>
-                    <td>메이플 스토리</td>
-                    <td>Nexon</td>
-                    <td>
-                        <button type="button" id="btn-game-detail" value="mtest">상세 페이지</button>
-                        <a href="/admin-update-game"><button type="button" id="btn-game-update" value="mtest">정보 수정</button></a>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <!-- Table -->
     </div>
 </div>
 <!-- footer -->

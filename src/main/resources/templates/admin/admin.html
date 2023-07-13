@@ -51,7 +51,7 @@
                                 output += '<button type="button" id="btn-member-detail">자세히 보기</button> </a> ';
                                 output += '<a href="/payment-detail"> <button type="button" id="btn-member-payment" th:value="' + member.id + '">결제 내역</button> </a> </td> </tr>';
                             }
-                            output += '<tr> <td id="td-page" colspan="5"> <div id="ampaginationsm"></div> </td> </tr>';
+                            output += '<tr> <td colspan="5"> <div id="ampaginationsm"></div> </td> </tr>';
                             output += '</table> </div>';
 
                             $("#p-member-count").remove();
@@ -132,7 +132,7 @@
 
         <div id="div-member-info">
             <input type="hidden" id="div-hidden">
-
+            <!--p Tag-->
             <button type="button" id="btn-mslect-delete">선택 삭제</button>
             <select id="select-order">
                 <option value="id_asc">아이디 (A~Z)</option>
@@ -141,7 +141,7 @@
                 <option value="name_desc">이름 (ㅎ~ㄱ)</option>
             </select>
         </div>
-        ';
+        <!-- Table -->
     </div>
 </div>
 <!-- footer -->

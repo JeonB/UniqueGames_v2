@@ -46,4 +46,7 @@ public interface CompanyMapper {
 
     @Select("SELECT COUNT(*) FROM COMPANY WHERE NAME LIKE CONCAT('%', #{keyword}, '%')")
     int totRowCountSearch(String keyword);
+
+    @Select("SELECT * FROM COMPANY WHERE G_ID = #{id}")
+    Company aGetCompany(int id);
 }

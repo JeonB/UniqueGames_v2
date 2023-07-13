@@ -77,4 +77,8 @@ public class CompanyMemberService2 {
     public int totRowCountSearch(String keyword) {
         return companyMapper.totRowCountSearch(keyword);
     }
+
+    public Company aGetCompany(int id) {
+        return companyMapper.aGetCompany(id);
+    }
 }

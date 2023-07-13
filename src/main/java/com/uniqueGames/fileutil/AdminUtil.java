@@ -1,6 +1,7 @@
 package com.uniqueGames.fileutil;
 
 import com.uniqueGames.service.CompanyMemberService2;
+import com.uniqueGames.service.GameService;
 import com.uniqueGames.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,13 +15,16 @@ public class AdminUtil {
 
     MemberService memberService;
     CompanyMemberService2 companyMemberService;
+    GameService gameService;
+
     @Value("${upload-directory}")
     private String root_path;
 
     @Autowired
-    private AdminUtil(MemberService memberService, CompanyMemberService2 companyMemberService) {
+    private AdminUtil(MemberService memberService, CompanyMemberService2 companyMemberService, GameService gameService) {
         this.memberService = memberService;
         this.companyMemberService = companyMemberService;
+        this.gameService = gameService;
     }
 
     /**
@@ -41,15 +45,16 @@ public class AdminUtil {
 
         if (keyword.equals("list") && type.equals("member")) {
             dbCount = memberService.totRowCount();
-
         } else if (type.equals("member")) {
             dbCount = memberService.totRowCountSearch(keyword);
-
         } else if (keyword.equals("list") && type.equals("company")) {
             dbCount = companyMemberService.totRowCount();
-
-        } else {
+        } else if (type.equals("company")) {
             dbCount = companyMemberService.totRowCountSearch(keyword);
+        } else if (keyword.equals("list") && type.equals("game")) {
+            dbCount = gameService.totRowCount();
+        } else {
+            dbCount = gameService.totRowCountSearch(keyword);
         }
 
         // 총 페이지 수 계산

@@ -4,14 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uniqueGames.fileutil.AdminUtil;
-import com.uniqueGames.model.Company;
-import com.uniqueGames.model.Member;
-import com.uniqueGames.model.Notice;
-import com.uniqueGames.model.Order;
-import com.uniqueGames.service.CompanyMemberService;
-import com.uniqueGames.service.CompanyMemberService2;
-import com.uniqueGames.service.CompanyService;
-import com.uniqueGames.service.MemberService;
+import com.uniqueGames.model.*;
+import com.uniqueGames.service.*;
+import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,16 +26,20 @@ public class AdminController {
     @Autowired
     private CompanyMemberService2 companyMemberService;
     @Autowired
+    private GameService gameService;
+    @Autowired
     private AdminUtil adminUtil;
 
+    // ADMIN - INDEX
     @RequestMapping(value = "/admin")
     public String admin() {
-        return "admin/admin";
+        return "/admin/admin";
     }
 
+    // ADMIN - MEMBER LIST : MEMBER / COMPANY
     @RequestMapping(value = "/admin-member-list", produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String admin_member_list(String type, String array, String page, Model model) {
+    public String admin_member_list(String type, String array, String page) {
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
         String order1;
@@ -122,16 +121,67 @@ public class AdminController {
         return "admin/admin-game-list";
     }
 
+    // ADMIN - GAME LIST
+    @RequestMapping(value = "/admin-game-list-data", produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String admin_game_list_data(String type, String array, String page) {
+        JsonObject jObj = new JsonObject();
+        JsonArray jArray = new JsonArray();
+        String order1;
+        String order2;
+
+        if (array.equals("name_asc")) {
+            order1 = "NAME";
+            order2 = "ASC";
+        } else {
+            order1 = "NAME";
+            order2 = "DESC";
+        }
+
+        Map<String, Integer> pageMap = adminUtil.getPagination(page, "list", type);
+        ArrayList<Game> list = gameService.aGetGameList(order1, order2, pageMap.get("startCount"), pageMap.get("endCount"));
+
+        if (list.size() == 0) {
+            jObj.addProperty("nothing", true);
+        } else {
+            jObj.addProperty("nothing", false);
+            jObj.addProperty("gameCount", list.size());
+
+            for (Game game : list) {
+                JsonObject obj = new JsonObject();
+                Company company = companyMemberService.aGetCompany(game.getId());
+
+                obj.addProperty("id", game.getId());
+                obj.addProperty("title", game.getName());
+                obj.addProperty("company", company.getName());
+                obj.addProperty("cId", company.getCompanyId());
+
+                jArray.add(obj);
+            }
+        }
+
+        jObj.add("gameList", jArray);
+        jObj.addProperty("dbCount", pageMap.get("dbCount"));
+        jObj.addProperty("pageSize", pageMap.get("pageSize"));
+        jObj.addProperty("maxSize", pageMap.get("maxSize"));
+        jObj.addProperty("page", pageMap.get("reqPage"));
+
+        return new Gson().toJson(jObj);
+    }
+
+    // ADMIN - GAME REGISTER
     @RequestMapping(value = "/admin-game-register")
     public String admim_game_register() {
         return "admin/admin-game-register";
     }
 
+    // ADMIN - DONATION
     @RequestMapping(value = "/admin-donation")
     public String admim_donation() {
         return "admin/admin-donation";
     }
 
+    // ADMIN - DETAIL : MEMBER / COMPANY
     @RequestMapping(value = "/admin-detail-member")
     public String admin_detail_member(String id, String type, Model model) {
 
@@ -160,6 +210,7 @@ public class AdminController {
         return "admin/admin-detail-member";
     }
 
+    // ADMIN - GAME UPDATE
     @RequestMapping(value = "/admin-update-game")
     public String admin_update_game() {
         return "admin/admin-update-game";

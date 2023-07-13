@@ -122,9 +122,8 @@ select:focus, select:hover, select:default {
     text-align: center;
 }
 
-#td-page {
+#table-member-list tr:last-child td {
     border-bottom: none;
-    background: ivory;
 }
 
 #table-gameList td img {
