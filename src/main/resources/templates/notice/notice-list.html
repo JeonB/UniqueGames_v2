@@ -12,7 +12,6 @@
     <script th:inline="javascript">
         $(document).ready(function () {
             getPagination([[${pageCount}]], [[${dbCount}]], [[${page}]], [[${pageSize}]]);
-
         });
     </script>
     <script th:inline="javascript" th:if="${result}">
@@ -35,16 +34,16 @@
 </section>
 <div class="content" th:with="loginMember = ${session.get('loginMember')}">
     <div class="board-list">
-        <div class="board-top-menu" th:with="companyLogin = ${loginMember != null and #strings.contains(loginMember,'Company')}">
+        <div class="board-top-menu"
+             th:with="companyLogin = ${loginMember != null and #strings.contains(loginMember,'Company')}">
             <p>Notice</p>
-            <div th:class="companyLogin == true ? '' : 'bsearch-box'">
+            <div th:class="${companyLogin == true ? '' : 'bsearch-box'}">
                 <form name='boardSearch' action='/notice/list/search' method='get'>
                     <select name="searchType">
                         <option value="tnc">제목+내용</option>
                         <option value="title">제목</option>
                         <option value="content">내용</option>
                         <option value="name">작성자</option>
-                        <option th:if="${companyLogin == true}" th:text="${companyLogin}"></option>
                     </select>
                     <label>
                         <input type='text' name='q' placeholder='검색어를 입력해주세요.'>
@@ -53,7 +52,7 @@
                         </button>
                     </label>
                 </form>
-                <ul th:if="companyLogin == true">
+                <ul th:if="${companyLogin == true}">
                     <li>
                         <button type='button' class='btn-style' name='listWrite'>작성</button>
                     </li>
@@ -67,7 +66,7 @@
                         <button type='button' class='btn-style' name='listDeleteAll'>전체삭제</button>
                     </li>
                 </ul>
-                <th:block th:unless="companyLogin == true">
+                <th:block th:unless="${companyLogin == true}">
                     <ul>
                         <li>
                             <button type='button' class='btn-style' name='getList'>목록</button>
@@ -79,10 +78,10 @@
         </div>
         <th:block th:with="companyLogin = ${loginMember != null and #strings.contains(loginMember,'Company')}">
             <div>
-                <form name="boardManage" action="board-manage" method="post" th:if="companyLogin">
-                    <table th:class="${companyLogin == true ? 'admin-table' : 'user-btable'}">
+                <form th:attr="name=${companyLogin == true ? 'boardManage' : ''}, action=${companyLogin == true ? 'board-manage' : ''}, method=${companyLogin == true ? 'post' : ''}">
+                    <table th:class="${companyLogin == true ? 'admin-btable' : 'user-btable'}">
                         <tr>
-                            <th>선택</th>
+                            <th th:if="${companyLogin == true}">선택</th>
                             <th>번호</th>
                             <th>제목</th>
                             <th>작성자</th>
@@ -90,7 +89,8 @@
                         </tr>
                         <th:block th:unless="${#lists.isEmpty(list)}">
                             <tr th:each="notice : ${list}">
-                                <td><input type="checkbox" name="list" th:value="${notice.postId}"></td>
+                                <td th:if="${companyLogin == true}"><input type="checkbox" name="list"
+                                                                           th:value="${notice.postId}"/></td>
                                 <td><span th:text="${notice.rno}"/></td>
                                 <td><a th:href="@{/notice/content/{no}(no = ${notice.postId})}"
                                        th:text="${notice.title}"/><span
@@ -101,10 +101,10 @@
                             </tr>
                         </th:block>
                         <tr th:if="${#lists.isEmpty(list)}">
-                            <td colspan="5" style="padding: 50px 0">등록된 게시글이 없습니다.</td>
+                            <td th:colspan="${companyLogin == true ? 5 : 4}" style="padding: 50px 0">등록된 게시글이 없습니다.</td>
                         </tr>
                         <tr>
-                            <td colspan="5">
+                            <td th:colspan="${companyLogin == true ? 5 : 4}">
                                 <div th:id="ampaginationsm"></div>
                             </td>
                         </tr>
@@ -112,31 +112,6 @@
                 </form>
             </div>
         </th:block>
-<!--        <div th:unless="${loginMember != null and #strings.contains(loginMember,'Company')}">-->
-<!--            <table class="user-btable">-->
-<!--                <tr>-->
-<!--                    <th>번호</th>-->
-<!--                    <th>제목</th>-->
-<!--                    <th>작성자</th>-->
-<!--                    <th>작성일</th>-->
-<!--                </tr>-->
-<!--                <tr th:each="notice : ${list}" th:unless="${#lists.isEmpty(list)}">-->
-<!--                    <td><span th:text="${notice.rno}"/></td>-->
-<!--                    <td><a th:href="@{/notice/content/{no}(no = ${notice.postId})}" th:text="${notice.title}"/><span-->
-<!--                            th:if="${notice.cmtCount > 0}" th:text=" '[' + ${notice.cmtCount} + ']'"/></td>-->
-<!--                    <td><span th:text="${notice.name}"/></td>-->
-<!--                    <td><span th:text="${notice.dateOutput}"/></td>-->
-<!--                </tr>-->
-<!--                <tr th:if="${#lists.isEmpty(list)}">-->
-<!--                    <td colspan="4" style="padding: 50px 0">등록된 게시글이 없습니다.</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td colspan="4">-->
-<!--                        <div th:id="ampaginationsm"></div>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--            </table>-->
-<!--        </div>-->
     </div>
 </div>
 <div th:replace="~{main/footer :: footerFragment}"></div>

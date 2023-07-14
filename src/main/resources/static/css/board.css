@@ -12,7 +12,7 @@
 /* board top menu */
 .board-top-menu {
     padding-bottom: 10px;
-    font-size: 0px;
+    font-size: 0;
 }
 
 .board-write > form > table {
@@ -29,7 +29,7 @@
 
 .board-top-menu > div > form {
     position: relative;
-    margin-left: 380px;
+    margin-left: 310px;
     display: inline;
 }
 
