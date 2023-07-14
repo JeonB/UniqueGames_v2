@@ -82,4 +82,17 @@ public class MemberService {
     public int totRowCountSearch(String keyword) {
         return memberMapper.totRowCountSearch(keyword);
     }
+  
+    public int mypageNewPass(String memberId, String password, String newpassword) {
+      Member member = new Member();
+      member.setMemberId(memberId);
+      member.setPassword(password);
+      member.setNewpassword(newpassword);
+      return memberMapper.mypageNewPass(member);
+    }
+
+    public int update(Member member) {
+      return memberMapper.update(member);
+    }
+
 }

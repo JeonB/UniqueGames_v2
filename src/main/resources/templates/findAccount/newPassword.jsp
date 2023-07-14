@@ -16,21 +16,21 @@
 		
 		$("#button-gradient").click(function(){
 			
-			if($("input[name='mnewpassword']").val()==""){
+			if($("input[name='newpassword']").val()==""){
 				alert("새 비밀번호를 입력하세요");
-				$("input[name='mnewpassword']").focus();
+				$("input[name='newpassword']").focus();
 				return false;
-			}else if($("input[name='mnewpassword-check']").val()==""){
+			}else if($("input[name='newpassword-check']").val()==""){
 				alert("새 비밀번호 확인칸을 입력하세요");
-				$("input[name='mnewpassword-check']").focus();
+				$("input[name='newpassword-check']").focus();
 				return false;
-			}else if($("input[name='mnewpassword']").val() != $("input[name='mnewpassword-check']").val()){
+			}else if($("input[name='newpassword']").val() != $("input[name='newpassword-check']").val()){
 				alert("비밀번호가 동일하지 않습니다");
-				$("input[name='mnewpassword-check']").focus();
+				$("input[name='newpassword-check']").focus();
 				return false;
-			}else if($("input[name='mnewpassword']").val() && $("input[name='mnewpassword-check']").val() === password){
+			}else if($("input[name='newpassword']").val() && $("input[name='newpassword-check']").val() === password){
 				alert("기존 비밀번호와 동일하게 변경할 수 없습니다");
-				$("input[name='mnewpassword']").focus();
+				$("input[name='newpassword']").focus();
 				return false;
 			}else {
 				mChangePassword.submit();
@@ -41,9 +41,9 @@
 		$("#pwd-check-img").change(function(){
 
 			if($("#pwd-check-img").is(":checked") == false) {
-				$("input[name='mnewpassword']").attr("type","password");
+				$("input[name='newpassword']").attr("type","password");
 			}else if($("#pwd-check-img").is(":checked") == true) {
-				$("input[name='mnewpassword']").attr("type","text");
+				$("input[name='newpassword']").attr("type","text");
 			}
 			
 		});
@@ -51,9 +51,9 @@
 		$("#pwd-check-img-1").change(function(){
 
 			if($("#pwd-check-img-1").is(":checked") == false) {
-				$("input[name='mnewpassword-check']").attr("type","password");
+				$("input[name='newpassword-check']").attr("type","password");
 			}else if($("#pwd-check-img-1").is(":checked") == true) {
-				$("input[name='mnewpassword-check']").attr("type","text");
+				$("input[name='newpassword-check']").attr("type","text");
 			}
 			
 		});
@@ -79,7 +79,7 @@
 		<form action="mChangePassword" name="mChangePassword" method="post" id="newPasswordForm">
 			<ul>
 				<li>
-					<input type="password" id="input-common" name="mnewpassword" placeholder="새로운 비밀번호">
+					<input type="password" id="input-common" name="newpassword" placeholder="새로운 비밀번호">
 					<input type="checkbox" id="pwd-check-img">
 					<input type="hidden" name="member_id" value="${member_id }">
 				</li>

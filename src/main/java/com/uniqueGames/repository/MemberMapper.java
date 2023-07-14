@@ -21,7 +21,7 @@ public interface MemberMapper {
     @Select("select member_id from member where email=#{email} and member_id=#{memberId} and name=#{name}")
     String findMpass(Member member);
 
-    @Update("update member set password=#{mnewpassword} where member_id=#{memberId}")
+    @Update("update member set password=#{newpassword} where member_id=#{memberId}")
     int changeMpass(Member member);
 
     @Select("select count(*) from member where phone_num=#{phoneNum}")
@@ -39,6 +39,12 @@ public interface MemberMapper {
     @Delete("delete from member where member_id=#{memberId} and password=#{password}")
     int delete(String memberId, String password);
 
+    @Update("update member set password=#{newpassword} where member_id=#{memberId}")
+    int mypageNewPass(Member member);
+
+    @Update("update member set email=#{email}, phone_num=#{phoneNum}, addr=#{addr} where member_id=#{memberId}")
+    int update(Member member);
+  
     @Select("SELECT COUNT(*) FROM MEMBER")
     int totRowCount();
 

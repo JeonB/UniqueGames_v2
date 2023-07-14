@@ -50,10 +50,10 @@ public class CompanyMemberServiceImpl implements CompanyMemberService {
     }
 
     @Override
-    public int companyChangeCPassword(String companyId, String cnewpassword) {
+    public int companyChangeCPassword(String companyId, String newpassword) {
         Company company = new Company();
         company.setCompanyId(companyId);
-        company.setCnewpassword(cnewpassword);
+        company.setNewpassword(newpassword);
         return companyRepository.changeCpassword(company);
     }
 

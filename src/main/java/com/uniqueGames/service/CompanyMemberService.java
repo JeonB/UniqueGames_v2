@@ -14,7 +14,7 @@ public interface CompanyMemberService {
 	int companyFindPwdResult(Company company);
 	int companyUpdateResult(Company company);
 	Company companyPageResult(String companyId);
-	int companyChangeCPassword(String companyId, String cnewpassword);
+	int companyChangeCPassword(String companyId, String newpassword);
 	String companyGameName(String companyId);
 	int companyDeleteResult(Company company);
 	int companyEmailCheckResult(String email);
