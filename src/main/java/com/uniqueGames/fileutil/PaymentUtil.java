@@ -21,7 +21,7 @@ public class PaymentUtil {
         this.orderService = orderService;
     }
 
-    public Map<String, Integer> getPagination(String page, String id, String type) {
+    public Map<String, Integer> getPagination(Map<String, String> param) {
         Map<String, Integer> result = new HashMap();
 
         int startCount = 0;
@@ -31,11 +31,26 @@ public class PaymentUtil {
         int maxSize = 1; // 전체 페이지 수
         int dbCount = 0; // DB에서 가져온 전체 행수
 
-        if(type.equals("member")){
-            dbCount = orderService.totRowCountMember(id);
-        }
-        else {
-            dbCount = orderService.totRowCountCompany(id);
+        if (param.get("type").equals("member")) {
+            dbCount = orderService.totRowCountMember(param.get("id"));
+        } else if (param.get("type").equals("company")) {
+            dbCount = orderService.totRowCountCompany(param.get("id"));
+        } else if (param.get("type").equals("donation")) {
+            String year = param.get("year");
+            String month = param.get("month");
+            pageSize = 8;
+
+            if (!year.equals("All") && !month.equals("All")) {
+                dbCount = orderService.aTotRowCountDonationBothSelected(year, month);
+            } else if (!year.equals("All") && month.equals("All")) {
+                dbCount = orderService.aTotRowCountDonationYearSelected(year);
+            } else if (year.equals("All") && !month.equals("All")) {
+                dbCount = orderService.aTotRowCountDonationMonthSelected(month);
+            } else {
+                dbCount = orderService.aTotRowCountDonationAll();
+            }
+        } else {
+
         }
 
         // total page count
@@ -46,8 +61,8 @@ public class PaymentUtil {
         }
 
         // request page
-        if (page != null) {
-            reqPage = Integer.parseInt(page);
+        if (param.get("page") != null) {
+            reqPage = Integer.parseInt(param.get("page"));
             startCount = (reqPage - 1) * pageSize + 1;
             endCount = reqPage * pageSize;
         } else {

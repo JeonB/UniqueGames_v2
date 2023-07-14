@@ -11,6 +11,7 @@ import com.uniqueGames.fileutil.PaymentUtil;
 import com.uniqueGames.model.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.uniqueGames.service.OrderService;
@@ -40,7 +41,13 @@ public class PaymentDetailController {
     public String paymentDetailData(@Login Member member, String array, String page, String type) {
         String mId = member.getMemberId();
         String[] arr = orderService.splitString(array);
-        Map<String, Integer> pageMap = paymentUtil.getPagination(page, mId, type);
+
+        Map<String, String> param = new HashMap<>();
+        param.put("page", page);
+        param.put("id", mId);
+        param.put("type", type);
+        Map<String, Integer> pageMap = paymentUtil.getPagination(param);
+
         JsonObject jObj = new JsonObject();
         JsonArray jarray = new JsonArray();
 
@@ -87,7 +94,13 @@ public class PaymentDetailController {
     public String donationDetailData(@Login Company company, String array, String page, String type) {
         String cId = company.getCompanyId();
         String[] arr = orderService.splitString(array);
-        Map<String, Integer> pageMap = paymentUtil.getPagination(page, cId, type);
+
+        Map<String, String> param = new HashMap<>();
+        param.put("page", page);
+        param.put("id", cId);
+        param.put("type", type);
+        Map<String, Integer> pageMap = paymentUtil.getPagination(param);
+
         JsonObject jObj = new JsonObject();
         JsonArray jarray = new JsonArray();
 

@@ -1,6 +1,7 @@
 package com.uniqueGames.service;
 
 import com.uniqueGames.model.Order;
+import com.uniqueGames.model.Payment;
 import com.uniqueGames.repository.OrderMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,6 +141,26 @@ public class OrderService {
 
     public ArrayList<String> aGetYearList() {
         return orderMapper.aGetYearList();
+    }
+
+    public int aTotRowCountDonationBothSelected(String year, String month) {
+        return orderMapper.aTotRowCountDonationBothSelected(year, month);
+    }
+
+    public int aTotRowCountDonationYearSelected(String year) {
+        return orderMapper.aTotRowCountDonationYearSelected(year);
+    }
+
+    public int aTotRowCountDonationMonthSelected(String month) {
+        return orderMapper.aTotRowCountDonationMonthSelected(month);
+    }
+
+    public int aTotRowCountDonationAll() {
+        return orderMapper.aTotRowCountDonationAll();
+    }
+
+    public ArrayList<Payment> aGetDonationList(String order1, String order2, Integer startCount, Integer endCount) {
+        return orderMapper.aGetDonationList(order1, order2, startCount, endCount);
     }
 }
 

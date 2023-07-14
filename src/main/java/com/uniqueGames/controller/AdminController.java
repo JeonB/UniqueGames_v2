@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uniqueGames.fileutil.AdminUtil;
+import com.uniqueGames.fileutil.PaymentUtil;
 import com.uniqueGames.model.*;
 import com.uniqueGames.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -27,6 +29,8 @@ public class AdminController {
     private OrderService orderService;
     @Autowired
     private AdminUtil adminUtil;
+    @Autowired
+    private PaymentUtil paymentUtil;
 
     // ADMIN - INDEX
     @RequestMapping(value = "/admin")
@@ -179,7 +183,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin-company-selector", produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String admin_company_selector(String keyword, Model model){
+    public String admin_company_selector(String keyword, Model model) {
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
 
@@ -213,6 +217,65 @@ public class AdminController {
         model.addAttribute("yearList", yearList);
 
         return "admin/admin-donation";
+    }
+
+    @RequestMapping(value = "/admin-donation-data", produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String admin_donation_data(String year, String month, String array, String page) {
+        JsonObject jObj = new JsonObject();
+        JsonArray jArray = new JsonArray();
+        String order1;
+        String order2;
+
+        if (array.equals("amount_asc")) {
+            order1 = "AMOUNT";
+            order2 = "ASC";
+        } else if (array.equals("amount_desc")) {
+            order1 = "AMOUNT";
+            order2 = "DESC";
+        } else if (array.equals("name_asc")) {
+            order1 = "COMPANY";
+            order2 = "ASC";
+        } else {
+            order1 = "COMPANY";
+            order2 = "DESC";
+        }
+
+        Map<String, String> param = new HashMap<>();
+        param.put("page", page);
+        param.put("year", year);
+        param.put("month", month);
+        param.put("type", "donation");
+        Map<String, Integer> pageMap = paymentUtil.getPagination(param);
+
+        ArrayList<Payment> list = orderService.aGetDonationList(order1, order2, pageMap.get("startCount"), pageMap.get("endCount"));
+        System.out.println(year + " " + month + " " + order1 + " " + order2);
+        System.out.println(list.size());
+
+        if (list.size() == 0) {
+            jObj.addProperty("nothing", true);
+        } else {
+            jObj.addProperty("nothing", false);
+
+            for (Payment payment : list) {
+                JsonObject obj = new JsonObject();
+
+                obj.addProperty("rno", payment.getRno());
+                obj.addProperty("game", payment.getGame());
+                obj.addProperty("company", payment.getCompany());
+                obj.addProperty("amount", payment.getAmountStr());
+
+                jArray.add(obj);
+            }
+        }
+
+        jObj.add("donationList", jArray);
+        jObj.addProperty("dbCount", pageMap.get("dbCount"));
+        jObj.addProperty("pageSize", pageMap.get("pageSize"));
+        jObj.addProperty("maxSize", pageMap.get("maxSize"));
+        jObj.addProperty("page", pageMap.get("reqPage"));
+
+        return new Gson().toJson(jObj);
     }
 
     // ADMIN - DETAIL : MEMBER / COMPANY

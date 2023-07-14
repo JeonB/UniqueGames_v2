@@ -3,6 +3,7 @@ package com.uniqueGames.fileutil;
 import com.uniqueGames.service.CompanyMemberService2;
 import com.uniqueGames.service.GameService;
 import com.uniqueGames.service.MemberService;
+import com.uniqueGames.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,15 +17,17 @@ public class AdminUtil {
     MemberService memberService;
     CompanyMemberService2 companyMemberService;
     GameService gameService;
+    OrderService orderService;
 
     @Value("${upload-directory}")
     private String root_path;
 
     @Autowired
-    private AdminUtil(MemberService memberService, CompanyMemberService2 companyMemberService, GameService gameService) {
+    private AdminUtil(MemberService memberService, CompanyMemberService2 companyMemberService, GameService gameService, OrderService orderService) {
         this.memberService = memberService;
         this.companyMemberService = companyMemberService;
         this.gameService = gameService;
+        this.orderService = orderService;
     }
 
     /**
@@ -56,6 +59,7 @@ public class AdminUtil {
         } else {
             dbCount = gameService.totRowCountSearch(keyword);
         }
+
 
         // 총 페이지 수 계산
         if (dbCount % pageSize == 0) {

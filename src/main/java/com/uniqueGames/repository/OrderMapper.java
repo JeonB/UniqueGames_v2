@@ -1,6 +1,7 @@
 package com.uniqueGames.repository;
 
 import com.uniqueGames.model.Order;
+import com.uniqueGames.model.Payment;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +27,7 @@ public interface OrderMapper {
     @Insert("INSERT INTO ORDERS( M_ID, C_ID, G_ID, AMOUNT,GAMETITLE, GAME_IMG) VALUES (#{mId},#{cId},#{gId},#{amount},#{gametitle},#{gameImg})")
     int insertCart(Order order);
 
-	// Order
+    // Order
     @Select("SELECT * FROM ORDERS WHERE ID IN (${idList})")
     List<Order> getOrderList(@Param("idList") String idList);
 
@@ -36,7 +37,7 @@ public interface OrderMapper {
     @Update("UPDATE ORDERS SET PAYMENT_STATUS = 'COMPLETE', ORDER_DATE = NOW(), METHOD = #{method} WHERE ID IN (${idStr})")
     int getOrderComplete(@Param("idStr") String idStr, String method);
 
-	// Details
+    // Details
     @Select("SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${order1} ${order2}) AS RNO, " +
             "DATE_FORMAT(ORDER_DATE, '%y-%m-%d') AS ORDER_DATE, GAMETITLE, AMOUNT FROM ORDERS WHERE M_ID = #{mId} AND " +
             "PAYMENT_STATUS = 'COMPLETE') AS TB1 WHERE RNO BETWEEN ${start} AND ${end}")
@@ -76,6 +77,35 @@ public interface OrderMapper {
     @Select("SELECT DISTINCT(DATE_FORMAT(ORDER_DATE, '%Y')) AS ORDER_DATE FROM ORDERS")
     ArrayList<String> aGetYearList();
 
-    @Select("")
-    ArrayList<String> aGetMonthList();
+    @Select("SELECT COUNT(*) FROM (SELECT COUNT(*) FROM ORDERS WHERE DATE_FORMAT(ORDER_DATE, '%Y')=#{year} AND " +
+            "DATE_FORMAT(ORDER_DATE, '%c')=${month} AND PAYMENT_STATUS = 'COMPLETE' GROUP BY G_ID) AS TB1")
+    int aTotRowCountDonationBothSelected(@Param("year") String year, @Param("month") String month);
+
+    @Select("SELECT COUNT(*) FROM (SELECT COUNT(*) FROM ORDERS WHERE DATE_FORMAT(ORDER_DATE, '%Y')=#{month} " +
+            "AND PAYMENT_STATUS = 'COMPLETE' GROUP BY DATE_FORMAT(ORDER_DATE, '%c'),G_ID) AS TB1")
+    int aTotRowCountDonationYearSelected(String year);
+
+    @Select("SELECT COUNT(*) FROM (SELECT COUNT(*) FROM ORDERS WHERE DATE_FORMAT(ORDER_DATE, '%c')=#{month} " +
+            "AND PAYMENT_STATUS = 'COMPLETE' GROUP BY DATE_FORMAT(ORDER_DATE, '%Y'),G_ID) AS TB1")
+    int aTotRowCountDonationMonthSelected(String month);
+
+    @Select("SELECT COUNT(*) FROM (SELECT COUNT(*) FROM ORDERS WHERE PAYMENT_STATUS = 'COMPLETE' " +
+            "GROUP BY DATE_FORMAT(ORDER_DATE, '%Y'), DATE_FORMAT(ORDER_DATE, '%c'), G_ID) AS TB1")
+    int aTotRowCountDonationAll();
+
+    @Select({
+            "SELECT * FROM (",
+            "SELECT ROW_NUMBER() OVER (ORDER BY ${order1} ${order2}) AS RNO, GAME, COMPANY, AMOUNT, ORDER_DATE",
+            "FROM (",
+            "SELECT TB_GAME.NAME AS GAME, TB_COMPANY.NAME AS COMPANY, SUM(AMOUNT) AS AMOUNT, DATE_FORMAT(ORDER_DATE, '%y-%m') AS ORDER_DATE",
+            "FROM ORDERS AS TB_ORDER",
+            "JOIN GAME AS TB_GAME ON TB_ORDER.G_ID = TB_GAME.ID",
+            "JOIN COMPANY AS TB_COMPANY ON TB_ORDER.C_ID = TB_COMPANY.COMPANY_ID",
+            "WHERE PAYMENT_STATUS = 'COMPLETE'",
+            "GROUP BY TB_GAME.NAME, TB_COMPANY.NAME, DATE_FORMAT(ORDER_DATE, '%y-%m') ) AS TB1",
+            ") AS TB2 WHERE RNO BETWEEN #{startCount} AND #{endCount}"
+    })
+    ArrayList<Payment> aGetDonationList(@Param("order1") String order1, @Param("order2") String order2,
+                                        @Param("startCount") Integer startCount, @Param("endCount") Integer endCount);
+
 }
