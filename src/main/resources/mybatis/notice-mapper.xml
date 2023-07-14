@@ -8,18 +8,18 @@
 	<select id="selectNotice" resultType="Notice">
 		SELECT *
 		FROM (
-					 SELECT row_number() over(order by NOTICE_DATE DESC, POST_ID DESC) as RNO
+			SELECT row_number() over(order by NOTICE_DATE DESC, POST_ID DESC) as RNO
 				 , POST_ID
-								, TITLE
-								, CONTENT
-								, NOTICE.COMPANY_ID
-								, COMPANY.NAME
-								, NOTICE_HITS
-								, CAST( DATE_FORMAT( NOTICE_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS NOTICE_DATE
-					 FROM NOTICE
-									INNER JOIN COMPANY
-														 ON NOTICE.COMPANY_ID = COMPANY.COMPANY_ID
-				 ) T1
+				 , TITLE
+				 , CONTENT
+				 , NOTICE.COMPANY_ID
+				 , COMPANY.NAME
+				 , NOTICE_HITS
+				 , CAST( DATE_FORMAT( NOTICE_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS NOTICE_DATE
+			FROM NOTICE
+			INNER JOIN COMPANY
+			ON NOTICE.COMPANY_ID = COMPANY.COMPANY_ID
+		) T1
 		where RNO between #{start} AND #{end};
 	</select>
 
@@ -38,9 +38,19 @@
 			FROM NOTICE
 			INNER JOIN COMPANY
 			ON NOTICE.COMPANY_ID = COMPANY.COMPANY_ID
-			WHERE TITLE LIKE CONCAT('%',#{keyword},'%')
+			WHERE
+				<if test="searchType == 'tnc'">
+					<foreach collection="keywordList" item="keyword" separator="OR">
+						TITLE LIKE CONCAT('%',#{keyword},'%') OR CONTENT LIKE CONCAT('%',#{keyword},'%')
+					</foreach>
+				</if>
+			    <if test="searchType == 'title'">
+					<foreach collection="keywordList" item="keyword" separator="OR">
+						TITLE LIKE CONCAT('%',#{keyword},'%')
+					</foreach>
+				</if>
 		) T1
-		WHERE RNO between #{start} AND #{end}
+		WHERE RNO between #{pageMap.startCount} AND #{pageMap.endCount}
 	</select>
 
 	<!-- 공지사항 작성 -->
@@ -174,6 +184,16 @@
 		SELECT COUNT(*)
 		FROM NOTICE_IMAGE
 		WHERE POST_ID = #{postId}
+	</select>
+
+	<!-- 검색 시 총 게시글 수 -->
+	<select id="totRowCountSearch" resultType="int">
+		SELECT COUNT(*)
+		FROM NOTICE
+		WHERE
+		<foreach collection="array" item="keyword" separator="OR">
+			TITLE LIKE CONCAT('%',#{keyword},'%')
+		</foreach>
 	</select>
 
 </mapper>

@@ -6,14 +6,17 @@ import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
 import com.uniqueGames.repository.NoticeMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 @Service
+@Slf4j
 public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
 
     private NoticeMapper noticeMapper;
@@ -133,9 +136,10 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
      * 공지사항 - 검색
      */
     @Override
-    public List<Notice> search(String keyword, int startCount, int endCount) {
+    public List<Notice> search(String keyword, Map pageMap, String searchType) {
 
-        return boardUtil.getOutput(noticeMapper.searchList(keyword, startCount, endCount));
+        String[] keywordList = keyword.split(" ");
+        return boardUtil.getOutput(noticeMapper.searchList(keywordList, pageMap, searchType));
     }
 
 }

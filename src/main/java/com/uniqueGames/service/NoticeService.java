@@ -5,6 +5,7 @@ import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
 
 import java.util.List;
+import java.util.Map;
 
 public interface NoticeService {
 	
@@ -20,6 +21,6 @@ public interface NoticeService {
 	
 	int deleteList(String[] list, Company company);
 
-	Object search(String keyWord, int startCount, int endCount);
+	Object search(String keyWord, Map pageMap, String searchType);
 	
 }

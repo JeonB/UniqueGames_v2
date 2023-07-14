@@ -85,15 +85,9 @@
             <!-- Comment form-->
             <form id="comment-write" name="Comment" method="post">
                 <input type="hidden" name="postId" th:value="${notice.postId}">
-                <th:block th:if="${loginMember != null and #strings.contains(loginMember,'Member')}">
-                    <input type="hidden" id="member-id" name="memberId" th:value="${loginMember.memberId}"/>
-                </th:block>
-                <th:block th:if="${loginMember == null}">
-                    <input type="hidden" id="member-id" name="memberId" value=""/>
-                </th:block>
-                <th:block th:if="${loginMember != null and #strings.contains(loginMember,'Company')}">
-                    <input type="hidden" id="member-id" name="memberId" th:value="${loginMember.companyId}"/>
-                </th:block>
+                <input type="hidden" th:id="member-id" name="memberId" th:if="${loginMember != null}"
+                       th:value="${#strings.contains(loginMember,'Member') ? loginMember.memberId : loginMember.companyId}"/>
+                <input type="hidden" th:id="member-id" name="memberId" th:unless="${loginMember != null}" value=""/>
                 <textarea id="form-control" rows="3" name="commentContent"
                           placeholder="타인에게 불쾌함을 주는 댓글은 통보없이 삭제될 수 있습니다."></textarea>
                 <button type="button" class="btn-style" name="cmtWrite">등록</button>
@@ -115,7 +109,7 @@
         </div>
     </section>
     <form name="noticeDelete" action="/notice/delete" method="post"><input type="hidden" name="no"
-                                                                          th:value="${notice.postId}"/>
+                                                                           th:value="${notice.postId}"/>
         <input th:if="${notice.imageId}" type="hidden" name="imgDel" th:value="${notice.imageId}"/>
     </form>
 </div>

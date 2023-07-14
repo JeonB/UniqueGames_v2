@@ -45,7 +45,8 @@ public class BoardUtil {
 			dbCount = noticeMapper.totRowCount();
 
 		} else {
-			dbCount = noticeMapper.totRowCountSearch(keyword);
+			String[] keywordList = keyword.split(" ");
+			dbCount = noticeMapper.totRowCountSearch(keywordList);
 
 		}
 

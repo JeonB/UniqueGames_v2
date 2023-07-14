@@ -5,6 +5,7 @@ import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -28,8 +29,8 @@ public interface NoticeMapper {
 
     int deleteList(@Param("list") String[] list, @Param("company") Company company);
 
-    List<Notice> searchList(@Param("keyword") String keyword, @Param("start") int startCount,
-                            @Param("end") int endCount);
+    List<Notice> searchList(@Param("keywordList") String[] keywordList, @Param("pageMap")Map pageMap,
+                            @Param("searchType") String searchType);
 
     void hitsCount(String no);
 
@@ -46,6 +47,5 @@ public interface NoticeMapper {
     @Select("select count(*) from notice")
     int totRowCount();
 
-    @Select("SELECT COUNT(*) FROM NOTICE WHERE TITLE LIKE CONCAT('%', #{keyword}, '%')")
-    int totRowCountSearch(String keyword);
+    int totRowCountSearch(String[] keywordList);
 }
