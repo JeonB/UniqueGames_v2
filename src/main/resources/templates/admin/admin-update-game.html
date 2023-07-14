@@ -8,7 +8,6 @@
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <script src="js/admin-script.js"></script>
 </head>
-</head>
 <body>
 <!-- header -->
 <div th:replace="~{/main/header :: headerFragment}"></div>
@@ -36,43 +35,46 @@
         </ul>
     </div>
     <div id="div-viewer">
-        <a href="/admin-game-list"><button id="btn-back"></button></a>
+        <a href="/admin-game-list">
+            <button id="btn-back"></button>
+        </a>
         <p id="p-title">게임 정보 수정</p>
         <form name="form-update" action="admin-game-update" method="post">
             <ul id="ul-regi">
                 <li>
-                    <p id="p-regi">제목</p>
-                    <input type="text" id="title" placeholder="40자 이내로 입력해주세요." value="메이플 스토리">
+                    <p name="p-regi">제목</p>
+                    <input type="text" id="name" placeholder="40자 이내로 입력해주세요." th:value="${title}">
                 </li>
                 <li>
-                    <p id="p-regi">회사명</p>
-                    <input type="text" id="company" value="Nexon">
+                    <p name="p-regi">회사명</p>
+                    <input type="text" id="company" th:value="${company}">
                     <button type="button" id="btn-fk">찾기</button>
                 </li>
                 <li>
-                    <p id="p-regi">장르</p>
-                    <select id="select-genre">
+                    <p name="p-regi">장르</p>
+                    <select id="select-genre" th:value="${genre}">
                         <option value="horror">공포</option>
                         <option value="rpg">RPG</option>
-                        <option value="tycoon">타이쿤</option>
+                        <option value="tycoon">rur</option>
                         <option value="action">액션</option>
                         <option value="fps">FPS</option>
                         <option value="etc">기타</option>
                     </select>
                 </li>
                 <li>
-                    <p id="p-regi">사진 업로드</p>
-                    <input id="img-path" value="" placeholder="사진 업로드" disabled>
+                    <p name="p-regi">사진 업로드</p>
+                    <input id="img-path" placeholder="사진 업로드" th:value="${img}" disabled>
                     <label for="upload-file" id="label-file">파일찾기</label>
                     <input type="file" name="file" id="upload-file" accept="image/*">
                 </li>
                 <li id="li-desciption">
-                    <p id="p-regi" name="p-desc">상세 설명</p>
-                    <textarea name="description" cols="70" rows="10" id="description" ></textarea>
+                    <p name="p-regi" id="p-desc">상세 설명</p>
+                    <textarea name="description" cols="70" rows="10" id="description"
+                              th:text="${desciption}"></textarea>
                 </li>
                 <li>
-                    <p id="p-regi">디테일 페이지</p>
-                    <input type="text" id="url" value="/detail/1">
+                    <p name="p-regi">디테일 페이지</p>
+                    <input type="text" id="url" th:value="${url}">
                     <button type="button" id="btn-url">이동</button>
                 </li>
                 <li id="li-btn-register">
@@ -91,23 +93,24 @@
                 </div>
                 <div id="modal-content-company">
                     <div id="div-company-result">
-                        <ul id="ul-company-list">
-                            <li>
-                                <button type="button" name="company-list">Nexon</button>
-                            </li>
-                            <li>
-                                <button type="button" name="company-list">NC Soft</button>
+                        <input type="hidden" id="company-selected" value="none">
+                        <div id="hidden"></div>
 
-                            </li>
-                            <li>
-                                <button type="button" name="company-list">Smile gate</button>
+                        <!-- ul : Ajax -->
+                        <ul id="ul-company-list">
+                            <li th:each="company : ${companyList}">
+                                <button type="button" name="company-list" th:value="${company.name}"
+                                        th:text="${company.name}"></button>
                             </li>
                         </ul>
+
                     </div>
                 </div>
                 <button id="btn-modal">확인</button>
+                <button id="btn-modal-close">취소</button>
             </div>
         </div>
+
     </div>
 </div>
 <!-- footer -->
