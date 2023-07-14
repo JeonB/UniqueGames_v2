@@ -10,4 +10,15 @@
 		values (#{memberId},#{password},#{name},#{email},#{phoneNum},#{addr},#{tel})
 	</insert>
 
+<!--	<update id="update" parameterType="com.uniqueGames.model.Member">-->
+
+<!--		<selectKey keyProperty="email, phone_num, addr" resultType="int"  order="AFTER">-->
+<!--			SELECT email, phone_num, addr FROM member WHERE member_id = #{memberId}-->
+<!--		</selectKey>-->
+
+<!--		UPDATE member SET email = #{email}, phone_num = #{phoneNum}, addr = #{addr}-->
+<!--		WHERE member_id = #{memberId}-->
+
+<!--	</update>-->
+
 </mapper>   

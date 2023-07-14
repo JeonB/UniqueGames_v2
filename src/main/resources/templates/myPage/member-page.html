@@ -13,7 +13,26 @@
     //JavaScript 코드
     /*<![CDATA[*/
 
-    /*]]>*/
+    $(document).ready(function() {
+
+      const mypageEmail = [[${member.email}]];
+      const mypagePhoneNum = [[${member.phoneNum}]];
+      const mypageAddr1 = [[${member.addr1}]];
+      const mypageAddr2 = [[${member.addr2}]];
+
+      $("input[name='email'], input[name='phoneNum'], input[name='addr1'], input[name='addr2']").keyup(function(){
+
+        if($("input[name='email']").val() == mypageEmail && $("input[name='phoneNum']").val() == mypagePhoneNum
+        && $("input[name='addr1']").val() == mypageAddr1 && $("input[name='addr2']").val() == mypageAddr2) {
+          $("#mypage-update").prop("disabled", "true");
+        } else {
+          $("#mypage-update").removeAttr("disabled");
+        }
+
+      });
+
+    });
+ /*]]>*/
   </script>
   <style>
     .mypage-addr {
@@ -40,53 +59,59 @@
       <li class="mypage-info" th:text="${member?.name}"></li>
       <li class="mypage-info" id="mypage-id" th:text="${member?.memberId}"></li>
       <li class="mUpdate" id="active"><a th:href="@{/mypage}">개인 정보</a></li>
-      <li class="mUpdate1"><a th:href="@{/mnewpass}">비밀번호 재설정</a> </li>
+      <li class="mUpdate1"><a th:href="@{/newpass}">비밀번호 재설정</a> </li>
       <li class="mUpdate1"><a href="member-order">결제 내역</a></li>
       <li class="mUpdate1"><a th:href="@{/deleteaccount}">회원탈퇴</a></li>
     </ul>
   </div>
-  <form action="memberupdate" name="myPageForm" method="post" class="deleteForm" th:checked="true">
+  <form action="memberupdate" name="myPageForm" method="post" class="deleteForm">
     <p class="intro-4">개인정보 수정</p>
     <input type="hidden" name="memberId" th:value="${member?.memberId}">
     <div class="div-update">
       <ul>
-        <li>
-          <p class="label-dot">*</p>
-          <label class="mypage-insert">이메일</label><span id="emailMsg"></span>
+        <li class="mypage-insert">
+          <label>이메일
+          <span id="emailAuth"></span>
+          </label>
         </li>
         <li>
-          <input type="text" name="email" th:value="${member?.email}">
+          <input type="text" class="mypage-input" name="email" th:value="${member?.email}">
         </li>
         <li>
-          <button type="button" class="button-style" id="mypage-email-btn">인증 번호</button>
+          <button type="button" class="button-style" id="mypage-email-btn" onclick="sendEmail()">인증 번호</button>
         </li>
         <li>
-          <input type="text" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리" disabled="disabled">
+          <input type="text" class="mypage-input" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리" disabled="disabled">
+        </li>
+        <li class="mypage-insert">
+          <label>휴대전화</label>
         </li>
         <li>
-          <label class="mypage-insert">휴대전화</label><span id="phoneMsg"></span>
-        </li>
-        <li>
-          <input type="text" name="phoneNum" th:value="${member?.phoneNum}" placeholder="-제외하고 입력하세요">
+          <input type="text" class="mypage-input" name="phoneNum" th:value="${member?.phoneNum}" placeholder="-제외하고 입력하세요">
         </li>
         <li>
           <label class="mypage-addr">주소</label>
         </li>
-<!--        <li th:if="">-->
-<!--          <input type="text" name="addr1" th:value="${member?.addr1}" tabindex="8">-->
-<!--        </li>-->
+        <li th:if="${member.addr1} == null">
+          <input type="text" name="addr1" class="mypage-input" th:value="">
+        </li>
+        <li th:unless="${member.addr1} == null">
+          <input type="text" name="addr1" class="mypage-input" th:value="${member.addr1}">
+        </li>
         <li>
-          <button type="button" class="button-style" id="mypage-addr-btn" tabindex="9">주소 검색</button>
+          <button type="button" class="button-style" id="mypage-addr-btn">주소 검색</button>
         </li>
         <li class="mypage-insert-1">
           <label>상세 주소</label>
         </li>
-        <li>
-          <input type="text" id="input-common" name="addr2" tabindex="10">
+        <li th:if="${member.addr2} == null">
+          <input type="text" name="addr2" th:value="">
         </li>
-
+        <li th:unless="${member.addr2} == null">
+          <input type="text" name="addr2" th:value="${member.addr2}">
+        </li>
         <li>
-          <button type="button" class="button-gradient" id="mypage-update">수정 완료</button>
+          <button type="button" class="button-gradient" id="mypage-update" th:disabled="true">수정 완료</button>
         </li>
       </ul>
     </div>

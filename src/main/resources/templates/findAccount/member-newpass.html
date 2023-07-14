@@ -2,61 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
-  <title>Insert title here</title>
+  <title>비밀번호 재설정</title>
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/login.css}">
   <script src="/js/jquery-3.6.4.min.js"></script>
-  <script>
-    //현재 비밀번호와 다르게 하는 설정 & 값 입력하라는 유효성 체크
+  <script th:src="@{/js/login_script.js}"></script>
+  <script th:inline="javascript">
     $(document).ready(function(){
 
-      var password = "[[${password}]]";
+      $(".button-gradient").click(function() {
+        var password = [[${member.password}]];
+        var oldpass = $("input[name='password']");
+        var newpassword = $("input[name='newpassword']");
+        var newpasswordCheck = $("input[name='newpassword-check']");
 
-
-      $("#button-gradient").click(function(){
-
-        if($("input[name='mnewpassword']").val()==""){
+        if(oldpass.val() == "") {
+          alert("현재 비밀번호를 입력하세요");
+          oldpass.focus();
+          return false;
+        } else if (newpassword.val() == "") {
           alert("새 비밀번호를 입력하세요");
-          $("input[name='mnewpassword']").focus();
+          newpassword.focus();
           return false;
-        }else if($("input[name='mnewpassword-check']").val()==""){
+        } else if (newpasswordCheck.val() == "") {
           alert("새 비밀번호 확인칸을 입력하세요");
-          $("input[name='mnewpassword-check']").focus();
+          newpasswordCheck.focus();
           return false;
-        }else if($("input[name='mnewpassword']").val() != $("input[name='mnewpassword-check']").val()){
+        } else if (newpassword.val() != newpasswordCheck.val()) {
           alert("비밀번호가 동일하지 않습니다");
-          $("input[name='mnewpassword-check']").focus();
+          newpasswordCheck.focus();
           return false;
-        }else if($("input[name='mnewpassword']").val() && $("input[name='mnewpassword-check']").val() === password){
-          alert("기존 비밀번호와 동일하게 변경할 수 없습니다");
-          $("input[name='mnewpassword']").focus();
+        } else if (oldpass.val() != password) {
+          alert("현재 비밀번호가 일치하지 않습니다\n다시 입력해주세요");
+          oldpass.focus();
           return false;
-        }else {
-          $("#mChangePassword").submit();
+        } else {
+          $("#newpassForm").submit();
         }
-
       });
-
-      $("#pwd-check-img").change(function(){
-
-        if($("#pwd-check-img").is(":checked") == false) {
-          $("input[name='mnewpassword']").attr("type","password");
-        }else if($("#pwd-check-img").is(":checked") == true) {
-          $("input[name='mnewpassword']").attr("type","text");
-        }
-
-      });
-
-      $("#pwd-check-img-1").change(function(){
-
-        if($("#pwd-check-img-1").is(":checked") == false) {
-          $("input[name='mnewpassword-check']").attr("type","password");
-        }else if($("#pwd-check-img-1").is(":checked") == true) {
-          $("input[name='mnewpassword-check']").attr("type","text");
-        }
-
-      });
-
     });
 
   </script>
@@ -80,12 +63,12 @@
       <li class="mypage-info" th:text="${member?.name}"></li>
       <li class="mypage-info" id="mypage-id" th:text="${member?.memberId}"></li>
       <li class="mUpdate"><a th:href="@{/mypage}">개인 정보</a></li>
-      <li class="mUpdate1" id="active"><a th:href="@{/mnewpass}">비밀번호 재설정</a> </li>
+      <li class="mUpdate1" id="active"><a th:href="@{/newpass}">비밀번호 재설정</a> </li>
       <li class="mUpdate1"><a href="member-order">결제 내역</a></li>
       <li class="mUpdate1"><a th:href="@{/deleteaccount}">회원탈퇴</a></li>
     </ul>
   </div>
-  <form action="changempass" name="myPageForm" method="post" class="deleteForm" th:checked="true">
+  <form action="mypagenewpass" name="newpassForm" method="post" class="deleteForm" id="newpassForm">
     <p class="intro-4">비밀번호 재설정</p>
     <input type="hidden" name="memberId" th:value="${member?.memberId}">
     <div class="div-update">
@@ -97,18 +80,18 @@
           <input type="checkbox" class="mypage-pwd-check-img" id="pwd-check-img" onclick="memberPassVisible()">
         </li>
         <li>
-          <input type="password" name="newPassword" class="mypage-input" id="newpassInput" placeholder="새로운 비밀번호">
+          <input type="password" name="newpassword" class="mypage-input" id="newpassInput" placeholder="새로운 비밀번호">
         </li>
         <li>
-          <input type="checkbox" class="mypage-pwd-check-img">
+          <input type="checkbox" class="mypage-pwd-check-img" id="mypage-pwd-check-img" onclick="mypagePassVisible()">
         </li>
         <li>
-          <input type="password" name="newPasswordCheck" class="mypage-input" id="newpassInputCheck" placeholder="새로운 비밀번호 재입력">
+          <input type="password" name="newpassword-check" class="mypage-input" id="newpassInputCheck" placeholder="새로운 비밀번호 재입력">
         <li>
-          <input type="checkbox" class="mypage-pwd-check-img" id="pwd-check-img-1" onclick="memberPassCheckVisible()">
+          <input type="checkbox" class="mypage-pwd-check-img" id="mypage-pwd-check-img-1" onclick="mypagePassCheckVisible()">
         </li>
         <li>
-          <button type="button" class="button-gradient" id="mypage-newpass">수정 하기</button>
+          <button type="button" class="button-gradient">수정 하기</button>
         </li>
       </ul>
     </div>

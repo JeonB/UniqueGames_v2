@@ -16,7 +16,7 @@ function memberIdPassCheck() {
 	}
 	return true;
 }
-
+/*
 function memberIdDuplicate() {
 	var memberId = document.querySelector("input[name='memberId']");
 	var idMsg = document.getElementById("idMsg");
@@ -100,7 +100,7 @@ function memberPassCheck() { //회원가입, 비밀번호 변경 페이지
 	}
 	return true;
 }
-
+*/
 function memberPassVisible() { //회원가입, 비밀번호 변경 페이지
 	var isChecked = document.getElementById("pwd-check-img").checked;
 	var password = document.querySelector("input[name='password']");
@@ -120,6 +120,28 @@ function memberPassCheckVisible() { //회원가입, 비밀번호 변경 페이�
 		passwordCheck.type = "password";
 	} else {
 		passwordCheck.type = "text";
+	}
+}
+
+function mypagePassVisible() {
+	var isChecked = document.getElementById("mypage-pwd-check-img").checked;
+	var mypageNewpass = document.querySelector("input[name='newpassword']");
+
+	if(!isChecked) {
+		mypageNewpass.type = "password";
+	}else {
+		mypageNewpass.type = "text";
+	}
+}
+
+function mypagePassCheckVisible() {
+	var isChecked = document.getElementById("mypage-pwd-check-img-1").checked;
+	var mypageNewpassCheck = document.querySelector("input[name='newpassword-check']");
+
+	if(!isChecked) {
+		mypageNewpassCheck.type = "password";
+	} else {
+		mypageNewpassCheck.type = "text";
 	}
 }
 
@@ -237,7 +259,6 @@ function sendEmail() { //회원가입, 개인, 법인 마이페이지
 	request.onreadystatechange = function () {
 		if (request.readyState === 4 && request.status === 200) {
 			alert("인증번호가 전송되었습니다");
-			alert(email);
 			code = request.responseText;
 			document.querySelector("#email-auth-check").disabled = false;
 		}
@@ -484,13 +505,13 @@ function changePassword() {
 
 	var changePassForm = $("#changePassForm");
 
-	if ($("input[name='mnewpassword']").val() == "") {
+	if ($("input[name='newpassword']").val() == "") {
 		alert("새 비밀번호를 입력하세요");
-		$("input[name='mnewpassword']").focus();
+		$("input[name='newpassword']").focus();
 		return false;
-	} else if ($("input[name='mnewpassword']").val() != $("input[name='mnewpassword-check']").val()) {
+	} else if ($("input[name='newpassword']").val() != $("input[name='newpassword-check']").val()) {
 		alert("비밀번호가 일치하지 않습니다");
-		$("input[name='mnewpassword-check']").focus();
+		$("input[name='newpassword-check']").focus();
 		return false;
 	} else {
 		changePassForm.submit();
