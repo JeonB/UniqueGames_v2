@@ -97,11 +97,16 @@ $(document).ready(function () {
                             method: method
                         },
                         success: (result) => {
-                            location.href = "/order-complete";
+                            if(result == "error"){
+                                location.href = "/error";
+                            }
+                            else{
+                                location.href = "/order-complete";
+                            }
                         }
                     });
                 } else {
-                    alert("결제에 실패했습니다. 장바구니로 돌아갑니다.");
+                    alert("결제에 실패했습니다. 장바구니로 돌아갑니다. \n실패 사유 : " + rsp.error_msg);
                     location.replace("/cart");
                 }
             });

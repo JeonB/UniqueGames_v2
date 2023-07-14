@@ -207,7 +207,10 @@ public class AdminController {
     // ADMIN - DONATION
     @RequestMapping(value = "/admin-donation")
     public String admim_donation(Model model) {
-//        ArrayList<Integer> yearList = new OrderService();
+        ArrayList<String> yearList = orderService.aGetYearList();
+        yearList.add(0, "All");
+
+        model.addAttribute("yearList", yearList);
 
         return "admin/admin-donation";
     }

@@ -17,6 +17,11 @@ public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
+    public static String formatCurrency(int amount) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(amount);
+    }
+
     // Cart
     public ArrayList<Order> getCartList(String mId) {
         ArrayList<Order> oList = new ArrayList<>();
@@ -58,11 +63,6 @@ public class OrderService {
         return sb.toString();
     }
 
-    public static String formatCurrency(int amount) {
-        DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        return decimalFormat.format(amount);
-    }
-
     public ArrayList<Order> getOrderList(String idStr) {
         ArrayList<Order> oList = new ArrayList<>();
         for (Order order : orderMapper.getOrderList(idStr)) {
@@ -80,9 +80,9 @@ public class OrderService {
     }
 
     // Details
-    public ArrayList<Order> getPaymentDetail(String order1, String order2, String mId) {
+    public ArrayList<Order> getPaymentDetail(String mId, String order1, String order2, int start, int end) {
         ArrayList<Order> oList = new ArrayList<>();
-        for (Order order : orderMapper.getPaymentDetail(order1, order2, mId)) {
+        for (Order order : orderMapper.getPaymentDetail(mId, order1, order2, start, end)) {
             oList.add(order);
         }
         return oList;
@@ -96,9 +96,9 @@ public class OrderService {
         return orderMapper.getPaymentAmount(mId);
     }
 
-    public ArrayList<Order> getDonationDetail(String order1, String order2, String cId) {
+    public ArrayList<Order> getDonationDetail(String cId, String order1, String order2, int start, int end) {
         ArrayList<Order> oList = new ArrayList<>();
-        for (Order order : orderMapper.getDonationDetail(order1, order2, cId)) {
+        for (Order order : orderMapper.getDonationDetail(cId, order1, order2, start, end)) {
             oList.add(order);
         }
         return oList;
@@ -118,6 +118,28 @@ public class OrderService {
             oList.add(order);
         }
         return oList;
+    }
+
+    public String[] splitString(String input) {
+        String[] result = {"", ""};
+        int index = input.lastIndexOf("_");
+
+        result[0] = input.substring(0, index);
+        result[1] = input.substring(index + 1);
+
+        return result;
+    }
+
+    public int totRowCountMember(String id) {
+        return orderMapper.totRowCountMember(id);
+    }
+
+    public int totRowCountCompany(String id) {
+        return orderMapper.totRowCountCompany(id);
+    }
+
+    public ArrayList<String> aGetYearList() {
+        return orderMapper.aGetYearList();
     }
 }
 

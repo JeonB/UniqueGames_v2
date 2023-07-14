@@ -85,7 +85,7 @@ select:focus, select:hover, select:default {
     padding-bottom: 100px;
 }
 
-#table-gameList, #cart-price, #table-member-list, #table-game-list, #table-donation {
+#table-gameList, #cart-price, #table-member-list, #table-game-list, #table-donation, #table-payment {
 
     border-collapse: collapse;
     width: 100%;
@@ -103,7 +103,7 @@ select:focus, select:hover, select:default {
     width: 600px;
 }
 
-#table-gameList th, #cart-price th, #table-member-list th, #table-game-list th, #table-donation th {
+#table-gameList th, #cart-price th, #table-member-list th, #table-game-list th, #table-donation th, #table-payment th {
     padding: 6px 0 6px 0;
     border-top: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
@@ -112,7 +112,7 @@ select:focus, select:hover, select:default {
     color: #000000;
 }
 
-#table-gameList td, #cart-price td, #table-member-list td, #table-game-list td, #table-donation td {
+#table-gameList td, #cart-price td, #table-member-list td, #table-game-list td, #table-donation td, #table-payment td {
     padding: 10px 0 10px 0;
     border-top: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
@@ -122,7 +122,7 @@ select:focus, select:hover, select:default {
     text-align: center;
 }
 
-#table-member-list tr:last-child td {
+#table-member-list tr:last-child td, #table-payment tr:last-child td {
     border-bottom: none;
 }
 

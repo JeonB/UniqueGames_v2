@@ -39,12 +39,10 @@
         <p id="p-title">정산금 조회</p>
         <div id="div-donation-info">
             <select id="select-year">
-                <option value="default">전체</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
+                <option th:each="year : ${yearList}" th:value="${year}" th:text="${year}"></option>
             </select>
             <select id="select-month">
-                <option value="default">전체</option>
+                <option value="default">All</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>

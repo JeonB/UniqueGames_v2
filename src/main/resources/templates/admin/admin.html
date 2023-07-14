@@ -42,6 +42,7 @@
                         } else {
                             output += '<div id="div-member-table"> <table id="table-member-list">';
                             output += '<tr> <th>선택</th> <th>아이디</th> <th>' + returnData.name + '</th> <th>메뉴</th> </tr>';
+
                             for (let member of returnData.memberList) {
                                 output += '<tr>';
                                 output += '<td><input type="checkbox" name="chk-admin" id="' + member.id + '"></td>';

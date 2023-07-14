@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.uniqueGames.service.MemberService;
 import com.uniqueGames.service.OrderService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +30,10 @@ public class OrderController {
     String idStr;
 
     @RequestMapping(value = "/order")
-    public String order(@Login Member member, Model model, String[] checkedList) {
+    public String order(@Login Member member, Model model, @Param("checkedList") String[] checkedList) {
         idList = new ArrayList<Integer>();
         for (String id : checkedList) {
+            System.out.println(id);
             idList.add(Integer.parseInt(id));
         }
 
@@ -74,13 +76,13 @@ public class OrderController {
     @ResponseBody
     public String order_pay(String method) {
         if (orderService.getOrderComplete(idStr, method) == 0) {
-            return "order/error";
+            return "error";
         }
-        return "order/order";
+        return "complete";
     }
 
     @RequestMapping(value = "/order-complete")
-    public String order_complete() {
+    public String order_complete(){
         return "order/order-complete";
     }
 }
