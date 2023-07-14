@@ -68,10 +68,10 @@ public class MemberService {
         return memberMapper.findMpass(member);
     }
 
-    public int changeMpass(String memberId, String mnewpassword) {
+    public int changeMpass(String memberId, String newpassword) {
         Member member = new Member();
         member.setMemberId(memberId);
-        member.setMnewpassword(mnewpassword);
+        member.setNewpassword(newpassword);
         return memberMapper.changeMpass(member);
     }
 
