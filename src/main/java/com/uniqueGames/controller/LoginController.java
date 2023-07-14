@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +38,8 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginOk(@Validated @ModelAttribute Member member, @Validated @ModelAttribute Company company,
-						  HttpServletRequest request, @RequestParam(defaultValue = "/") String redirectURL) {
+						  HttpServletRequest request, @RequestParam(defaultValue = "/") String redirectURL,
+						  Model model) {
 		HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
 
 //		MemberVo loginMember = memberRepositoryMapper.findById(member.getMember_id());
@@ -57,9 +59,14 @@ public class LoginController {
 		else if (company != null && companyRepositoryMapper.passEqual(company) == 1) {
 			session.setAttribute(SessionConstants.LOGIN_MEMBER,  companyRepositoryMapper.findById(company.getCompanyId())); // 세션에 로그인 회원 정보 보관
 			session.setAttribute("login", "company");
+		}else {
+			model.addAttribute("result", "login");
+			model.addAttribute("url", "/login");
+			return "login/login";
 		}
 		
 		System.out.println(session.getAttribute("login"));
+
 
 		return "redirect:" + redirectURL;
 	}

@@ -16,8 +16,8 @@ public class CompanyMemberService2 {
         return companyMapper.save(company);
     }
 
-    public int idCheck(String companyId) {
-        return companyMapper.idCheck(companyId);
+    public int cidCheck(String companyId) {
+        return companyMapper.cidCheck(companyId);
     }
 
     public String findCid(String email, String name) {
@@ -35,23 +35,35 @@ public class CompanyMemberService2 {
         return companyMapper.findCpass(company);
     }
 
-    public int changeCpass(String companyId, String cnewpassword) {
+    public int changeCpass(String companyId, String newpassword) {
         Company company = new Company();
         company.setCompanyId(companyId);
-        company.setCnewpassword(cnewpassword);
+        company.setNewpassword(newpassword);
         return companyMapper.changeCpass(company);
     }
 
-    public int phoneCheck(String phoneNum) {
-        return companyMapper.phoneCheck(phoneNum);
+    public int CmypageNewPass(String companyId, String password, String newpassword) {
+        Company company = new Company();
+        company.setCompanyId(companyId);
+        company.setPassword(password);
+        company.setNewpassword(newpassword);
+        return companyMapper.CmypageNewPass(company);
     }
 
-    public int emailCheck(String email) {
-        return companyMapper.emailCheck(email);
+    public int cphoneCheck(String phoneNum) {
+        return companyMapper.cphoneCheck(phoneNum);
     }
 
-    public int delete(String companyId, String password) {
-        return companyMapper.delete(companyId, password);
+    public int cemailCheck(String email) {
+        return companyMapper.cemailCheck(email);
+    }
+
+    public int cdelete(String companyId, String password) {
+        return companyMapper.cdelete(companyId, password);
+    }
+
+    public int update(Company company) {
+        return companyMapper.update(company);
     }
 
 }
