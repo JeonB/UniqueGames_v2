@@ -9,7 +9,7 @@
 DROP TABLE IF EXISTS `TB_MEMBER`;
 CREATE TABLE TB_MEMBER (
                          ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                         MEMBER_ID VARCHAR(30) NOT NULL PRIMARY KEY,
+                         MEMBER_ID VARCHAR(30) NOT NULL,
                          PASSWORD VARCHAR(30) NOT NULL,
                          NAME VARCHAR(30) NOT NULL,
                          EMAIL VARCHAR(30) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE TB_GAME (
 DROP TABLE IF EXISTS `TB_COMPANY`;
 CREATE TABLE TB_COMPANY (
                          ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                         COMPANY_ID VARCHAR(30) NOT NULL PRIMARY KEY,
+                         COMPANY_ID VARCHAR(30) NOT NULL,
                          PASSWORD VARCHAR(30) NOT NULL,
                          NAME VARCHAR(30) NOT NULL,
                          EMAIL VARCHAR(30) NOT NULL,
@@ -89,7 +89,6 @@ CREATE TABLE TB_ORDER (
                         G_ID INT UNSIGNED NOT NULL,
                         ORDER_DATE DATETIME DEFAULT CURRENT_TIMESTAMP,
                         AMOUNT INT NOT NULL,
-                        METHOD VARCHAR(20),
                         PAYMENT_STATUS VARCHAR(30) DEFAULT 'NOT' NOT NULL,
                         CONSTRAINT FK_ORDERS_MEMBER FOREIGN KEY (M_ID) REFERENCES TB_MEMBER (MEMBER_ID),
                         CONSTRAINT FK_ORDERS_COMPANY FOREIGN KEY (C_ID) REFERENCES TB_COMPANY (COMPANY_ID),

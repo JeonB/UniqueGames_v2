@@ -5,31 +5,31 @@
 <mapper namespace="com.uniqueGames.repository.DetailMapper">
   <!-- 소개글 등록 -->
   <insert id="insertIntro" parameterType="Intro" >
-    INSERT INTO intro (name,title, content,upload)
-    VALUES ( #{name}, #{title}, #{content},#{upload})
+    INSERT INTO tb_intro (name,title, content,upload_img)
+    VALUES ( #{name}, #{title}, #{content},#{uploadImg})
   </insert>
   <!-- 소개글 조회 -->
   <select id="getIntro" parameterType="int" resultType="Intro">
-    SELECT * FROM intro WHERE id = #{id}
+    SELECT * FROM tb_intro WHERE id = #{id}
   </select>
   <!-- 소개글 조회 2-->
   <select id="getIntroTitle" parameterType="String" resultType="Intro">
-    SELECT * FROM intro WHERE title = #{title}
+    SELECT * FROM tb_intro WHERE title = #{title}
   </select>
   <!-- 소개글 수정 -->
   <update id="updateIntro" parameterType="Intro">
-  UPDATE intro SET title = #{title}, content = #{content}, name = #{name}
+  UPDATE tb_intro SET title = #{title}, content = #{content}, name = #{name}
   WHERE id = #{id}
     </update>
 
   <!-- 소개글 삭제 -->
   <delete id="deleteIntro" parameterType="int">
-    DELETE FROM intro WHERE id = #{id}
+    DELETE FROM tb_intro WHERE id = #{id}
   </delete>
 
   <!-- 소개글 전부 가져오기 -->
   <select id="getIntroList" resultType="Intro">
-    SELECT * FROM intro ORDER BY id
+    SELECT * FROM tb_intro ORDER BY id
   </select>
   
 </mapper>
