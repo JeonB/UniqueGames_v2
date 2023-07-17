@@ -13,7 +13,7 @@ $(document).ready(function () {
                 list.forEach(e => {
                     e.checked = true
                 })
-                boardManage.submit();
+                boardManage();
 
             }
             ;
@@ -34,7 +34,7 @@ $(document).ready(function () {
             return false;
         } else {
             if (confirm("정말로 삭제하시겠습니까?")) {
-                boardManage.submit();
+                boardManage();
 
             }
         }
@@ -269,6 +269,28 @@ function commentDelete(commentId) {
     } else {
         return false;
     }
+}
+
+// 게시글 목록 삭제 이벤트
+function boardManage() {
+    const url = window.location.href
+    $.ajax({
+        url    : "/board-manage",
+        data   : $('form[name="boardManage"]').serialize(),
+        async  : true,
+        cache  : false,
+        type   : "delete",
+        success: function (result) {
+            if (result == "SUCCESS")
+                alert("작업 성공")
+            else
+                alert("작업 실패")
+            window.location.replace(url)
+        },
+        error() {
+            alert("지금은 시도할 수 없습니다.\n상태가 지속될 경우 관리자에게 문의하세요.");
+        }
+    })
 }
 
 // 검색 이벤트

@@ -83,7 +83,7 @@
     <section id="comment-box" th:with="loginMember = ${session.get('loginMember')}">
         <div>
             <!-- Comment form-->
-            <form id="comment-write" name="Comment" method="post">
+            <form id="comment-write" name="Comment">
                 <input type="hidden" name="postId" th:value="${notice.postId}">
                 <input type="hidden" th:id="member-id" name="memberId" th:if="${loginMember != null}"
                        th:value="${#strings.contains(loginMember,'Member') ? loginMember.memberId : loginMember.companyId}"/>

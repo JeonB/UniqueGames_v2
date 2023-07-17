@@ -126,10 +126,14 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
      * @return
      */
     @Override
-    public int deleteList(String[] list, Company company) {
+    public String deleteList(String[] list, Company company) {
         fileListDelete(noticeMapper.deleteListBefore(list));
 
-        return noticeMapper.deleteList(list, company);
+        String result = "FAIL";
+        if (noticeMapper.deleteList(list, company) == 1) {
+            result = "SUCCESS";
+        }
+        return result;
     }
 
     /**
