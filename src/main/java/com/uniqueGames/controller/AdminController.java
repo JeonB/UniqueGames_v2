@@ -44,29 +44,14 @@ public class AdminController {
     public String admin_member_list(String type, String array, String page) {
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
-        String order1;
-        String order2;
-
-        if (array.equals("id_asc")) {
-            order1 = "ID";
-            order2 = "ASC";
-        } else if (array.equals("id_desc")) {
-            order1 = "ID";
-            order2 = "DESC";
-        } else if (array.equals("name_asc")) {
-            order1 = "NAME";
-            order2 = "ASC";
-        } else {
-            order1 = "NAME";
-            order2 = "DESC";
-        }
+        String[] arr = adminUtil.splitString(array);
 
         Map<String, Integer> pageMap = adminUtil.getPagination(page, "list", type);
         if (type.equals("member") || !type.equals("company") || type == null) {
-            if (order1.equals("ID")) {
-                order1 = "MEMBER_ID";
+            if (arr[0].equals("ID")) {
+                arr[0] = "MEMBER_ID";
             }
-            ArrayList<Member> list = memberService.aGetMemberList(order1, order2, pageMap.get("startCount"), pageMap.get("endCount"));
+            ArrayList<Member> list = memberService.aGetMemberList(arr[0], arr[1], pageMap.get("startCount"), pageMap.get("endCount"));
 
             if (list.size() == 0) {
                 jObj.addProperty("nothing", true);
@@ -85,10 +70,10 @@ public class AdminController {
                 }
             }
         } else if (type.equals("company")) {
-            if (order1.equals("ID")) {
-                order1 = "COMPANY_ID";
+            if (arr[0].equals("ID")) {
+                arr[0] = "COMPANY_ID";
             }
-            ArrayList<Company> list = companyMemberService.aGetMemberList(order1, order2);
+            ArrayList<Company> list = companyMemberService.aGetMemberList(arr[0], arr[1]);
 
             if (list.size() == 0) {
                 jObj.addProperty("nothing", true);
@@ -129,19 +114,10 @@ public class AdminController {
     public String admin_game_list_data(String type, String array, String page) {
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
-        String order1;
-        String order2;
-
-        if (array.equals("name_asc")) {
-            order1 = "NAME";
-            order2 = "ASC";
-        } else {
-            order1 = "NAME";
-            order2 = "DESC";
-        }
+        String[] arr = adminUtil.splitString(array);
 
         Map<String, Integer> pageMap = adminUtil.getPagination(page, "list", type);
-        ArrayList<Game> list = gameService.aGetGameList(order1, order2, pageMap.get("startCount"), pageMap.get("endCount"));
+        ArrayList<Game> list = gameService.aGetGameList(arr[0], arr[1], pageMap.get("startCount"), pageMap.get("endCount"));
 
         if (list.size() == 0) {
             jObj.addProperty("nothing", true);
@@ -173,7 +149,7 @@ public class AdminController {
 
     // ADMIN - GAME REGISTER
     @RequestMapping(value = "/admin-game-register")
-    public String admim_game_register(Model model) {
+    public String admin_game_register(Model model) {
         ArrayList<Company> cList = companyMemberService.aGetAllCompanyList();
 
         model.addAttribute("companyList", cList);
@@ -224,22 +200,7 @@ public class AdminController {
     public String admin_donation_data(String year, String month, String array, String page) {
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
-        String order1;
-        String order2;
-
-        if (array.equals("amount_asc")) {
-            order1 = "AMOUNT";
-            order2 = "ASC";
-        } else if (array.equals("amount_desc")) {
-            order1 = "AMOUNT";
-            order2 = "DESC";
-        } else if (array.equals("name_asc")) {
-            order1 = "COMPANY";
-            order2 = "ASC";
-        } else {
-            order1 = "COMPANY";
-            order2 = "DESC";
-        }
+        String[] arr = adminUtil.splitString(array);
 
         Map<String, String> param = new HashMap<>();
         param.put("page", page);
@@ -248,9 +209,7 @@ public class AdminController {
         param.put("type", "donation");
         Map<String, Integer> pageMap = paymentUtil.getPagination(param);
 
-        ArrayList<Payment> list = orderService.aGetDonationList(order1, order2, pageMap.get("startCount"), pageMap.get("endCount"));
-        System.out.println(year + " " + month + " " + order1 + " " + order2);
-        System.out.println(list.size());
+        ArrayList<Payment> list = orderService.aGetDonationList(arr[0], arr[1], pageMap.get("startCount"), pageMap.get("endCount"));
 
         if (list.size() == 0) {
             jObj.addProperty("nothing", true);

@@ -60,9 +60,9 @@ public class MainController {
 		if (member == null) {
 			return ResponseEntity.ok().body(new AjaxResponse("no", "이거", 0));
 		}
-		System.out.println("result: " + result);
-		System.out.println("message: " + message);
-		System.out.println("likeCount: " + likeCount);
+//		System.out.println("result: " + result);
+//		System.out.println("message: " + message);
+//		System.out.println("likeCount: " + likeCount);
 		int hasLiked = indexServiceMapper.hasLiked(member.getMemberId(), gameId);
 
 		if (hasLiked == 1) {

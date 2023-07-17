@@ -1,12 +1,14 @@
 package com.uniqueGames.controller;
 
 import com.uniqueGames.config.Login;
+import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.model.Order;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.uniqueGames.service.GameService;
 import com.uniqueGames.service.MemberService;
 import com.uniqueGames.service.OrderService;
 import org.apache.ibatis.annotations.Param;
@@ -26,6 +28,9 @@ public class OrderController {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    GameService gameService;
+
     ArrayList<Integer> idList;
     String idStr;
 
@@ -33,12 +38,13 @@ public class OrderController {
     public String order(@Login Member member, Model model, @Param("checkedList") String[] checkedList) {
         idList = new ArrayList<Integer>();
         for (String id : checkedList) {
-            System.out.println(id);
             idList.add(Integer.parseInt(id));
         }
 
         idStr = orderService.listToString(idList);
         ArrayList<Order> orderList = orderService.getOrderList(idStr);
+        orderList = gameService.addGameInfo(orderList);
+
         int totalAmount = orderService.getOrderAmount(idStr);
         Member buyer = memberService.aGetDetailMember(member.getMemberId());
 
@@ -58,31 +64,30 @@ public class OrderController {
             return "order/error";
         }
 
-        idStr = orderService.listToString(idList);
-        ArrayList<Order> orderList = orderService.getOrderList(idStr);
+        ArrayList<Order> orderList = orderService.getOrderList(orderService.listToString(idList));
+        orderList = gameService.addGameInfo(orderList);
         int totalAmount = orderService.getOrderAmount(idStr);
-        Member buyer = memberService.aGetDetailMember(member.getMemberId());
 
         model.addAttribute("orderList", orderList);
         model.addAttribute("count", "총 " + orderList.size() + "개");
         model.addAttribute("totalAmount", totalAmount);
         model.addAttribute("totalAmountStr", orderService.formatCurrency(totalAmount));
-        model.addAttribute("member", buyer);
+        model.addAttribute("member", memberService.aGetDetailMember(member.getMemberId()));
 
         return "order/order";
     }
 
     @RequestMapping(value = "/order-pay")
     @ResponseBody
-    public String order_pay(String method) {
-        if (orderService.getOrderComplete(idStr, method) == 0) {
+    public String order_pay() {
+        if (orderService.getOrderComplete(idStr) == 0) {
             return "error";
         }
         return "complete";
     }
 
     @RequestMapping(value = "/order-complete")
-    public String order_complete(){
+    public String order_complete() {
         return "order/order-complete";
     }
 }

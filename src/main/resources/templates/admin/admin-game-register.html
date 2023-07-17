@@ -7,11 +7,6 @@
     <link rel="stylesheet" th:href="@{/css/order.css}">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <script src="js/admin-script.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#btn-search-company")
-        });
-    </script>
 </head>
 <body>
 <!-- header -->
@@ -49,7 +44,7 @@
                 </li>
                 <li>
                     <p name="p-regi">회사명</p>
-                    <input type="text" id="company">
+                    <input type="text" id="c_id">
                     <button type="button" id="btn-fk">찾기</button>
                 </li>
                 <li>
@@ -89,16 +84,17 @@
                 </div>
                 <div id="modal-content-company">
                     <div id="div-company-result">
-                        <input type="hidden" id="company-selected" value="none">
+                        <input type="hidden" id="company-selected-name" value="none">
+                        <input type="hidden" id="company-selected-id" value="none">
                         <div id="hidden"></div>
 
                         <!-- ul : Ajax -->
                         <ul id="ul-company-list">
                             <li th:each="company : ${companyList}">
-                                <button type="button" name="company-list" th:value="${company.name}"
-                                        th:text="${company.name}"></button>
+                                <button type="button" name="company-list" th:value="${company.name}" th:id="${company.companyId}"></button>
                             </li>
                         </ul>
+
 
                     </div>
                 </div>
