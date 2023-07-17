@@ -30,7 +30,7 @@ public class FileUtil<T> {
             UUID uuid = UUID.randomUUID();
             String upload = uuid + "_" + fileName;
             uploadFile.transferTo(new File(root_path + attach_path + upload));
-            vo.setUpload(upload);
+            vo.setUploadImg(upload);
         }
         return vo;
     }

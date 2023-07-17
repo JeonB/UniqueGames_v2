@@ -9,6 +9,7 @@ import com.uniqueGames.service.IntroCompanyService;
 import com.uniqueGames.service.IndexServiceMapper;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,8 +127,13 @@ public class DetailMapperController {
     @GetMapping("/getIntroList")
     public String getIntroList(Model model){
         model.addAttribute("introList", introCompanyService.getIntroList());
+        List<Intro> introList = introCompanyService.getIntroList();
+        List<List<Game>> gameList = new ArrayList<>();
+        for (Intro intro: introList){
+            gameList.add(indexServiceMapper.getGameListByCId(intro.getCId()));
+        }
         /// TODO: 2023-07-17 회사별 게임 이미지 출력하는 메소드 구현
-//        model.addAttribute("game",indexServiceMapper.getGameListByCId(cid));
+        model.addAttribute("gameList",gameList);
         return "detail/company-list";
     }
 

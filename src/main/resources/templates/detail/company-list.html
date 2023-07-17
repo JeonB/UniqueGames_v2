@@ -60,8 +60,10 @@
       <div class="Description" th:text="${intro.content}">게임을사랑하는사람들이모여즐겁게게임을만드는곳,넥슨.<br/>이곳에서전세계게이머들에게최고의재미와경험을선사하기위한도전은계속됩니다.<br/>그들의 추억으로 버는 수익은 언제까지 지속될까?</div>
       <div class="Info">INFO</div>
       <div class="Games">GAMES</div>
-      <div th:each="game, i: ${gameList}">
-        <img th:class="'Rectangle4' + (i.index % 3 + 1)" th:src="${game.imagePath}" />
+      <div th:each="game:${gameList}">
+        <div th:each="g, i: ${game}">
+          <img th:class="'Rectangle4' + (i.index % 3 + 1)" th:src="${g.imagePath}"/>
+        </div>
       </div>
 <!--      <div class="Rectangle44"></div>-->
       <div class="ExpandMoreFill1Wght400Grad0Opsz48"></div>

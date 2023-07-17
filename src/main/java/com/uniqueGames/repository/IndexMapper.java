@@ -3,6 +3,7 @@ package com.uniqueGames.repository;
 
 import com.uniqueGames.config.Login;
 import com.uniqueGames.model.Game;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.uniqueGames.model.Member;
@@ -68,6 +69,6 @@ public interface IndexMapper {
     @Delete("DELETE FROM TB_LIKE WHERE MEMBER_ID = #{memberId} and G_ID = #{gId}")
     void removeLikeInfo(@Param("memberId") String memberId, @Param("gId") int gId);
 
-
-
+    @Select("SELECT * FROM tb_game where c_id = #{cId}")
+    public ArrayList<Game> getGameListByCId(String cId);
 }

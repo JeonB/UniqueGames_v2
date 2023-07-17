@@ -20,6 +20,10 @@ public class IndexServiceMapper {
 
     public List<Game> getGameList() { return indexMapper.getGameList(); }
 
+    public List<Game> getGameListByCId(String cId){
+        return indexMapper.getGameListByCId(cId);
+    }
+
     public Game getGame(Game vo) {
         return indexMapper.getGame(vo);
     }
