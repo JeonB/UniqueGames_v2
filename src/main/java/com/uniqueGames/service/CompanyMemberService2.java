@@ -70,9 +70,9 @@ public class CompanyMemberService2 {
     }
 
     // ADMIN
-    public ArrayList<Company> aGetMemberList(String order1, String order2) {
+    public ArrayList<Company> aGetMemberList(String order1, String order2, int start, int end) {
         ArrayList<Company> cList = new ArrayList<>();
-        for (Company company : companyMapper.aGetMemberList(order1, order2)) {
+        for (Company company : companyMapper.aGetMemberList(order1, order2, start, end)) {
             cList.add(company);
         }
         return cList;

@@ -48,7 +48,7 @@ public class AdminController {
 
         Map<String, Integer> pageMap = adminUtil.getPagination(page, "list", type);
         if (type.equals("member") || !type.equals("company") || type == null) {
-            if (arr[0].equals("ID")) {
+            if (arr[0].equals("id")) {
                 arr[0] = "MEMBER_ID";
             }
             ArrayList<Member> list = memberService.aGetMemberList(arr[0], arr[1], pageMap.get("startCount"), pageMap.get("endCount"));
@@ -57,8 +57,8 @@ public class AdminController {
                 jObj.addProperty("nothing", true);
             } else {
                 jObj.addProperty("nothing", false);
-                jObj.addProperty("name", "이름");
-                jObj.addProperty("str", "전체 개인 회원 : " + list.size() + "명");
+                jObj.addProperty("nameField", "이름");
+                jObj.addProperty("str", "전체 개인 회원 : " + memberService.totRowCount() + "명");
 
                 for (Member member : list) {
                     JsonObject obj = new JsonObject();
@@ -70,17 +70,17 @@ public class AdminController {
                 }
             }
         } else if (type.equals("company")) {
-            if (arr[0].equals("ID")) {
+            if (arr[0].equals("id")) {
                 arr[0] = "COMPANY_ID";
             }
-            ArrayList<Company> list = companyMemberService.aGetMemberList(arr[0], arr[1]);
+            ArrayList<Company> list = companyMemberService.aGetMemberList(arr[0], arr[1], (int)pageMap.get("startCount"), (int)pageMap.get("endCount"));
 
             if (list.size() == 0) {
                 jObj.addProperty("nothing", true);
             } else {
                 jObj.addProperty("nothing", false);
-                jObj.addProperty("name", "회사명");
-                jObj.addProperty("str", "전체 법인 회원 : " + list.size() + "명");
+                jObj.addProperty("nameField", "회사명");
+                jObj.addProperty("str", "전체 법인 회원 : " + memberService.totRowCount() + "명");
 
                 for (Company member : list) {
                     JsonObject obj = new JsonObject();

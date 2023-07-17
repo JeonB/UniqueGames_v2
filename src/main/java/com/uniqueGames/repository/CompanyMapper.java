@@ -43,8 +43,8 @@ public interface CompanyMapper {
     int update(Company company);
 
     // ADMIN
-    @Select("SELECT company_id, name FROM TB_COMPANY ORDER BY ${order1} ${order2}")
-    List<Company> aGetMemberList(@Param("order1") String order1, @Param("order2") String order2);
+    @Select("SELECT COMPANY_ID, NAME FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${order1} ${order2}) AS RNO, COMPANY_ID, NAME FROM TB_MEMBER) AS TB1 WHERE RNO BETWEEN ${start} AND ${end}")
+    List<Company> aGetMemberList(@Param("order1") String order1, @Param("order2") String order2, @Param("start") int start, @Param("end") int end);
 
     @Select("SELECT * FROM TB_COMPANY WHERE COMPANY_ID=#{id}")
     Company aGetDetailMember(String id);
