@@ -1,3 +1,4 @@
+/*<![CDATA[*/
 new Swiper('.swiper', {
   autoplay: {
     delay: 4000
@@ -17,11 +18,11 @@ new Swiper('.swiper', {
 })
 /* 수정, 삭제 버튼 스크립트*/
 const element = document.getElementById('board-top-menu');
-const loginMember = '<%=session.getAttribute("loginMember")%>';
-if(loginMember.includes('MemberVo') || loginMember === 'null'){
+const loginMember = /*[[${session.getAttribute("loginMember")}]]*/ null;
+if(loginMember.includes('Member') || loginMember === 'null'){
   element.style.visibility = 'hidden';
 }
-else if(loginMember.includes('CompanyVo')){
+else if(loginMember.includes('Company')){
   $('button[name="listUpdate"]').on("click", function() {
     location.href = "../detail/updateIntro";
   });
@@ -29,3 +30,4 @@ else if(loginMember.includes('CompanyVo')){
     location.href = "../detail/deleteIntro";
   });
 }
+/*]]>*/

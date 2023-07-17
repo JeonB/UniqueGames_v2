@@ -4,23 +4,12 @@
   <title>회사 소개페이지 리스트</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" th:href="@{/css/company-list.css}">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-  <style>
-    .btn-style{
-      background: #393939;
-      border-radius: 5px;
-      width: 80px;
-      height: 30px;
-      color: #FFFFFF;
-      font-size: 14px;
-      vertical-align: top;
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
 <!--header-->
-<div th:replace="/main/header::headerFragment"></div>
+<div th:replace="~{main/header :: headerFragment}"></div>
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
@@ -29,49 +18,75 @@
     </div>
   </div>
 </section>
-<section id="menu-main2">
+<section id="menu-main">
+  <div class="main-container">
   <div id="board-top-menu">
     <div>
       <ul>
         <li><button type="button" class="btn-style" name="listWrite">작성</button></li>
         <li><button type="button" class="btn-style" name="listUpdate">수정</button></li>
         <li><button type="button" class="btn-style" name="listDelete">삭제</button></li>
-        <li><button type="button" class="btn-style" name="listDeleteAll">전체삭제</button></li>
       </ul>
     </div>
   </div>
-  <div class="menu-allList">
-    <div id="gameList">
-      <div th:each="intro : ${companyList}" id="gList">
-        <img th:src="@{/upload/{upload}(upload=${intro.upload})}"
-             width="260px" height="180px">
-        <ul>
-          <li><a th:href="@{getIntro(id=${intro.id})}" style="cursor: pointer" th:text="${intro.name}"></a>
-          </li>
-          <li th:text="${intro.id}"></li>
-          <li><img th:src="@{/images/img-icon-rPc.png}"></li>
-        </ul>
+<!--  <div class="menu-allList">-->
+<!--    <div id="gameList">-->
+<!--      <div th:each="intro : ${companyList}" id="gList">-->
+<!--        <img th:src="@{/upload/{upload}(upload=${intro.upload})}"-->
+<!--             width="260px" height="180px">-->
+<!--        <ul>-->
+<!--          <li><a th:href="@{getIntro(id=${intro.id})}" style="cursor: pointer" th:text="${intro.name}"></a>-->
+<!--          </li>-->
+<!--          <li th:text="${intro.id}"></li>-->
+<!--          <li><img th:src="@{/images/img-icon-rPc.png}"></li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+<!--  <div class="Frame2">-->
+    <div class="Group18" th:each="intro:${introList}">
+      <div class="Group17">
+        <div class="Rectangle39"></div>
+        <div class="EnGameName" th:text="${intro.name}"></div>
+<!--        <div class="GameName">넥슨코리아</div>-->
+        <div class="Line1"></div>
+        <div class="MaskGroup">
+          <div class="Vector1"></div>
+          <img class="Image3" th:src="${intro.upload}"/>
+        </div>
       </div>
+      <div class="Description" th:text="${intro.content}">게임을사랑하는사람들이모여즐겁게게임을만드는곳,넥슨.<br/>이곳에서전세계게이머들에게최고의재미와경험을선사하기위한도전은계속됩니다.<br/>그들의 추억으로 버는 수익은 언제까지 지속될까?</div>
+      <div class="Info">INFO</div>
+      <div class="Games">GAMES</div>
+      <img class="Rectangle41" src="https://via.placeholder.com/230x120" />
+      <img class="Rectangle42" src="https://via.placeholder.com/230x120" />
+      <img class="Rectangle43" src="https://via.placeholder.com/162x120" />
+<!--      <div class="Rectangle44"></div>-->
+      <div class="ExpandMoreFill1Wght400Grad0Opsz48"></div>
     </div>
   </div>
+<!--  </div>-->
 </section>
 <!--footer-->
-<div th:replace="/main/footer::footerFragment"></div>
-<script>
+<div th:replace="~{main/footer :: footerFragment}"></div>
+<script th:inline="javascript">
+  /*<![CDATA[*/
   const element = document.getElementById('board-top-menu');
-  const loginMember = '<%=session.getAttribute("loginMember")%>';
-  if(loginMember.includes('MemberVo') || loginMember === 'null'){
+  const loginMember = /*[[${session.loginMember}]]*/ '';
+  if(loginMember.memberId != null || loginMember === 'null'){
     element.style.visibility = 'hidden';
-  }else if(loginMember.includes('CompanyVo')  && '${status}' === 'writeOnce'){
+  }else if(loginMember.companyId != null  && '${status}' === 'writeOnce'){
     $('button[name="listWrite"]').on("click", function() {
       alert("글 작성은 한번만 가능합니다!");
     });
-  }else if(loginMember.includes('CompanyVo')){
+  }else if(loginMember.companyId != null){
     $('button[name="listWrite"]').on("click", function() {
       location.href = "../detail/insertIntro";
     });
   }
-
+  /*]]>*/
 </script>
 </body>
 </html>

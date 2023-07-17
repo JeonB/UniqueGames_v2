@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<div th:replace="/main/header::headerFragment"></div>
+<div th:replace="~{/main/header::headerFragment}"></div>
 <div id="image-top-bg"></div>
 <div class="parent-container" style="display: grid">
   <div class="main-container">
@@ -173,7 +173,7 @@
                                                                 style="font: italic normal 900 18px Apex New; letter-spacing: 0px;color: #1c2025">베스트게이밍</a>
                                   </span>
                                 <span id="company_id"
-                                      style="display: none" th:text="${companyVo.companyId}"></span>
+                                      style="display: none" th:text="${company.companyId}"></span>
                               </div>
                               <span class="price-crossed"></span>
                             </div>
@@ -280,7 +280,7 @@
   </div>
 </div>
 
-<div th:replace="/main/footer::footerFragament"></div>
+<div th:replace="~{main/footer :: footerFragment}"></div>
 </body>
 
 </html>
