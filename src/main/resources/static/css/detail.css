@@ -373,24 +373,6 @@
   padding-right: 16px
 }
 
-@media (min-width: 768px) {
-  .main-container {
-    width:752px
-  }
-}
-
-@media (min-width: 992px) {
-  .main-container {
-    width:972px
-  }
-}
-
-@media (min-width: 1200px) {
-  .main-container {
-    width:1152px
-  }
-}
-
 .media_player_marker{
   position:absolute;
   margin-left:60px;

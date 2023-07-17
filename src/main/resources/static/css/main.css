@@ -336,3 +336,29 @@ header div img {
 	font-family: "YouandiModern", sans-serif;
 	text-align: center;
 }
+
+@media (min-width: 768px) {
+	.main-container {
+		width:752px
+	}
+}
+
+@media (min-width: 992px) {
+	.main-container {
+		width:972px
+	}
+}
+
+@media (min-width: 1200px) {
+	.main-container {
+		width:1152px
+	}
+}
+.main-container {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 16px;
+	padding-right: 16px
+}

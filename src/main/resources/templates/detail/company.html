@@ -7,7 +7,7 @@
   <title>제작사(팀) 소개</title>
   <link rel="stylesheet" th:href="@{/css/board.css}">
   <link rel="stylesheet" th:href="@{/css/company.css}">
-  <script th:src="@{/js/company.js}"></script>
+
 
   <!--css 초기화-->
 <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">-->
@@ -27,6 +27,8 @@
 </head>
 
 <body style="padding: 0">
+<div th:replace="~{main/header :: headerFragment}"></div>
+
 <div id="board-top-menu">
   <div>
     <ul>
@@ -35,7 +37,7 @@
     </ul>
   </div>
 </div>
-<div class="container">
+<div class="main-container">
 
   <!--  제작팀 소개 -->
   <div style="margin: 70px 20px 0 150px ">
@@ -57,103 +59,37 @@
   <!--  slider 시작 -->
   <div class="swiper">
     <p style=" text-align: center;">
-      <a href="../allList">
-        <img style="display: block;padding: 50px; margin: 0 auto" src="/images/img-title-gameList.png">
+      <a href="../alllist">
+        <img style="display: block;padding: 50px; margin: 0 auto" th:src="@{/images/img-title-gameList.png}">
       </a>
     </p>
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
+      <div class="swiper-slide" th:each="slider:${sliderList}">
         <div class="card">
-          <img src="/images/img-game-thumbnail-3-500240.png" class="card-img-top" style="height: 150px; width: 234px">
+          <img th:src="${slider.imagePath}" class="card-img-top" style="height: 150px; width: 234px">
           <div class="card-body">
-            <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
+            <img th:src="@{/images/imt-title-top.png}" style="height: 15px; margin-bottom: 5px">
             <h6 class="card-title">New Game of Music</h6>
             <p class="card-text">Action RPG</p>
           </div>
           <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
             <small class="text-muted" >
-              <a href="detail.jsp" ><a href="detail.jsp" >자세히 보기</a></a>
+              <a th:href="@{'detail/'+${slider.id}}" >자세히 보기</a>
             </small>
           </div>
         </div>
       </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <img src="/images/img-game-thumbnail-2-500240.png" class="card-img-top" style="height: 150px; width: 234px">
-          <div class="card-body">
-            <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
-            <h6 class="card-title">New Game of Music</h6>
-            <p class="card-text">Action RPG</p>
-          </div>
-          <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a href="detail.jsp" >자세히 보기</a></small>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <img src="/images/img-game-thumbnail-1-260180.png" class="card-img-top" style="height: 150px; width: 234px">
-          <div class="card-body">
-            <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
-            <h6 class="card-title">New Game of Music</h6>
-            <p class="card-text">Action RPG</p>
-          </div>
-          <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a href="detail.jsp" >자세히 보기</a></small>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <img src="/images/img-game-thumbnail-3-260180.png" class="card-img-top" style="height: 150px; width: 234px">
-          <div class="card-body">
-            <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
-            <h6 class="card-title">New Game of Music</h6>
-            <p class="card-text">Action RPG</p>
-          </div>
-          <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a href="detail.jsp" >자세히 보기</a></small>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <img src="/images/img-game-thumbnail-4-260180.png" class="card-img-top" style="height: 150px; width: 234px">
-          <div class="card-body">
-            <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
-            <h6 class="card-title">New Game of Music</h6>
-            <p class="card-text">Action RPG</p>
-          </div>
-          <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a href="detail.jsp" >자세히 보기</a></small>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <img src="/images/img-game-thumbnail-2-260180.png" class="card-img-top" style="height: 150px; width: 234px">
-          <div class="card-body">
-            <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
-            <h6 class="card-title">New Game of Music</h6>
-            <p class="card-text">Action RPG</p>
-          </div>
-          <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a href="detail.jsp" >자세히 보기</a></small>
-          </div>
-        </div>
-      </div>
     </div>
-
-    <div class="swiper-pagination"></div>
+  </div>
+  <div class="swiper-pagination"></div>
 
   </div>
-  <!--  slider 끝-->
 
   <!--  공지사항-->
   <p style=" text-align: center;">
-    <a href="../notice_list">
+    <a th:href="@{../notice_list}">
 
-      <img style="display: block; margin: 0 auto;padding-top: 50px" src="/images/img-title-notice.png">
+      <img style="display: block; margin: 0 auto;padding-top: 50px" th:src="@{/images/img-title-notice.png}">
     </a>
   </p>
   <div id="content">
@@ -166,7 +102,7 @@
             <label>
               <input type='text' name='keyword' placeholder='검색어를 입력해주세요.'>
               <button type='button' id='btn-search'>
-                <img src='/images/btn-boardSearch-press.png'>
+                <img th:src='@{/images/btn-boardSearch-press.png}'>
               </button>
             </label>
           </form>
@@ -176,117 +112,38 @@
         </div>
         <div id='clearFix'></div>
       </div>
-      <table id="user-btable">
+      <table class="admin-btable">
         <tr>
+          <th>선택</th>
           <th>번호</th>
           <th>제목</th>
           <th>작성자</th>
           <th>작성일</th>
         </tr>
-        <th:block th:if="${list != null}">
-          <tr th:each="noticeVo : ${list}">
-            <td th:text="${noticeVo.rno}"></td>
-            <td><a th:href="'notice_content?no=' + ${noticeVo.post_id}" th:text="${noticeVo.title}"></a></td>
-            <td th:text="${noticeVo.writer}"></td>
-            <td th:text="${noticeVo.date}"></td>
+        <th:block th:unless="${#lists.isEmpty(list)}">
+          <tr th:each="notice : ${list}">
+            <td><input type="checkbox" name="list" th:value="${notice.postId}"></td>
+            <td><span th:text="${notice.rno}"/></td>
+            <td><a th:href="@{/notice/content/{no}(no = ${notice.postId})}" th:text="${notice.title}"/><span
+                th:if="${notice.cmtCount > 0}" th:text=" ' [' + ${notice.cmtCount} + ']'"/></td>
+            </td>
+            <td><span th:text="${notice.name}"/></td>
+            <td><span th:text="${notice.dateOutput}"/></td>
           </tr>
         </th:block>
+        <tr th:if="${#lists.isEmpty(list)}">
+          <td colspan="5" style="padding: 50px 0">등록된 게시글이 없습니다.</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <div id="ampaginationsm"></div>
+          </td>
+        </tr>
       </table>
     </div>
-  </div>
-  <!--  공지사항 끝-->
-
-  <!--  추천-->
-  <div class="swiper">
-    <p style=" text-align: center;"><img style="display: block;padding: 50px; margin: 0 auto" src="/images/img-title-recommendations.png"></p>
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" th:each="game : ${gameList}">
-        <div class="card">
-          <img src="/images/img-game-thumbnail-3-500240.png" class="card-img-top" style="height: 150px; width: 234px">
-          <div class="card-body">
-            <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
-            <h6 class="card-title">New Game of Music</h6>
-            <p class="card-text">Action RPG</p>
-          </div>
-          <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" >
-             <a th:href="@{'detail/1'}" >자세히 보기</a>
-            </small>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <img src="/images/img-game-thumbnail-2-500240.png" class="card-img-top" style="height: 150px; width: 234px">
-          <div class="card-body">
-            <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
-            <h6 class="card-title">New Game of Music</h6>
-            <p class="card-text">Action RPG</p>
-          </div>
-          <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a th:href="detail" >자세히 보기</a></small>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <img src="/images/img-game-thumbnail-1-260180.png" class="card-img-top" style="height: 150px; width: 234px">
-          <div class="card-body">
-            <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
-            <h6 class="card-title">New Game of Music</h6>
-            <p class="card-text">Action RPG</p>
-          </div>
-          <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a th:href="@{'/detail/1'}" >자세히 보기</a></small>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <img src="/images/img-game-thumbnail-3-260180.png" class="card-img-top" style="height: 150px; width: 234px">
-          <div class="card-body">
-            <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
-            <h6 class="card-title">New Game of Music</h6>
-            <p class="card-text">Action RPG</p>
-          </div>
-          <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a href="@{'/detail/3'}" >자세히 보기</a></small>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <img src="/images/img-game-thumbnail-4-260180.png" class="card-img-top" style="height: 150px; width: 234px">
-          <div class="card-body">
-            <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
-            <h6 class="card-title">New Game of Music</h6>
-            <p class="card-text">Action RPG</p>
-          </div>
-          <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a href="detail4.jsp" >자세히 보기</a></small>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="card">
-          <img src="/images/img-game-thumbnail-2-260180.png" class="card-img-top" style="height: 150px; width: 234px">
-          <div class="card-body">
-            <img src="/images/imt-title-top.png" style="height: 15px; margin-bottom: 5px">
-            <h6 class="card-title">New Game of Music</h6>
-            <p class="card-text">Action RPG</p>
-          </div>
-          <div class="card-footer" style="background: linear-gradient(to right,#682CAD,#2FC0CC);text-align: center;">
-            <small class="text-muted" ><a href="detail.jsp" >자세히 보기</a></small>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="swiper-pagination"></div>
-
-  </div>
 </div>
 
+<div th:replace="~{main/footer :: footerFragment}"></div>
+<script th:inline="javascript" th:src="@{/js/company.js}"></script>
 </body>
-
 </html>
