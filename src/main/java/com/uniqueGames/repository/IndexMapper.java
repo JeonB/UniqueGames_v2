@@ -15,57 +15,57 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface IndexMapper {
 
     @Select("SELECT\n" +
-            "    GAME.ID,\n" +
-            "    GAME.NAME,\n" +
-            "    GAME.IMAGE_PATH,\n" +
-            "    GAME.GAME_GENRE,\n" +
-            "    GAME.DONATION_STATUS,\n" +
-            "    GAME.DESCRIPTION,\n" +
-            "    COUNT(LIKES.ID) AS LIKE_COUNT\n" +
+            "    TB_GAME.ID,\n" +
+            "    TB_GAME.NAME,\n" +
+            "    TB_GAME.IMAGE_PATH,\n" +
+            "    TB_GAME.GAME_GENRE,\n" +
+            "    TB_GAME.DONATION_STATUS,\n" +
+            "    TB_GAME.DESCRIPTION,\n" +
+            "    COUNT(TB_LIKE.ID) AS LIKE_COUNT\n" +
             "FROM\n" +
-            "    GAME\n" +
+            "    TB_GAME\n" +
             "        LEFT JOIN\n" +
-            "    LIKES ON GAME.ID = LIKES.G_ID\n" +
+            "    TB_LIKE ON TB_GAME.ID = TB_LIKE.G_ID\n" +
             "GROUP BY\n" +
-            "    GAME.ID,\n" +
-            "    GAME.NAME,\n" +
-            "    GAME.IMAGE_PATH,\n" +
-            "    GAME.GAME_GENRE,\n" +
-            "    GAME.DONATION_STATUS,\n" +
-            "    GAME.DESCRIPTION;")
+            "    TB_GAME.ID,\n" +
+            "    TB_GAME.NAME,\n" +
+            "    TB_GAME.IMAGE_PATH,\n" +
+            "    TB_GAME.GAME_GENRE,\n" +
+            "    TB_GAME.DONATION_STATUS,\n" +
+            "    TB_GAME.DESCRIPTION;")
     List<Game> getGameList();
 
-    @Select("SELECT * FROM GAME WHERE ID=?#{id}")
+    @Select("SELECT * FROM TB_GAME WHERE ID=?#{id}")
     Game getGame(Game vo);
 
-    @Select("SELECT * FROM GAME WHERE ID=#{id}")
+    @Select("SELECT * FROM TB_GAME WHERE ID=#{id}")
     Game getGameForIndex(int id);
 
-    @Select("SELECT * FROM GAME WHERE DONATION_STATUS = 1")
+    @Select("SELECT * FROM TB_GAME WHERE DONATION_STATUS = 1")
     List<Game> getDonationList();
 
-    @Select("SELECT COUNT(*) FROM LIKES WHERE G_ID= #{gId}")
+    @Select("SELECT COUNT(*) FROM TB_LIKE WHERE G_ID= #{gId}")
     int getGameLikeCount(@Param("gId") int gId);
 
-    @Select("SELECT ID, NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION FROM GAME")
+    @Select("SELECT ID, NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION FROM TB_GAME")
     List<Game> getRankingList();
 
-    @Insert("INSERT INTO GAME(NAME,IMAGE_PATH,GAME_GENRE,DONATION_STATUS,DESCRIPTION) VALUES(#{name},#{imagePath},#{gameGenre},#{donationStatus},#{description})")
+    @Insert("INSERT INTO TB_GAME(NAME,IMAGE_PATH,GAME_GENRE,DONATION_STATUS,DESCRIPTION) VALUES(#{name},#{imagePath},#{gameGenre},#{donationStatus},#{description})")
     void insertGame(Game vo);
 
-    @Update("UPDATE GAME SET NAME=#{name} WHERE ID=#{id}")
+    @Update("UPDATE TB_GAME SET NAME=#{name} WHERE ID=#{id}")
     void updateGame(Game vo);
 
-    @Delete("DELETE GAME WHERE ID=#{id}")
+    @Delete("DELETE TB_GAME WHERE ID=#{id}")
     void deleteGame(Game vo);
 
-    @Select("SELECT COUNT(*) FROM LIKES where G_ID = #{gId} and MEMBER_ID = #{memberId}")
+    @Select("SELECT COUNT(*) FROM TB_LIKE where G_ID = #{gId} and MEMBER_ID = #{memberId}")
     int hasLiked(@Param("memberId") String memberId, @Param("gId") int gId);
 
-    @Update("INSERT INTO LIKES (G_ID, MEMBER_ID) VALUE(#{gId},#{memberId})")
+    @Update("INSERT INTO TB_LIKE (G_ID, MEMBER_ID) VALUE(#{gId},#{memberId})")
     void addLikeInfo(@Param("memberId") String memberId, @Param("gId") int gId);
 
-    @Delete("DELETE FROM LIKES WHERE MEMBER_ID = #{memberId} and G_ID = #{gId}")
+    @Delete("DELETE FROM TB_LIKE WHERE MEMBER_ID = #{memberId} and G_ID = #{gId}")
     void removeLikeInfo(@Param("memberId") String memberId, @Param("gId") int gId);
 
 
