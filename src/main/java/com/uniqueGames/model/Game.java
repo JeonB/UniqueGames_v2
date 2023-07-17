@@ -11,12 +11,9 @@ public class Game {
 	String gameGenre = "";
 	String imagePath = "";
 	String description = "";
-	String likeList = "";
 	int donationStatus;
 	int likeCount;
 
-	public String getLikeList() {return likeList;}
-	public void setLikeList(String like_list) {this.likeList = like_list;}
 	public int getLikeCount() {return likeCount;}
 	public void setLikeCount(int like_count) {this.likeCount = like_count;}
 	public int getRno() {return rno;}

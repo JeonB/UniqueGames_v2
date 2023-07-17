@@ -2,6 +2,7 @@ package com.uniqueGames.controller;
 
 
 import com.uniqueGames.config.Login;
+import com.uniqueGames.model.AjaxResponse;
 import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.service.IndexServiceMapper;
@@ -10,6 +11,7 @@ import java.io.IOException;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,25 +53,25 @@ public class MainController {
 		model.addAttribute("ranking", indexServiceMapper.getRankingList());
 		return "main/topgame";
 	}
-	@GetMapping("addlike/{gameId}")
-	public String addLike(@PathVariable("gameId") String gameId, @Login Member member, Model model) {
+
+	@PostMapping("addlike/{gameId}/")
+	@ResponseBody
+	public ResponseEntity<AjaxResponse> addLike(@PathVariable("gameId") String gameId, @Login Member member) {
 		if (member == null) {
-			model.addAttribute("result", "no");
-			return "/login/login";
+			return ResponseEntity.ok().body(new AjaxResponse("no", "이거", 0));
 		}
-		System.out.println("gameId" + gameId + "," + "member" + member);
+		System.out.println("result: " + result);
+		System.out.println("message: " + message);
+		System.out.println("likeCount: " + likeCount);
 		int hasLiked = indexServiceMapper.hasLiked(member.getMemberId(), gameId);
-		System.out.println(hasLiked);
 
 		if (hasLiked == 1) {
 			indexServiceMapper.removeLikeInfo(member.getMemberId(), gameId);
-			model.addAttribute("message", "좋아요가 삭제되었습니다.");
+			return ResponseEntity.ok().body(new AjaxResponse("ok", "좋아요가 삭제되었습니다.", indexServiceMapper.getGameLikeCount(gameId)));
 		} else {
 			indexServiceMapper.addLikeInfo(member.getMemberId(), gameId);
-			model.addAttribute("message", "좋아요가 추가되었습니다.");
+			return ResponseEntity.ok().body(new AjaxResponse("ok", "좋아요가 추가되었습니다.", indexServiceMapper.getGameLikeCount(gameId)));
 		}
-
-		return "redirect:/";
 	}
 
 }  

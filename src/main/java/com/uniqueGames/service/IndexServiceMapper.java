@@ -1,12 +1,16 @@
 package com.uniqueGames.service;
 
 
+import com.uniqueGames.config.Login;
 import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.repository.IndexMapper;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class IndexServiceMapper {
@@ -44,16 +48,19 @@ public class IndexServiceMapper {
         indexMapper.deleteGame(vo);
     }
 
-    public int hasLiked(String mid, String gid) {
-        return indexMapper.hasLiked(mid, gid);
+    public int hasLiked(String mid, String gameId) {
+        return indexMapper.hasLiked(mid, gameId);
+    }
+    public int getGameLikeCount(String gameId) {
+        return indexMapper.getGameLikeCount(gameId);
     }
 
-    public void addLikeInfo(String mid, String gid) {
-        indexMapper.addLikeInfo(mid, gid);
+    public void addLikeInfo(String mid, String gameId) {
+        indexMapper.addLikeInfo(mid, gameId);
     }
 
-    public void removeLikeInfo(String mid, String gid) {
-        indexMapper.removeLikeInfo(mid, gid);
+    public void removeLikeInfo(String mid, String gameId) {
+        indexMapper.removeLikeInfo(mid, gameId);
     }
 
 }
