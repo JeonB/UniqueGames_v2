@@ -4,19 +4,8 @@
   <title>회사 소개페이지 리스트</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" th:href="@{/css/company-list.css}">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-  <style>
-    .btn-style{
-      background: #393939;
-      border-radius: 5px;
-      width: 80px;
-      height: 30px;
-      color: #FFFFFF;
-      font-size: 14px;
-      vertical-align: top;
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
 <!--header-->
@@ -29,74 +18,75 @@
     </div>
   </div>
 </section>
-<section id="menu-main2">
+<section id="menu-main">
+  <div class="main-container">
   <div id="board-top-menu">
     <div>
       <ul>
         <li><button type="button" class="btn-style" name="listWrite">작성</button></li>
         <li><button type="button" class="btn-style" name="listUpdate">수정</button></li>
         <li><button type="button" class="btn-style" name="listDelete">삭제</button></li>
-        <li><button type="button" class="btn-style" name="listDeleteAll">전체삭제</button></li>
       </ul>
     </div>
   </div>
-  <div class="menu-allList">
-    <div id="gameList">
-      <div th:each="intro : ${companyList}" id="gList">
-        <img th:src="@{/upload/{upload}(upload=${intro.upload})}"
-             width="260px" height="180px">
-        <ul>
-          <li><a th:href="@{getIntro(id=${intro.id})}" style="cursor: pointer" th:text="${intro.name}"></a>
-          </li>
-          <li th:text="${intro.id}"></li>
-          <li><img th:src="@{/images/img-icon-rPc.png}"></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<!--  <div class="menu-allList">-->
+<!--    <div id="gameList">-->
+<!--      <div th:each="intro : ${companyList}" id="gList">-->
+<!--        <img th:src="@{/upload/{upload}(upload=${intro.upload})}"-->
+<!--             width="260px" height="180px">-->
+<!--        <ul>-->
+<!--          <li><a th:href="@{getIntro(id=${intro.id})}" style="cursor: pointer" th:text="${intro.name}"></a>-->
+<!--          </li>-->
+<!--          <li th:text="${intro.id}"></li>-->
+<!--          <li><img th:src="@{/images/img-icon-rPc.png}"></li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
 
-  <div class="Frame2" style="width: 100%; height: 100%; padding-top: 56px; padding-bottom: 56px; padding-left: 410px; padding-right: 398px; background: white; justify-content: flex-end; align-items: center; display: inline-flex">
-    <div class="Group18" style="width: 1112px; height: 388px; position: relative">
-      <div class="Group17" style="width: 330px; height: 388px; left: 0px; top: 0px; position: absolute">
-        <div class="Rectangle39" style="width: 330px; height: 388px; left: 0px; top: 0px; position: absolute; background: white; box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.10); border-radius: 10px; border: 1px #CECECE solid"></div>
-        <div style="left: 31px; top: 80px; position: absolute; color: black; font-size: 30px; font-family: Inter; font-weight: 700; word-wrap: break-word">NEXON KOREA</div>
-        <div style="left: 31px; top: 130px; position: absolute; color: black; font-size: 18px; font-family: Inter; font-weight: 400; word-wrap: break-word">넥슨코리아</div>
-        <div class="Line1" style="width: 50px; height: 0px; left: 31px; top: 60px; position: absolute; border: 0.50px black solid"></div>
-        <div class="MaskGroup" style="width: 110px; height: 110px; left: 191px; top: 248px; position: absolute">
-          <div class="Vector1" style="width: 110px; height: 110px; left: 0px; top: 0px; position: absolute; background: #D9D9D9"></div>
-          <img class="Image3" style="width: 317.24px; height: 91.70px; left: 6.60px; top: 13.23px; position: absolute" src="https://via.placeholder.com/317x92" />
+<!--  <div class="Frame2">-->
+    <div class="Group18" th:each="intro:${introList}">
+      <div class="Group17">
+        <div class="Rectangle39"></div>
+        <div class="EnGameName" th:text="${intro.name}"></div>
+<!--        <div class="GameName">넥슨코리아</div>-->
+        <div class="Line1"></div>
+        <div class="MaskGroup">
+          <div class="Vector1"></div>
+          <img class="Image3" th:src="${intro.upload}"/>
         </div>
       </div>
-      <div style="left: 408px; top: 84px; position: absolute; color: black; font-size: 16px; font-family: Inter; font-weight: 400; line-height: 24px; word-wrap: break-word">게임을사랑하는사람들이모여즐겁게게임을만드는곳,넥슨.<br/>이곳에서전세계게이머들에게최고의재미와경험을선사하기위한도전은계속됩니다.<br/>그들의 추억으로 버는 수익은 언제까지 지속될까?</div>
-      <div class="Info" style="left: 408px; top: 40px; position: absolute; color: #6630AD; font-size: 24px; font-family: Inter; font-style: italic; font-weight: 700; line-height: 24px; word-wrap: break-word">INFO</div>
-      <div class="Games" style="left: 408px; top: 191px; position: absolute; color: #31BBCB; font-size: 24px; font-family: Inter; font-style: italic; font-weight: 700; line-height: 24px; word-wrap: break-word">GAMES</div>
-      <img class="Rectangle41" style="width: 230px; height: 120px; left: 408px; top: 240px; position: absolute; box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.10)" src="https://via.placeholder.com/230x120" />
-      <img class="Rectangle42" style="width: 230px; height: 120px; left: 673px; top: 240px; position: absolute; box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.10)" src="https://via.placeholder.com/230x120" />
-      <img class="Rectangle43" style="width: 162px; height: 120px; left: 938px; top: 240px; position: absolute; box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.10)" src="https://via.placeholder.com/162x120" />
-      <div class="Rectangle44" style="width: 174px; height: 174px; left: 938px; top: 213px; position: absolute; background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, white 100%)"></div>
-      <div class="ExpandMoreFill1Wght400Grad0Opsz48" style="width: 32px; height: 18px; left: 370px; top: 316px; position: absolute; transform: rotate(-90deg); transform-origin: 0 0; background: black"></div>
-      <div class="ExpandMoreFill1Wght400Grad0Opsz48" style="width: 32px; height: 18px; left: 1060px; top: 284px; position: absolute; transform: rotate(90deg); transform-origin: 0 0; background: black"></div>
+      <div class="Description" th:text="${intro.content}">게임을사랑하는사람들이모여즐겁게게임을만드는곳,넥슨.<br/>이곳에서전세계게이머들에게최고의재미와경험을선사하기위한도전은계속됩니다.<br/>그들의 추억으로 버는 수익은 언제까지 지속될까?</div>
+      <div class="Info">INFO</div>
+      <div class="Games">GAMES</div>
+      <img class="Rectangle41" src="https://via.placeholder.com/230x120" />
+      <img class="Rectangle42" src="https://via.placeholder.com/230x120" />
+      <img class="Rectangle43" src="https://via.placeholder.com/162x120" />
+<!--      <div class="Rectangle44"></div>-->
+      <div class="ExpandMoreFill1Wght400Grad0Opsz48"></div>
     </div>
   </div>
+<!--  </div>-->
 </section>
 <!--footer-->
 <div th:replace="~{main/footer :: footerFragment}"></div>
-<script>
+<script th:inline="javascript">
+  /*<![CDATA[*/
   const element = document.getElementById('board-top-menu');
-  const loginMember = '<%=session.getAttribute("loginMember")%>';
-  if(loginMember.includes('MemberVo') || loginMember === 'null'){
+  const loginMember = /*[[${session.loginMember}]]*/ '';
+  if(loginMember.memberId != null || loginMember === 'null'){
     element.style.visibility = 'hidden';
-  }else if(loginMember.includes('CompanyVo')  && '${status}' === 'writeOnce'){
+  }else if(loginMember.companyId != null  && '${status}' === 'writeOnce'){
     $('button[name="listWrite"]').on("click", function() {
       alert("글 작성은 한번만 가능합니다!");
     });
-  }else if(loginMember.includes('CompanyVo')){
+  }else if(loginMember.companyId != null){
     $('button[name="listWrite"]').on("click", function() {
       location.href = "../detail/insertIntro";
     });
   }
-
+  /*]]>*/
 </script>
 </body>
 </html>

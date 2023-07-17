@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Pagination {
+    // TODO: 2023-07-13 Thymeleaf 적용할 페이지네이션 수정
 
 //    private CompuCategory category;
     private Integer page = 0;           //현재페이지

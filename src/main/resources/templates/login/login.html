@@ -5,8 +5,7 @@
   <title>로그인</title>
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/login.css}">
-  <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
-  <script th:src="@{/js/login_script.js}"></script>
+
 <!--  <script th:inline="javascript">-->
 <!--    //JavaScript 코드-->
 <!--    /*<![CDATA[*/-->
@@ -35,7 +34,7 @@
   <input id="company-login" type="radio" name="loginSelect">
   <label for="company-login" id="company-login-tab">법인 회원</label>
 
-  <form action="/login" method="post" th:object="${member}" name="memberForm" id="individual-loginForm">
+  <form th:action="@{/login(redirectURL=${param.redirectURL})}" method="post" th:object="${member}" name="memberForm" id="individual-loginForm">
     <div>
       <ul>
         <li>
@@ -58,7 +57,7 @@
     </div>
   </form>
 
-  <form action="login" method="post" th:object="${company}" name="companyForm" id="company-loginForm">
+  <form th:action="@{/login(redirectURL=${param.redirectURL})}" th:method="post" th:object="${company}" name="companyForm" id="company-loginForm">
     <div>
       <ul>
         <li>
@@ -81,5 +80,7 @@
 </section>
 <!--footer-->
 <div th:replace="/main/footer::footerFragment"></div>
+<script th:src="@{/js/jquery-3.6.4.min.js}"></script>
+<script th:src="@{/js/login_script.js}"></script>
 </body>
 </html>
