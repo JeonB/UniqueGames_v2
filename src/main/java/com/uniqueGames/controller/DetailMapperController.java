@@ -126,6 +126,8 @@ public class DetailMapperController {
     @GetMapping("/getIntroList")
     public String getIntroList(Model model){
         model.addAttribute("introList", introCompanyService.getIntroList());
+        /// TODO: 2023-07-17 회사별 게임 이미지 출력하는 메소드 구현
+//        model.addAttribute("game",indexServiceMapper.getGameListByCId(cid));
         return "detail/company-list";
     }
 
