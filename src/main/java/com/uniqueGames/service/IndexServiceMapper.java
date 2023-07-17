@@ -48,19 +48,19 @@ public class IndexServiceMapper {
         indexMapper.deleteGame(vo);
     }
 
-    public int hasLiked(String mid, String gameId) {
-        return indexMapper.hasLiked(mid, gameId);
+    public int hasLiked(String memberId, int gId) {
+        return indexMapper.hasLiked(memberId, gId);
     }
-    public int getGameLikeCount(String gameId) {
-        return indexMapper.getGameLikeCount(gameId);
-    }
-
-    public void addLikeInfo(String mid, String gameId) {
-        indexMapper.addLikeInfo(mid, gameId);
+    public int getGameLikeCount(int gId) {
+        return indexMapper.getGameLikeCount(gId);
     }
 
-    public void removeLikeInfo(String mid, String gameId) {
-        indexMapper.removeLikeInfo(mid, gameId);
+    public void addLikeInfo(String memberId, int gId) {
+        indexMapper.addLikeInfo(memberId, gId);
+    }
+
+    public void removeLikeInfo(String memberId, int gId) {
+        indexMapper.removeLikeInfo(memberId, gId);
     }
 
 }

@@ -44,8 +44,8 @@ public interface IndexMapper {
     @Select("SELECT * FROM GAME WHERE DONATION_STATUS = 1")
     List<Game> getDonationList();
 
-    @Select("SELECT COUNT(*) FROM LIKES WHERE G_ID= #{gameId}")
-    int getGameLikeCount(@Param("gameId") String gameId);
+    @Select("SELECT COUNT(*) FROM LIKES WHERE G_ID= #{gId}")
+    int getGameLikeCount(@Param("gId") int gId);
 
     @Select("SELECT ID, NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION FROM GAME")
     List<Game> getRankingList();
@@ -59,14 +59,14 @@ public interface IndexMapper {
     @Delete("DELETE GAME WHERE ID=#{id}")
     void deleteGame(Game vo);
 
-    @Select("SELECT COUNT(*) FROM LIKES where G_ID = #{gameId} and MEMBER_ID = #{mid}")
-    int hasLiked(String mid, String gameId);
+    @Select("SELECT COUNT(*) FROM LIKES where G_ID = #{gId} and MEMBER_ID = #{memberId}")
+    int hasLiked(@Param("memberId") String memberId, @Param("gId") int gId);
 
-    @Update("INSERT INTO LIKES (G_ID, MEMBER_ID) VALUE(#{gameId},#{mid})")
-    void addLikeInfo(String mid, String gameId);
+    @Update("INSERT INTO LIKES (G_ID, MEMBER_ID) VALUE(#{gId},#{memberId})")
+    void addLikeInfo(@Param("memberId") String memberId, @Param("gId") int gId);
 
-    @Delete("DELETE FROM LIKES WHERE MEMBER_ID = #{mid} and G_ID = #{gameId}")
-    void removeLikeInfo(String mid, String gameId);
+    @Delete("DELETE FROM LIKES WHERE MEMBER_ID = #{memberId} and G_ID = #{gId}")
+    void removeLikeInfo(@Param("memberId") String memberId, @Param("gId") int gId);
 
 
 
