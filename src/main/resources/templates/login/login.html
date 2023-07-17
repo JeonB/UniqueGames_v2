@@ -6,15 +6,28 @@
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/login.css}">
 
-<!--  <script th:inline="javascript">-->
-<!--    //JavaScript 코드-->
-<!--    /*<![CDATA[*/-->
-<!--    let change_result = /*[[${result}]]*/ '';-->
-<!--    if(change_result == "success") {-->
-<!--      alert("비밀번호 변경 성공");-->
-<!--    }-->
-<!--    /*]]>*/-->
-<!--  </script>-->
+  <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
+  <script th:src="@{/js/login_script.js}"></script>
+  <script th:inline="javascript">
+    //JavaScript 코드
+    /*<![CDATA[*/
+    let result = [[${result}]];
+    let url = [[${url}]];
+
+    if(result == "change") {
+      alert("비밀번호 변경 성공");
+      location.href= url;
+    }else if(result == "join") {
+      alert("회원가입 성공");
+      location.href= url;
+    }else if(result == "login") {
+      alert("로그인 실패");
+      location.href= url;
+    }
+
+    /*]]>*/
+  </script>
+
 </head>
 <body>
 <!--header-->
@@ -43,6 +56,7 @@
         <li>
           <input type="password" name="password" placeholder="비밀번호" size="15" th:value="${member?.password}">
         </li>
+        <span id="login-result"></span>
         <li>
           <button type="button" class="button-gradient" onclick="memberIdPassCheck()">LOGIN</button>
         </li>
@@ -72,7 +86,7 @@
         <li>
           <a th:href="@{/findCompany}" class="link-findAccount">아이디 찾기</a>
           <a th:href="@{/findCompany(selectedTab='findPwd')}" class="link-findAccount">비밀번호 찾기</a>
-          <a th:href="@{/join(selectedTab='company')}" class="link-signUp">Company Sign Up</a>
+          <a th:href="@{/joincompany}" class="link-signUp">Company Sign Up</a>
         </li>
       </ul>
     </div>

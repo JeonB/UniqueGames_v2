@@ -42,6 +42,7 @@
                         } else {
                             output += '<div id="div-member-table"> <table id="table-member-list">';
                             output += '<tr> <th>선택</th> <th>아이디</th> <th>' + returnData.name + '</th> <th>메뉴</th> </tr>';
+
                             for (let member of returnData.memberList) {
                                 output += '<tr>';
                                 output += '<td><input type="checkbox" name="chk-admin" id="' + member.id + '"></td>';
@@ -60,7 +61,7 @@
                             $("#div-member-info").after(output);
 
                             //페이징 처리 함수 호출
-                            pager(returnDate.totals, returnDate.maxSize, returnDate.pageSize, returnDate.page);
+                            pager(returnData.totals, returnData.maxSize, returnData.pageSize, returnData.page);
 
                             //페이지 번호 클릭 이벤트 처리
                             jQuery('#ampaginationsm').on('am.pagination.change', function (e) {
@@ -90,7 +91,7 @@
                     prevText: '&laquo;',
                     nextText: '&raquo;',
 
-                    btnSize: 'sm'	// 'sm'  or 'lg'
+                    btnSize: 'lg'	// 'sm'  or 'lg'
                 });
             }
         });
@@ -132,7 +133,7 @@
 
         <div id="div-member-info">
             <input type="hidden" id="div-hidden">
-
+            <!--p Tag-->
             <button type="button" id="btn-mslect-delete">선택 삭제</button>
             <select id="select-order">
                 <option value="id_asc">아이디 (A~Z)</option>
@@ -141,7 +142,7 @@
                 <option value="name_desc">이름 (ㅎ~ㄱ)</option>
             </select>
         </div>
-        ';
+        <!-- Table -->
     </div>
 </div>
 <!-- footer -->

@@ -1,6 +1,4 @@
 $(document).ready(function (){
-	let checkedIdList;
-	
 	showPrice();
 	
 	/** cart **/
@@ -39,13 +37,12 @@ $(document).ready(function (){
        	else {
 	       	$.ajax({
 	    		url: 'cartDeleteSelected',
-	    		method: 'POST',
 	    		data: {
 	        		checkedList: checkedList	//보내려는 데이터를 문자열로 변환하여 넣기
 	   			},
 	    		success: (result) => {
 	    			alert("선택된 항목의 삭제가 완료되었습니다.");
-	    			location.reload();
+                    location.reload();
 	    		}
 			});
        	}	
@@ -61,7 +58,7 @@ $(document).ready(function (){
         	alert("주문할 항목을 선택해주세요.");
         }
        	else {
-       		location.href = "/order?checkedList="+checkedList;
+            location.href = "/order?checkedList="+checkedList;
        	}	
     });
     
@@ -75,11 +72,10 @@ $(document).ready(function (){
 			
 			totalAmount += parseInt(amount);
 		});
-		$("#totalAmount").html(totalAmount);
+		$("#totalAmount").html(formatCurrency(totalAmount));
     }
-    
-    $("#btn-deleteAll").click(function() {
-    	location.href="/cart_delete_all";
-    });
 
+    function formatCurrency(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 });

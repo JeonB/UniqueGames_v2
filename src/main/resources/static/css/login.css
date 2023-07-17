@@ -85,11 +85,11 @@ input[name="email-auth-check"] {
 	top: -57px;
 	left: 250px;
 }
-/*
-a:visited {
-	color: #DDDDDD;
-}
-*/
+
+/*a:visited {*/
+/*	color: inherit !important;*/
+/*}*/
+
 .detail1, .detail2 {
 	text-decoration: underline;
 	color: Blue;
@@ -377,7 +377,7 @@ li.address-input {
 }
 
 
-.pwd-check-img:checked {
+.pwd-check-img:checked, .mypage-pwd-check-img:checked {
 	background-image: url("../images/btn-eye-select.png");
 	background-repeat: no-repeat;
 }
@@ -421,14 +421,13 @@ li.address-input {
 	padding-left: 45px;
 }
 
-#content-2, #content-3, #individual-loginForm, #company-loginForm,
+#individual-loginForm, #company-loginForm,
 #individual, #company, #findId, #findPwd, #individual-login,
 #company-login, #findIdForm, #findPwdForm {
 	display: none;
 }
 
-#individual:checked ~ #content-2, #company:checked ~ #content-3, #findId:checked
-~ #findIdForm, #findPwd:checked ~ #findPwdForm, #individual-login:checked
+#findId:checked ~ #findIdForm, #findPwd:checked ~ #findPwdForm, #individual-login:checked
 ~ #individual-loginForm, #company-login:checked ~ #company-loginForm {
 	display: block;
 }
@@ -466,7 +465,7 @@ li.address-input {
 }
 
 /* Etc */
-.intro {
+.intro, .joinIntro {
 	font-family: "YouandiModern", sans-serif;
 	font-size: 24px;
 	padding-bottom: 60px;
@@ -584,11 +583,9 @@ input[type="radio"] {
 	color: rgb(173,173,173);
 }
 
-
-
-.div-update {
-	margin-right: 10px;
-}
+/*.div-update {*/
+/*	margin-right: 10px;*/
+/*}*/
 
 .deleteForm {
 	margin-left: 150px;
@@ -601,9 +598,21 @@ li#active {
 }
 
 .mypage-insert {
-	margin-right: 340px;
+	margin-right: 335px;
 }
 
 .mypage-insert-1 {
 	margin: -40px 330px 0 0;
+}
+
+.jointab {
+	display: inline-block;
+	padding: 20px 64px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid rgb(217, 217, 217);
+}
+
+#mypage-update:disabled {
+	background : lightgrey;
+	cursor: default;
 }

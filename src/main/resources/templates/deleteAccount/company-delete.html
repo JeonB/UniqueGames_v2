@@ -3,33 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>회원탈퇴</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/login.css}">
   <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
   <script th:inline="javascript">
-    /*<![CDATA[*/
     $(document).ready(function() {
 
       $(".button-gradient").click(function() {
         var companyId = [[${company.companyId}]];
         var password = [[${company.password}]];
         var inputpass = $("input[name='password']");
-        if ($("input[name='password']").val() == "") {
+
+        if (inputpass.val() == "") {
           alert("비밀번호를 입력하세요");
-          $("input[name='password']").focus();
+          inputpass.focus();
           return false;
-        } else {
+        } else if(inputpass.val() != password){
+          alert("비밀번호가 일치하지 않습니다");
+          inputpass.focus();
+          return false;
+        }else {
           $.ajax({
-            url: "company_delete_check",
+            url: "cdeletecheck",
             type: "POST",
             data: {
-              company_class: $("input[name='company_class']").val(),
+              companyId: $("input[name='companyId']").val(),
               password: $("input[name='password']").val()
             },
             success: function(result) {
               if (result == 1) {
-                $("#modal2").css("display", "block");
-                $("#delete-member-class").html(company_class);
-                $("#agreement-content1").html($(".deleteComplete").html());
+                $(".modal2").show();
+                $(".delete-member-id").html(companyId);
+                $(".agreement-content1").html($(".deleteComplete").html());
               } else {
                 alert("비밀번호가 일치하지 않습니다");
                 $("input[name='password']").val("").focus();
@@ -39,12 +44,11 @@
         }
       });
 
-      $(document).on("click", "#button-gradient-home", function(event) {
-        $("#modal2").hclasse();
-        location.href = "/";
+      $(document).on("click", "#home", function(event) {
+        $(".modal2").hide();
+        location.href="/";
       });
     });
-    /*]]>*/
   </script>
 </head>
 <body>
@@ -57,45 +61,64 @@
     </div>
   </div>
 </section>
-<section class="content-1">
-  <p class="intro">회원탈퇴</p>
-  <form action="#" name="loginForm" method="post">
-    <div>
-      <p class="intro-1">탈퇴 사유</p>
+<section class="content-mypage">
+  <div class="sidebar">
+    <ul>
+      <li class="mypage-profile">
+        <img src="/images/mypage-profile.png" class="profile-picture">
+      </li>
+      <li class="mypage-info" th:text="${company?.name}"></li>
+      <li class="mypage-info" id="mypage-id" th:text="${company?.companyId}"></li>
+      <li class="mUpdate"><a th:href="@{/mypage}">개인 정보</a></li>
+      <li class="mUpdate1"><a th:href="@{/newpass}">비밀번호 재설정</a> </li>
+      <li class="mUpdate1"><a href="member-order">결제 내역</a></li>
+      <li class="mUpdate1" id="active"><a th:href="@{/deleteaccount}">회원탈퇴</a></li>
+    </ul>
+  </div>
+
+  <form action="delete_check" name="loginForm" method="post" class="deleteForm">
+    <p class="intro-4">회원탈퇴</p>
+    <div class="div-delete">
+      <p class="delete-intro">탈퇴 사유</p>
       <ul>
         <li>
           <select class="selectbox-find">
             <option value="default">사유를 선택해주세요</option>
-            <option value="1">서비스가 좋지 않아서</option>
-            <option value="2">타 사이트가 더 좋아서</option>
-            <option value="3">삭제하고싶은 내용이 있어서</option>
-            <option value="4">정책 불만</option>
-            <option value="5">기타</option>
+            <option value="1">너무 많은 시간을 소비해서</option>
+            <option value="2">서비스가 좋지 않아서</option>
+            <option value="3">타 사이트가 더 좋아서</option>
+            <option value="4">삭제하고싶은 내용이 있어서</option>
+            <option value="5">사용빈도가 너무 적어서</option>
+            <option value="6">콘텐츠 불만</option>
+            <option value="7">기타</option>
           </select>
         </li>
         <li>
-          <input type="text" name="company_class" th:value="${company.company_class}" disabled>
-          <input type="hidden" name="company_class" th:value="${company.company_class}">
-          <span class="msgclass"></span>
+          <!-- disabled 속성은 Thymeleaf의 th:disabled로 변경됩니다 -->
+          <input type="text" name="companyId" th:value="${company?.companyId}" th:disabled="disabled">
+          <input type="hidden" name="companyId" th:value="${company?.companyId}">
+          <span class="msgId"></span>
         </li>
         <li>
           <input type="password" name="password" placeholder="비밀번호">
           <span class="msgPwd"></span>
         </li>
         <li class="intro-3">
-          <p class="delete-class" th:text="${company.company_class} + '님!'"></p>
-          <p class="delete-content">회원 탈퇴하려고 하신다니 저희 사이트의 서비스가 많이 부족하고 미흡했나 봅니다.<br>
+          <span class="delete-class" th:text="${company?.companyId}"></span>님!
+          <p class="delete-content">
+            회원 탈퇴하려고 하신다니 저희 사이트의 서비스가 많이 부족하고 미흡했나 봅니다.<br>
             불만사항이나 사유를 알려주신다면 적극 반영해서 고객님의 불편함을 해결해드리도록 노력하겠습니다.
-            회원 탈퇴시의 아래 사항을 숙지하시기 바랍니다.</p>
+            회원 탈퇴시의 아래 사항을 숙지하시기 바랍니다.
+          </p>
           <p class="delete-caution">
-            1. 회원 탈퇴 시 회원님의 정보는 모두 삭제됩니다.<br>
-            2. 회원 탈퇴 후 2주간 재가입이 불가능합니다.<br>
+            1. 회원 탈퇴 시 고객님의 정보는 모두 삭제됩니다.<br>
+            2. 후원하셨던 게임의 후원금을 반환받지 못합니다.<br>
+            3. 회원 탈퇴 후 2주간 재가입이 불가능합니다.<br>
           </p>
         </li>
         <li>
           <button type="button" class="button-gradient">회원 탈퇴</button>
         </li>
-
       </ul>
     </div>
   </form>
@@ -111,12 +134,12 @@
 <div class="deleteComplete">
   <p class="agreement-title">회원탈퇴</p>
   <span class="delete-span">
-		<span class="delete-member-class"></span>님!<br>
+		<span class="delete-member-id"></span>님!<br>
 		회원 탈퇴가 정상적으로 완료되었습니다.
 		</span>
   <ul>
     <li>
-      <button type="button" id="button-gradient-home" name="btn-agreement">홈으로</button>
+      <button type="button" class="button-gradient" id="home" name="btn-agreement">홈으로</button>
     </li>
   </ul>
 </div>

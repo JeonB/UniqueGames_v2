@@ -89,7 +89,7 @@
           return false;
         }else {
           $.ajax({
-            url : "changepass",
+            url : "changempass",
             type : "POST",
             data : {
               email : email.val(),
@@ -105,8 +105,7 @@
                 $(".modal3").show();
                 $("#memberId1").attr("value", result);
                 $(".agreement-content2").html($(".mchangepass").html());
-                /* $("#find-id-result").html(result); */
-                /* $("#agreement-content1").html($(".deleteComplete").html()); */
+
               }
             }
           });
@@ -164,7 +163,7 @@
   <input id="findPwd" type="radio" name="findAccount">
   <label for="findPwd" class="findPwd-tab">비밀번호 찾기</label>
 
-  <form action="findId_check" name="findIdForm" method="post" id="findIdForm">
+  <form action="findmid" name="findIdForm" method="post" id="findIdForm">
     <ul>
       <li>
         <input type="text" name="email" placeholder="이메일">
@@ -183,7 +182,7 @@
     </ul>
   </form>
 
-  <form action="changepass" name="findPwdForm" method="post" id="findPwdForm">
+  <form action="changempass" name="findPwdForm" method="post" id="findPwdForm">
     <p class="intro-2">비밀번호를 찾으려는 아이디</p>
     <ul>
       <li>
@@ -243,10 +242,10 @@
           <input type="hidden" name="memberId" id="memberId1" th:value="${memberId}">
         </li>
         <li>
-          <input type="password" name="mnewpassword" placeholder="새로운 비밀번호">
+          <input type="password" name="newpassword" placeholder="새로운 비밀번호">
         </li>
         <li>
-          <input type="password" name="mnewpassword-check" placeholder="새로운 비밀번호 확인">
+          <input type="password" name="newpassword-check" placeholder="새로운 비밀번호 확인">
         </li>
         <li>
           <button type="button" class="button-gradient" onclick="changePassword()">비밀번호 변경</button>

@@ -4,6 +4,7 @@ package com.uniqueGames.controller;
 import com.uniqueGames.repository.MemberRepositoryMapper;
 import com.uniqueGames.service.CompanyMemberService;
 
+import com.uniqueGames.service.CompanyMemberService2;
 import com.uniqueGames.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class FindAccountController {
 
 	private MemberService memberService;
+	private CompanyMemberService2 companyMemberService2;
 
-	public FindAccountController(MemberService memberService) {
+	public FindAccountController(MemberService memberService, CompanyMemberService2 companyMemberService2) {
 		this.memberService = memberService;
+		this.companyMemberService2 = companyMemberService2;
 	}
 
 	@GetMapping("findMember")
@@ -34,14 +37,31 @@ public class FindAccountController {
 		return "findAccount/find-company";
 	}
 
+	/** changing password on modal */
 	@PostMapping("/mchangepass")
 	public String mChangePass(Model model,
-								 @RequestParam("memberId") String memberId, @RequestParam("mnewpassword") String mnewpassword) {
-		System.out.println("왜 안돼");
-		int result = memberService.changeMpass(memberId, mnewpassword);
+								 @RequestParam("memberId") String memberId, @RequestParam("newpassword") String newpassword) {
+		String viewName = "";
+		int result = memberService.changeMpass(memberId, newpassword);
 		if(result == 1) {
-			model.addAttribute("result", "success");
-			return "redirect:/login";
+			model.addAttribute("result", "change");
+			model.addAttribute("url", "/login");
+			return "login/login";
+		}else {
+			model.addAttribute("result", "error");
+			return "redirect:/findMember";
+		}
+	}
+
+	@PostMapping("/cchangepass")
+	public String cChangePass(Model model,
+							  @RequestParam("companyId") String companyId, @RequestParam("newpassword") String newpassword) {
+
+		int result = companyMemberService2.changeCpass(companyId, newpassword);
+		if(result == 1) {
+			model.addAttribute("result", "change");
+			model.addAttribute("url", "/login");
+			return "login/login";
 		}else {
 			model.addAttribute("result", "error");
 			return "redirect:/findMember";
@@ -129,7 +149,7 @@ public class FindAccountController {
 //		mav.setViewName("company-newpass");
 //		return mav;
 //	}
-//	/**Company password change; href to cnewpassword.jsp*/
+//	/**Company password change; href to newpassword.jsp*/
 //	@RequestMapping(value="/cfindPwd_check", method=RequestMethod.POST)
 //	public ModelAndView cfindPwd_check(Company company) {
 //		ModelAndView mav = new ModelAndView();
@@ -148,9 +168,9 @@ public class FindAccountController {
 //	}
 //
 //	@RequestMapping(value="/cChangePassword", method=RequestMethod.POST)
-//	public ModelAndView Cnewpassword(String companyId, String cnewpassword, HttpSession session) {
+//	public ModelAndView Cnewpassword(String companyId, String newpassword, HttpSession session) {
 //		ModelAndView mav = new ModelAndView();
-//		int result = companyMemberService.companyChangeCPassword(companyId, cnewpassword);
+//		int result = companyMemberService.companyChangeCPassword(companyId, newpassword);
 //
 //		if(result==1) {
 //			session.invalidate();

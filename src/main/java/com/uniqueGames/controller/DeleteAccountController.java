@@ -28,7 +28,6 @@ public class DeleteAccountController {
 	public String deletePwd(HttpSession session, Model model) {
 		String viewName = "";
 		String mode = session.getAttribute("login").toString();
-		System.out.println("mode=" + mode);
 
 		if(mode.equals("member")) {
 			Member member = (Member)session.getAttribute(SessionConstants.LOGIN_MEMBER);

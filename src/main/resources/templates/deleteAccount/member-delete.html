@@ -71,7 +71,7 @@
       <li class="mypage-info" th:text="${member?.name}"></li>
       <li class="mypage-info" id="mypage-id" th:text="${member?.memberId}"></li>
       <li class="mUpdate"><a th:href="@{/mypage}">개인 정보</a></li>
-      <li class="mUpdate1"><a th:href="@{/mnewpass}">비밀번호 재설정</a> </li>
+      <li class="mUpdate1"><a th:href="@{/newpass}">비밀번호 재설정</a> </li>
       <li class="mUpdate1"><a href="member-order">결제 내역</a></li>
       <li class="mUpdate1" id="active"><a th:href="@{/deleteaccount}">회원탈퇴</a></li>
     </ul>
@@ -118,7 +118,7 @@
           </p>
         </li>
         <li>
-          <button type="button" class="button-gradient" id="button-delete">회원 탈퇴</button>
+          <button type="button" class="button-gradient">회원 탈퇴</button>
         </li>
       </ul>
     </div>

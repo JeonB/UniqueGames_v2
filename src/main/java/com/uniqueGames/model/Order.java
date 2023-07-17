@@ -3,118 +3,128 @@ package com.uniqueGames.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.text.DecimalFormat;
+
 @Setter
 @Getter
 public class Order {
-	// Field
-	String orderDate, method, paymentStatus, gametitle, gameImg, userId, mId, cId;
-	int id, gId, amount, rno;
-	public Order(){
-	}
-	public Order(String mId, String cId, int gId, int amount, String gametitle, String gameImg) {
+    // Field
+    String orderDate, method, paymentStatus, gametitle, gameImg, userId, mId, cId, amountStr;
+    int id, gId, amount, rno;
 
-		this.gametitle = gametitle;
-		this.gameImg = gameImg;
-		this.mId = mId;
-		this.cId = cId;
-		this.gId = gId;
-		this.amount = amount;
-	}
+    // Constructor
+    public Order() {
+    }
 
-	// Method
-	public String getOrderDate() {
-		return orderDate;
-	}
+    public Order(String mId, String cId, int gId, int amount, String gametitle, String gameImg) {
 
-	public void setOrderDate(String orderDate) {
-		this.orderDate = orderDate;
-	}
+        this.gametitle = gametitle;
+        this.gameImg = gameImg;
+        this.mId = mId;
+        this.cId = cId;
+        this.gId = gId;
+        this.amount = amount;
+    }
 
-	public String getMethod() {
-		return method;
-	}
+    // Method
+    public String getAmountStr() {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        return decimalFormat.format(amount);
+    }
 
-	public void setMethod(String method) {
-		this.method = method;
-	}
+    public String getOrderDate() {
+        return orderDate;
+    }
 
-	public String getPaymentStatus() {
-		return paymentStatus;
-	}
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
 
-	public void setPaymentStatus(String paymentStatus) {
-		this.paymentStatus = paymentStatus;
-	}
+    public String getMethod() {
+        return method;
+    }
 
-	public String getGametitle() {
-		return gametitle;
-	}
+    public void setMethod(String method) {
+        this.method = method;
+    }
 
-	public void setGametitle(String gametitle) {
-		this.gametitle = gametitle;
-	}
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
 
-	public String getGameImg() {
-		return gameImg;
-	}
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
 
-	public void setGameImg(String gameImg) {
-		this.gameImg = gameImg;
-	}
+    public String getGametitle() {
+        return gametitle;
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public void setGametitle(String gametitle) {
+        this.gametitle = gametitle;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public String getGameImg() {
+        return gameImg;
+    }
 
-	public String getmId() {
-		return mId;
-	}
+    public void setGameImg(String gameImg) {
+        this.gameImg = gameImg;
+    }
 
-	public void setmId(String mId) {
-		this.mId = mId;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public String getcId() {
-		return cId;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public void setcId(String cId) {
-		this.cId = cId;
-	}
+    public String getmId() {
+        return mId;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setmId(String mId) {
+        this.mId = mId;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getcId() {
+        return cId;
+    }
 
-	public int getgId() {
-		return gId;
-	}
+    public void setcId(String cId) {
+        this.cId = cId;
+    }
 
-	public void setgId(int gId) {
-		this.gId = gId;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public int getAmount() {
-		return amount;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
+    public int getgId() {
+        return gId;
+    }
 
-	public int getRno() {
-		return rno;
-	}
+    public void setgId(int gId) {
+        this.gId = gId;
+    }
 
-	public void setRno(int rno) {
-		this.rno = rno;
-	}
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getRno() {
+        return rno;
+    }
+
+    public void setRno(int rno) {
+        this.rno = rno;
+    }
 }
