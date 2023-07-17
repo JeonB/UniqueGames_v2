@@ -1,9 +1,11 @@
 package com.uniqueGames.service;
 
 
+import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
 
 import java.util.List;
+import java.util.Map;
 
 public interface NoticeService {
 	
@@ -15,10 +17,10 @@ public interface NoticeService {
 	
 	int update(Notice notice);
 	
-	int delete(String no);
+	int delete(String no, String imgDel);
 	
-	int deleteList(String[] list);
-	
-	Object search(String keyWord, int startCount, int endCount);
+	int deleteList(String[] list, Company company);
+
+	Object search(String keyWord, Map pageMap, String searchType);
 	
 }

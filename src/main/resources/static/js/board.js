@@ -6,12 +6,13 @@ $(document).ready(function () {
     // 전체 삭제 버튼 이벤트
     $('button[name="listDeleteAll"]').on("click", function () {
 
-        let list = $("input[name='list']");
+        let list = document.getElementsByName("list")
 
         if (list[0] != null) {
             if (confirm("모든 게시글을 삭제하시겠습니까?")) {
-
-                list.prop("checked", true);
+                list.forEach(e => {
+                    e.checked = true
+                })
                 boardManage.submit();
 
             }
@@ -71,7 +72,7 @@ $(document).ready(function () {
 
     })
 
-    $('input[name="keyword"]').on("keydown", function (event) {
+    $('input[name="q"]').on("keydown", function (event) {
         if (event.keyCode === 13) {
             event.preventDefault();
             searchScript();
@@ -201,7 +202,6 @@ $(document).ready(function () {
     $('button[name="cmtWrite"]').on("click", function () {
         let url = window.location.href;
         let login = document.getElementById("member-id").value;
-        console.log(url)
         if (login != "") {
             if ($("#form-control").val() != "") {
                 $.ajax({
@@ -273,7 +273,7 @@ function commentDelete(commentId) {
 
 // 검색 이벤트
 function searchScript() {
-    if ($('input[name="keyword"]').val() == "") {
+    if ($('input[name="q"]').val() == "") {
         alert("검색어를 입력하세요");
 
         return false;
@@ -314,4 +314,34 @@ function getResultCmt(result) {
     }
 
     history.replaceState({}, null, null);
+}
+
+/**
+ * 페이징 처리
+ */
+function getPagination(pageCount, dbCount, page, pageSize) {
+    var pager = jQuery('#ampaginationsm').pagination({
+        maxSize : pageCount,              // max page size
+        totals  : dbCount,      // total pages
+        page    : page,        // initial page
+        pageSize: pageSize,          // max number items per page
+
+        // custom labels
+        lastText : '&raquo;&raquo;',
+        firstText: '&laquo;&laquo;',
+        prevText : '&laquo;',
+        nextText : '&raquo;',
+
+        btnSize: 'lg'    // 'sm'  or 'lg'
+    });
+
+    jQuery('#ampaginationsm').on('am.pagination.change', function (e) {
+        jQuery('.showlabelsm').text('The selected page no: ' + e.page);
+        if (location.href.includes("search")) {
+            const urlParams = new URLSearchParams(location.search)
+            $(location).attr('href', "/notice/list/search?q=" + urlParams.get("q") + "&page=" + e.page)
+        } else {
+            $(location).attr('href', "/notice/list/" + e.page);
+        }
+    });
 }

@@ -4,24 +4,18 @@ import com.uniqueGames.model.Notice;
 import com.uniqueGames.repository.CommentMapper;
 import com.uniqueGames.repository.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
 
 @Component
 public class BoardUtil {
 
-	@Value("${upload-directory}")
-	private String root_path;
 	NoticeMapper noticeMapper;
 	CommentMapper commentMapper;
 
@@ -38,7 +32,7 @@ public class BoardUtil {
 	 * @return Map<String, Integer>
 	 */
 	public Map<String, Integer> getPagination(String page, String keyword) {
-		Map<String, Integer> result = new HashMap();
+		Map<String, Integer> result = new HashMap<>();
 
 		int startCount = 0;
 		int endCount = 0;
@@ -51,7 +45,8 @@ public class BoardUtil {
 			dbCount = noticeMapper.totRowCount();
 
 		} else {
-			dbCount = noticeMapper.totRowCountSearch(keyword);
+			String[] keywordList = keyword.split(" ");
+			dbCount = noticeMapper.totRowCountSearch(keywordList);
 
 		}
 
@@ -98,7 +93,7 @@ public class BoardUtil {
 	public List<Notice> getOutput(List<Notice> result) {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM.dd");
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-		String date_output = "";
+		String date_output;
 
 		LocalDateTime now = LocalDateTime.now();
 		int currentYear = now.getYear();
@@ -114,12 +109,10 @@ public class BoardUtil {
 
 			if (dbYear == currentYear && dbMonth == currentMonth && dbDay == currentDay) {
 				// 날짜가 현재 날짜와 일치하는 경우, 시간만 출력
-				String formattedTime = dbDateTime.format(timeFormatter);
-				date_output = formattedTime;
+				date_output = dbDateTime.format(timeFormatter);
 			} else {
 				// 날짜가 현재 날짜와 일치하지 않는 경우, 날짜만 출력
-				String formattedDate = dbDateTime.format(dateFormatter);
-				date_output = formattedDate;
+				date_output = dbDateTime.format(dateFormatter);
 			}
 			// date_output 변수를 사용하여 필요한 작업 수행
 			nvo.setDateOutput(date_output);
@@ -127,92 +120,6 @@ public class BoardUtil {
 		}
 
 		return result;
-	}
-
-	/**
-	 * 파일 체크
-	 *
-	 * @param request
-	 * @param notice
-	 * @return
-	 * @throws Exception
-	 */
-	public  Notice fileUtil(HttpServletRequest request, Notice notice) throws Exception {
-
-		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
-
-			String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-			String upload_file = notice.getFile().getOriginalFilename();
-			String image_id = uuid + upload_file;
-
-			notice.setUploadFile(upload_file);
-			notice.setImageId(image_id);
-
-		}
-
-		return notice;
-	}
-
-	/**
-	 * 파일 저장
-	 * 
-	 * @param notice
-	 * @throws Exception
-	 */
-	public  void fileSaveUtil(Notice notice) throws Exception {
-
-		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
-			File saveFile = new File(root_path + notice.getImageId());
-			notice.getFile().transferTo(saveFile);
-
-		}
-
-	}
-
-	/**
-	 * 파일 업데이트
-	 * @param notice
-	 * @throws Exception
-	 */
-	public void fileUpdateUtil(Notice notice, String oldFileName) throws Exception {
-		String stat = "";
-
-		if (oldFileName.indexOf("!") > -1) {
-			String[] tmp = oldFileName.split("!");
-			stat = tmp[0];
-			oldFileName = tmp[1];
-		}
-		
-		if (notice.getFile() != null && !notice.getFile().isEmpty()) {
-			File saveFile = new File(root_path + notice.getImageId());
-			notice.getFile().transferTo(saveFile);
-
-		}
-
-		if (!notice.getFile().isEmpty() || stat.equals("delete")) {
-			File deleteFile = new File(root_path + oldFileName);
-
-			if (deleteFile.exists()) {
-				deleteFile.delete();
-
-			}
-		}
-	}
-	
-	/**
-	 * 파일 삭제
-	 * @param imgdel
-	 */
-	public void fileDeleteUtil(String imgdel) {
-
-		if (imgdel != null && !imgdel.equals("")) {
-			File deleteFile = new File(root_path + imgdel);
-			if (deleteFile.exists()) {
-				deleteFile.delete();
-
-			}
-
-		}
 	}
 
 }
