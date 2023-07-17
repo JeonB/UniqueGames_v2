@@ -44,8 +44,8 @@ public interface NoticeMapper {
 
     int fileCheck(Notice notice);
 
-    @Select("select count(*) from notice")
+    @Select("SELECT COUNT(*) FROM TB_NOTICE")
     int totRowCount();
 
-    int totRowCountSearch(String[] keywordList);
+    int totRowCountSearch(@Param("keywordList") String[] keywordList, @Param("searchType") String searchType);
 }

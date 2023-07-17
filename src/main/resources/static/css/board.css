@@ -29,7 +29,7 @@
 
 .board-top-menu > div > form {
     position: relative;
-    margin-left: 310px;
+    margin-left: 295px;
     display: inline;
 }
 
@@ -43,6 +43,21 @@
 
 .bsearch-box {
     float: right;
+}
+
+.searchType {
+    display: inline-block;
+    border: 1px solid #DDDDDD;
+    border-collapse: collapse;
+    padding: 4px 10px;
+    margin-right: 5px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.searchType:focus, .searchType:hover, .searchType:default {
+    border: 1px solid rgba(85, 85, 85, 1);
+    outline: none;
 }
 
 .board-top-menu > div > ul > li:last-child > button {

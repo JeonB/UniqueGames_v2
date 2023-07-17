@@ -19,7 +19,7 @@ public interface NoticeService {
 	
 	int delete(String no, String imgDel);
 	
-	int deleteList(String[] list, Company company);
+	String deleteList(String[] list, Company company);
 
 	Object search(String keyWord, Map pageMap, String searchType);
 	

@@ -47,7 +47,7 @@ public class NoticeController {
     public String noticeList(@PathVariable(value = "page", required = false) String page, Model model, @ModelAttribute("result") String result) {
 
         // 페이징 처리 - startCount, endCount 구하기
-        Map<String, Integer> pageMap = boardUtil.getPagination(page, "list");
+        Map<String, Integer> pageMap = boardUtil.getPagination(page, "list", "");
 //        Page pageInfo = boardUtil.getPagination(new Page(page, "list"));
         List<Notice> list = noticeService.getNoticeList(pageMap.get("startCount"), pageMap.get("endCount"));
         model.addAttribute("list", list);
@@ -177,24 +177,13 @@ public class NoticeController {
     }
 
     /**
-     * board_manage 리스트 선택 삭제 처리
-     */
-    @PostMapping("board-manage")
-    public String boardManage(String[] list, @Login Company company) {
-
-        noticeService.deleteList(list, company);
-
-        return "redirect:/notice/list";
-    }
-
-    /**
      * notice_Search 리스트 검색 처리
      */
-    @RequestMapping(value = "/list/search")
+    @GetMapping(value = "/list/search")
     @SuppressWarnings("unchecked")
     public String boardSearchProc(String q, String page, Model model, String searchType) {
         log.info(searchType);
-        Map<String, Integer> pageMap = boardUtil.getPagination(page, q);
+        Map<String, Integer> pageMap = boardUtil.getPagination(page, q, searchType);
         List<Notice> list = (List<Notice>) noticeService.search(q, pageMap, searchType);
 
         model.addAttribute("list", list);
