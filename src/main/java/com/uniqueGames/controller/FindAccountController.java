@@ -1,12 +1,8 @@
 package com.uniqueGames.controller;
 
 
-import com.uniqueGames.repository.MemberRepositoryMapper;
-import com.uniqueGames.service.CompanyMemberService;
-
 import com.uniqueGames.service.CompanyMemberService2;
 import com.uniqueGames.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +20,7 @@ public class FindAccountController {
 
 	@GetMapping("findMember")
 	public String findId() {
-		return "findAccount/find-member";
+		return "findAccount/member-find";
 	}
 
 	@RequestMapping(value="/findPwd", method=RequestMethod.GET)
@@ -34,7 +30,7 @@ public class FindAccountController {
 
 	@GetMapping("/findCompany")
 	public String findCompany() {
-		return "findAccount/find-company";
+		return "findAccount/company-find";
 	}
 
 	/** changing password on modal */
