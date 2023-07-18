@@ -132,7 +132,6 @@ public class DetailMapperController {
         for (Intro intro: introList){
             gameList.add(indexServiceMapper.getGameListByCId(intro.getCId()));
         }
-        /// TODO: 2023-07-17 회사별 게임 이미지 출력하는 메소드 구현
         model.addAttribute("gameList",gameList);
         return "detail/company-list";
     }
