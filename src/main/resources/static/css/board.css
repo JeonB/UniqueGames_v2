@@ -223,6 +223,10 @@
     border: 0;
 }
 
+.ck-editor__editable {
+    height: 179px;
+}
+
 /* board - content */
 .board-content > table th {
     padding: 19px 8px;
@@ -248,7 +252,6 @@
 .details {
     padding: 10px 30px;
     text-align: left;
-    /*white-space: pre-line;*/
     max-width: 1000px;
 }
 
@@ -260,7 +263,6 @@
 #comment-box {
     margin: 10px 0;
     padding: 10px;
-    /* border-top: 2px solid #393939; */
     border-bottom: 2px solid #393939;
 }
 

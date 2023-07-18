@@ -100,7 +100,7 @@ $(document).ready(function () {
             $("input[name='title']").focus();
 
             return false;
-        } else if ($("textarea[name='content']").val().length > 300) {
+        } else if ($("textarea[name='content']").val().length > 3000) {
             alert("내용이 너무 깁니다. 내용은 300자 이내로 작성해주세요.");
             $("textarea[name='content']").focus();
 
