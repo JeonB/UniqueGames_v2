@@ -77,7 +77,7 @@ public class DetailMapperController {
      * @return 이름 또는 제목이 null이면 회사등록 페이지 리턴. 아니면 회사 목록 페이지 리턴
      * @throws IOException 입출력 예외 처리
      */
-    @RequestMapping(value = "/insertIntro")
+    @PostMapping(value = "/insertIntro")
     public String insertIntro(Intro vo, HttpServletRequest request,Model model) throws IOException {
 
         FileUtil fileUtil = new FileUtil(vo, request);
@@ -94,6 +94,12 @@ public class DetailMapperController {
                 model.addAttribute("status", "writeOnce");
                 return "redirect:getIntroList";
             }
+    }
+
+    @GetMapping(value = "/insertIntro")
+    public String writeIntro() {
+
+        return "detail/company-regi";
     }
     @RequestMapping(value = "/updateIntro", method = RequestMethod.POST)
     public String updateIntro(@ModelAttribute("intro") Intro vo, @ModelAttribute("company") Company company){

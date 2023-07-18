@@ -4,10 +4,8 @@
   <meta charset="UTF-8">
   <title>Unique Games</title>
   <link rel="stylesheet" th:href="@{/css/main.css}">
-  <link rel="stylesheet" th:href="@{/css/board.css}">
   <link rel="stylesheet" th:href="@{/css/company-regi.css}">
-  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-  <script src="/js/board.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
 <body>
@@ -27,30 +25,30 @@
       <p>Game_registration</p>
       <div id="clearFix"></div>
     </div>
-    <form  action="insertIntro" method="post" enctype="multipart/form-data">
-      <input style="visibility: hidden" type="text" name="cId" class="default-write" th:value="${company.companyId}">
+    <form  action="/detail/insertIntro" method="post" enctype="multipart/form-data">
+      <input style="visibility: hidden" type="text" name="cId" class="default-write" th:value="${company?.companyId}">
       <table>
         <tr>
           <th>회사 명</th>
-          <td><input type="text" name="name" class="default-write"  value="${company.name}" readonly></td>
+          <td><input type="text" name="name" class="default-write"  th:value="${company?.name}" readonly></td>
         </tr>
         <tr>
           <th>제목</th>
           <td>
-            <input type="text" name="title" class="default-write" value="${intro.title}">
+            <input type="text" name="title" class="default-write" th:value="${intro?.title}">
           </td>
         </tr>
         <tr>
           <th>소개 글</th>
           <td><textarea type="text" name="content" cols="30" rows="5"
-                        class="default-write" th:value="${intro.content}"></textarea></td>
+                        class="default-write" th:value="${intro?.content}"></textarea></td>
         </tr>
         <tr>
-          <th>업로드</th>>
+          <th>업로드</th>
           <td><input type="file" name ="uploadFile" style="height: 30px;"/></td>
         </tr>
         <tr>
-          <td colspan="2" align="center"><input type="submit" style="height: 30px;" value="새글 등록"/></td>
+          <td colspan="2" align="center"><button class="btn btn-primary rounded-pill px-3" type="submit">새글 등록</button></td>
         </tr>
       </table>
     </form>
@@ -58,6 +56,9 @@
 </div>
 <!--footer-->
 <div th:replace="~{main/footer :: footerFragment}"></div>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+<script th:src="@{/js/board.js}"></script>
 </body>
 
 </html>
