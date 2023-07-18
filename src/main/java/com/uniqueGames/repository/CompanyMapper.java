@@ -11,35 +11,35 @@ import java.util.List;
 @Mapper
 public interface CompanyMapper {
 
-    @Insert("insert into company (company_id, password, name, email, tel, phone_num, addr) " +
+    @Insert("insert into TB_COMPANY (company_id, password, name, email, tel, phone_num, addr) " +
             "values (#{companyId},#{password},#{name},#{email},#{tel},#{phoneNum},#{addr})")
     int save(Company company);
 
-    @Select("select count(*) from company where company_id=#{companyId}")
+    @Select("select count(*) from TB_COMPANY where company_id=#{companyId}")
     int cidCheck(String companyId);
 
-    @Select("select company_id from company where email=#{email} and name=#{name}")
+    @Select("select company_id from TB_COMPANY where email=#{email} and name=#{name}")
     String findCid(Company company);
 
-    @Select("select company_id from company where email=#{email} and company_id=#{companyId} and name=#{name}")
+    @Select("select company_id from TB_COMPANY where email=#{email} and company_id=#{companyId} and name=#{name}")
     String findCpass(Company company);
 
-    @Update("update company set password=#{newpassword} where company_id=#{companyId}")
+    @Update("update TB_COMPANY set password=#{newpassword} where company_id=#{companyId}")
     int changeCpass(Company company);
 
-    @Select("select count(*) from company where phone_num=#{phoneNum}")
+    @Select("select count(*) from TB_COMPANY where phone_num=#{phoneNum}")
     int cphoneCheck(String phoneNum);
 
-    @Select("select count(*) from company where email=#{email}")
+    @Select("select count(*) from TB_COMPANY where email=#{email}")
     int cemailCheck(String email);
 
-    @Update("update company set password=#{newpassword} where company_id=#{companyId}")
+    @Update("update TB_COMPANY set password=#{newpassword} where company_id=#{companyId}")
     int CmypageNewPass(Company company);
 
-    @Delete("delete from company where company_id=#{companyId} and password=#{password}")
+    @Delete("delete from TB_COMPANY where company_id=#{companyId} and password=#{password}")
     int cdelete(String companyId, String password);
 
-    @Update("update company set email=#{email}, phone_num=#{phoneNum}, addr=#{addr} where company_id=#{companyId}")
+    @Update("update TB_COMPANY set email=#{email}, phone_num=#{phoneNum}, addr=#{addr} where company_id=#{companyId}")
     int update(Company company);
 
     // ADMIN
