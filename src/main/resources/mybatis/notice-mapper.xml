@@ -65,7 +65,7 @@
 
 	<!-- 공지사항 작성 -->
 	<insert id="insertNotice" parameterType="Notice">
-        <selectKey resultType="int" keyProperty="postId" order="AFTER">
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
 
