@@ -8,8 +8,8 @@
 	<select id="selectNotice" resultType="Notice">
 		SELECT *
 		FROM (
-			SELECT row_number() over(order by NOTICE_DATE DESC, ID DESC) as RNO
-				 , ID
+			SELECT row_number() over(order by NOTICE_DATE DESC, TB_NOTICE.ID DESC) as RNO
+				 , TB_NOTICE.ID
 				 , TITLE
 				 , CONTENT
 				 , C_ID
@@ -27,8 +27,8 @@
 	<select id="searchList" resultType="Notice">
 		SELECT *
 		FROM (
-			SELECT row_number() over(order by NOTICE_DATE DESC, ID DESC) as RNO
-				 , ID
+			SELECT row_number() over(order by NOTICE_DATE DESC, TB_NOTICE.ID DESC) as RNO
+				 , TB_NOTICE.ID
 				 , TITLE
 				 , CONTENT
 				 , TB_NOTICE.C_ID
