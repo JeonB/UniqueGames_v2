@@ -51,8 +51,8 @@ public class FileUtil<T> {
             String upload_file = notice.getFile().getOriginalFilename();
             String image_id = uuid + upload_file;
 
-            notice.setUploadFile(upload_file);
-            notice.setImageId(image_id);
+//            notice.setFile(upload_file);
+            notice.setUploadImg(image_id);
 
         }
 
@@ -68,7 +68,7 @@ public class FileUtil<T> {
     public  void fileSaveUtil(Notice notice) throws Exception {
 
         if (notice.getFile() != null && !notice.getFile().isEmpty()) {
-            File saveFile = new File(root_path + notice.getImageId());
+            File saveFile = new File(root_path + notice.getUploadImg());
             notice.getFile().transferTo(saveFile);
 
         }
@@ -90,7 +90,7 @@ public class FileUtil<T> {
         }
 
         if (notice.getFile() != null && !notice.getFile().isEmpty()) {
-            File saveFile = new File(root_path + notice.getImageId());
+            File saveFile = new File(root_path + notice.getUploadImg());
             notice.getFile().transferTo(saveFile);
 
         }

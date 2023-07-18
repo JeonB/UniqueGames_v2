@@ -11,11 +11,11 @@ public class Pagination {
 //    private CompuCategory category;
     private Integer page = 0;           //현재페이지
     private Integer perFirstRow = 0;    //한페이지의 첫번째 게시글
-    private Integer perRows = 5;        //한페이지에 보여줄 게시글 수
+    private Integer perRows = 10;        //한페이지에 보여줄 게시글 수
 
     private Integer listStartNum;       //한페이지의 리스트 시작번호
     private Integer listEndNum;         //한페이지의 리스트 끝번호
-    private Integer listLimit = 5;   //한페이지에 보여줄 리스트 수
+    private Integer listLimit = 10;   //한페이지에 보여줄 리스트 수
     private Integer listLastNum;        //마지막페이지번호
 
     private String order = "createtime desc";
