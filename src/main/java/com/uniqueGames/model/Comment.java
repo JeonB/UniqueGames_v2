@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Comment {
-	int commentId;
+	int id;
 	int postId;
-	String memberId;
+	String mId;
 	String commentContent;
 	String commentDate;
 

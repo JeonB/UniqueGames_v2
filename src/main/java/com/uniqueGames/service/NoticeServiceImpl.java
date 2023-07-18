@@ -71,9 +71,9 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
      */
     @Override
     public int insert(Notice notice) {
-        notice.setImageId(fileCheck(notice));
+        notice.setUploadImg(fileCheck(notice));
         int insResult = noticeMapper.insertNotice(notice);
-        if (notice.getImageId() != null) {
+        if (notice.getUploadImg() != null) {
             noticeMapper.insertFile(notice);
             super.fileSave();
         }
@@ -86,8 +86,8 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
      */
     @Override
     public int update(Notice notice) {
-        String[] fileResult = fileUpdate(notice, notice.getImageId());
-        notice.setImageId(fileResult[0]);
+        String[] fileResult = fileUpdate(notice, notice.getUploadImg());
+        notice.setUploadImg(fileResult[0]);
 
         int result = noticeMapper.updateNotice(notice);
         if (notice.getFile() != null && !notice.getFile().isEmpty()) {

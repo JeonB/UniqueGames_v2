@@ -6,7 +6,6 @@ import com.uniqueGames.fileutil.BoardUtil;
 import com.uniqueGames.model.Comment;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
-import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.CommentService;
 import com.uniqueGames.service.NoticeService;
 import lombok.extern.slf4j.Slf4j;
@@ -82,7 +81,7 @@ public class NoticeController {
     @PostMapping("/write")
     public String noticeWriteProc(Notice notice, @Login Company company,
                                   RedirectAttributes attributes) {
-        notice.setCompanyId(company.getCompanyId());
+        notice.setCId(company.getCompanyId());
         int result = noticeService.insert(notice);
         if (result == 1) {
             attributes.addFlashAttribute("result", "insuccess");
@@ -91,7 +90,7 @@ public class NoticeController {
             attributes.addFlashAttribute("result", "fail");
 
         }
-        return "redirect:/notice/content/" + notice.getPostId();
+        return "redirect:/notice/content/" + notice.getId();
     }
 
     /**
@@ -173,7 +172,7 @@ public class NoticeController {
 
         }
 
-        return "redirect:/notice/content/" + notice.getPostId();
+        return "redirect:/notice/content/" + notice.getId();
     }
 
     /**

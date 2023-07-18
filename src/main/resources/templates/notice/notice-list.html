@@ -89,9 +89,9 @@
                         <th:block th:unless="${#lists.isEmpty(list)}">
                             <tr th:each="notice : ${list}">
                                 <td th:if="${companyLogin == true}"><input type="checkbox" name="list"
-                                                                           th:value="${notice.postId}"/></td>
+                                                                           th:value="${notice.id}"/></td>
                                 <td><span th:text="${notice.rno}"/></td>
-                                <td><a th:href="@{/notice/content/{no}(no = ${notice.postId})}"
+                                <td><a th:href="@{/notice/content/{no}(no = ${notice.id})}"
                                        th:text="${notice.title}"/><span
                                         th:if="${notice.cmtCount > 0}" th:text=" ' [' + ${notice.cmtCount} + ']'"/></td>
                                 </td>

@@ -109,7 +109,7 @@ public class BoardUtil {
             }
             // date_output 변수를 사용하여 필요한 작업 수행
             nvo.setDateOutput(date_output);
-            nvo.setCmtCount(commentMapper.getCmtCount(nvo.getPostId()));
+            nvo.setCmtCount(commentMapper.getCmtCount(nvo.getId()));
         }
 
         return result;

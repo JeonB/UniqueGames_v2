@@ -10,8 +10,8 @@ import java.util.Date;
 @Getter
 public class Notice {
 	int rno;
-	int postId;
-	String companyId;
+	int id;
+	String cId;
 	String name;
 	String title;
 	String content;
@@ -19,8 +19,7 @@ public class Notice {
 	Date noticeDate;
 	String dateOutput;
 	MultipartFile file;
-	String imageId;
-	String uploadFile;
+	String uploadImg;
 	int cmtCount;
 
 }
