@@ -41,7 +41,7 @@
                             alert("데이터가 존재하지 않습니다.");
                         } else {
                             output += '<div id="div-member-table"> <table id="table-member-list">';
-                            output += '<tr> <th>선택</th> <th>아이디</th> <th>' + returnData.name + '</th> <th>메뉴</th> </tr>';
+                            output += '<tr> <th>선택</th> <th>아이디</th> <th>' + returnData.nameField + '</th> <th>메뉴</th> </tr>';
 
                             for (let member of returnData.memberList) {
                                 output += '<tr>';

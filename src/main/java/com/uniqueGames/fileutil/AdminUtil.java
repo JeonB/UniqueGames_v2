@@ -87,4 +87,10 @@ public class AdminUtil {
 
         return result;
     }
+
+    // 정렬 키워드 분리
+    public String[] splitString(String array) {
+        String[] result = array.split("_");
+        return result;
+    }
 }

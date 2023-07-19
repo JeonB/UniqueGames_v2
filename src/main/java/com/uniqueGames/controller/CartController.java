@@ -10,6 +10,7 @@ import com.uniqueGames.model.Order;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.uniqueGames.service.GameService;
 import com.uniqueGames.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class CartController {
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private GameService gameService;
 
     @PostMapping(value = "/cart")
     public String getValue(@RequestParam("selectedValue") String selectedValue, @ModelAttribute("companyVo")
@@ -47,6 +50,9 @@ public class CartController {
     @GetMapping(value = "/cart")
     public String cart(@Login Member member, Model model) {
         ArrayList<Order> cartList = orderService.getCartList(member.getMemberId());
+        cartList = gameService.addGameInfo(cartList);
+
+
 
         if (cartList.size() == 0) {
             model.addAttribute("nothing", true);

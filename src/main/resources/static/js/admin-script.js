@@ -34,7 +34,8 @@ $(document).ready(function () {
     $("#btn-modal").click(function () {
         $("#modal-admin").css("display", "none");
         if ($("#company-selected").val() != 'undefined') {
-            $("#company").val($("#company-selected").val());
+            $("#c_id").val($("#company-selected-id").val());
+            $("#c_id").html($("#company-selected-name").val());
         }
     });
 
@@ -43,7 +44,8 @@ $(document).ready(function () {
         $("button[name='company-list']").css("background", "none").css("font-weight", "normal").css("color", "black");
         $(this).css("background", "linear-gradient(to right, #682CAD, #2FC0CC)").css("font-weight", "bold").css("color", "white");
 
-        $("#company-selected").val($(this).val());
+        $("#company-selected-id").val($(this).attr("id"));
+        $("#company-selected-name").val($(this).val());
     });
 
     // modal - search company
@@ -66,7 +68,7 @@ $(document).ready(function () {
                     output += '<ul id="ul-company-list">';
                     for (let company of returnData.companyList) {
                         output += '<li>';
-                        output += '<button type="button" name="company-list" value="' + company.name + '">' + company.name + '</button>';
+                        output += '<button type="button" name="company-list" id="' + company.id + '" value="' + company.name + '">' + company.name + '</button>';
                         output += '</li>';
                     }
                     output += '</ul>';
