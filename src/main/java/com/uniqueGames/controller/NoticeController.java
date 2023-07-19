@@ -6,7 +6,6 @@ import com.uniqueGames.fileutil.BoardUtil;
 import com.uniqueGames.model.Comment;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
-import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.CommentService;
 import com.uniqueGames.service.NoticeService;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +46,7 @@ public class NoticeController {
     public String noticeList(@PathVariable(value = "page", required = false) String page, Model model, @ModelAttribute("result") String result) {
 
         // 페이징 처리 - startCount, endCount 구하기
-        Map<String, Integer> pageMap = boardUtil.getPagination(page, "list");
+        Map<String, Integer> pageMap = boardUtil.getPagination(page, "list", "");
 //        Page pageInfo = boardUtil.getPagination(new Page(page, "list"));
         List<Notice> list = noticeService.getNoticeList(pageMap.get("startCount"), pageMap.get("endCount"));
         model.addAttribute("list", list);
@@ -82,7 +81,7 @@ public class NoticeController {
     @PostMapping("/write")
     public String noticeWriteProc(Notice notice, @Login Company company,
                                   RedirectAttributes attributes) {
-        notice.setCompanyId(company.getCompanyId());
+        notice.setCId(company.getCompanyId());
         int result = noticeService.insert(notice);
         if (result == 1) {
             attributes.addFlashAttribute("result", "insuccess");
@@ -91,7 +90,7 @@ public class NoticeController {
             attributes.addFlashAttribute("result", "fail");
 
         }
-        return "redirect:/notice/content/" + notice.getPostId();
+        return "redirect:/notice/content/" + notice.getId();
     }
 
     /**
@@ -173,28 +172,17 @@ public class NoticeController {
 
         }
 
-        return "redirect:/notice/content/" + notice.getPostId();
-    }
-
-    /**
-     * board_manage 리스트 선택 삭제 처리
-     */
-    @PostMapping("board-manage")
-    public String boardManage(String[] list, @Login Company company) {
-
-        noticeService.deleteList(list, company);
-
-        return "redirect:/notice/list";
+        return "redirect:/notice/content/" + notice.getId();
     }
 
     /**
      * notice_Search 리스트 검색 처리
      */
-    @RequestMapping(value = "/list/search")
+    @GetMapping(value = "/list/search")
     @SuppressWarnings("unchecked")
     public String boardSearchProc(String q, String page, Model model, String searchType) {
         log.info(searchType);
-        Map<String, Integer> pageMap = boardUtil.getPagination(page, q);
+        Map<String, Integer> pageMap = boardUtil.getPagination(page, q, searchType);
         List<Notice> list = (List<Notice>) noticeService.search(q, pageMap, searchType);
 
         model.addAttribute("list", list);

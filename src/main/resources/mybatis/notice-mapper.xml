@@ -8,17 +8,17 @@
 	<select id="selectNotice" resultType="Notice">
 		SELECT *
 		FROM (
-			SELECT row_number() over(order by NOTICE_DATE DESC, POST_ID DESC) as RNO
-				 , POST_ID
+			SELECT row_number() over(order by NOTICE_DATE DESC, TB_NOTICE.ID DESC) as RNO
+				 , TB_NOTICE.ID
 				 , TITLE
 				 , CONTENT
-				 , NOTICE.COMPANY_ID
-				 , COMPANY.NAME
+				 , C_ID
+				 , TB_COMPANY.NAME
 				 , NOTICE_HITS
 				 , CAST( DATE_FORMAT( NOTICE_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS NOTICE_DATE
-			FROM NOTICE
-			INNER JOIN COMPANY
-			ON NOTICE.COMPANY_ID = COMPANY.COMPANY_ID
+			FROM TB_NOTICE
+			INNER JOIN TB_COMPANY
+			ON TB_NOTICE.C_ID = TB_COMPANY.COMPANY_ID
 		) T1
 		where RNO between #{start} AND #{end};
 	</select>
@@ -27,17 +27,17 @@
 	<select id="searchList" resultType="Notice">
 		SELECT *
 		FROM (
-			SELECT row_number() over(order by NOTICE_DATE DESC, POST_ID DESC) as RNO
-				 , POST_ID
+			SELECT row_number() over(order by NOTICE_DATE DESC, TB_NOTICE.ID DESC) as RNO
+				 , TB_NOTICE.ID
 				 , TITLE
 				 , CONTENT
-				 , NOTICE.COMPANY_ID
-				 , COMPANY.NAME
+				 , TB_NOTICE.C_ID
+				 , TB_COMPANY.NAME
 				 , NOTICE_HITS
 				 , CAST( DATE_FORMAT( NOTICE_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS NOTICE_DATE
-			FROM NOTICE
-			INNER JOIN COMPANY
-			ON NOTICE.COMPANY_ID = COMPANY.COMPANY_ID
+			FROM TB_NOTICE
+			INNER JOIN TB_COMPANY
+			ON TB_NOTICE.C_ID = TB_COMPANY.COMPANY_ID
 			WHERE
 				<if test="searchType == 'tnc'">
 					<foreach collection="keywordList" item="keyword" separator="OR">
@@ -47,6 +47,16 @@
 			    <if test="searchType == 'title'">
 					<foreach collection="keywordList" item="keyword" separator="OR">
 						TITLE LIKE CONCAT('%',#{keyword},'%')
+					</foreach>
+				</if>
+				<if test="searchType == 'content'">
+					<foreach collection="keywordList" item="keyword" separator="OR">
+						CONTENT LIKE CONCAT('%',#{keyword},'%')
+					</foreach>
+				</if>
+				<if test="searchType == 'name'">
+					<foreach collection="keywordList" item="keyword" separator="OR">
+						TB_COMPANY.NAME LIKE CONCAT('%',#{keyword},'%')
 					</foreach>
 				</if>
 		) T1
@@ -59,15 +69,15 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
 
-		INSERT INTO NOTICE (
-			COMPANY_ID,
+		INSERT INTO TB_NOTICE (
+			C_ID,
 			TITLE,
 			CONTENT,
 			NOTICE_HITS,
 			NOTICE_DATE
 		)
 		VALUES (
-			#{companyId}, <!-- 테스트용 회사 id -->
+			'test',
 			#{title},
 			#{content},
 			0,
@@ -77,123 +87,136 @@
 
 	<!-- 공지사항 상세 보기 -->
 	<select id="selectContent" resultType="Notice">
-		SELECT 	NOTICE.POST_ID,
-				NOTICE.COMPANY_ID,
-		        NAME,
+		SELECT 	TB_NOTICE.ID,
+				TB_NOTICE.C_ID,
+		        TB_COMPANY.NAME,
 				TITLE,
 				CONTENT,
 				NOTICE_HITS,
 				CAST( DATE_FORMAT( NOTICE_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS NOTICE_DATE,
-		        IMAGE_ID,
-		        UPLOAD_FILE
-		FROM NOTICE
-		INNER JOIN COMPANY
-		ON NOTICE.COMPANY_ID = COMPANY.COMPANY_ID
-		LEFT JOIN NOTICE_IMAGE
-		ON NOTICE.POST_ID = NOTICE_IMAGE.POST_ID 
-		WHERE NOTICE.POST_ID = #{no};
+		        UPLOAD_IMG
+		FROM TB_NOTICE
+		INNER JOIN TB_COMPANY
+		ON TB_NOTICE.C_ID = TB_COMPANY.COMPANY_ID
+		LEFT JOIN TB_NOTICE_IMAGE
+		ON TB_NOTICE.ID = TB_NOTICE_IMAGE.POST_ID
+		WHERE TB_NOTICE.ID = #{no};
 	</select>
 
 	<!-- 공지사항 수정 -->
 	<update id="updateNotice" parameterType="Notice">
-		UPDATE NOTICE
+		UPDATE TB_NOTICE
 		SET TITLE = #{title},
 			CONTENT = #{content}
-		WHERE POST_ID = #{postId}
+		WHERE ID = #{id}
 	</update>
 
 	<!-- 공지사항 삭제 -->
 	<delete id="deleteNotice">
-		DELETE FROM NOTICE
-		WHERE POST_ID = #{no}
+		DELETE FROM TB_NOTICE
+		WHERE ID = #{no}
 	</delete>
 
 	<!-- 리스트에서 삭제하기 전 이미지 id 조회-->
 	<select id="deleteListBefore" resultType="String">
-		SELECT IMAGE_ID FROM NOTICE_IMAGE
+		SELECT UPLOAD_IMG FROM TB_NOTICE_IMAGE
 		WHERE POST_ID IN
-		<foreach collection="array" item="item" open="(" separator="," close=")">
-			#{item}
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			#{id}
 		</foreach>
 	</select>
 
 	<!-- 공지사항 리스트 선택 삭제 -->
 	<delete id="deleteList" parameterType="map">
-		DELETE FROM NOTICE
-		WHERE POST_ID IN
-		<foreach collection="list" item="item" open="(" separator="," close=")">
-		#{item}
+		DELETE FROM TB_NOTICE
+		WHERE ID IN
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+		#{id}
 		</foreach>
-		AND COMPANY_ID = #{company.companyId}
+		AND C_ID = #{company.companyId}
 	</delete>
 	
 	<!-- 조회수 증가 -->
 	<update id="hitsCount">
-		UPDATE NOTICE
+		UPDATE TB_NOTICE
 		SET NOTICE_HITS = NOTICE_HITS + 1 
-		WHERE POST_ID = #{no}
+		WHERE ID = #{no}
 	</update>
 
 	<!-- 공지사항 작성 이미지 첨부 -->
 	<insert id="insertFile" parameterType="Notice">
-		INSERT INTO NOTICE_IMAGE (
-			IMAGE_ID,
+		INSERT INTO TB_NOTICE_IMAGE (
 			POST_ID,
-			UPLOAD_FILE,
+			UPLOAD_IMG,
 			UPLOAD_DATE
 		)
 		VALUES (
-		#{imageId},
-		#{postId},
-		#{uploadFile},
+		#{id},
+		#{uploadImg},
 		NOW()
 		)
 	</insert>
 
 	<!-- 공지사항 수정 이미지 덮어쓰기 -->
 	<update id="updateFile" parameterType="Notice">
-		UPDATE NOTICE_IMAGE
-		SET IMAGE_ID = #{imageId},
-		UPLOAD_FILE = #{uploadFile}
-		WHERE POST_ID = #{postId}
+		UPDATE TB_NOTICE_IMAGE
+		SET UPLOAD_IMG = #{id}
+		WHERE POST_ID = #{uploadImg}
 	</update>
 
-	<!-- 수정하는 글에 이미지가 없었을 경우 컬럼 생성 -->
+	<!-- 수정하는 글에 이미지가 없었을 경우 데이터 생성 -->
 	<insert id="updateUploadFile" parameterType="Notice">
 		INSERT INTO
-		NOTICE_IMAGE (
-		IMAGE_ID,
+		TB_NOTICE_IMAGE (
 		POST_ID,
-		UPLOAD_FILE
+		UPLOAD_IMG
 		)
 		VALUES (
-		#{imageId},
-		#{postId},
-		#{uploadFile}
+		#{id},
+		#{uploadImg}
 		)
 	</insert>
 	
 	<!-- 수정시 파일 업로드 취소하면 삭제 -->
 	<delete id="deleteFile" parameterType="Notice">
-		DELETE FROM NOTICE_IMAGE
-		WHERE POST_ID = #{postId}	
+		DELETE FROM TB_NOTICE_IMAGE
+		WHERE POST_ID = #{id}
 	</delete>
 
 	<!-- 글에 이미지 컬럼 존재 여부 체크 -->
 	<select id="fileCheck" parameterType="Notice" resultType="int">
 		SELECT COUNT(*)
-		FROM NOTICE_IMAGE
-		WHERE POST_ID = #{postId}
+		FROM TB_NOTICE_IMAGE
+		WHERE POST_ID = #{id}
 	</select>
 
 	<!-- 검색 시 총 게시글 수 -->
 	<select id="totRowCountSearch" resultType="int">
 		SELECT COUNT(*)
-		FROM NOTICE
+		FROM TB_NOTICE
+		INNER JOIN TB_COMPANY
+		ON TB_NOTICE.C_ID = TB_COMPANY.COMPANY_ID
 		WHERE
-		<foreach collection="array" item="keyword" separator="OR">
-			TITLE LIKE CONCAT('%',#{keyword},'%')
-		</foreach>
+		<if test="searchType == 'tnc'">
+			<foreach collection="keywordList" item="keyword" separator="OR">
+				TITLE LIKE CONCAT('%',#{keyword},'%') OR CONTENT LIKE CONCAT('%',#{keyword},'%')
+			</foreach>
+		</if>
+		<if test="searchType == 'title'">
+			<foreach collection="keywordList" item="keyword" separator="OR">
+				TITLE LIKE CONCAT('%',#{keyword},'%')
+			</foreach>
+		</if>
+		<if test="searchType == 'content'">
+			<foreach collection="keywordList" item="keyword" separator="OR">
+				CONTENT LIKE CONCAT('%',#{keyword},'%')
+			</foreach>
+		</if>
+		<if test="searchType == 'name'">
+			<foreach collection="keywordList" item="keyword" separator="OR">
+				TB_COMPANY.NAME LIKE CONCAT('%',#{keyword},'%')
+			</foreach>
+		</if>
 	</select>
 
 </mapper>

@@ -8,7 +8,8 @@
 
 DROP TABLE IF EXISTS `TB_MEMBER`;
 CREATE TABLE TB_MEMBER (
-                         MEMBER_ID VARCHAR(30) NOT NULL PRIMARY KEY,
+                         ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                         MEMBER_ID VARCHAR(30) NOT NULL,
                          PASSWORD VARCHAR(30) NOT NULL,
                          NAME VARCHAR(30) NOT NULL,
                          EMAIL VARCHAR(30) NOT NULL,
@@ -33,7 +34,8 @@ CREATE TABLE TB_GAME (
 
 DROP TABLE IF EXISTS `TB_COMPANY`;
 CREATE TABLE TB_COMPANY (
-                         COMPANY_ID VARCHAR(30) NOT NULL PRIMARY KEY,
+                         ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                         COMPANY_ID VARCHAR(30) NOT NULL,
                          PASSWORD VARCHAR(30) NOT NULL,
                          NAME VARCHAR(30) NOT NULL,
                          EMAIL VARCHAR(30) NOT NULL,

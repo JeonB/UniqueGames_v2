@@ -6,7 +6,7 @@
 <mapper namespace="com.uniqueGames.repository.MemberMapper">
 
 	<insert id="save" parameterType="com.uniqueGames.model.Member">
-		insert into member (member_id, password, name, email, phone_num, addr, tel)
+		insert into tb_member (member_id, password, name, email, phone_num, addr, tel)
 		values (#{memberId},#{password},#{name},#{email},#{phoneNum},#{addr},#{tel})
 	</insert>
 

@@ -12,22 +12,22 @@ public interface MemberMapper {
 
     int save(Member member);
 
-    @Select("select count(*) from MEMBER where member_id=#{memberId}")
+    @Select("select count(*) from tb_member where member_id=#{memberId}")
     int idCheck(String memberId);
 
-    @Select("select member_id from MEMBER where email=#{email} and name=#{name}")
+    @Select("select member_id from tb_member where email=#{email} and name=#{name}")
     String findMid(Member member);
 
-    @Select("select member_id from MEMBER where email=#{email} and member_id=#{memberId} and name=#{name}")
+    @Select("select member_id from tb_member where email=#{email} and member_id=#{memberId} and name=#{name}")
     String findMpass(Member member);
 
-    @Update("update MEMBER set password=#{newpassword} where member_id=#{memberId}")
+    @Update("update tb_member set password=#{newpassword} where member_id=#{memberId}")
     int changeMpass(Member member);
 
-    @Select("select count(*) from MEMBER where phone_num=#{phoneNum}")
+    @Select("select count(*) from tb_member where phone_num=#{phoneNum}")
     int phoneCheck(String phoneNum);
 
-    @Select("select count(*) from MEMBER where email=#{email}")
+    @Select("select count(*) from tb_member where email=#{email}")
     int emailCheck(String email);
 
     @Select("SELECT member_id, name FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${order1} ${order2}) AS RNO, member_id, name FROM TB_MEMBER) AS TB1 WHERE RNO BETWEEN ${start} AND ${end}")

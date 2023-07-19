@@ -32,7 +32,7 @@
       </div>
       <div id="clearFix"></div>
     </div>
-    <form name="writeForm" th:action="@{/notice/write/up/no (no=${notice.postId})}" method="post" enctype="multipart/form-data">
+    <form name="writeForm" th:action="@{/notice/write/up/no (no=${notice.id})}" method="post" enctype="multipart/form-data">
       <table>
         <tr>
           <th>제목</th>
@@ -46,7 +46,7 @@
           <th>이미지</th>
           <td>
             <div class="filebox">
-              <input id="upload-name" th:value="${notice.imageId}" placeholder="첨부파일" disabled>
+              <input id="upload-name" th:value="${notice.uploadImg}" placeholder="첨부파일" disabled>
               <button type="button" class="btn-style" name="file">파일 찾기</button>
               <input type="file" name="file" id="upload-hidden" accept="image/*">
               <nav id="fileDelbtn"></nav>
@@ -55,8 +55,8 @@
           </td>
         </tr>
       </table>
-      <input type="hidden" name="postId" th:value="${notice.postId}">
-      <input type="hidden" name="imageId" th:value="${notice.imageId}">
+      <input type="hidden" name="postId" th:value="${notice.id}">
+      <input type="hidden" name="imageId" th:value="${notice.uploadImg}">
     </form>
   </div>
 </div>

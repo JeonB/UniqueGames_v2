@@ -4,14 +4,13 @@ import lombok.Data;
 
 @Data
 public class AjaxResponse {
-    private String result;
-    private String message;
-    private Integer likeCount;
+    private String result2;
+    private String message2;
+    private Integer likecount;
 
-    public AjaxResponse(String result, String message, Integer likeCount) {
-        this.result = result;
-        this.message = message;
-        this.likeCount = likeCount;
+    public AjaxResponse(String result2, String message2, Integer likecount) {
+        this.result2 = result2;
+        this.message2 = message2;
+        this.likecount = likecount;
     }
-
 }

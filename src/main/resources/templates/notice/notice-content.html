@@ -69,22 +69,23 @@
             </tr>
             <tr>
                 <td colspan="6" style="border:none;">
-                    <div class="details">
-                        <img th:src="@{/upload/{imageId}(imageId = ${notice.imageId})}" style="max-width:1024px;"
-                             th:if="${notice.imageId != null}" }><br>
-                        <span th:text="${notice.content}"/>
+                    <div class="details" th:utext="${notice.content}">
+                        <th:block th:if="${notice.uploadImg}">
+                            <img th:src="@{/upload/{imageId}(imageId = ${notice.getUploadImg})}" style="max-width:1024px;"/>
+                            <br>
+                        </th:block>
                     </div>
                 </td>
             </tr>
         </table>
-        <input type="hidden" id="authorId" th:data-author-id="${notice.companyId}">
+        <input type="hidden" id="authorId" th:data-author-id="${notice.cId}">
 
     </div>
     <section id="comment-box" th:with="loginMember = ${session.get('loginMember')}">
         <div>
             <!-- Comment form-->
-            <form id="comment-write" name="Comment" method="post">
-                <input type="hidden" name="postId" th:value="${notice.postId}">
+            <form id="comment-write" name="Comment">
+                <input type="hidden" name="postId" th:value="${notice.getId}">
                 <input type="hidden" th:id="member-id" name="memberId" th:if="${loginMember != null}"
                        th:value="${#strings.contains(loginMember,'Member') ? loginMember.memberId : loginMember.companyId}"/>
                 <input type="hidden" th:id="member-id" name="memberId" th:unless="${loginMember != null}" value=""/>
@@ -94,13 +95,13 @@
             </form>
             <!-- Comment -->
             <th:block th:each="c, count : ${commList}">
-                <div id="comment" th:id="'comment' + ${c.commentId}" class="comment1">
-                    <div id="user-name" th:text="${c.memberId}"></div>
+                <div id="comment" th:id="'comment' + ${c.id}" class="comment1">
+                    <div id="user-name" th:text="${c.mId}"></div>
                     <div><span id="msg-date" th:text="${c.commentDate}"></span>
                         <th:block
-                                th:if="${loginMember != null and #strings.contains(loginMember,'Member')} and ${c.memberId} == ${loginMember.memberId}">
+                                th:if="${loginMember != null and #strings.contains(loginMember,'Member')} and ${c.mId} == ${loginMember.memberId}">
                             <span id="cmtDelete" class="cmtDelete"
-                                  th:onclick="commentDelete([[${c.commentId}]])">삭제</span>
+                                  th:onclick="commentDelete(${c.id})">삭제</span>
                         </th:block>
                     </div>
                     <span th:utext="${c.commentContent}"></span>
@@ -109,8 +110,8 @@
         </div>
     </section>
     <form name="noticeDelete" action="/notice/delete" method="post"><input type="hidden" name="no"
-                                                                           th:value="${notice.postId}"/>
-        <input th:if="${notice.imageId}" type="hidden" name="imgDel" th:value="${notice.imageId}"/>
+                                                                           th:value="${notice.id}"/>
+        <input th:if="${notice.uploadImg}" type="hidden" name="imgDel" th:value="${notice.uploadImg}"/>
     </form>
 </div>
 <div th:replace="~{main/footer :: footerFragment}"></div>

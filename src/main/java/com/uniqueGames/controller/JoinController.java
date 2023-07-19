@@ -2,9 +2,7 @@ package com.uniqueGames.controller;
 
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Member;
-import com.uniqueGames.service.CompanyMemberService;
 import com.uniqueGames.service.CompanyMemberService2;
-import com.uniqueGames.service.MailSendService;
 import com.uniqueGames.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,11 +22,11 @@ public class JoinController {
 	}
 	@GetMapping("join")
 	public String join() {
-		return "join/join";
+		return "join/member-join";
 	}
 
 	@GetMapping("joincompany")
-	public String companyJoin() { return "join/join-company"; }
+	public String companyJoin() { return "join/company-join"; }
 
 	@PostMapping("join")
 	public String joinProc(Member member, Model model) {

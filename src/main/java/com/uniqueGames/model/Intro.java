@@ -25,7 +25,7 @@ public class Intro {
     private String title;
     private String content;
     private MultipartFile uploadFile;
-    private String upload;
+    private String uploadImg;
     private String cId;
 
 

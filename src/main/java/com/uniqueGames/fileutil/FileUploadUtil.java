@@ -15,7 +15,7 @@ import java.util.UUID;
 public abstract class FileUploadUtil {
 
     private MultipartFile file;
-    private String imageId;
+    private String imageName;
 
     @Value("${upload-directory}")
     private String ROOT_PATH;
@@ -42,10 +42,10 @@ public abstract class FileUploadUtil {
             String upload_file = file.getOriginalFilename();
             String image_id = uuid + upload_file;
 
-            setImageId(image_id);
+            setImageName(image_id);
         }
 
-        return getImageId();
+        return getImageName();
     }
 
     /**
@@ -54,7 +54,7 @@ public abstract class FileUploadUtil {
     public void fileSave() {
         try {
             if (file != null && !file.isEmpty()) {
-                File saveFile = new File(ROOT_PATH + getImageId());
+                File saveFile = new File(ROOT_PATH + getImageName());
                 file.transferTo(saveFile);
 
             }
@@ -111,7 +111,7 @@ public abstract class FileUploadUtil {
         fileCheck(obj);
         String stat = fileUpdate(oldFileName);
 
-        return new String[] {imageId, stat};
+        return new String[] {imageName, stat};
     }
 
     /**

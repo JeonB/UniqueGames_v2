@@ -13,17 +13,17 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface CommentMapper {
 
-	@Select("SELECT	* FROM COMMENT WHERE POST_ID = #{no} ORDER BY COMMENT_DATE ASC")
+	@Select("SELECT	* FROM TB_COMMENT WHERE POST_ID = #{no} ORDER BY COMMENT_DATE ASC")
 	public List<Comment> selectComment(String no);
 
-	@Insert("INSERT INTO COMMENT (POST_ID, MEMBER_ID, COMMENT_CONTENT)"
+	@Insert("INSERT INTO TB_COMMENT (POST_ID, M_ID, COMMENT_CONTENT)"
 			+ " VALUES (#{postId}, #{memberId}, #{commentContent})")
 	public int insertComment(Comment comment);
 
-	@Delete("DELETE FROM COMMENT WHERE COMMENT_ID = #{no}")
+	@Delete("DELETE FROM TB_COMMENT WHERE ID = #{no}")
 	public int deleteComment(String no);
 
-	@Select("SELECT COUNT(*) FROM COMMENT WHERE POST_ID = #{no}")
+	@Select("SELECT COUNT(*) FROM TB_COMMENT WHERE POST_ID = #{no}")
 	public int getCmtCount(int no);
 
 }
