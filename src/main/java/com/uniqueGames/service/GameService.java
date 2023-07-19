@@ -2,6 +2,7 @@ package com.uniqueGames.service;
 
 import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Member;
+import com.uniqueGames.model.Order;
 import com.uniqueGames.repository.GameMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,5 +34,17 @@ public class GameService {
 
     public Game aGetGame(int id) {
         return gameMapper.aGetGame(id);
+    }
+
+    public ArrayList<Order> addGameInfo(ArrayList<Order> cartList) {
+        for (int i = 0; i < cartList.size(); i++) {
+            int gid = cartList.get(i).getGId();
+            Game game = gameMapper.aGetGame(gid);
+
+            cartList.get(i).setGameImg(game.getImagePath());
+            cartList.get(i).setGametitle(game.getName());
+        }
+
+        return cartList;
     }
 }

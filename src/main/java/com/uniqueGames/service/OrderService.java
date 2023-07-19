@@ -76,8 +76,8 @@ public class OrderService {
         return orderMapper.getOrderAmount(idStr);
     }
 
-    public int getOrderComplete(String idStr, String method) {
-        return orderMapper.getOrderComplete(idStr, method);
+    public int getOrderComplete(String idStr) {
+        return orderMapper.getOrderComplete(idStr);
     }
 
     // Details

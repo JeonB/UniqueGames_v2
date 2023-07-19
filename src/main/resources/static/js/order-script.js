@@ -93,14 +93,10 @@ $(document).ready(function () {
                 if (rsp.success) {
                     $.ajax({
                         url: '/order-pay',
-                        data: {
-                            method: method
-                        },
                         success: (result) => {
-                            if(result == "error"){
+                            if (result == "error") {
                                 location.href = "/error";
-                            }
-                            else{
+                            } else {
                                 location.href = "/order-complete";
                             }
                         }
