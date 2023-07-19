@@ -16,7 +16,7 @@
   </div>
   <div class="487" style="width: 760px; height: 55px; left: 0px; top: 102px; position: absolute">
     <div class="Vector" style="width: 760px; height: 55px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
-    <input class="Vector" style="width: 600px; height: 39px; left: 113px; top: 8.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></input>
+    <input class="Vector" type="text" name="title" th:value="${intro?.title}" style="width: 600px; height: 39px; left: 113px; top: 8.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid">
     <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">제목</div>
 <!--    <div style="left: 129px; top: 18px; position: absolute; color: black; font-size: 14px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">제목은 길겠죠? 짧은게 기억안하고 좋은데 어짜피 길어도 왕눈처럼 줄일텐데 어쨌든 뭐~</div>-->
   </div>
@@ -24,15 +24,15 @@
     <div class="Vector" style="width: 760px; height: 55px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
     <div class="Vector" style="width: 600px; height: 40px; left: 113px; top: 8px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
     <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">썸네일</div>
-    <div style="left: 221px; top: 21px; position: absolute; color: black; font-size: 13px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">선택된 파일 없음</div>
-    <div class="Rectangle33" style="width: 80px; height: 26px; left: 127px; top: 15px; position: absolute; background: #393939; border-radius: 5px"></div>
-    <div style="left: 141px; top: 20px; position: absolute; color: white; font-size: 13px; font-family: Inter; font-weight: 400; word-wrap: break-word">파일 선택</div>
+<!--    <div style="left: 221px; top: 21px; position: absolute; color: black; font-size: 13px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">선택된 파일 없음</div>-->
+
+    <input type="file" name ="uploadFile" style="width: 80px; height: 26px; left: 127px; top: 15px; position: absolute; background: #393939; border-radius: 5px">
   </div>
   <div class="486" style="width: 760px; height: 299px; left: 0px; top: 157px; position: absolute">
     <div class="Vector" style="width: 760px; height: 299px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
-    <div class="Vector" style="width: 600px; height: 268px; left: 113px; top: 7.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
+    <textarea class="Vector" placeholder=" 내용을 입력해주세요." type="text" name="content" th:value="${intro?.content}" style="width: 600px; height: 268px; left: 113px; top: 7.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></textarea>
     <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">소개글</div>
-    <div style="left: 129px; top: 18px; position: absolute; color: #A9A9A9; font-size: 14px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">내용을 입력해주세요.</div>
+<!--    <div style="left: 129px; top: 18px; position: absolute; color: #A9A9A9; font-size: 14px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">내용을 입력해주세요.</div>-->
   </div>
   <div class="469" style="width: 1100px; height: 2px; left: 0px; top: 46px; position: absolute; background: #393939"></div>
   <div class="505" style="width: 760px; height: 2px; left: 0px; top: 455px; position: absolute; background: #393939"></div>
@@ -45,9 +45,9 @@
       <img class="Rectangle50" style="width: 280px; height: 160px; left: 0px; top: 0px; position: absolute; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10)" src="https://via.placeholder.com/280x160" />
     </div>
   </div>
-  <div class="Group21" style="width: 500px; height: 60px; left: 300px; top: 552px; position: absolute">
-    <div class="526" style="width: 500px; height: 60px; left: 0px; top: 0px; position: absolute; background: linear-gradient(45deg, #682CAD 0%, #2FC0CC 100%)"></div>
-    <div style="left: 214px; top: 19px; position: absolute; color: white; font-size: 20px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">게임등록</div>
+  <div class="Group21" style="width: 300px; height: 60px; left: 200px; top: 552px; position: absolute">
+    <button class="526" style="width: 300px; height: 60px; left: 0px; top: 0px; position: absolute; background: linear-gradient(45deg, #682CAD 0%, #2FC0CC 100%); cursor: pointer"> <div style="left: 114px; top: 19px; position: absolute; color: white; font-size: 20px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">게임등록</div></button>
+
   </div>
 </div>
 </form>
