@@ -1,5 +1,6 @@
 package com.uniqueGames.service;
 
+import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.repository.MemberMapper;
 import com.uniqueGames.repository.MemberRepositoryMapper;
@@ -8,18 +9,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
 @Repository
 @Service
-public class MemberService {
+public class MemberService extends FileUploadUtil {
 
     @Autowired
     private MemberRepositoryMapper memberRepositoryMapper;
 
     @Autowired
     private MemberMapper memberMapper;
+
+    @Override
+    protected void extractFile(Object obj) {
+        super.setFile((MultipartFile) obj);
+    }
 
     public int save(Member member) {
         return memberMapper.save(member);
@@ -94,5 +101,6 @@ public class MemberService {
     public int update(Member member) {
       return memberMapper.update(member);
     }
+
 
 }

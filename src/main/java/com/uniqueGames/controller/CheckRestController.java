@@ -6,13 +6,16 @@ import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.service.CompanyMemberService2;
 import com.uniqueGames.service.MailSendService;
 import com.uniqueGames.service.MemberService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 
 @RestController
+@Slf4j
 public class CheckRestController {
 
     private MemberService memberService;
@@ -117,7 +120,7 @@ public class CheckRestController {
         String result = companyMemberService2.findCpass(email, companyId, name);
         return result;
     }
-    @PostMapping(value="/cdeletecheck")
+    @PostMapping("/cdeletecheck")
     public String cdeleteCheck(HttpSession session) {
         Company company = (Company)session.getAttribute(SessionConstants.LOGIN_MEMBER);
         int result = companyMemberService2.cdelete(company.getCompanyId(), company.getPassword());
@@ -127,6 +130,16 @@ public class CheckRestController {
         }
         return String.valueOf(result);
     }
+
+    @PostMapping("profileupload")
+    public String profileUpload(MultipartFile image) {
+
+        String result = memberService.fileCheck(image);
+        memberService.fileSave();
+
+        return result;
+    }
+
 
 
 }

@@ -60,6 +60,12 @@
       <li class="mypage-profile">
         <img src="/images/mypage-profile.png" class="profile-picture">
       </li>
+      <li class="mypage-profile-setting">
+        <label for="profile-picture-img">
+          <img src="/images/mypage-profile-setting.png" style="cursor: pointer;">
+        </label>
+        <input type="file" name="profile-img" id="profile-picture-img" style="display: none;">
+      </li>
       <li class="mypage-info" th:text="${member?.name}"></li>
       <li class="mypage-info" id="mypage-id" th:text="${member?.memberId}"></li>
       <li class="mUpdate"><a th:href="@{/mypage}">개인 정보</a></li>

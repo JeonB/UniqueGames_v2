@@ -36,13 +36,13 @@ public interface MemberMapper {
     @Select("SELECT * FROM TB_MEMBER WHERE MEMBER_ID=#{id}")
     Member aGetDetailMember(String id);
 
-    @Delete("delete from MEMBER where member_id=#{memberId} and password=#{password}")
+    @Delete("delete from tb_member where member_id=#{memberId} and password=#{password}")
     int delete(String memberId, String password);
 
-    @Update("update MEMBER set password=#{newpassword} where member_id=#{memberId}")
+    @Update("update tb_member set password=#{newpassword} where member_id=#{memberId}")
     int mypageNewPass(Member member);
 
-    @Update("update MEMBER set email=#{email}, phone_num=#{phoneNum}, addr=#{addr} where member_id=#{memberId}")
+    @Update("update tb_member set profile_img = #{profileImg}, email = #{email}, addr = #{addr}, phone_num = #{phoneNum} where member_id = #{memberId}")
     int update(Member member);
   
     @Select("SELECT COUNT(*) FROM TB_MEMBER")

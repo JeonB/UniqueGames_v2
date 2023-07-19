@@ -86,9 +86,9 @@ input[name="email-auth-check"] {
 	left: 250px;
 }
 
-/*a:visited {*/
-/*	color: inherit !important;*/
-/*}*/
+a:visited {
+	color: initial;
+}
 
 .detail1, .detail2 {
 	text-decoration: underline;
@@ -115,6 +115,10 @@ input[name="email-auth-check"] {
 	color: #2E7AF6;
 	font-size: 14px;
 	margin: 25px 10px 0 8px;
+}
+
+.link-signUp:visited {
+	color: #2E7AF6;
 }
 
 #link-deleteAccount, #link-changePassword, #link-donation {
@@ -505,10 +509,10 @@ li.address-input {
 	border-radius: 55px;
 	background: #D9D9D9;
 }
-.mypage-info {
-	margin-top: 20px;
-	text-align: center;
-}
+/*.mypage-info {*/
+/*	margin-top: 20px;*/
+/*	text-align: center;*/
+/*}*/
 
 #mypage-id {
 	margin-top: -5px;
@@ -615,4 +619,24 @@ li#active {
 #mypage-update:disabled {
 	background : lightgrey;
 	cursor: default;
+}
+
+.mUpdate1:visited {
+	color: initial !important;
+}
+
+.mypage-profile-setting {
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	background: #454545;
+	position: relative;
+	left: 125px;
+	top: -20px;
+	cursor: pointer;
+}
+.profile-picture-1 {
+	display: inline-block;
+	width: 150px;
+	height: 60px;
 }

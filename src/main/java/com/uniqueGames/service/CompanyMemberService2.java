@@ -109,4 +109,8 @@ public class CompanyMemberService2 {
         }
         return cList;
     }
+
+    public String gameName(String companyId) {
+        return companyMapper.gameName(companyId);
+    }
 }

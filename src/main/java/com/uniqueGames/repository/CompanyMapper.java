@@ -63,4 +63,7 @@ public interface CompanyMapper {
 
     @Select("SELECT * FROM TB_COMPANY WHERE UPPER(NAME) LIKE CONCAT('%', #{companyName}, '%')")
     List<Company> aGetSearched(String companyName);
+
+    @Select("select b.name from tb_company a, tb_game b where a.g_id = b.id and company_id=#{companyId}")
+    String gameName(String companyId);
 }

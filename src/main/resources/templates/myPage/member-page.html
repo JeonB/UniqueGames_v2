@@ -8,13 +8,13 @@
   <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
   <script th:src="@{/js/join_jquery.js}"></script>
   <script th:src="@{/js/login_script.js}"></script>
+  <script th:src="@{/js/mypage.js}"></script>
   <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
   <script th:inline="javascript">
     //JavaScript 코드
     /*<![CDATA[*/
 
     $(document).ready(function() {
-
       const mypageEmail = [[${member.email}]];
       const mypagePhoneNum = [[${member.phoneNum}]];
       const mypageAddr1 = [[${member.addr1}]];
@@ -23,7 +23,7 @@
       $("input[name='email'], input[name='phoneNum'], input[name='addr1'], input[name='addr2']").keyup(function(){
 
         if($("input[name='email']").val() == mypageEmail && $("input[name='phoneNum']").val() == mypagePhoneNum
-        && $("input[name='addr1']").val() == mypageAddr1 && $("input[name='addr2']").val() == mypageAddr2) {
+                && $("input[name='addr1']").val() == mypageAddr1 && $("input[name='addr2']").val() == mypageAddr2) {
           $("#mypage-update").prop("disabled", "true");
         } else {
           $("#mypage-update").removeAttr("disabled");
@@ -32,7 +32,7 @@
       });
 
     });
- /*]]>*/
+    /*]]>*/
   </script>
   <style>
     .mypage-addr {
@@ -53,25 +53,35 @@
 <section class="content-mypage">
   <div class="sidebar">
     <ul>
-      <li class="mypage-profile">
+      <li class="mypage-profile" th:if="${member.profileImg} == null">
         <img src="/images/mypage-profile.png" class="profile-picture">
+      </li>
+      <li th:unless="${member.profileImg} == null">
+        <img th:src="@{/upload/{a}(a=${member.profileImg})}" class="profile-picture-1">
+      </li>
+      <li class="mypage-profile-setting">
+        <label for="profile-picture-img">
+          <img src="/images/mypage-profile-setting.png" style="cursor: pointer;">
+        </label>
+        <input type="file" name="profile-img" id="profile-picture-img" style="display: none;">
       </li>
       <li class="mypage-info" th:text="${member?.name}"></li>
       <li class="mypage-info" id="mypage-id" th:text="${member?.memberId}"></li>
       <li class="mUpdate" id="active"><a th:href="@{/mypage}">개인 정보</a></li>
       <li class="mUpdate1"><a th:href="@{/newpass}">비밀번호 재설정</a> </li>
-      <li class="mUpdate1"><a href="member-order">결제 내역</a></li>
+      <li class="mUpdate1"><a th:href="@{/mypagepayment}">결제 내역</a></li>
       <li class="mUpdate1"><a th:href="@{/deleteaccount}">회원탈퇴</a></li>
     </ul>
   </div>
   <form action="memberupdate" name="myPageForm" method="post" class="deleteForm">
     <p class="intro-4">개인정보 수정</p>
     <input type="hidden" name="memberId" th:value="${member?.memberId}">
+    <input type="hidden" name="profileImg">
     <div class="div-update">
       <ul>
         <li class="mypage-insert">
           <label>이메일
-          <span id="emailAuth"></span>
+            <span id="emailAuth"></span>
           </label>
         </li>
         <li>
