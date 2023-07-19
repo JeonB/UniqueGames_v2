@@ -50,7 +50,7 @@
                                 output += '<td>' + member.name + '</td>';
                                 output += '<td> <a href="/admin-detail-member?id=' + member.id + '&type=' + returnData.mType + '"> ';
                                 output += '<button type="button" id="btn-member-detail">자세히 보기</button> </a> ';
-                                output += '<a href="/payment-detail"> <button type="button" id="btn-member-payment" th:value="' + member.id + '">결제 내역</button> </a> </td> </tr>';
+                                output += '<a href="/payment-detail' + member.id + '"> <button type="button" id="btn-member-payment" value="' + member.id + '">결제 내역</button> </a> </td> </tr>';
                             }
                             output += '<tr> <td colspan="5"> <div id="ampaginationsm"></div> </td> </tr>';
                             output += '</table> </div>';

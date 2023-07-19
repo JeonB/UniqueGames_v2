@@ -73,7 +73,7 @@ public class AdminController {
             if (arr[0].equals("id")) {
                 arr[0] = "COMPANY_ID";
             }
-            ArrayList<Company> list = companyMemberService.aGetMemberList(arr[0], arr[1], (int)pageMap.get("startCount"), (int)pageMap.get("endCount"));
+            ArrayList<Company> list = companyMemberService.aGetMemberList(arr[0], arr[1], (int) pageMap.get("startCount"), (int) pageMap.get("endCount"));
 
             if (list.size() == 0) {
                 jObj.addProperty("nothing", true);
@@ -153,6 +153,28 @@ public class AdminController {
         ArrayList<Company> cList = companyMemberService.aGetAllCompanyList();
 
         model.addAttribute("companyList", cList);
+        model.addAttribute("result", "none");
+        model.addAttribute("modalDisplay", "none");
+        return "admin/admin-game-register";
+    }
+
+    @RequestMapping(value = "/admin-game-register-form")
+    public String admin_game_register_form(Model model, String name, String cId, String genre, String imagePath, String description) {
+        if (companyMemberService.aGetGameRegistered(cId) == 0) {
+            // register
+            if (gameService.aRegisterGame(name, genre, imagePath, description) != 0) {
+                if (companyMemberService.aSetGid(gameService.aGetGid(name), cId) != 0) {
+                    model.addAttribute("result", "register_complete");
+                } else {
+                    gameService.aDeleteGame(gameService.aGetGid(name));
+                    model.addAttribute("result", "register_gid_error");
+                }
+            } else {
+                model.addAttribute("result", "register_failed");
+            }
+        } else {
+            model.addAttribute("result", "registered");
+        }
         model.addAttribute("modalDisplay", "none");
         return "admin/admin-game-register";
     }
@@ -197,18 +219,19 @@ public class AdminController {
 
     @RequestMapping(value = "/admin-donation-data", produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String admin_donation_data(String year, String month, String array, String page) {
+    public String admin_donation_data(String array, String page) {
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
         String[] arr = adminUtil.splitString(array);
 
         Map<String, String> param = new HashMap<>();
         param.put("page", page);
-        param.put("year", year);
-        param.put("month", month);
         param.put("type", "donation");
         Map<String, Integer> pageMap = paymentUtil.getPagination(param);
 
+        if (arr[0].equals("name")) {
+            arr[0] = "COMPANY";
+        }
         ArrayList<Payment> list = orderService.aGetDonationList(arr[0], arr[1], pageMap.get("startCount"), pageMap.get("endCount"));
 
         if (list.size() == 0) {
@@ -276,12 +299,37 @@ public class AdminController {
         model.addAttribute("id", game.getId());
         model.addAttribute("title", game.getName());
         model.addAttribute("company", company.getName());
+        model.addAttribute("cid", company.getCompanyId());
         model.addAttribute("genre", game.getGameGenre());
         model.addAttribute("img", game.getImagePath());
         model.addAttribute("desciption", game.getDescription());
         model.addAttribute("url", url);
         model.addAttribute("companyList", cList);
+        model.addAttribute("result", "none");
 
+        return "admin/admin-update-game";
+    }
+
+    @RequestMapping(value = "/admin-game-update-form")
+    public String admin_game_update_form(Model model, String name, String newname, String oldcid, String cId, String genre, String imagePath, String description) {
+        int gid = gameService.aGetGid(name);
+
+        if (!oldcid.equals(cId)) {
+            if (companyMemberService.aDeleteGid(oldcid) == 0) {
+                model.addAttribute("result", "update_gid_error");
+                return "admin/admin-update-game";
+            }
+        }
+        if (companyMemberService.aSetGid(gid, cId) != 0) {
+            if (gameService.aUpdateGame(newname, genre, imagePath, description, gid) != 0) {
+                model.addAttribute("result", "update_complete");
+            } else {
+                model.addAttribute("result", "update_failed");
+            }
+        } else {
+            model.addAttribute("result", "update_failed");
+        }
+        model.addAttribute("modalDisplay", "none");
         return "admin/admin-update-game";
     }
 }

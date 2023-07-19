@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.uniqueGames.service.GameService;
 import com.uniqueGames.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,8 @@ public class PaymentDetailController {
     OrderService orderService;
     @Autowired
     PaymentUtil paymentUtil;
+    @Autowired
+    GameService gameService;
 
     @RequestMapping(value = "/payment-detail")
     public String payment_detail() {
@@ -56,30 +59,31 @@ public class PaymentDetailController {
         }
         ArrayList<Order> list = orderService.getPaymentDetail(mId, arr[0], arr[1].toUpperCase(), pageMap.get("startCount"), pageMap.get("endCount"));
 
-
         if (list.size() == 0) {
             jObj.addProperty("nothing", true);
         } else {
             jObj.addProperty("nothing", false);
+            list = gameService.addGameInfo(list);
+
+            for (Order payment : list) {
+                JsonObject jpay = new JsonObject();
+
+                jpay.addProperty("rno", payment.getRno());
+                jpay.addProperty("date", payment.getOrderDate());
+                jpay.addProperty("title", payment.getGametitle());
+                jpay.addProperty("amount", payment.getAmountStr());
+
+                jarray.add(jpay);
+            }
+            jObj.add("paymentList", jarray);
+
+            jObj.addProperty("totalCount", "총 " + orderService.getPaymentCount(mId) + "개");
+            jObj.addProperty("totalAmount", orderService.formatCurrency(orderService.getPaymentAmount(mId)) + "원");
+            jObj.addProperty("dbCount", pageMap.get("dbCount"));
+            jObj.addProperty("pageSize", pageMap.get("pageSize"));
+            jObj.addProperty("maxSize", pageMap.get("maxSize"));
+            jObj.addProperty("page", pageMap.get("reqPage"));
         }
-        jObj.addProperty("totalCount", "총 " + orderService.getPaymentCount(mId) + "개");
-        jObj.addProperty("totalAmount", orderService.formatCurrency(orderService.getPaymentAmount(mId)) + "원");
-
-        for (Order payment : list) {
-            JsonObject jpay = new JsonObject();
-
-            jpay.addProperty("rno", payment.getRno());
-            jpay.addProperty("date", payment.getOrderDate());
-            jpay.addProperty("title", payment.getGametitle());
-            jpay.addProperty("amount", payment.getAmountStr());
-
-            jarray.add(jpay);
-        }
-        jObj.add("paymentList", jarray);
-        jObj.addProperty("dbCount", pageMap.get("dbCount"));
-        jObj.addProperty("pageSize", pageMap.get("pageSize"));
-        jObj.addProperty("maxSize", pageMap.get("maxSize"));
-        jObj.addProperty("page", pageMap.get("reqPage"));
 
         return new Gson().toJson(jObj);
     }
@@ -114,23 +118,24 @@ public class PaymentDetailController {
             jObj.addProperty("nothing", true);
         } else {
             jObj.addProperty("nothing", false);
+            list = gameService.addGameInfo(list);
+
+            for (Order donation : list) {
+                JsonObject jpay = new JsonObject();
+
+                jpay.addProperty("rno", donation.getRno());
+                jpay.addProperty("date", donation.getOrderDate());
+                jpay.addProperty("title", donation.getGametitle());
+                jpay.addProperty("amount", donation.getAmountStr());
+
+                jarray.add(jpay);
+            }
+            jObj.add("donationList", jarray);
+            jObj.addProperty("dbCount", pageMap.get("dbCount"));
+            jObj.addProperty("pageSize", pageMap.get("pageSize"));
+            jObj.addProperty("maxSize", pageMap.get("maxSize"));
+            jObj.addProperty("page", pageMap.get("reqPage"));
         }
-
-        for (Order donation : list) {
-            JsonObject jpay = new JsonObject();
-
-            jpay.addProperty("rno", donation.getRno());
-            jpay.addProperty("date", donation.getOrderDate());
-            jpay.addProperty("title", donation.getGametitle());
-            jpay.addProperty("amount", donation.getAmountStr());
-
-            jarray.add(jpay);
-        }
-        jObj.add("donationList", jarray);
-        jObj.addProperty("dbCount", pageMap.get("dbCount"));
-        jObj.addProperty("pageSize", pageMap.get("pageSize"));
-        jObj.addProperty("maxSize", pageMap.get("maxSize"));
-        jObj.addProperty("page", pageMap.get("reqPage"));
 
         return new Gson().toJson(jObj);
     }

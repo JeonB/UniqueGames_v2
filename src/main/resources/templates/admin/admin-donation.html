@@ -11,27 +11,25 @@
     <script src="js/am-pagination.js"></script>
     <script>
         $(document).ready(function () {
-            getPage("All", "All", 1);
+            getPage(1);
 
-            $("#btn-inquiry").click(function () {
-                var year = $("#select-year").val();
-                var month = $("#select-month").val();
-                getPage(year, month, 1);
-            });
+            // $("#btn-inquiry").click(function () {
+            //     var year = $("#select-year").val();
+            //     var month = $("#select-month").val();
+            //     getPage(year, month, 1);
+            // });
 
             $("#select-order").change(function () {
-                var year = $("#select-year").val();
-                var month = $("#select-month").val();
-                getPage(year, month, 1);
+                getPage(1);
             });
 
 
-            function getPage(year, month, page) {
+            function getPage(page) {
                 var array = $("#select-order").val();
 
                 $.ajax({
                     url: "/admin-donation-data",
-                    data: {year: year, month: month, array: array, page: page},
+                    data: {array: array, page: page},
                     success: function (result) {
                         let returnData = JSON.parse(result);
                         let output = "";
@@ -61,12 +59,8 @@
 
                             //페이지 번호 클릭 이벤트 처리
                             jQuery('#ampaginationsm').on('am.pagination.change', function (e) {
-                                var type = $("#table-type").val();
                                 jQuery('.showlabelsm').text('The selected page no: ' + e.page);
-
-                                var year = $("#select-year").val();
-                                var month = $("#select-month").val();
-                                getPage(year, month, e.page);
+                                getPage(e.page);
                             });
                         }
                     }
@@ -121,30 +115,30 @@
         </ul>
     </div>
     <div id="div-viewer">
-        <p id="p-title">정산금 조회</p>
+        <p id="p-title">이번달 정산금 조회</p>
         <div id="div-donation-info">
-            <select id="select-year">
-                <option th:each="year : ${yearList}" th:value="${year}" th:text="${year}"></option>
-            </select>
-            <select id="select-month">
-                <option value="All">All</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-            </select>
-            <button type="button" id="btn-inquiry">조회</button>
+<!--            <select id="select-year">-->
+<!--                <option th:each="year : ${yearList}" th:value="${year}" th:text="${year}"></option>-->
+<!--            </select>-->
+<!--            <select id="select-month">-->
+<!--                <option value="All">All</option>-->
+<!--                <option value="1">1</option>-->
+<!--                <option value="2">2</option>-->
+<!--                <option value="3">3</option>-->
+<!--                <option value="4">4</option>-->
+<!--                <option value="5">5</option>-->
+<!--                <option value="6">6</option>-->
+<!--                <option value="7">7</option>-->
+<!--                <option value="8">8</option>-->
+<!--                <option value="9">9</option>-->
+<!--                <option value="10">10</option>-->
+<!--                <option value="11">11</option>-->
+<!--                <option value="12">12</option>-->
+<!--            </select>-->
+<!--            <button type="button" id="btn-inquiry">조회</button>-->
             <select id="select-order">
                 <option value="name_asc">회사명 (ㄱ~ㅎ)</option>
-                <option value="namee_desc">회사명 (ㅎ~ㄱ)</option>
+                <option value="name_desc">회사명 (ㅎ~ㄱ)</option>
                 <option value="amount_desc">높은 후원금순</option>
                 <option value="amount_asc">낮은 후원금순</option>
             </select>

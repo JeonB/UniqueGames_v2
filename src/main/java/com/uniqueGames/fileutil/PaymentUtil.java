@@ -36,19 +36,8 @@ public class PaymentUtil {
         } else if (param.get("type").equals("company")) {
             dbCount = orderService.totRowCountCompany(param.get("id"));
         } else if (param.get("type").equals("donation")) {
-            String year = param.get("year");
-            String month = param.get("month");
             pageSize = 8;
-
-            if (!year.equals("All") && !month.equals("All")) {
-                dbCount = orderService.aTotRowCountDonationBothSelected(year, month);
-            } else if (!year.equals("All") && month.equals("All")) {
-                dbCount = orderService.aTotRowCountDonationYearSelected(year);
-            } else if (year.equals("All") && !month.equals("All")) {
-                dbCount = orderService.aTotRowCountDonationMonthSelected(month);
-            } else {
-                dbCount = orderService.aTotRowCountDonationAll();
-            }
+            dbCount = orderService.totRowCountAdmin();
         } else {
 
         }

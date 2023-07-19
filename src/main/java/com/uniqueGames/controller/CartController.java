@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @SessionAttributes({SessionConstants.LOGIN_MEMBER, "game", "companyVo"})
@@ -51,8 +50,6 @@ public class CartController {
     public String cart(@Login Member member, Model model) {
         ArrayList<Order> cartList = orderService.getCartList(member.getMemberId());
         cartList = gameService.addGameInfo(cartList);
-
-
 
         if (cartList.size() == 0) {
             model.addAttribute("nothing", true);

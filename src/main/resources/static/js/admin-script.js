@@ -33,9 +33,8 @@ $(document).ready(function () {
 
     $("#btn-modal").click(function () {
         $("#modal-admin").css("display", "none");
-        if ($("#company-selected").val() != 'undefined') {
-            $("#c_id").val($("#company-selected-id").val());
-            $("#c_id").html($("#company-selected-name").val());
+        if ($("#company-selected-name").val() != 'undefined') {
+            $("#company").val($("#company-selected-name").val());
         }
     });
 
@@ -44,8 +43,11 @@ $(document).ready(function () {
         $("button[name='company-list']").css("background", "none").css("font-weight", "normal").css("color", "black");
         $(this).css("background", "linear-gradient(to right, #682CAD, #2FC0CC)").css("font-weight", "bold").css("color", "white");
 
-        $("#company-selected-id").val($(this).attr("id"));
-        $("#company-selected-name").val($(this).val());
+        var id = $(this).attr("id");
+        var name = $(this).text();
+
+        $("#cId").val(id);
+        $("#company-selected-name").val(name);
     });
 
     // modal - search company
@@ -91,5 +93,64 @@ $(document).ready(function () {
 
     $("#btn-back").click(function () {
         window.history.back();
+    });
+
+    // file
+    $('#upload-file').on('change', function () {
+        let file = $("#upload-file")[0].files[0];
+        let fileName = "../images/" + file.name;
+
+        if (fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
+            $('#imagePath').val(fileName);
+            $('#path').val(fileName);
+        } else {
+            alert("이미지(jpg,png)만 선택 가능합니다.");
+            $('#upload-file').val(null);
+            $('#imagePath').val("");
+        }
+    });
+
+    // game-register
+    $("#btn-register").click(function (){
+        if($("#name").val()==""){
+            alert("게임 제목을 입력해주세요.");
+        }
+        else if($("#company").val()==""){
+            alert("게임사를 선택해주세요.");
+        }
+        else if($("#genre").val()=="default"){
+            alert("장르를 선택해주세요.");
+        }
+        else if($("#imagePath").val()==""){
+            alert("게임 이미지를 선택해주세요.");
+        }
+        else if($("#description").val()==""){
+            alert("상세설명을 작성해주세요.");
+        }
+        else {
+            $("#form-register").submit();
+        }
+    });
+
+    // game-update
+    $("#btn-update").click(function (){
+        if($("#name").val()==""){
+            alert("게임 제목을 입력해주세요.");
+        }
+        else if($("#company").val()==""){
+            alert("게임사를 선택해주세요.");
+        }
+        else if($("#genre").val()=="default"){
+            alert("장르를 선택해주세요.");
+        }
+        else if($("#imagePath").val()==""){
+            alert("게임 이미지를 선택해주세요.");
+        }
+        else if($("#description").val()==""){
+            alert("상세설명을 작성해주세요.");
+        }
+        else {
+            $("#form-update").submit();
+        }
     });
 });
