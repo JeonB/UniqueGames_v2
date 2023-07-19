@@ -4,7 +4,7 @@
   <title>개발사 후원페이지</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/detail.css}">
-  <link rel="stylesheet" th:href="@{/css/mainunigames.css}">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script> <!-- 마이크로소프트 jQuery-->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -69,13 +69,13 @@
                            itemprop="thumbnailUrl">
                     </div>
                     <div class="item screenshot_thumbnail" style='cursor:pointer'>
-                      <img th:src="@{/images/img-game-thumbnail-1_500240.png}"
+                      <img th:src="@{/images/img-game-thumbnail-1-500240.png}"
                            data-type="image/jpeg"
                            data-url="<img src='/images/img-game-thumbnail-1_500240.png'>"
                            itemprop="thumbnailUrl">
                     </div>
                     <div class="item screenshot_thumbnail" style='cursor:pointer'>
-                      <img th:src="@{/images/img-game-thumbnail-2_500240.png}"
+                      <img th:src="@{/images/img-game-thumbnail-2-500240.png}"
                            data-type="image/jpeg"
                            data-url="<img src='/images/img-game-thumbnail-2_500240.png'>"
                            itemprop="thumbnailUrl">
@@ -227,7 +227,7 @@
                               <button type="button" class="btn btn-default btn-lg" id="btn_wishlist"
                                      style="width: 90px;">
                                 <img
-                                    th:src="@{/images/btn_like_select.png}">
+                                    th:src="@{/images/btn-like-select.png}">
                                 Like
                               </button>
                               <button type="button" class="btn btn-warning btn-lg" id="btn_donate"
@@ -281,7 +281,6 @@
 </div>
 
 <div th:replace="~{main/footer :: footerFragment}"></div>
-</body>
-
-</html>
 <script th:src="@{/js/detail.js}"></script>
+</body>
+</html>

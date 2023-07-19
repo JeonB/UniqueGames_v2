@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@SessionAttributes({SessionConstants.LOGIN_MEMBER, "game", "companyVo"})
+@SessionAttributes({SessionConstants.LOGIN_MEMBER, "game", "company"})
 public class CartController {
     @Autowired
     private OrderService orderService;
@@ -27,7 +27,7 @@ public class CartController {
     private GameService gameService;
 
     @PostMapping(value = "/cart")
-    public String getValue(@RequestParam("selectedValue") String selectedValue, @ModelAttribute("companyVo")
+    public String getValue(@RequestParam("selectedValue") String selectedValue, @ModelAttribute("company")
     Company company, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member, @ModelAttribute("game") Game game) {
 
         /*

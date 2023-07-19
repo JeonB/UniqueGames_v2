@@ -46,7 +46,7 @@ public class DeleteAccountController {
 	 @RequestMapping(value="/deleteCompany", method=RequestMethod.GET)
 	 public ModelAndView deleteCompany(String company_id) {
 	 ModelAndView mav = new ModelAndView();
-	 CompanyVo companyVo = companyMemberService.companyPageResult(company_id);
+	 Company company = companyMemberService.companyPageResult(company_id);
 
 	 mav.addObject("companyVo", companyVo);
 	 mav.setViewName("/deleteAccount/deleteCompany");
