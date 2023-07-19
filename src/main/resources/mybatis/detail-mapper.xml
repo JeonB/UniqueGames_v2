@@ -5,8 +5,8 @@
 <mapper namespace="com.uniqueGames.repository.DetailMapper">
   <!-- 소개글 등록 -->
   <insert id="insertIntro" parameterType="Intro" >
-    INSERT INTO tb_intro (name,title, content,upload_img)
-    VALUES ( #{name}, #{title}, #{content},#{uploadImg})
+    INSERT INTO tb_intro (c_id,name,title, content,upload_img)
+    VALUES ( #{cId},#{name}, #{title}, #{content},#{uploadImg})
   </insert>
   <!-- 소개글 조회 -->
   <select id="getIntro" parameterType="int" resultType="Intro">

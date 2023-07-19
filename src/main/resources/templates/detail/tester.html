@@ -5,19 +5,20 @@
   <title>Title</title>
 </head>
 <body>
+<form  action="/insertIntro" method="post" enctype="multipart/form-data">
 <div class="Frame3" style="width: 1100px; height: 612px; position: relative">
   <div class="Board" style="left: 0px; top: 0px; position: absolute; color: #2B2B2B; font-size: 24px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">Game_registration</div>
   <div class="485" style="width: 760px; height: 55px; left: 0px; top: 47px; position: absolute">
     <div class="Vector" style="width: 760px; height: 55px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
-    <div class="Vector" style="width: 600px; height: 39px; left: 113px; top: 8.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
+    <input class="Vector" type="text" name="name" th:value="${company?.name}" readonly style="width: 600px; height: 39px; left: 113px; top: 8.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid">
     <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">회사명</div>
-    <div style="left: 129px; top: 18px; position: absolute; color: black; font-size: 14px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">이게 회사야? 하는 만큼 긴 이름을 쓴 회사는 없겠지만 그래도 혹시 몰라 씁니다 아몰랑~</div>
+<!--    <div style="left: 129px; top: 18px; position: absolute; color: black; font-size: 14px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">이게 회사야? 하는 만큼 긴 이름을 쓴 회사는 없겠지만 그래도 혹시 몰라 씁니다 아몰랑~</div>-->
   </div>
   <div class="487" style="width: 760px; height: 55px; left: 0px; top: 102px; position: absolute">
     <div class="Vector" style="width: 760px; height: 55px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
-    <div class="Vector" style="width: 600px; height: 39px; left: 113px; top: 8.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
+    <input class="Vector" style="width: 600px; height: 39px; left: 113px; top: 8.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></input>
     <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">제목</div>
-    <div style="left: 129px; top: 18px; position: absolute; color: black; font-size: 14px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">제목은 길겠죠? 짧은게 기억안하고 좋은데 어짜피 길어도 왕눈처럼 줄일텐데 어쨌든 뭐~</div>
+<!--    <div style="left: 129px; top: 18px; position: absolute; color: black; font-size: 14px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">제목은 길겠죠? 짧은게 기억안하고 좋은데 어짜피 길어도 왕눈처럼 줄일텐데 어쨌든 뭐~</div>-->
   </div>
   <div class="488" style="width: 760px; height: 55px; left: 0px; top: 457px; position: absolute">
     <div class="Vector" style="width: 760px; height: 55px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
@@ -49,5 +50,6 @@
     <div style="left: 214px; top: 19px; position: absolute; color: white; font-size: 20px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">게임등록</div>
   </div>
 </div>
+</form>
 </body>
 </html>

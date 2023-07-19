@@ -35,14 +35,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class DetailMapperController {
 
 
-    private final IntroCompanyService introCompanyService;
+
     private final IndexServiceMapper indexServiceMapper;
     CompanyRepositoryMapper companyRepositoryMapper;
 
     @Autowired
-    public DetailMapperController(IntroCompanyService introCompanyService,
-            IndexServiceMapper indexServiceMapper, CompanyRepositoryMapper companyRepositoryMapper) {
-        this.introCompanyService = introCompanyService; // 매퍼 방식
+    public DetailMapperController(IndexServiceMapper indexServiceMapper, CompanyRepositoryMapper companyRepositoryMapper) {
         this.indexServiceMapper = indexServiceMapper;
         this.companyRepositoryMapper = companyRepositoryMapper;
     }
@@ -69,77 +67,6 @@ public class DetailMapperController {
             default:
                 return "redirect:/";
         }
-    }
-
-    /**
-     * @param vo 회사 소개 저장객체
-     * @param request 현재 url을 가져오기 위한 객체
-     * @return 이름 또는 제목이 null이면 회사등록 페이지 리턴. 아니면 회사 목록 페이지 리턴
-     * @throws IOException 입출력 예외 처리
-     */
-    @PostMapping(value = "/insertIntro")
-    public String insertIntro(Intro vo, HttpServletRequest request,Model model) throws IOException {
-
-        FileUtil fileUtil = new FileUtil(vo, request);
-        Intro intro = fileUtil.getUpload();
-        HttpSession session = request.getSession();
-
-        if(intro.getTitle() == null || intro.getName() == null){
-                Company company = (Company) session.getAttribute(SessionConstants.LOGIN_MEMBER);
-                model.addAttribute("company",company);
-                return "detail/company-regi";
-         }
-        else{
-                introCompanyService.insertIntro(intro);
-                model.addAttribute("status", "writeOnce");
-                return "redirect:getIntroList";
-            }
-    }
-
-    @GetMapping(value = "/insertIntro")
-    public String writeIntro() {
-
-        return "detail/company-regi";
-    }
-    @RequestMapping(value = "/updateIntro", method = RequestMethod.POST)
-    public String updateIntro(@ModelAttribute("intro") Intro vo, @ModelAttribute("company") Company company){
-        introCompanyService.updateIntro(vo);
-        return "detail/company-regi";
-    }
-
-    @RequestMapping(value = "/deleteIntro")
-    public String deleteIntro(@ModelAttribute("intro") Intro vo,Model model){
-        introCompanyService.deleteIntro(vo.getId());
-        model.addAttribute("status", "");
-        return "redirect:getIntroList";
-    }
-
-    /**
-     * @param model  회사 소개 객체 담는 모델
-     * @param vo     회사 소개 객체
-     * @return 회사 소개 페이지
-     */
-    @GetMapping("/getIntro")
-    public String getIntro(Model model, Intro vo){
-        model.addAttribute("intro", introCompanyService.getIntro(vo.getId()));
-        model.addAttribute("sliderList",indexServiceMapper.getGameList());
-        return "detail/company";
-    }
-
-    /**
-     * @param model 회사 소개페이지 리스트 담는 객체
-     * @return 회사 소개페이지 리스트 
-     */
-    @GetMapping("/getIntroList")
-    public String getIntroList(Model model){
-        model.addAttribute("introList", introCompanyService.getIntroList());
-        List<Intro> introList = introCompanyService.getIntroList();
-        List<List<Game>> gameList = new ArrayList<>();
-        for (Intro intro: introList){
-            gameList.add(indexServiceMapper.getGameListByCId(intro.getCId()));
-        }
-        model.addAttribute("gameList",gameList);
-        return "detail/company-list";
     }
 
     @PostMapping("/popUp")
