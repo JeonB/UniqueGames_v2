@@ -106,8 +106,24 @@ $(document).ready(function () {
 
             return false;
         } else {
-            writeForm.submit();
+            const htmlString = editor.getData()
+            console.log(htmlString)
+            // 정규 표현식으로 이미지 태그에서 파일 이름 추출
+            const imgTagRegex = /<img\s+src="([^"]+)">/g
+            const matches = htmlString.matchAll(imgTagRegex)
 
+            // 추출된 파일 이름 출력
+            for (const match of matches) {
+                const srcAttr = match[1]
+                const fileName = srcAttr.substring(srcAttr.lastIndexOf('/') + 1)
+                console.log(fileName)
+                const input = document.createElement("input")
+                input.type = "hidden"
+                input.name = "uploadImg"
+                input.value = fileName
+                document.getElementById("testBox").appendChild(input)
+            }
+            writeForm.submit()
         }
 
     });

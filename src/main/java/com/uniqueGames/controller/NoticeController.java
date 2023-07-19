@@ -81,7 +81,7 @@ public class NoticeController {
     @PostMapping("/write")
     public String noticeWriteProc(Notice notice, @Login Company company,
                                   RedirectAttributes attributes) {
-//        notice.setCId(company.getCompanyId());
+        notice.setCId(company.getCompanyId());
         int result = noticeService.insert(notice);
         if (result == 1) {
             attributes.addFlashAttribute("result", "insuccess");
@@ -150,7 +150,7 @@ public class NoticeController {
 
         model.addAttribute("notice", notice);
 
-        return "/notice/notice-update";
+        return "/notice/notice-update-editor-test";
     }
 
     /**

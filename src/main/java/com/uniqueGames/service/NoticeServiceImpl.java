@@ -71,11 +71,13 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
      */
     @Override
     public int insert(Notice notice) {
-        notice.setUploadImg(fileCheck(notice));
         int insResult = noticeMapper.insertNotice(notice);
         if (notice.getUploadImg() != null) {
-            noticeMapper.insertFile(notice);
-            super.fileSave();
+            String[] fileList = notice.getUploadImg().split(",");
+            for (String img :fileList) {
+                notice.setUploadImg(img);
+                noticeMapper.insertFile(notice);
+            }
         }
 
         return insResult;
@@ -130,7 +132,8 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
         fileListDelete(noticeMapper.deleteListBefore(list));
 
         String result = "FAIL";
-        if (noticeMapper.deleteList(list, company) == 1) {
+        int dbResult = noticeMapper.deleteList(list, company);
+        if (dbResult == 1) {
             result = "SUCCESS";
         }
         return result;

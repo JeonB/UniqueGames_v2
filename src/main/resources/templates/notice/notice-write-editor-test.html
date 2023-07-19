@@ -8,7 +8,6 @@
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <script src="/js/ckeditor.js"></script>
     <script src="/js/board.js"></script>
-
 </head>
 
 <body>
@@ -58,24 +57,27 @@
                                     withCredentials: true
                                 }
                             })
+                                .then(newEditor => {
+                                    editor = newEditor
+                                })
                                 .catch(error => {
                                     console.log(error)
                                 })
                         </script>
                     </td>
                 </tr>
-                <tr>
-                    <th>이미지</th>
-                    <td>
-                        <div class="filebox">
-                            <input id="upload-name" value="" placeholder="첨부파일" disabled>
-                            <button type="button" class="btn-style" name="file">파일 찾기</button>
-                            <input type="file" name="file" id="upload-hidden" accept="image/*">
-                            <nav id="fileDelbtn"></nav>
-                            <span>*이미지는 하나만 선택할 수 있으며, 본문 위에 삽입됩니다.</span>
+<!--                <tr>-->
+<!--                    <th>이미지</th>-->
+<!--                    <td>-->
+                        <div class="filebox" id="testBox">
+<!--                            <input id="upload-name" value="" placeholder="첨부파일" disabled>-->
+<!--                            <button type="button" class="btn-style" name="file">파일 찾기</button>-->
+<!--                            <input type="file" name="file" id="upload-hidden" accept="image/*">-->
+<!--                            <nav id="fileDelbtn"></nav>-->
+<!--                            <span>*이미지는 하나만 선택할 수 있으며, 본문 위에 삽입됩니다.</span>-->
                         </div>
-                    </td>
-                </tr>
+<!--                    </td>-->
+<!--                </tr>-->
             </table>
         </form>
     </div>

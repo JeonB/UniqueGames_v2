@@ -63,7 +63,7 @@ public class RestNoticeController extends FileUploadUtil {
         fileSave();
         log.info(getFile().toString());
         log.info(getImageName());
-        paramMap.put("url", getROOT_PATH() + fileName);
+        paramMap.put("url", "/upload/" + getImageName());
         return paramMap;
     }
 }

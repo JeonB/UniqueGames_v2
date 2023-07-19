@@ -69,11 +69,12 @@
             </tr>
             <tr>
                 <td colspan="6" style="border:none;">
+<!--                    <div class="details" th:utext="${notice.content}">-->
                     <div class="details" th:utext="${notice.content}">
-                        <th:block th:if="${notice.uploadImg}">
-                            <img th:src="@{/upload/{imageId}(imageId = ${notice.getUploadImg})}" style="max-width:1024px;"/>
-                            <br>
-                        </th:block>
+<!--                        <th:block th:if="${notice.uploadImg != null}">-->
+<!--                            <img th:src="@{/upload/{imageId}(imageId = ${notice.uploadImg})}" style="max-width:1024px;"/>-->
+<!--                            <br>-->
+<!--                        </th:block>-->
                     </div>
                 </td>
             </tr>
