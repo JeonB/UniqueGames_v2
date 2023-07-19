@@ -66,7 +66,7 @@ public class NoticeController {
      */
     @GetMapping("/write")
     public String noticeWrite() {
-        return "notice/notice-write";
+         return "notice/notice-write-editor-test";
     }
 
     /**
@@ -81,7 +81,7 @@ public class NoticeController {
     @PostMapping("/write")
     public String noticeWriteProc(Notice notice, @Login Company company,
                                   RedirectAttributes attributes) {
-        notice.setCId(company.getCompanyId());
+//        notice.setCId(company.getCompanyId());
         int result = noticeService.insert(notice);
         if (result == 1) {
             attributes.addFlashAttribute("result", "insuccess");
