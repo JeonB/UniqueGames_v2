@@ -7,6 +7,25 @@
     <link rel="stylesheet" th:href="@{/css/order.css}">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <script src="js/admin-script.js"></script>
+    <script>
+        $(document).ready(function () {
+            var result = $("#result").val();
+
+            if (result == "register_complete") {
+                alert("게임이 성공적으로 등록되었습니다.");
+                window.location.href = "/admin-game-register";
+            } else if (result == "register_failed") {
+                alert("등록 실패 : DB 게임 등록 오류");
+                window.location.href = "/admin-game-register";
+            } else if (result == "register_gid_error") {
+                alert("등록 실패 : 게임 - 게임사 연결 오류");
+                window.location.href = "/admin-game-register";
+            } else if (result == "registered") {
+                alert("등록 실패 : 해당 게임사에 이미 게임이 등록되어 있습니다. 게임사 당 하나의 게임만 등록 가능합니다.");
+                window.location.href = "/admin-game-register";
+            }
+        });
+    </script>
 </head>
 <body>
 <!-- header -->
@@ -14,6 +33,7 @@
 
 <!-- content -->
 <input type="hidden" id="admin-type" value="a-gameregister">
+<input type="hidden" id="result" th:value="${result}">
 <section id="top-bg">
     <div id="base-layer">
         <div id="top-bg-textarea">
@@ -36,23 +56,25 @@
     </div>
     <div id="div-viewer">
         <p id="p-title">게임 등록</p>
-        <form name="form-register" action="admin-game-register" method="post">
+        <form name="form-register" id="form-register" action="admin-game-register-form" method="post">
             <ul id="ul-regi">
                 <li>
                     <p name="p-regi">제목</p>
-                    <input type="text" id="name" placeholder="40자 이내로 입력해주세요.">
+                    <input type="text" id="name" name="name" placeholder="40자 이내로 입력해주세요.">
                 </li>
                 <li>
                     <p name="p-regi">회사명</p>
-                    <input type="text" id="c_id">
+                    <input type="text" id="company" name="company" disabled>
+                    <input type="text" id="cId" name="cId" style="display: none">
                     <button type="button" id="btn-fk">찾기</button>
                 </li>
                 <li>
                     <p name="p-regi">장르</p>
-                    <select id="select-genre">
+                    <select id="genre" name="genre">
+                        <option value="default">선택</option>
                         <option value="horror">공포</option>
                         <option value="rpg">RPG</option>
-                        <option value="tycoon">rur</option>
+                        <option value="tycoon"> 타이쿤</option>
                         <option value="action">액션</option>
                         <option value="fps">FPS</option>
                         <option value="etc">기타</option>
@@ -60,16 +82,17 @@
                 </li>
                 <li>
                     <p name="p-regi">사진 업로드</p>
-                    <input id="img-path" placeholder="사진 업로드" disabled>
+                    <input id="path" name="imagePath" style="display: none">
+                    <input id="imagePath" placeholder="사진 업로드 - .jpg, .png만 가능" disabled>
                     <label for="upload-file" id="label-file">파일찾기</label>
-                    <input type="file" name="file" id="upload-file" accept="image/*">
+                    <input type="file" name="file" id="upload-file">
                 </li>
                 <li id="li-desciption">
                     <p name="p-regi" id="p-desc">상세 설명</p>
                     <textarea name="description" cols="70" rows="10" id="description"></textarea>
                 </li>
                 <li id="li-btn-register">
-                    <button type="button" id="btn-register">수정</button>
+                    <button type="button" id="btn-register">등록</button>
                 </li>
             </ul>
         </form>
@@ -91,7 +114,8 @@
                         <!-- ul : Ajax -->
                         <ul id="ul-company-list">
                             <li th:each="company : ${companyList}">
-                                <button type="button" name="company-list" th:value="${company.name}" th:id="${company.companyId}"></button>
+                                <button type="button" name="company-list" th:value="${company.name}"
+                                        th:id="${company.companyId}" th:text="${company.name}"></button>
                             </li>
                         </ul>
 

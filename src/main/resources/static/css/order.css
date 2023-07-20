@@ -72,7 +72,7 @@ select:focus, select:hover, select:default {
     outline: none;
 }
 
-#select-genre {
+#genre {
     width: 120px;
     height: 40px;
     padding: 0px;
@@ -173,7 +173,7 @@ select:focus, select:hover, select:default {
 }
 
 #btn-cart, #btn-order, #btn-main, #btn-list, #btn-method, #btn-modal, #btn-goCart, #btn-register,
-#btn-delete-member, #btn-modal-close {
+#btn-delete-member, #btn-modal-close, #btn-update {
     padding: 12px 80px;
     border: none;
     border-radius: 3px;
@@ -185,7 +185,7 @@ select:focus, select:hover, select:default {
     cursor: pointer;
 }
 
-#btn-register,#btn-delete-member {
+#btn-register,#btn-delete-member, #btn-update {
     margin-top: 50px;
 }
 
@@ -226,7 +226,7 @@ input[name="checkOne"] {
     cursor: pointer;
 }
 
-input[name="chk-admin"] {
+input[name="chk-member"] {
     width: 16px;
     height: 16px;
     outline: none;
@@ -237,7 +237,7 @@ input[name="chk-admin"] {
     cursor: pointer;
 }
 
-input[name="chk-admin"]:checked {
+input[name="chk-member"]:checked {
     background: black;
 }
 
@@ -589,7 +589,7 @@ input[type="file"] {
     width: 700px;
 }
 
-#ul-regi input[type="text"], #img-path, #description, #company-name, #selected-company,
+#ul-regi input[type="text"], #imagePath, #description, #company-name, #selected-company,
 #ul-detail input[type="text"] {
     border: 1px solid #DDDDDD;
     border-radius: 5px;

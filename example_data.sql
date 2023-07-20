@@ -19,20 +19,22 @@ VALUES('choi', '123', '최길동', 'choi@naver.com', '청주시 상당구', 'SKT
 INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES('song', '123', '송길동', 'song@naver.com', '대전', 'SKT', '010-7700-2222');
 INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
-VALUES('joen', '123', '전길동', 'jeon@naver.com', '부산', 'SKT', '010-7700-2222');
+VALUES('jeon', '123', '전길동', 'jeon@naver.com', '부산', 'SKT', '010-7700-2222');
 INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES('min', '123', '민길동', 'min@naver.com', '속초', 'SKT', '010-7700-2222');
 INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES('son', '123', '손길동', 'son@naver.com', '대구', 'SKT', '010-7700-2222');
+INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
+VALUES('DeletedMember', '123', '탈퇴회원정보저장', 'email', 'addr', 'ted', 'phone_num');
 
 
 -- 게임 등록
 INSERT INTO TB_GAME (NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
-VALUES('디 엑시트 이터널 매터스 ', '../images/img-game-deexit4.jpg', '액션 어드벤처', 1,'죽음을 넘어선 생명을 느끼다');
+VALUES('디 엑시트 이터널 매터스 ', '../images/img-game-deexit4.jpg', '액션', 1,'죽음을 넘어선 생명을 느끼다');
 INSERT INTO TB_GAME (NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
 VALUES('스트리트 파이터 6 디럭스', '../images/img-game-street2.jpg', '격투', 1,'시리즈 최신작 『Street Fighter 6(스트리트 파이터 6)』');
 INSERT INTO TB_GAME (NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
-VALUES('뱀파이어: 마스커레이드', '../images/img-game-vampire2.jpg', '액션 어드벤처', 1,'월드 오브 다크니스에 오신 것을 환영합니다');
+VALUES('뱀파이어: 마스커레이드', '../images/img-game-vampire2.jpg', '액션', 1,'월드 오브 다크니스에 오신 것을 환영합니다');
 INSERT INTO TB_GAME (NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
 VALUES('더 라스트 오브 어스 파트 1', '../images/img-game-last1.jpg', '액션', 1,'살기 위해 오늘도 길을 나선다 탐험 액션');
 
@@ -60,17 +62,19 @@ INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES ('money', '123', '연봉높은게임회사', 'money@gmail.com', '판교', 'SKT', '010-7777-8888');
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES ('work', '123', '야근맨날해', 'work@gmail.com', '판교', 'SKT', '010-7777-8888');
+INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
+VALUES ('DeletedCompany', '123', '탈퇴한법인회원', 'email', 'addr', 'tel', 'phone_num');
 
 -- mtest 장바구니 설정
 SELECT *FROM TB_ORDER;
-INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT)
-VALUES(9871, 'mtest', 'test', 1, 10000);
-INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT)
-VALUES(9872, 'mtest', 'stest', 2, 30000);
-INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT)
-VALUES(9873, 'mtest', 'dtest', 3, 50000);
-INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT)
-VALUES(9874, 'mtest', 'ftest', 4, 100000);
+INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT)
+VALUES ('mtest', 'test', 1, 10000);
+INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT)
+VALUES('mtest', 'nexon', 2, 30000);
+INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT)
+VALUES('mtest', 'net', 3, 50000);
+INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT)
+VALUES('mtest', 'smilegate', 4, 100000);
 
 -- mtest 결제내역 설정
 DELETE FROM TB_ORDER;
@@ -90,6 +94,14 @@ INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
 VALUES(7, 'mtest', 'net', 3, 50000, 'COMPLETE', '2023-06-01');
 INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
 VALUES(8, 'mtest', 'test', 1, 20000, 'COMPLETE', '2023-06-18');
+INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
+VALUES('mtest', 'test', 1, 30000, 'COMPLETE', '2023-03-01');
+INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
+VALUES('mtest', 'net', 3, 100000, 'COMPLETE', '2023-04-10');
+INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
+VALUES('mtest', 'net', 3, 50000, 'COMPLETE', '2023-06-16');
+INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
+VALUES('mtest', 'test', 1, 10000, 'COMPLETE', '2023-06-21');
 
 
 -- 게임사 후원내역 설정 : test

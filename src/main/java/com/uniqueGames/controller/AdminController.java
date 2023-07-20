@@ -4,13 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uniqueGames.fileutil.AdminUtil;
-import com.uniqueGames.fileutil.PaymentUtil;
 import com.uniqueGames.model.*;
 import com.uniqueGames.service.*;
+import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -29,8 +31,6 @@ public class AdminController {
     private OrderService orderService;
     @Autowired
     private AdminUtil adminUtil;
-    @Autowired
-    private PaymentUtil paymentUtil;
 
     // ADMIN - INDEX
     @RequestMapping(value = "/admin")
@@ -58,7 +58,7 @@ public class AdminController {
             } else {
                 jObj.addProperty("nothing", false);
                 jObj.addProperty("nameField", "이름");
-                jObj.addProperty("str", "전체 개인 회원 : " + memberService.totRowCount() + "명");
+                jObj.addProperty("str", "전체 개인 회원 : " + pageMap.get("dbCount") + "명");
 
                 for (Member member : list) {
                     JsonObject obj = new JsonObject();
@@ -73,14 +73,14 @@ public class AdminController {
             if (arr[0].equals("id")) {
                 arr[0] = "COMPANY_ID";
             }
-            ArrayList<Company> list = companyMemberService.aGetMemberList(arr[0], arr[1], (int)pageMap.get("startCount"), (int)pageMap.get("endCount"));
+            ArrayList<Company> list = companyMemberService.aGetMemberList(arr[0], arr[1], (int) pageMap.get("startCount"), (int) pageMap.get("endCount"));
 
             if (list.size() == 0) {
                 jObj.addProperty("nothing", true);
             } else {
                 jObj.addProperty("nothing", false);
                 jObj.addProperty("nameField", "회사명");
-                jObj.addProperty("str", "전체 법인 회원 : " + memberService.totRowCount() + "명");
+                jObj.addProperty("str", "전체 법인 회원 : " + pageMap.get("dbCount") + "명");
 
                 for (Company member : list) {
                     JsonObject obj = new JsonObject();
@@ -102,6 +102,41 @@ public class AdminController {
 
         return new Gson().toJson(jObj);
     }
+
+    @RequestMapping(value = "/admin-delete-member", produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String admin_delete_member(String mid, String type) {
+        if (type.equals("member")) {
+            if (memberService.aDeleteMember(mid) == 0) {
+                return "failed";
+            }
+        } else {
+            if (companyMemberService.aDeleteMember(mid) == 0) {
+                return "failed";
+            }
+        }
+        return "complete";
+    }
+
+    @RequestMapping(value = "/admin-delete-members", produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String admin_delete_members(@RequestParam(value = "midList[]") java.util.List<String> midList, String type) {
+        if (type.equals("member")) {
+            for (String mid : midList) {
+                if (memberService.aDeleteMember(mid) == 0) {
+                    return "failed";
+                }
+            }
+        } else {
+            for (String mid : midList) {
+                if (companyMemberService.aDeleteMember(mid) == 0) {
+                    return "failed";
+                }
+            }
+        }
+        return "complete";
+    }
+
 
     @RequestMapping(value = "/admin-game-list")
     public String admin_game_list() {
@@ -153,6 +188,28 @@ public class AdminController {
         ArrayList<Company> cList = companyMemberService.aGetAllCompanyList();
 
         model.addAttribute("companyList", cList);
+        model.addAttribute("result", "none");
+        model.addAttribute("modalDisplay", "none");
+        return "admin/admin-game-register";
+    }
+
+    @RequestMapping(value = "/admin-game-register-form")
+    public String admin_game_register_form(Model model, String name, String cId, String genre, String imagePath, String description) {
+        if (companyMemberService.aGetGameRegistered(cId) == 0) {
+            // register
+            if (gameService.aRegisterGame(name, genre, imagePath, description) != 0) {
+                if (companyMemberService.aSetGid(gameService.aGetGid(name), cId) != 0) {
+                    model.addAttribute("result", "register_complete");
+                } else {
+                    gameService.aDeleteGame(gameService.aGetGid(name));
+                    model.addAttribute("result", "register_gid_error");
+                }
+            } else {
+                model.addAttribute("result", "register_failed");
+            }
+        } else {
+            model.addAttribute("result", "registered");
+        }
         model.addAttribute("modalDisplay", "none");
         return "admin/admin-game-register";
     }
@@ -197,18 +254,19 @@ public class AdminController {
 
     @RequestMapping(value = "/admin-donation-data", produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String admin_donation_data(String year, String month, String array, String page) {
+    public String admin_donation_data(String array, String page) {
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
         String[] arr = adminUtil.splitString(array);
 
         Map<String, String> param = new HashMap<>();
         param.put("page", page);
-        param.put("year", year);
-        param.put("month", month);
         param.put("type", "donation");
-        Map<String, Integer> pageMap = paymentUtil.getPagination(param);
+        Map<String, Integer> pageMap = adminUtil.getPagination(page, "list", "admin_donation");
 
+        if (arr[0].equals("name")) {
+            arr[0] = "COMPANY";
+        }
         ArrayList<Payment> list = orderService.aGetDonationList(arr[0], arr[1], pageMap.get("startCount"), pageMap.get("endCount"));
 
         if (list.size() == 0) {
@@ -276,12 +334,37 @@ public class AdminController {
         model.addAttribute("id", game.getId());
         model.addAttribute("title", game.getName());
         model.addAttribute("company", company.getName());
+        model.addAttribute("cid", company.getCompanyId());
         model.addAttribute("genre", game.getGameGenre());
         model.addAttribute("img", game.getImagePath());
         model.addAttribute("desciption", game.getDescription());
         model.addAttribute("url", url);
         model.addAttribute("companyList", cList);
+        model.addAttribute("result", "none");
 
+        return "admin/admin-update-game";
+    }
+
+    @RequestMapping(value = "/admin-game-update-form")
+    public String admin_game_update_form(Model model, String name, String newname, String oldcid, String cId, String genre, String imagePath, String description) {
+        int gid = gameService.aGetGid(name);
+
+        if (!oldcid.equals(cId)) {
+            if (companyMemberService.aDeleteGid(oldcid) == 0) {
+                model.addAttribute("result", "update_gid_error");
+                return "admin/admin-update-game";
+            }
+        }
+        if (companyMemberService.aSetGid(gid, cId) != 0) {
+            if (gameService.aUpdateGame(newname, genre, imagePath, description, gid) != 0) {
+                model.addAttribute("result", "update_complete");
+            } else {
+                model.addAttribute("result", "update_failed");
+            }
+        } else {
+            model.addAttribute("result", "update_failed");
+        }
+        model.addAttribute("modalDisplay", "none");
         return "admin/admin-update-game";
     }
 }
