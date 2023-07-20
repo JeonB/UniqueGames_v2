@@ -75,4 +75,7 @@ public interface CompanyMapper {
 
     @Delete("UPDATE TB_COMPANY SET G_ID = NULL WHERE COMPANY_ID = #{cid}")
     int aDeleteGid(String cid);
+
+    @Delete("DELETE FROM TB_COMPANY WHERE COMPANY_ID = #{mid}")
+    int aDeleteMember(String mid);
 }

@@ -226,7 +226,7 @@ input[name="checkOne"] {
     cursor: pointer;
 }
 
-input[name="chk-admin"] {
+input[name="chk-member"] {
     width: 16px;
     height: 16px;
     outline: none;
@@ -237,7 +237,7 @@ input[name="chk-admin"] {
     cursor: pointer;
 }
 
-input[name="chk-admin"]:checked {
+input[name="chk-member"]:checked {
     background: black;
 }
 

@@ -48,16 +48,17 @@ public class AdminUtil {
 
         if (keyword.equals("list") && type.equals("member")) {
             dbCount = memberService.totRowCount();
-        } else if (type.equals("member")) {
-            dbCount = memberService.totRowCountSearch(keyword);
         } else if (keyword.equals("list") && type.equals("company")) {
             dbCount = companyMemberService.totRowCount();
-        } else if (type.equals("company")) {
-            dbCount = companyMemberService.totRowCountSearch(keyword);
         } else if (keyword.equals("list") && type.equals("game")) {
             dbCount = gameService.totRowCount();
-        } else {
-            dbCount = gameService.totRowCountSearch(keyword);
+        } else if (type.equals("member_payment")) {
+            dbCount = orderService.totRowCountMember(keyword);
+        } else if (type.equals("company_payment")) {
+            dbCount = orderService.totRowCountCompany(keyword);
+        } else if (type.equals("admin_donation")) {
+            pageSize = 8;
+            dbCount = orderService.totRowCountAdmin();
         }
 
 

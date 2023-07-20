@@ -125,4 +125,8 @@ public class CompanyMemberService2 {
     public int aDeleteGid(String cid) {
         return companyMapper.aDeleteGid(cid);
     }
+
+    public int aDeleteMember(String mid) {
+        return companyMapper.aDeleteMember(mid);
+    }
 }

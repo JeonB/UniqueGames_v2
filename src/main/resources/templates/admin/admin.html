@@ -45,12 +45,12 @@
 
                             for (let member of returnData.memberList) {
                                 output += '<tr>';
-                                output += '<td><input type="checkbox" name="chk-admin" id="' + member.id + '"></td>';
+                                output += '<td><input type="checkbox" name="chk-member" value="' + member.id + '"></td>';
                                 output += '<td>' + member.id + '</td>';
                                 output += '<td>' + member.name + '</td>';
                                 output += '<td> <a href="/admin-detail-member?id=' + member.id + '&type=' + returnData.mType + '"> ';
                                 output += '<button type="button" id="btn-member-detail">자세히 보기</button> </a> ';
-                                output += '<a href="/payment-detail' + member.id + '"> <button type="button" id="btn-member-payment" value="' + member.id + '">결제 내역</button> </a> </td> </tr>';
+                                output += ' </td> </tr>';
                             }
                             output += '<tr> <td colspan="5"> <div id="ampaginationsm"></div> </td> </tr>';
                             output += '</table> </div>';

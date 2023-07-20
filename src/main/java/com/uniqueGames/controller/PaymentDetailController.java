@@ -7,7 +7,6 @@ import com.google.gson.JsonObject;
 
 import com.uniqueGames.config.Login;
 import com.uniqueGames.fileutil.AdminUtil;
-import com.uniqueGames.fileutil.PaymentUtil;
 import com.uniqueGames.model.*;
 
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import com.uniqueGames.service.GameService;
 import com.uniqueGames.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,7 +28,7 @@ public class PaymentDetailController {
     @Autowired
     OrderService orderService;
     @Autowired
-    PaymentUtil paymentUtil;
+    AdminUtil adminUtil;
     @Autowired
     GameService gameService;
 
@@ -46,10 +44,7 @@ public class PaymentDetailController {
         String[] arr = orderService.splitString(array);
 
         Map<String, String> param = new HashMap<>();
-        param.put("page", page);
-        param.put("id", mId);
-        param.put("type", type);
-        Map<String, Integer> pageMap = paymentUtil.getPagination(param);
+        Map<String, Integer> pageMap = adminUtil.getPagination(page, mId, "member_payment");
 
         JsonObject jObj = new JsonObject();
         JsonArray jarray = new JsonArray();
@@ -103,7 +98,7 @@ public class PaymentDetailController {
         param.put("page", page);
         param.put("id", cId);
         param.put("type", type);
-        Map<String, Integer> pageMap = paymentUtil.getPagination(param);
+        Map<String, Integer> pageMap = adminUtil.getPagination(page, cId, "company_payment");
 
         JsonObject jObj = new JsonObject();
         JsonArray jarray = new JsonArray();

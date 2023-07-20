@@ -4,13 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.uniqueGames.fileutil.AdminUtil;
-import com.uniqueGames.fileutil.PaymentUtil;
 import com.uniqueGames.model.*;
 import com.uniqueGames.service.*;
+import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -29,8 +31,6 @@ public class AdminController {
     private OrderService orderService;
     @Autowired
     private AdminUtil adminUtil;
-    @Autowired
-    private PaymentUtil paymentUtil;
 
     // ADMIN - INDEX
     @RequestMapping(value = "/admin")
@@ -58,7 +58,7 @@ public class AdminController {
             } else {
                 jObj.addProperty("nothing", false);
                 jObj.addProperty("nameField", "이름");
-                jObj.addProperty("str", "전체 개인 회원 : " + memberService.totRowCount() + "명");
+                jObj.addProperty("str", "전체 개인 회원 : " + pageMap.get("dbCount") + "명");
 
                 for (Member member : list) {
                     JsonObject obj = new JsonObject();
@@ -80,7 +80,7 @@ public class AdminController {
             } else {
                 jObj.addProperty("nothing", false);
                 jObj.addProperty("nameField", "회사명");
-                jObj.addProperty("str", "전체 법인 회원 : " + memberService.totRowCount() + "명");
+                jObj.addProperty("str", "전체 법인 회원 : " + pageMap.get("dbCount") + "명");
 
                 for (Company member : list) {
                     JsonObject obj = new JsonObject();
@@ -102,6 +102,41 @@ public class AdminController {
 
         return new Gson().toJson(jObj);
     }
+
+    @RequestMapping(value = "/admin-delete-member", produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String admin_delete_member(String mid, String type) {
+        if (type.equals("member")) {
+            if (memberService.aDeleteMember(mid) == 0) {
+                return "failed";
+            }
+        } else {
+            if (companyMemberService.aDeleteMember(mid) == 0) {
+                return "failed";
+            }
+        }
+        return "complete";
+    }
+
+    @RequestMapping(value = "/admin-delete-members", produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String admin_delete_members(@RequestParam(value = "midList[]") java.util.List<String> midList, String type) {
+        if (type.equals("member")) {
+            for (String mid : midList) {
+                if (memberService.aDeleteMember(mid) == 0) {
+                    return "failed";
+                }
+            }
+        } else {
+            for (String mid : midList) {
+                if (companyMemberService.aDeleteMember(mid) == 0) {
+                    return "failed";
+                }
+            }
+        }
+        return "complete";
+    }
+
 
     @RequestMapping(value = "/admin-game-list")
     public String admin_game_list() {
@@ -227,7 +262,7 @@ public class AdminController {
         Map<String, String> param = new HashMap<>();
         param.put("page", page);
         param.put("type", "donation");
-        Map<String, Integer> pageMap = paymentUtil.getPagination(param);
+        Map<String, Integer> pageMap = adminUtil.getPagination(page, "list", "admin_donation");
 
         if (arr[0].equals("name")) {
             arr[0] = "COMPANY";

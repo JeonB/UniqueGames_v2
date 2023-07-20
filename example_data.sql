@@ -19,11 +19,13 @@ VALUES('choi', '123', '최길동', 'choi@naver.com', '청주시 상당구', 'SKT
 INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES('song', '123', '송길동', 'song@naver.com', '대전', 'SKT', '010-7700-2222');
 INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
-VALUES('joen', '123', '전길동', 'jeon@naver.com', '부산', 'SKT', '010-7700-2222');
+VALUES('jeon', '123', '전길동', 'jeon@naver.com', '부산', 'SKT', '010-7700-2222');
 INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES('min', '123', '민길동', 'min@naver.com', '속초', 'SKT', '010-7700-2222');
 INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES('son', '123', '손길동', 'son@naver.com', '대구', 'SKT', '010-7700-2222');
+INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
+VALUES('DeletedMember', '123', '탈퇴회원정보저장', 'email', 'addr', 'ted', 'phone_num');
 
 
 -- 게임 등록
@@ -60,6 +62,8 @@ INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES ('money', '123', '연봉높은게임회사', 'money@gmail.com', '판교', 'SKT', '010-7777-8888');
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES ('work', '123', '야근맨날해', 'work@gmail.com', '판교', 'SKT', '010-7777-8888');
+INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
+VALUES ('DeletedCompany', '123', '탈퇴한법인회원', 'email', 'addr', 'tel', 'phone_num');
 
 -- mtest 장바구니 설정
 SELECT *FROM TB_ORDER;
