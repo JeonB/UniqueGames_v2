@@ -1,5 +1,6 @@
 package com.uniqueGames.controller;
 
+import com.uniqueGames.config.Login;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.model.SessionConstants;
@@ -89,14 +90,9 @@ public class MyPageController {
 
     @PostMapping("memberupdate")
     public String memberUpdate(HttpSession session, Member member) {
-        String oldFileName = member.getProfileImg();
-        System.out.println("원래 파일 이름 = " + oldFileName);
         int result = memberService.update(member);
 
         if(result == 1) {
-            if(oldFileName != null) {
-                memberService.fileDelete(oldFileName);
-            }
             session.setAttribute("login", "member");
             System.out.println("마이페이지 수정 완료");
         }else {

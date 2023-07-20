@@ -1,5 +1,6 @@
 package com.uniqueGames.controller;
 
+import com.uniqueGames.config.Login;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.model.SessionConstants;
@@ -132,11 +133,19 @@ public class CheckRestController {
     }
 
     @PostMapping("profileupload")
-    public String profileUpload(MultipartFile image) {
-
+    public String profileUpload(@Login Member member, MultipartFile image) {
+        String oldFile = member.getProfileImg();
         String result = memberService.fileCheck(image);
-        memberService.fileSave();
+        member.setProfileImg(result);
+        int result1 = memberService.update(member);
 
+        if(result1 == 1) {
+            if(!member.getProfileImg().isEmpty()){
+                memberService.fileSave();
+                memberService.fileDelete(oldFile);
+            }
+
+        }
         return result;
     }
 

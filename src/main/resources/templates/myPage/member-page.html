@@ -20,6 +20,9 @@
       const mypageAddr1 = [[${member.addr1}]];
       const mypageAddr2 = [[${member.addr2}]];
 
+
+
+
       $("input[name='email'], input[name='phoneNum'], input[name='addr1'], input[name='addr2']").keyup(function(){
 
         if($("input[name='email']").val() == mypageEmail && $("input[name='phoneNum']").val() == mypagePhoneNum
@@ -53,10 +56,10 @@
 <section class="content-mypage">
   <div class="sidebar">
     <ul>
-      <li class="mypage-profile" th:if="${member.profileImg} == null">
+      <li th:if="${member.profileImg == null} or ${member.profileImg == ''}" class="mypage-profile">
         <img src="/images/mypage-profile.png" class="profile-picture">
       </li>
-      <li th:unless="${member.profileImg} == null">
+      <li th:unless="${member.profileImg == null} or ${member.profileImg == ''}">
         <img th:src="@{/upload/{a}(a=${member.profileImg})}" class="profile-picture-1">
       </li>
       <li class="mypage-profile-setting">
@@ -64,6 +67,9 @@
           <img src="/images/mypage-profile-setting.png" style="cursor: pointer;">
         </label>
         <input type="file" name="profile-img" id="profile-picture-img" style="display: none;">
+      </li>
+      <li>
+        <nav id="cancelProfile"></nav>
       </li>
       <li class="mypage-info" th:text="${member?.name}"></li>
       <li class="mypage-info" id="mypage-id" th:text="${member?.memberId}"></li>
@@ -76,7 +82,7 @@
   <form action="memberupdate" name="myPageForm" method="post" class="deleteForm">
     <p class="intro-4">개인정보 수정</p>
     <input type="hidden" name="memberId" th:value="${member?.memberId}">
-    <input type="hidden" name="profileImg">
+    <input type="hidden" name="profileImg" th:value="${member?.profileImg}">
     <div class="div-update">
       <ul>
         <li class="mypage-insert">

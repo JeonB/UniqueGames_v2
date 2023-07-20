@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Unique Games</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" th:href="@{/css/order.css}">
+  <link rel="stylesheet" th:href="@{/css/am-pagination.css}">
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+  <script src="js/am-pagination.js"></script>
+  <script th:inline="javascript">
+    $(document).ready(function () {
+      getPage("member", 1);
+
+      function getPage(type, page) {
+        let array = $("#select-order").val();
+
+        $.ajax({
+          url: "payment-detail-data",
+          data: {
+            array: array,
+            type: type,
+            page: page
+          },
+          success: function (result) {
+            let jdata = JSON.parse(result);
+            let output = "";
+
+            if (jdata.nothing) {
+              output += "<div id='div-nothing'>";
+              output += "<p id='p-nothing'>결제내역이 없습니다.</p>";
+              output += "</div>";
+              output += "<div id='div-button'>";
+              output += "<a th:href='/'>";
+              output += "<button type='button' id='btn-main'>메인으로</button></a>";
+              output += "</div>";
+
+              $("#div-nothing").remove();
+              $("#div-button").remove();
+            } else {
+              output += '<table id="table-payment">';
+              output += '<tr><th>번호</th><th>날짜</th>';
+              output += '<th>상품명</th><th>가격</th>';
+              output += '</tr>';
+
+              for (let payment of jdata.paymentList) {
+                output += "<tr>";
+                output += "<td>" + payment.rno + "</td>";
+                output += "<td>" + payment.date + "</td>";
+                output += "<td>" + payment.title + "</td>";
+                output += "<td>" + payment.amount + "</td>";
+                output += "</tr>";
+              }
+              output += '<tr> <td colspan="5"> <div id="ampaginationsm"></div> </td> </tr>';
+              output += '</table>';
+              output += '<div id="div-price">';
+              output += '<table id="cart-price">';
+              output += '<tr><th>개수</th><th>총 금액</th></tr>';
+              output += '<tr>';
+              output += "<td>" + jdata.totalCount + "</td>";
+              output += "<td>" + jdata.totalAmount + "</td>";
+              output += '</tr></table></div>';
+              output += '<div id="div-margin">';
+            }
+
+
+            $("#table-payment").remove();
+            $("#div-price").remove();
+            $("#div-select").after(output);
+
+            //페이징 처리 함수 호출
+            pager(jdata.totals, jdata.maxSize, jdata.pageSize, jdata.page);
+
+            //페이지 번호 클릭 이벤트 처리
+            jQuery('#ampaginationsm').on('am.pagination.change', function (e) {
+              var type = $("#table-type").val();
+              jQuery('.showlabelsm').text('The selected page no: ' + e.page);
+
+              getPage(type, e.page);
+            });
+          }
+        }); // ajax
+      }// getPage()
+
+      $("#select-order").change(function () {
+        getPage("member", 1);
+      });
+
+      function pager(totals, maxSize, pageSize, page) {
+        //alert(totals+","+maxSize+","+pageSize+","+page);
+
+        var pager = jQuery('#ampaginationsm').pagination({
+
+          maxSize: maxSize,	    		// max page size
+          totals: totals,	// total pages
+          page: page,		// initial page
+          pageSize: pageSize,			// max number items per page
+
+          // custom labels
+          lastText: '&raquo;&raquo;',
+          firstText: '&laquo;&laquo;',
+          prevText: '&laquo;',
+          nextText: '&raquo;',
+
+          btnSize: 'lg'	// 'sm'  or 'lg'
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+<!-- header -->
+<div th:replace="~{/main/header :: headerFragment}"></div>
+
+<!-- content -->
+<section id="top-bg">
+  <div id="base-layer">
+    <div id="top-bg-textarea">
+      <p id="top-title">Payment Detail</p>
+      <p id="top-subtitle">#결제내역</p>
+    </div>
+  </div>
+</section>
+
+<h1>Payment Detail</h1>
+<input type="hidden" id="table-type" value="member">
+<section id="cart">
+  <div id="div-gameList">
+    <div id="div-select">
+      <select id="select-order">
+        <option value="orderdate_desc">최근 날짜순</option>
+        <option value="orderdate_asc">오래된 날짜순</option>
+        <option value="amount_desc">높은 후원금순</option>
+        <option value="amount_asc">낮은 후원금순</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<!-- footer -->
+<div th:replace="~{/main/footer::footerFragment}"></div>
+</body>
+</html>
