@@ -28,7 +28,8 @@
               <p th:text="${loop.count}"></p>
               <p class="cyber" th:text="${ranking.name}"></p>
               <p th:text="${ranking.description}"></p>
-              <button class="btn-readmore-topGame" type="button">자세히보기</button>
+              <a th:href="@{'detail/' + ${game.id}}">
+                <button class="btn-readmore-topGame" type="button">자세히보기</button></a>
             </div>
           </div>
         </div>
