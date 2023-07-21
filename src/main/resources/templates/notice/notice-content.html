@@ -7,22 +7,12 @@
     <link rel="stylesheet" href="/css/board.css">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script><!-- 마이크로소프트 jQuery-->
     <script src="/js/board.js"></script>
-    <th:block th:if="${result}">
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            let result = [[${result}]];
-            getResult(result);
-            /*]]>*/
-        </script>
-    </th:block>
-    <th:block th:if="${cmtresult}">
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            let result = '[[${cmtresult}]]';
-            getResultCmt(result);
-            /*]]>*/
-        </script>
-    </th:block>
+    <script th:inline="javascript" th:if="${result}">
+        getResult([[${result}]])
+    </script>
+    <script th:inline="javascript" th:if="${cmtresult}">
+        getResultCmt([[${cmtresult}]]);
+    </script>
 </head>
 
 <body>
@@ -69,12 +59,7 @@
             </tr>
             <tr>
                 <td colspan="6" style="border:none;">
-<!--                    <div class="details" th:utext="${notice.content}">-->
                     <div class="details" th:utext="${notice.content}">
-<!--                        <th:block th:if="${notice.uploadImg != null}">-->
-<!--                            <img th:src="@{/upload/{imageId}(imageId = ${notice.uploadImg})}" style="max-width:1024px;"/>-->
-<!--                            <br>-->
-<!--                        </th:block>-->
                     </div>
                 </td>
             </tr>
@@ -87,22 +72,22 @@
             <!-- Comment form-->
             <form id="comment-write" name="Comment">
                 <input type="hidden" name="postId" th:value="${notice.getId}">
-                <input type="hidden" th:id="member-id" name="memberId" th:if="${loginMember != null}"
+                <input type="hidden" th:id="member-id" name="mId" th:if="${loginMember != null}"
                        th:value="${#strings.contains(loginMember,'Member') ? loginMember.memberId : loginMember.companyId}"/>
-                <input type="hidden" th:id="member-id" name="memberId" th:unless="${loginMember != null}" value=""/>
+                <input type="hidden" th:id="member-id" name="mId" th:unless="${loginMember != null}" value=""/>
                 <textarea id="form-control" rows="3" name="commentContent"
                           placeholder="타인에게 불쾌함을 주는 댓글은 통보없이 삭제될 수 있습니다."></textarea>
                 <button type="button" class="btn-style" name="cmtWrite">등록</button>
             </form>
             <!-- Comment -->
-            <th:block th:each="c, count : ${commList}">
+            <th:block th:each="c : ${commList}">
                 <div id="comment" th:id="'comment' + ${c.id}" class="comment1">
                     <div id="user-name" th:text="${c.mId}"></div>
                     <div><span id="msg-date" th:text="${c.commentDate}"></span>
                         <th:block
                                 th:if="${loginMember != null and #strings.contains(loginMember,'Member')} and ${c.mId} == ${loginMember.memberId}">
                             <span id="cmtDelete" class="cmtDelete"
-                                  th:onclick="commentDelete(${c.id})">삭제</span>
+                                  th:onclick="'commentDelete(' + ${c.id} + ')'">삭제</span>
                         </th:block>
                     </div>
                     <span th:utext="${c.commentContent}"></span>

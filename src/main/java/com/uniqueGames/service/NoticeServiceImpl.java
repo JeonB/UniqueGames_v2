@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -72,11 +75,12 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
     @Override
     public int insert(Notice notice) {
         int insResult = noticeMapper.insertNotice(notice);
+
         if (notice.getUploadImg() != null) {
             String[] fileList = notice.getUploadImg().split(",");
-            for (String img :fileList) {
+            for (String img : fileList) {
                 notice.setUploadImg(img);
-                noticeMapper.insertFile(notice);
+                noticeMapper.insertImage(notice);
             }
         }
 
@@ -88,23 +92,53 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
      */
     @Override
     public int update(Notice notice) {
-        String[] fileResult = fileUpdate(notice, notice.getUploadImg());
-        notice.setUploadImg(fileResult[0]);
+        // 이미 저장되어있는 이미지 정보 배열
+        String[] dbImg = noticeMapper.getDbImage(notice.getId());
+        log.info("dbImg = " + dbImg);
+        log.info("new img = " + notice.getUploadImg());
 
         int result = noticeMapper.updateNotice(notice);
-        if (notice.getFile() != null && !notice.getFile().isEmpty()) {
+        if (result == 1) {
+            List<String> deleteList = null;
 
-            if (noticeMapper.fileCheck(notice) == 1) {
-                noticeMapper.updateFile(notice);
+            // 이미지가 있다면
+            if (notice.getUploadImg() != null) {
+                // db와 이름 비교후 삭제 리스트에 저장
+                deleteList = new ArrayList<>();
 
-            } else {
-                noticeMapper.updateUploadFile(notice);
+                for (String img : dbImg) {
+                    if (!notice.getUploadImg().contains(img)) {
+                        // db에 있는 이미지와 본문 이미지가 같은게 없으면
+                        deleteList.add(img);
+                    } else {
+                        // db에 있는 이미지와 본문 이미지가 같은게 있으면
+                        notice.setUploadImg(notice.getUploadImg().replaceAll(img, ""));
+                    }
+                }
+
+                // db에 저장
+                String[] fileList = notice.getUploadImg().split(",");
+                for (String img : fileList) {
+                    if (!img.equals("")) {
+                        notice.setUploadImg(img);
+                        noticeMapper.insertImage(notice);
+                    }
+                }
+
+            } else if (dbImg.length > 0) {
+                // 이미지가 없고 db에 저장된 이미지가 있으면 이미지 삭제
+                List dbImgList = Arrays.stream(dbImg).collect(Collectors.toList());
+                noticeMapper.deleteImage(dbImgList);
+                fileListDelete(dbImgList);
+            }
+
+            if (deleteList != null && deleteList.size() > 0) {
+                //본문에 없는 이미지 db에서 삭제
+                noticeMapper.deleteImage(deleteList);
+                fileListDelete(deleteList);
 
             }
 
-        } else if (!fileResult[1].equals("") && fileResult[1].equals("delete")) {
-
-            noticeMapper.deleteFile(notice);
         }
 
         return result;
@@ -116,7 +150,11 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
     @Override
     public int delete(String no, String imgDel) {
 
-        fileDelete(imgDel);
+        if (imgDel != null) {
+            String[] fileList = imgDel.split(",");
+            fileListDelete(Arrays.stream(fileList).collect(Collectors.toList()));
+        }
+
 
         return noticeMapper.deleteNotice(no);
     }
@@ -130,8 +168,8 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
     @Override
     public String deleteList(String[] list, Company company) {
         fileListDelete(noticeMapper.deleteListBefore(list));
-
         String result = "FAIL";
+
         int dbResult = noticeMapper.deleteList(list, company);
         if (dbResult == 1) {
             result = "SUCCESS";

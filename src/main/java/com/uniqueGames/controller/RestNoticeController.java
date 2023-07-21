@@ -57,7 +57,7 @@ public class RestNoticeController extends FileUploadUtil {
         return noticeService.deleteList(list, company);
     }
 
-    @PostMapping("/test")
+    @PostMapping("/imgUpload")
     public Map<String, Object> test(@RequestParam Map<String, Object> paramMap, MultipartRequest request) {
         String fileName = fileCheck(request.getFile("upload"));
         fileSave();

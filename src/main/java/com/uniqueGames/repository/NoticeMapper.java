@@ -17,9 +17,12 @@ import org.springframework.stereotype.Repository;
 public interface NoticeMapper {
     List<Notice> selectNotice(@Param("start") int startCount, @Param("end") int endCount);
 
-    Notice selectContent(String no);
+    List<Notice> searchList(@Param("keywordList") String[] keywordList, @Param("pageMap") Map pageMap,
+                            @Param("searchType") String searchType);
 
     int insertNotice(Notice notice);
+
+    Notice selectContent(String no);
 
     int updateNotice(Notice notice);
 
@@ -29,20 +32,14 @@ public interface NoticeMapper {
 
     int deleteList(@Param("list") String[] list, @Param("company") Company company);
 
-    List<Notice> searchList(@Param("keywordList") String[] keywordList, @Param("pageMap")Map pageMap,
-                            @Param("searchType") String searchType);
-
     void hitsCount(String no);
 
-    int insertFile(Notice notice);
+    int insertImage(Notice notice);
 
-    int updateFile(Notice notice);
+    @Select("SELECT UPLOAD_IMG FROM TB_NOTICE_IMAGE WHERE POST_ID = #{no}")
+    String[] getDbImage(int no);
 
-    int updateUploadFile(Notice notice);
-
-    int deleteFile(Notice notice);
-
-    int fileCheck(Notice notice);
+    int deleteImage(List<String> deleteImg);
 
     @Select("SELECT COUNT(*) FROM TB_NOTICE")
     int totRowCount();
