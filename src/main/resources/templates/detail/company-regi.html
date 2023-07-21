@@ -4,10 +4,8 @@
   <meta charset="UTF-8">
   <title>Unique Games</title>
   <link rel="stylesheet" th:href="@{/css/main.css}">
-  <link rel="stylesheet" th:href="@{/css/board.css}">
   <link rel="stylesheet" th:href="@{/css/company-regi.css}">
-  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-  <script src="/js/board.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
 <body>
@@ -23,41 +21,87 @@
 </section>
 <div id="content">
   <div id="board-write">
-    <div id="board-top-menu">
-      <p>Game_registration</p>
-      <div id="clearFix"></div>
-    </div>
-    <form  action="insertIntro" method="post" enctype="multipart/form-data">
-      <input style="visibility: hidden" type="text" name="cId" class="default-write" th:value="${company.companyId}">
-      <table>
-        <tr>
-          <th>회사 명</th>
-          <td><input type="text" name="name" class="default-write"  value="${company.name}" readonly></td>
-        </tr>
-        <tr>
-          <th>제목</th>
-          <td>
-            <input type="text" name="title" class="default-write" value="${intro.title}">
-          </td>
-        </tr>
-        <tr>
-          <th>소개 글</th>
-          <td><textarea type="text" name="content" cols="30" rows="5"
-                        class="default-write" th:value="${intro.content}"></textarea></td>
-        </tr>
-        <tr>
-          <th>업로드</th>>
-          <td><input type="file" name ="uploadFile" style="height: 30px;"/></td>
-        </tr>
-        <tr>
-          <td colspan="2" align="center"><input type="submit" style="height: 30px;" value="새글 등록"/></td>
-        </tr>
-      </table>
+<!--    <div id="board-top-menu">-->
+<!--      <p>Game_registration</p>-->
+<!--      <div id="clearFix"></div>-->
+<!--    </div>-->
+    <form  action="/insertIntro" method="post" enctype="multipart/form-data">
+<!--      <table>-->
+<!--        <tr>-->
+<!--          <th>회사 명</th>-->
+<!--          <td><input type="text" name="name" class="default-write"  th:value="${company?.name}" readonly></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <th>제목</th>-->
+<!--          <td>-->
+<!--            <input type="text" name="title" class="default-write" th:value="${intro?.title}">-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <th>소개 글</th>-->
+<!--          <td><textarea type="text" name="content" cols="30" rows="5"-->
+<!--                        class="default-write" th:value="${intro?.content}"></textarea></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <th>업로드</th>-->
+<!--          <td><input type="file" name ="uploadFile" style="height: 30px;"/></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td colspan="2" align="center"><button class="btn btn-primary rounded-pill px-3" type="submit">새글 등록</button></td>-->
+<!--        </tr>-->
+<!--      </table>-->
+      <div class="Frame3" style="width: 1100px; height: 612px; position: relative">
+        <div class="Board" style="left: 0px; top: 0px; position: absolute; color: #2B2B2B; font-size: 24px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">Game_registration</div>
+        <div class="485" style="width: 760px; height: 55px; left: 0px; top: 47px; position: absolute">
+          <div class="Vector" style="width: 760px; height: 55px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
+          <input class="Vector" type="text" name="name" th:value="${company?.name}" readonly style="width: 600px; height: 39px; left: 113px; top: 8.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid">
+          <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">회사명</div>
+          <!--    <div style="left: 129px; top: 18px; position: absolute; color: black; font-size: 14px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">이게 회사야? 하는 만큼 긴 이름을 쓴 회사는 없겠지만 그래도 혹시 몰라 씁니다 아몰랑~</div>-->
+        </div>
+        <div class="487" style="width: 760px; height: 55px; left: 0px; top: 102px; position: absolute">
+          <div class="Vector" style="width: 760px; height: 55px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
+          <input class="Vector" type="text" name="title" th:value="${intro?.title}" style="width: 600px; height: 39px; left: 113px; top: 8.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid">
+          <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">제목</div>
+          <!--    <div style="left: 129px; top: 18px; position: absolute; color: black; font-size: 14px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">제목은 길겠죠? 짧은게 기억안하고 좋은데 어짜피 길어도 왕눈처럼 줄일텐데 어쨌든 뭐~</div>-->
+        </div>
+        <div class="488" style="width: 760px; height: 55px; left: 0px; top: 457px; position: absolute">
+          <div class="Vector" style="width: 760px; height: 55px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
+          <div class="Vector" style="width: 600px; height: 40px; left: 113px; top: 8px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
+          <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">썸네일</div>
+          <!--    <div style="left: 221px; top: 21px; position: absolute; color: black; font-size: 13px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">선택된 파일 없음</div>-->
+
+          <input type="file" name ="uploadFile" style="width: 80px; height: 26px; left: 127px; top: 15px; position: absolute; background: #393939; border-radius: 5px">
+        </div>
+        <div class="486" style="width: 760px; height: 299px; left: 0px; top: 157px; position: absolute">
+          <div class="Vector" style="width: 760px; height: 299px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
+          <textarea class="Vector" placeholder=" 내용을 입력해주세요." type="text" name="content" th:value="${intro?.content}" style="width: 600px; height: 268px; left: 113px; top: 7.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></textarea>
+          <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">소개글</div>
+          <!--    <div style="left: 129px; top: 18px; position: absolute; color: #A9A9A9; font-size: 14px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">내용을 입력해주세요.</div>-->
+        </div>
+        <div class="469" style="width: 1100px; height: 2px; left: 0px; top: 46px; position: absolute; background: #393939"></div>
+        <div class="505" style="width: 760px; height: 2px; left: 0px; top: 455px; position: absolute; background: #393939"></div>
+        <div class="506" style="width: 1100px; height: 2px; left: 0px; top: 511px; position: absolute; background: #393939"></div>
+        <div class="Group24" style="width: 340px; height: 463px; left: 760px; top: 49px; position: absolute">
+          <div class="Vector" style="width: 340px; height: 463px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
+          <div class="Group23" style="width: 280px; height: 305px; left: 30px; top: 30px; position: absolute">
+            <div style="left: 0px; top: 180px; position: absolute; color: black; font-size: 18px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">제목은 길겠죠? 짧은게 기억안하고 좋<br/>은데 어짜피 길어도 왕눈처럼 줄일텐<br/>데 어쨌든 뭐~</div>
+            <div style="left: 0px; top: 260px; position: absolute; color: #A9A9A9; font-size: 14px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">대충 소개글이 작성되면 여기로 바로 보이는       신박한 CSS 좋아하시는거같아서 제가 이런       미리보기를 준비했습니다~ 하히히힣</div>
+            <img class="Rectangle50" style="width: 280px; height: 160px; left: 0px; top: 0px; position: absolute; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10)" src="https://via.placeholder.com/280x160" />
+          </div>
+        </div>
+        <div class="Group21" style="width: 300px; height: 60px; left: 200px; top: 552px; position: absolute">
+          <button class="526" style="width: 300px; height: 60px; left: 0px; top: 0px; position: absolute; background: linear-gradient(45deg, #682CAD 0%, #2FC0CC 100%); cursor: pointer"> <div style="left: 114px; top: 19px; position: absolute; color: white; font-size: 20px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">게임등록</div></button>
+
+        </div>
+      </div>
     </form>
   </div>
 </div>
 <!--footer-->
 <div th:replace="~{main/footer :: footerFragment}"></div>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+<script th:src="@{/js/board.js}"></script>
 </body>
 
 </html>
