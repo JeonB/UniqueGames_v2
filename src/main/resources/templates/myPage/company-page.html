@@ -63,7 +63,7 @@
       <li class="mypage-info" id="mypage-id" th:text="${company?.companyId}"></li>
       <li class="mUpdate" id="active"><a th:href="@{/mypage}">개인 정보</a></li>
       <li class="mUpdate1"><a th:href="@{/newpass}">비밀번호 재설정</a> </li>
-      <li class="mUpdate1"><a href="">후원금 정산내역</a></li>
+      <li class="mUpdate1"><a th:href="@{/mypagedonation}">후원금 정산내역</a></li>
       <li class="mUpdate1"><a th:href="@{/deleteaccount}">회원탈퇴</a></li>
     </ul>
   </div>

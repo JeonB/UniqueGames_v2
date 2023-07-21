@@ -109,7 +109,7 @@ public class OrderService {
         return orderMapper.getExpected(cId);
     }
 
-    int getTotalDonation(String cId) {
+    public int getTotalDonation(String cId) {
         return orderMapper.getTotalDonation(cId);
     }
 

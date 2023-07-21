@@ -65,20 +65,17 @@
 <section class="content-mypage">
   <div class="sidebar">
     <ul>
-      <li class="mypage-profile">
+      <li th:if="${member.profileImg == null} or ${member.profileImg == ''}" class="mypage-profile">
         <img src="/images/mypage-profile.png" class="profile-picture">
       </li>
-      <li class="mypage-profile-setting">
-        <label for="profile-picture-img">
-          <img src="/images/mypage-profile-setting.png" style="cursor: pointer;">
-        </label>
-        <input type="file" name="profile-img" id="profile-picture-img" style="display: none;">
+      <li th:unless="${member.profileImg == null} or ${member.profileImg == ''}">
+        <img th:src="@{/upload/{a}(a=${member.profileImg})}" class="profile-picture-1">
       </li>
-      <li class="mypage-info" th:text="${member?.name}"></li>
+      <li class="mypage-info" th:text="${member?.name}" id="mypage-info-1"></li>
       <li class="mypage-info" id="mypage-id" th:text="${member?.memberId}"></li>
       <li class="mUpdate"><a th:href="@{/mypage}">개인 정보</a></li>
       <li class="mUpdate1"><a th:href="@{/newpass}">비밀번호 재설정</a> </li>
-      <li class="mUpdate1"><a href="member-order">결제 내역</a></li>
+      <li class="mUpdate1"><a th:href="@{/mypagepayment}">결제 내역</a></li>
       <li class="mUpdate1" id="active"><a th:href="@{/deleteaccount}">회원탈퇴</a></li>
     </ul>
   </div>

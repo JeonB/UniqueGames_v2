@@ -5,6 +5,7 @@
   <title>Unique Games</title>
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/order.css}">
+  <link rel="stylesheet" th:href="@{/css/login.css}">
   <link rel="stylesheet" th:href="@{/css/am-pagination.css}">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
   <script src="js/am-pagination.js"></script>
@@ -29,10 +30,6 @@
             if (jdata.nothing) {
               output += "<div id='div-nothing'>";
               output += "<p id='p-nothing'>결제내역이 없습니다.</p>";
-              output += "</div>";
-              output += "<div id='div-button'>";
-              output += "<a th:href='/'>";
-              output += "<button type='button' id='btn-main'>메인으로</button></a>";
               output += "</div>";
 
               $("#div-nothing").remove();
@@ -121,20 +118,33 @@
     </div>
   </div>
 </section>
-
-<h1>Payment Detail</h1>
 <input type="hidden" id="table-type" value="member">
-<section id="cart">
-  <div id="div-gameList">
+<section class="content-mypage">
+    <div class="sidebar">
+      <ul>
+        <li th:if="${member.profileImg == null} or ${member.profileImg == ''}" class="mypage-profile">
+          <img src="/images/mypage-profile.png" class="profile-picture">
+        </li>
+        <li th:unless="${member.profileImg == null} or ${member.profileImg == ''}">
+          <img th:src="@{/upload/{a}(a=${member.profileImg})}" class="profile-picture-1">
+        </li>
+        <li class="mypage-info" th:text="${member?.name}" id="mypage-info-1"></li>
+        <li class="mypage-info" id="mypage-id" th:text="${member?.memberId}"></li>
+        <li class="mUpdate"><a th:href="@{/mypage}">개인 정보</a></li>
+        <li class="mUpdate1"><a th:href="@{/newpass}">비밀번호 재설정</a> </li>
+        <li class="mUpdate1" id="active"><a th:href="@{/mypagepayment}">결제 내역</a></li>
+        <li class="mUpdate1"><a th:href="@{/deleteaccount}">회원탈퇴</a></li>
+      </ul>
+    </div>
     <div id="div-select">
-      <select id="select-order">
+      <p class="intro-4">결제 내역</p>
+      <select id="select-order" class="select-payment">
         <option value="orderdate_desc">최근 날짜순</option>
         <option value="orderdate_asc">오래된 날짜순</option>
         <option value="amount_desc">높은 후원금순</option>
         <option value="amount_asc">낮은 후원금순</option>
       </select>
     </div>
-  </div>
 </section>
 
 <!-- footer -->

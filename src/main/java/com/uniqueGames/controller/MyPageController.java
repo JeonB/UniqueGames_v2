@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.SessionScope;
 
 @Controller
 public class MyPageController {
@@ -164,7 +163,17 @@ public class MyPageController {
         return viewName;
     }
 
+    @GetMapping("mypagepayment")
+    public String mypagePayment(@Login Member member, Model model) {
+        model.addAttribute("member", member);
+        return "myPage/member-payment";
+    }
 
+    @GetMapping("mypagedonation")
+    public String mypageDonation(@Login Company company, Model model) {
+        model.addAttribute("company", company);
+        return "myPage/company-donation";
+    }
 
 
 

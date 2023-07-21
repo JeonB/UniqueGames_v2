@@ -130,6 +130,7 @@ public class PaymentDetailController {
             jObj.addProperty("pageSize", pageMap.get("pageSize"));
             jObj.addProperty("maxSize", pageMap.get("maxSize"));
             jObj.addProperty("page", pageMap.get("reqPage"));
+            jObj.addProperty("totalAmount", orderService.formatCurrency(orderService.getTotalDonation(cId)) + "원");
         }
 
         return new Gson().toJson(jObj);
