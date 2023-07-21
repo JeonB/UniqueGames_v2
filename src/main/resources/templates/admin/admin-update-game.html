@@ -7,6 +7,25 @@
     <link rel="stylesheet" th:href="@{/css/order.css}">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <script src="js/admin-script.js"></script>
+    <script>
+        $(document).ready(function () {
+            var result = $("#result").val();
+
+            if (result == "update_complete") {
+                alert("게임이 성공적으로 수정되었습니다.");
+                window.location.href = "/admin-game-list";
+            } else if (result == "update_gid_delete") {
+                alert("등록 실패 : G_ID 삭제 오류");
+                window.location.href = "/admin-game-list";
+            } else if (result == "register_gid_error") {
+                alert("등록 실패 : G_ID 등록 오류");
+                window.location.href = "/admin-game-list";
+            } else if (result == "update_failed") {
+                alert("등록 실패 : 업데이트 오류");
+                window.location.href = "/admin-game-list";
+            }
+        });
+    </script>
 </head>
 <body>
 <!-- header -->
@@ -14,6 +33,7 @@
 
 <!-- content -->
 <input type="hidden" id="admin-type" value="a-gamelist">
+<input type="hidden" id="result" th:value="${result}">
 <section id="top-bg">
     <div id="base-layer">
         <div id="top-bg-textarea">
@@ -39,23 +59,27 @@
             <button id="btn-back"></button>
         </a>
         <p id="p-title">게임 정보 수정</p>
-        <form name="form-update" action="admin-game-update" method="post">
+        <form name="form-update" id="form-update" action="admin-game-update-form" method="post">
             <ul id="ul-regi">
                 <li>
                     <p name="p-regi">제목</p>
-                    <input type="text" id="name" placeholder="40자 이내로 입력해주세요." th:value="${title}">
+                    <input type="text" id="name" name="newname" placeholder="40자 이내로 입력해주세요." th:value="${title}">
+                    <input type="text" name="name" th:value="${title}" style="display: none">
                 </li>
                 <li>
                     <p name="p-regi">회사명</p>
                     <input type="text" id="company" th:value="${company}">
+                    <input type="text" id="cId" name="cId" style="display: none" th:value="${cid}">
+                    <input type="text" id="oldcid" name="oldcid" style="display: none" th:value="${cid}">
                     <button type="button" id="btn-fk">찾기</button>
                 </li>
                 <li>
                     <p name="p-regi">장르</p>
-                    <select id="select-genre" th:value="${genre}">
+                    <select id="genre" name="genre">
+                        <option value="default">선택</option>
                         <option value="horror">공포</option>
                         <option value="rpg">RPG</option>
-                        <option value="tycoon">rur</option>
+                        <option value="tycoon"> 타이쿤</option>
                         <option value="action">액션</option>
                         <option value="fps">FPS</option>
                         <option value="etc">기타</option>
@@ -63,9 +87,10 @@
                 </li>
                 <li>
                     <p name="p-regi">사진 업로드</p>
-                    <input id="img-path" placeholder="사진 업로드" th:value="${img}" disabled>
+                    <input id="path" name="imagePath" style="display: none" th:value="${img}">
+                    <input id="imagePath" placeholder="사진 업로드 - .jpg, .png만 가능" th:value="${img}" disabled>
                     <label for="upload-file" id="label-file">파일찾기</label>
-                    <input type="file" name="file" id="upload-file" accept="image/*">
+                    <input type="file" name="file" id="upload-file">
                 </li>
                 <li id="li-desciption">
                     <p name="p-regi" id="p-desc">상세 설명</p>
@@ -78,7 +103,7 @@
                     <button type="button" id="btn-url">이동</button>
                 </li>
                 <li id="li-btn-register">
-                    <button type="button" id="btn-register">수정</button>
+                    <button type="button" id="btn-update">수정</button>
                 </li>
             </ul>
         </form>
@@ -93,17 +118,17 @@
                 </div>
                 <div id="modal-content-company">
                     <div id="div-company-result">
-                        <input type="hidden" id="company-selected" value="none">
+                        <input type="hidden" id="company-selected-name" value="none">
+                        <input type="hidden" id="company-selected-id" value="none">
                         <div id="hidden"></div>
 
                         <!-- ul : Ajax -->
                         <ul id="ul-company-list">
                             <li th:each="company : ${companyList}">
                                 <button type="button" name="company-list" th:value="${company.name}"
-                                        th:text="${company.name}"></button>
+                                        th:id="${company.companyId}" th:text="${company.name}"></button>
                             </li>
                         </ul>
-
                     </div>
                 </div>
                 <button id="btn-modal">확인</button>

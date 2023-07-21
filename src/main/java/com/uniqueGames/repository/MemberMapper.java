@@ -51,4 +51,6 @@ public interface MemberMapper {
     @Select("SELECT COUNT(*) FROM TB_MEMBER WHERE NAME LIKE CONCAT('%', #{keyword}, '%')")
     int totRowCountSearch(String keyword);
 
+    @Delete("DELETE FROM TB_MEMBER WHERE MEMBER_ID = #{mid}")
+    int aDeleteMember(String mid);
 }

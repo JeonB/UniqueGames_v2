@@ -60,13 +60,13 @@ public interface IndexMapper {
     @Delete("DELETE TB_GAME WHERE ID=#{id}")
     void deleteGame(Game vo);
 
-    @Select("SELECT COUNT(*) FROM TB_LIKE where G_ID = #{gId} and MEMBER_ID = #{memberId}")
+    @Select("SELECT COUNT(*) FROM TB_LIKE where G_ID = #{gId} and M_ID = #{memberId}")
     int hasLiked(@Param("memberId") String memberId, @Param("gId") int gId);
 
-    @Update("INSERT INTO TB_LIKE (G_ID, MEMBER_ID) VALUE(#{gId},#{memberId})")
+    @Update("INSERT INTO TB_LIKE (G_ID, M_ID) VALUE(#{gId},#{memberId})")
     void addLikeInfo(@Param("memberId") String memberId, @Param("gId") int gId);
 
-    @Delete("DELETE FROM TB_LIKE WHERE MEMBER_ID = #{memberId} and G_ID = #{gId}")
+    @Delete("DELETE FROM TB_LIKE WHERE M_ID = #{memberId} and G_ID = #{gId}")
     void removeLikeInfo(@Param("memberId") String memberId, @Param("gId") int gId);
 
     @Select("SELECT * FROM tb_game where c_id = #{cId}")

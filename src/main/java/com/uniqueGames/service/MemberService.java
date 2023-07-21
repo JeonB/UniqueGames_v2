@@ -102,5 +102,7 @@ public class MemberService extends FileUploadUtil {
       return memberMapper.update(member);
     }
 
-
+    public int aDeleteMember(String mid) {
+        return memberMapper.aDeleteMember(mid);
+    }
 }

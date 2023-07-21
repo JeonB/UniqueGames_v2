@@ -1,9 +1,7 @@
 package com.uniqueGames.repository;
 
 import com.uniqueGames.model.Game;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +20,16 @@ public interface GameMapper {
 
     @Select("SELECT * FROM TB_GAME WHERE ID = #{id}")
     Game aGetGame(int id);
+
+    @Insert("INSERT INTO TB_GAME (NAME, IMAGE_PATH, GAME_GENRE, DESCRIPTION) VALUES (#{name}, #{imagePath}, #{genre}, #{description})")
+    int aRegisterGame(String name, String genre, String imagePath, String description);
+
+    @Select("SELECT ID FROM TB_GAME WHERE NAME = #{name}")
+    int aGetGid(String name);
+
+    @Delete("DELETE FROM TB_GAME WHERE ID = #{gid}")
+    int aDeleteGame(int gid);
+
+    @Update("UPDATE TB_GAME SET NAME = #{name}, GAME_GENRE = #{genre}, IMAGE_PATH = #{imagePath}, DESCRIPTION = #{description} WHERE ID = #{gid}")
+    int aUpdateGame(String name, String genre, String imagePath, String description, int gid);
 }

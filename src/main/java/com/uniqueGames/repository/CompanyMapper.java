@@ -43,7 +43,7 @@ public interface CompanyMapper {
     int update(Company company);
 
     // ADMIN
-    @Select("SELECT COMPANY_ID, NAME FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${order1} ${order2}) AS RNO, COMPANY_ID, NAME FROM TB_MEMBER) AS TB1 WHERE RNO BETWEEN ${start} AND ${end}")
+    @Select("SELECT RNO, COMPANY_ID, NAME FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${order1} ${order2}) AS RNO, COMPANY_ID, NAME FROM TB_COMPANY) AS TB1 WHERE RNO BETWEEN ${start} AND ${end}")
     List<Company> aGetMemberList(@Param("order1") String order1, @Param("order2") String order2, @Param("start") int start, @Param("end") int end);
 
     @Select("SELECT * FROM TB_COMPANY WHERE COMPANY_ID=#{id}")
@@ -66,4 +66,19 @@ public interface CompanyMapper {
 
     @Select("select b.name from tb_company a, tb_game b where a.g_id = b.id and company_id=#{companyId}")
     String gameName(String companyId);
+
+    @Select("SELECT COUNT(*) FROM TB_COMPANY WHERE COMPANY_ID = #{cId} AND G_ID IS NOT NULL")
+    int aGetGameRegistered(String cId);
+
+    @Update("UPDATE TB_COMPANY SET G_ID = #{gid} WHERE COMPANY_ID = #{cid}")
+    int aSetGid(int gid, String cid);
+
+    @Select("SELECT COUNT(*) FROM TB_COMPANY WHERE COMPANY_ID = #{cid} AND G_ID = #{gid}")
+    int aGetSameGame(int gid, String cid);
+
+    @Delete("UPDATE TB_COMPANY SET G_ID = NULL WHERE COMPANY_ID = #{cid}")
+    int aDeleteGid(String cid);
+
+    @Delete("DELETE FROM TB_COMPANY WHERE COMPANY_ID = #{mid}")
+    int aDeleteMember(String mid);
 }

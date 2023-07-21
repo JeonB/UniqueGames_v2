@@ -33,9 +33,8 @@ $(document).ready(function () {
 
     $("#btn-modal").click(function () {
         $("#modal-admin").css("display", "none");
-        if ($("#company-selected").val() != 'undefined') {
-            $("#c_id").val($("#company-selected-id").val());
-            $("#c_id").html($("#company-selected-name").val());
+        if ($("#company-selected-name").val() != 'undefined') {
+            $("#company").val($("#company-selected-name").val());
         }
     });
 
@@ -44,8 +43,11 @@ $(document).ready(function () {
         $("button[name='company-list']").css("background", "none").css("font-weight", "normal").css("color", "black");
         $(this).css("background", "linear-gradient(to right, #682CAD, #2FC0CC)").css("font-weight", "bold").css("color", "white");
 
-        $("#company-selected-id").val($(this).attr("id"));
-        $("#company-selected-name").val($(this).val());
+        var id = $(this).attr("id");
+        var name = $(this).text();
+
+        $("#cId").val(id);
+        $("#company-selected-name").val(name);
     });
 
     // modal - search company
@@ -92,4 +94,109 @@ $(document).ready(function () {
     $("#btn-back").click(function () {
         window.history.back();
     });
+
+    // file
+    $('#upload-file').on('change', function () {
+        let file = $("#upload-file")[0].files[0];
+        let fileName = "../images/" + file.name;
+
+        if (fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
+            $('#imagePath').val(fileName);
+            $('#path').val(fileName);
+        } else {
+            alert("이미지(jpg,png)만 선택 가능합니다.");
+            $('#upload-file').val(null);
+            $('#imagePath').val("");
+        }
+    });
+
+    // game-register
+    $("#btn-register").click(function () {
+        if ($("#name").val() == "") {
+            alert("게임 제목을 입력해주세요.");
+        } else if ($("#company").val() == "") {
+            alert("게임사를 선택해주세요.");
+        } else if ($("#genre").val() == "default") {
+            alert("장르를 선택해주세요.");
+        } else if ($("#imagePath").val() == "") {
+            alert("게임 이미지를 선택해주세요.");
+        } else if ($("#description").val() == "") {
+            alert("상세설명을 작성해주세요.");
+        } else {
+            $("#form-register").submit();
+        }
+    });
+
+    // game-update
+    $("#btn-update").click(function () {
+        if ($("#name").val() == "") {
+            alert("게임 제목을 입력해주세요.");
+        } else if ($("#company").val() == "") {
+            alert("게임사를 선택해주세요.");
+        } else if ($("#genre").val() == "default") {
+            alert("장르를 선택해주세요.");
+        } else if ($("#imagePath").val() == "") {
+            alert("게임 이미지를 선택해주세요.");
+        } else if ($("#description").val() == "") {
+            alert("상세설명을 작성해주세요.");
+        } else {
+            $("#form-update").submit();
+        }
+    });
+
+    // btn-member-delete
+    $("#btn-delete-member").click(function () {
+        var answer = confirm("정말로 해당 회원을 탈퇴시키겠습니까?");
+
+        if (answer) {
+            var mid = $(this).val();
+            var type = $("#member-type").val();
+
+            $.ajax({
+                url: "/admin-delete-member",
+                data: {mid: mid, type: type},
+                success: function (result) {
+                    if (result == "complete") {
+                        alert("해당 회원을 탈퇴시켰습니다.");
+                        window.location.href = "/admin";
+                    } else {
+                        alert("오류 발생");
+                    }
+                }
+            });
+        }
+    });
+
+    // btn-mslect-delete
+    $("#btn-mslect-delete").click(function () {
+        var midList = []; // 배열로 초기화
+
+        var type = $("#table-type").val();
+
+        $("input[name='chk-member']:checked").each(function (i) {
+            midList.push($(this).val());
+        });
+
+        if (midList.length == 0) {
+            alert("삭제할 항목을 선택해주세요.");
+        } else {
+            var answer = confirm("정말로 해당 회원을 탈퇴시키겠습니까?");
+
+            if (answer) {
+                $.ajax({
+                    url: "/admin-delete-members",
+                    data: { midList: midList, type: type },
+                    success: function (result) {
+                        if (result == "complete") {
+                            alert("해당 회원을 탈퇴시켰습니다.");
+                            window.location.href = "/admin";
+                        } else {
+                            alert("오류 발생");
+                        }
+                    }
+                });
+            }
+        }
+    });
+
 });
