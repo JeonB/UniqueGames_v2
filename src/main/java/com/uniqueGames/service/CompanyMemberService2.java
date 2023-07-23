@@ -1,16 +1,18 @@
 package com.uniqueGames.service;
 
+import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.repository.CompanyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CompanyMemberService2 {
+public class CompanyMemberService2 extends FileUploadUtil {
 
     @Autowired
     private CompanyMapper companyMapper;
@@ -132,5 +134,10 @@ public class CompanyMemberService2 {
 
     public int aDeleteMember(String mid) {
         return companyMapper.aDeleteMember(mid);
+    }
+
+    @Override
+    protected void extractFile(Object obj) {
+        super.setFile((MultipartFile) obj);
     }
 }

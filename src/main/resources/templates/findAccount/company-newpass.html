@@ -57,13 +57,13 @@
 <section class="content-mypage">
   <div class="sidebar">
     <ul>
-      <li class="mypage-profile">
+      <li th:if="${company.profileImg == null} or ${company.profileImg == ''}" class="mypage-profile">
         <img src="/images/mypage-profile.png" class="profile-picture">
       </li>
-      <li class="mypage-profile-setting">
-        <img src="/images/mypage-profile-setting.png">
+      <li th:unless="${company.profileImg == null} or ${company.profileImg == ''}">
+        <img th:src="@{/upload/{b}(b=${company.profileImg})}" class="profile-picture-1">
       </li>
-      <li class="mypage-info" th:text="${company?.name}"></li>
+      <li class="mypage-info" th:text="${company?.name}" id="mypage-info-1"></li>
       <li class="mypage-info" id="mypage-id" th:text="${company?.companyId}"></li>
       <li class="mUpdate"><a th:href="@{/mypage}">개인 정보</a></li>
       <li class="mUpdate1" id="active"><a th:href="@{/newpass}">비밀번호 재설정</a> </li>

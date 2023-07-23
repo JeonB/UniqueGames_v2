@@ -39,7 +39,7 @@ public interface CompanyMapper {
     @Delete("delete from TB_COMPANY where company_id=#{companyId} and password=#{password}")
     int cdelete(String companyId, String password);
 
-    @Update("update TB_COMPANY set email=#{email}, phone_num=#{phoneNum}, addr=#{addr} where company_id=#{companyId}")
+    @Update("update tb_company set profile_img = #{profileImg}, email = #{email}, addr = #{addr}, phone_num = #{phoneNum} where company_id = #{companyId}")
     int update(Company company);
 
     // ADMIN

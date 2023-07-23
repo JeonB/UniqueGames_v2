@@ -57,7 +57,7 @@
   <div class="sidebar">
     <ul>
       <li th:if="${member.profileImg == null} or ${member.profileImg == ''}" class="mypage-profile">
-        <img src="/images/mypage-profile.png" class="profile-picture">
+        <img src="/images/mypage-profile.png" class="profile-picture" id="test2">
       </li>
       <li th:unless="${member.profileImg == null} or ${member.profileImg == ''}">
         <img th:src="@{/upload/{a}(a=${member.profileImg})}" class="profile-picture-1">
@@ -67,6 +67,7 @@
           <img src="/images/mypage-profile-setting.png" style="cursor: pointer;">
         </label>
         <input type="file" name="profile-img" id="profile-picture-img" style="display: none;">
+        <input type="hidden" name="test" th:value="member">
       </li>
       <li>
         <nav id="cancelProfile"></nav>
