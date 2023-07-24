@@ -48,8 +48,8 @@ public class OrderService {
         return orderMapper.insertCart(order);
     }
 
-    public Order addToOrderVo(String m_id, String c_id, int g_id, int amount, String gametitle, String game_img) {
-        return new Order(m_id, c_id, g_id, amount, gametitle, game_img);
+    public Order addToOrderVo(String m_id, String c_id, int g_id, int amount) {
+        return new Order(m_id, c_id, g_id, amount);
     }
 
     // Order

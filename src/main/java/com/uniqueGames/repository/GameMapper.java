@@ -22,4 +22,16 @@ public interface GameMapper {
 
     @Select("SELECT * FROM TB_GAME WHERE ID = #{id}")
     Game aGetGame(int id);
+
+    @Select("SELECT * FROM TB_GAME WHERE ID=#{id}")
+    Game getGameForIndex(int id);
+
+    @Select("SELECT * FROM TB_GAME_IMAGE WHERE G_ID=#{gId}")
+    List<Game> getGameImg(int gId);
+
+    @Select("SELECT * FROM TB_GAME_IMAGE WHERE G_ID=#{gId} LIMIT 1")
+    Game getOneFile(int gId);
+
+    @Select("SELECT * FROM TB_GAME")
+    List<Game> getGameAllList();
 }

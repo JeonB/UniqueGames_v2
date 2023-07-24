@@ -3,13 +3,14 @@ package com.uniqueGames.controller;
 
 import com.uniqueGames.config.Login;
 import com.uniqueGames.model.AjaxResponse;
+import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Member;
+import com.uniqueGames.repository.GameMapper;
 import com.uniqueGames.service.IndexServiceMapper;
 import com.uniqueGames.service.NoticeService;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,21 +23,27 @@ import org.springframework.web.bind.annotation.*;
 public class MainController {
 
 	private final IndexServiceMapper indexServiceMapper;
-	private final LoginController login;
+	private final GameMapper gameMapper;
 	NoticeService noticeService;
 
 	@Autowired
-	public MainController(IndexServiceMapper indexServiceMapper, NoticeService noticeService, LoginController login) {
+	public MainController(IndexServiceMapper indexServiceMapper, NoticeService noticeService, LoginController login,
+			GameMapper gameMapper) {
 		this.indexServiceMapper = indexServiceMapper;
 		this.noticeService = noticeService;
-		this.login = login;
+		this.gameMapper = gameMapper;
 	}
 
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String index(Model model) throws IOException {
-		model.addAttribute("gameList",indexServiceMapper.getGameList());
-		model.addAttribute("donation",indexServiceMapper.getDonationList());
-		model.addAttribute("ranking",indexServiceMapper.getRankingList());
+		List<Game> gameList = gameMapper.getGameAllList();
+		for (Game game : gameList) {
+			Game oneFile = gameMapper.getOneFile(game.getId());
+			game.setUploadImg(oneFile.getUploadImg());
+		}
+		model.addAttribute("gameList",gameList);
+//		model.addAttribute("donation",indexServiceMapper.getDonationList());
+//		model.addAttribute("ranking",indexServiceMapper.getRankingList());
 		model.addAttribute("noticeList", noticeService.getNoticeList(1, 4));
 
         return "index";

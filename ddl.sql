@@ -23,7 +23,6 @@ DROP TABLE IF EXISTS `GAME`;
 CREATE TABLE GAME (
                       ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                       NAME VARCHAR(20) NOT NULL,
-                      IMAGE_PATH VARCHAR(200) NOT NULL,
                       GAME_GENRE VARCHAR(50) NOT NULL,
                       DONATION_STATUS INT(3) NOT NULL DEFAULT 0,
                       DESCRIPTION VARCHAR(200)

@@ -18,7 +18,6 @@ public interface IndexMapper {
     @Select("SELECT\n" +
             "    TB_GAME.ID,\n" +
             "    TB_GAME.NAME,\n" +
-            "    TB_GAME.IMAGE_PATH,\n" +
             "    TB_GAME.GAME_GENRE,\n" +
             "    TB_GAME.DONATION_STATUS,\n" +
             "    TB_GAME.DESCRIPTION,\n" +
@@ -30,7 +29,6 @@ public interface IndexMapper {
             "GROUP BY\n" +
             "    TB_GAME.ID,\n" +
             "    TB_GAME.NAME,\n" +
-            "    TB_GAME.IMAGE_PATH,\n" +
             "    TB_GAME.GAME_GENRE,\n" +
             "    TB_GAME.DONATION_STATUS,\n" +
             "    TB_GAME.DESCRIPTION;")
@@ -39,26 +37,14 @@ public interface IndexMapper {
     @Select("SELECT * FROM TB_GAME WHERE ID=?#{id}")
     Game getGame(Game vo);
 
-    @Select("SELECT * FROM TB_GAME WHERE ID=#{id}")
-    Game getGameForIndex(int id);
-
     @Select("SELECT * FROM TB_GAME WHERE DONATION_STATUS = 1")
     List<Game> getDonationList();
 
     @Select("SELECT COUNT(*) FROM TB_LIKE WHERE G_ID= #{gId}")
     int getGameLikeCount(@Param("gId") int gId);
 
-    @Select("SELECT ID, NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION FROM TB_GAME")
+    @Select("SELECT ID, NAME, GAME_GENRE, DONATION_STATUS, DESCRIPTION FROM TB_GAME")
     List<Game> getRankingList();
-
-    @Insert("INSERT INTO TB_GAME(NAME,IMAGE_PATH,GAME_GENRE,DONATION_STATUS,DESCRIPTION) VALUES(#{name},#{imagePath},#{gameGenre},#{donationStatus},#{description})")
-    void insertGame(Game vo);
-
-    @Update("UPDATE TB_GAME SET NAME=#{name} WHERE ID=#{id}")
-    void updateGame(Game vo);
-
-    @Delete("DELETE TB_GAME WHERE ID=#{id}")
-    void deleteGame(Game vo);
 
     @Select("SELECT COUNT(*) FROM TB_LIKE where G_ID = #{gId} and M_ID = #{memberId}")
     int hasLiked(@Param("memberId") String memberId, @Param("gId") int gId);
@@ -68,7 +54,4 @@ public interface IndexMapper {
 
     @Delete("DELETE FROM TB_LIKE WHERE M_ID = #{memberId} and G_ID = #{gId}")
     void removeLikeInfo(@Param("memberId") String memberId, @Param("gId") int gId);
-
-    @Select("SELECT * FROM tb_game where c_id = #{cId}")
-    public ArrayList<Game> getGameListByCId(String cId);
 }

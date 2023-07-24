@@ -16,10 +16,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(String mId, String cId, int gId, int amount, String gametitle, String gameImg) {
-
-        this.gametitle = gametitle;
-        this.gameImg = gameImg;
+    public Order(String mId, String cId, int gId, int amount) {
         this.mId = mId;
         this.cId = cId;
         this.gId = gId;

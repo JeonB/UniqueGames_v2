@@ -5,15 +5,14 @@ import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Intro;
+import com.uniqueGames.repository.CompanyRepositoryMapper;
+import com.uniqueGames.service.GameService;
 import com.uniqueGames.service.IndexServiceMapper;
 import com.uniqueGames.service.IntroCompanyService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,17 +22,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
-@Slf4j
 public class IntroCompanyController {
 
     private final IntroCompanyService introCompanyService;
     private final IndexServiceMapper indexServiceMapper;
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final GameService gameService;
+    private final CompanyRepositoryMapper companyRepositoryMapper;
     @Autowired
     public IntroCompanyController(IntroCompanyService introCompanyService,
-            IndexServiceMapper indexServiceMapper) {
+            IndexServiceMapper indexServiceMapper, GameService gameService,
+            CompanyRepositoryMapper companyRepositoryMapper) {
         this.introCompanyService = introCompanyService;
         this.indexServiceMapper = indexServiceMapper;
+        this.gameService = gameService;
+        this.companyRepositoryMapper = companyRepositoryMapper;
     }
     /**
      * @param vo 회사 소개 저장객체
@@ -43,7 +45,6 @@ public class IntroCompanyController {
     @PostMapping(value = "/insertIntro")
     public String insertIntro(Intro vo, Model model,@Login Company company,HttpSession session) throws IOException {
 
-//        logger.info("{}  출력",company);
         FileUploadUtil fileUploadUtil = new FileUploadUtil() {
             /**
              * @param obj 인스턴스를 Intro 타입으로 변환 및 오버라이딩
@@ -91,18 +92,25 @@ public class IntroCompanyController {
     }
 
     /**
-     * @param model 회사 소개페이지 리스트 담는 객체
+     * @param model 회사 소개페이지 리스트, 게임 객체 리스트 담는 객체
      * @return 회사 소개페이지 리스트
      */
     @GetMapping("/getIntroList")
     public String getIntroList(Model model){
-        model.addAttribute("introList", introCompanyService.getIntroList());
         List<Intro> introList = introCompanyService.getIntroList();
+        model.addAttribute("introList", introList);
         List<List<Game>> gameList = new ArrayList<>();
+        Company company;
         for (Intro intro: introList){
-            gameList.add(indexServiceMapper.getGameListByCId(intro.getCId()));
+            company = companyRepositoryMapper.findById(intro.getCId());
+            gameList.add(gameService.getGameImg(company.getGId()));
         }
-        model.addAttribute("gameList",gameList);
+
+        List<List<Object>> combinedList = new ArrayList<>();
+        combinedList.add(new ArrayList<>(introList));
+        combinedList.add(new ArrayList<>(gameList));
+
+        model.addAttribute("combinedList",combinedList);
         return "detail/company-list";
     }
 }

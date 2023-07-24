@@ -117,42 +117,8 @@ $('#btn_wishlist').bind("click",function (){
 });
 
 $('#btn_donate').bind("click", function() {
-  const gameName = $('#game_name').text();
-  if (gameName) {
-    $.ajax({
-      url: '../detail/popUp',
-      method: 'POST',
-      data: { gameName: gameName },
-      success: function(response) {
-        // 서버 응답 처리 로직 작성
-        console.log('서버 응답:', response);
         showPopup(); // Ajax 요청 성공 후 팝업 열기
-      },
-      error: function(xhr, status, error) {
-        // 에러 처리 로직 작성
-        console.error('에러:', error);
-      }
-    });
-  } else {
-    console.log('라디오 버튼을 선택해주세요.');
-  }
 });
-
-// const companyId = $("#company_id").text(); // HTML 태그의 텍스트 값을 가져옴
-// let currentURL = window.location.href;
-// let id = currentURL.substring(currentURL.lastIndexOf('/') + 1, currentURL.lastIndexOf(''));
-// $.ajax({
-//   url: "../detail/"+id,
-//   method: "POST",
-//   data: { companyId: companyId }, // companyId 값을 서버로 전송
-//   success: function(response) {
-//     alert("전송 성공")
-//     // 서버 응답 처리 로직
-//   },
-//   error: function(xhr, status, error) {
-//     // 에러 처리 로직
-//   }
-// });
 
 function showPopup() {
   window.open('../detail/popUp', "popup", "width=500, height=500, left=650, top=250");

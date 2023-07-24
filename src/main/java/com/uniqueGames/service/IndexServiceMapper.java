@@ -20,17 +20,11 @@ public class IndexServiceMapper {
 
     public List<Game> getGameList() { return indexMapper.getGameList(); }
 
-    public List<Game> getGameListByCId(String cId){
-        return indexMapper.getGameListByCId(cId);
-    }
-
     public Game getGame(Game vo) {
         return indexMapper.getGame(vo);
     }
 
-    public Game getGameForIndex(int id) {
-        return indexMapper.getGameForIndex(id);
-    }
+
 
     public List<Game> getDonationList() {
         return indexMapper.getDonationList();
@@ -40,17 +34,6 @@ public class IndexServiceMapper {
         return indexMapper.getRankingList();
     }
 
-    public void insertGame(Game vo) {
-        indexMapper.insertGame(vo);
-    }
-
-    public void updateGame(Game vo) {
-        indexMapper.updateGame(vo);
-    }
-
-    public void deleteGame(Game vo) {
-        indexMapper.deleteGame(vo);
-    }
 
     public int hasLiked(String memberId, int gId) {
         return indexMapper.hasLiked(memberId, gId);

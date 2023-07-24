@@ -4,6 +4,7 @@ import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.model.Order;
 import com.uniqueGames.repository.GameMapper;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -36,15 +37,28 @@ public class GameService {
         return gameMapper.aGetGame(id);
     }
 
+
+    /**
+     * @param cartList 추가된 게임을 담을 카트 리스트
+     * @return 장바구니 리스트
+     */
     public ArrayList<Order> addGameInfo(ArrayList<Order> cartList) {
         for (int i = 0; i < cartList.size(); i++) {
             int gid = cartList.get(i).getGId();
             Game game = gameMapper.aGetGame(gid);
 
-            cartList.get(i).setGameImg(game.getImagePath());
+            cartList.get(i).setGameImg("../images/"+game.getUploadImg());
             cartList.get(i).setGametitle(game.getName());
         }
 
         return cartList;
+    }
+
+    public Game getGameForIndex(int id) {
+        return gameMapper.getGameForIndex(id);
+    }
+
+    public List<Game> getGameImg(int gId) {
+        return gameMapper.getGameImg(gId);
     }
 }
