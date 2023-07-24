@@ -26,37 +26,12 @@
 <!--      <div id="clearFix"></div>-->
 <!--    </div>-->
     <form  action="/insertIntro" method="post" enctype="multipart/form-data">
-<!--      <table>-->
-<!--        <tr>-->
-<!--          <th>회사 명</th>-->
-<!--          <td><input type="text" name="name" class="default-write"  th:value="${company?.name}" readonly></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th>제목</th>-->
-<!--          <td>-->
-<!--            <input type="text" name="title" class="default-write" th:value="${intro?.title}">-->
-<!--          </td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th>소개 글</th>-->
-<!--          <td><textarea type="text" name="content" cols="30" rows="5"-->
-<!--                        class="default-write" th:value="${intro?.content}"></textarea></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <th>업로드</th>-->
-<!--          <td><input type="file" name ="uploadFile" style="height: 30px;"/></td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--          <td colspan="2" align="center"><button class="btn btn-primary rounded-pill px-3" type="submit">새글 등록</button></td>-->
-<!--        </tr>-->
-<!--      </table>-->
-      <div class="Frame3" style="width: 1100px; height: 612px; position: relative">
+      <div class="Frame3" style="width: 1100px; height: 612px; position: relative; margin:auto">
         <div class="Board" style="left: 0px; top: 0px; position: absolute; color: #2B2B2B; font-size: 24px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">Game_registration</div>
         <div class="485" style="width: 760px; height: 55px; left: 0px; top: 47px; position: absolute">
           <div class="Vector" style="width: 760px; height: 55px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
           <input class="Vector" type="text" name="name" th:value="${company?.name}" readonly style="width: 600px; height: 39px; left: 113px; top: 8.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid">
           <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">회사명</div>
-          <!--    <div style="left: 129px; top: 18px; position: absolute; color: black; font-size: 14px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">이게 회사야? 하는 만큼 긴 이름을 쓴 회사는 없겠지만 그래도 혹시 몰라 씁니다 아몰랑~</div>-->
         </div>
         <div class="487" style="width: 760px; height: 55px; left: 0px; top: 102px; position: absolute">
           <div class="Vector" style="width: 760px; height: 55px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
