@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/board.css">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+    <script src="/js/ckeditor.js"></script>
     <script src="/js/board.js"></script>
 </head>
 
@@ -35,7 +36,7 @@
             </div>
             <div id="clearFix"></div>
         </div>
-        <form name="writeForm" action="/notice/write/" method="post" enctype="multipart/form-data">
+        <form name="writeForm" action="/notice/write/" method="post">
             <table>
                 <tr>
                     <th>제목</th>
@@ -43,20 +44,29 @@
                 </tr>
                 <tr>
                     <th>내용</th>
-                    <td><textarea name="content" cols="30" rows="5" class="default-write"></textarea></td>
-                </tr>
-                <tr>
-                    <th>이미지</th>
                     <td>
-                        <div class="filebox">
-                            <input id="upload-name" value="" placeholder="첨부파일" disabled>
-                            <button type="button" class="btn-style" name="file">파일 찾기</button>
-                            <input type="file" name="file" id="upload-hidden" accept="image/*">
-                            <nav id="fileDelbtn"></nav>
-                            <span>*이미지는 하나만 선택할 수 있으며, 본문 위에 삽입됩니다.</span>
-                        </div>
+                        <textarea name="content" class="default-write" id="editor"></textarea>
+                        <script type="text/javascript">
+                            ClassicEditor.create(document.querySelector("#editor"), {
+                                height      : 1000,
+                                mediaEmbed  : {
+                                    previewsInData: true
+                                },
+                                simpleUpload: {
+                                    uploadUrl      : "/imgUpload",
+                                    withCredentials: true
+                                }
+                            })
+                                .then(newEditor => {
+                                    editor = newEditor
+                                })
+                                .catch(error => {
+                                    console.log(error)
+                                })
+                        </script>
                     </td>
                 </tr>
+                        <div id="fileBox"></div>
             </table>
         </form>
     </div>

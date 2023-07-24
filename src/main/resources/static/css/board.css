@@ -161,7 +161,7 @@
 
 /* board - write */
 .board-write > form > table th {
-    padding: 19px 24px;
+    padding: 19px 35px;
     font-size: 16px;
     border-bottom: 1px solid #DDDDDD;
 }
@@ -176,7 +176,7 @@
     font-size: 14px;
     border: 1px solid #DDDDDD;
     padding: 12px 16px;
-    width: 766px;
+    width: 948px;
 }
 
 .board-write > form > table td > input {
@@ -188,43 +188,8 @@
     resize: none;
 }
 
-.filebox {
-    margin-right: 161px;
-}
-
-.filebox #upload-name {
-    display: inline-block;
-    height: 40px;
-    width: 200px;
-    padding: 0 10px;
-    vertical-align: middle;
-    border: 1px solid #dddddd;
-    color: #999999;
-}
-
-#fileDelbtn {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.filebox > button {
-    display: inline-block;
-    vertical-align: middle;
-    cursor: pointer;
-    margin: 0 3px;
-}
-
-.filebox input[type="file"] {
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
-}
-
 .ck-editor__editable {
-    height: 179px;
+    height: 500px;
 }
 
 /* board - content */

@@ -53,7 +53,7 @@ CREATE TABLE TB_NOTICE (
                         ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                         C_ID VARCHAR(30) NOT NULL,
                         TITLE VARCHAR(50),
-                        CONTENT VARCHAR(300),
+                        CONTENT VARCHAR(3000),
                         NOTICE_HITS INT,
                         NOTICE_DATE DATETIME DEFAULT CURRENT_TIMESTAMP,
                         CONSTRAINT FK_NOTICE_COMPANY FOREIGN KEY (C_ID) REFERENCES TB_COMPANY (COMPANY_ID) ON DELETE CASCADE
