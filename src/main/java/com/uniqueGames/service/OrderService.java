@@ -151,25 +151,10 @@ public class OrderService {
         return orderMapper.aGetYearList();
     }
 
-    public int aTotRowCountDonationBothSelected(String year, String month) {
-        return orderMapper.aTotRowCountDonationBothSelected(year, month);
-    }
-
-    public int aTotRowCountDonationYearSelected(String year) {
-        return orderMapper.aTotRowCountDonationYearSelected(year);
-    }
-
-    public int aTotRowCountDonationMonthSelected(String month) {
-        return orderMapper.aTotRowCountDonationMonthSelected(month);
-    }
-
-    public int aTotRowCountDonationAll() {
-        return orderMapper.aTotRowCountDonationAll();
-    }
-
     public ArrayList<Payment> aGetDonationList(String order1, String order2, Integer startCount, Integer endCount) {
         return orderMapper.aGetDonationList(order1, order2, startCount, endCount);
     }
+
 
     public ArrayList<Order> addGameInfo(ArrayList<Order> cartList) {
         for (int i = 0; i < cartList.size(); i++) {
@@ -182,6 +167,9 @@ public class OrderService {
         }
 
         return cartList;
+
+    public int totRowCountAdmin() {
+        return orderMapper.totRowCountAdmin();
     }
 }
 

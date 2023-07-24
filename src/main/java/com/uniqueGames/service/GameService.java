@@ -45,4 +45,20 @@ public class GameService {
     public List<Game> getGameImg(int gId) {
         return gameMapper.getGameImg(gId);
     }
+
+    public int aRegisterGame(String name, String genre, String imagePath, String description) {
+        return gameMapper.aRegisterGame(name, genre, imagePath, description);
+    }
+
+    public int aGetGid(String name) {
+        return gameMapper.aGetGid(name);
+    }
+
+    public int aDeleteGame(int gid) {
+        return gameMapper.aDeleteGame(gid);
+    }
+
+    public int aUpdateGame(String name, String genre, String imagePath, String description, int gid) {
+        return gameMapper.aUpdateGame(name, genre, imagePath, description, gid);
+    }
 }

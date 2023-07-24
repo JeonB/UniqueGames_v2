@@ -56,7 +56,9 @@ public class CartController {
     @GetMapping(value = "/cart")
     public String cart(@Login Member member, Model model) {
         ArrayList<Order> cartList = orderService.getCartList(member.getMemberId());
+
         cartList = orderService.addGameInfo(cartList);
+
 
         if (cartList.size() == 0) {
             model.addAttribute("nothing", true);

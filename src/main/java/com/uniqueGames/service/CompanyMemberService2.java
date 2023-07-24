@@ -78,7 +78,7 @@ public class CompanyMemberService2 {
         return cList;
     }
 
-    public Company aGetDetailMember(String id){
+    public Company aGetDetailMember(String id) {
         return companyMapper.aGetDetailMember(id);
     }
 
@@ -108,5 +108,25 @@ public class CompanyMemberService2 {
             cList.add(company);
         }
         return cList;
+    }
+
+    public int aGetGameRegistered(String cId) {
+        return companyMapper.aGetGameRegistered(cId);
+    }
+
+    public int aSetGid(int gid, String cid) {
+        return companyMapper.aSetGid(gid, cid);
+    }
+
+    public int aGetSameGame(int gid, String cid) {
+        return companyMapper.aGetSameGame(gid, cid);
+    }
+
+    public int aDeleteGid(String cid) {
+        return companyMapper.aDeleteGid(cid);
+    }
+
+    public int aDeleteMember(String mid) {
+        return companyMapper.aDeleteMember(mid);
     }
 }
