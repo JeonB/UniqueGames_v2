@@ -21,7 +21,7 @@
   <div class="menu-allList">
     <div class="gameList">
       <div th:each="game : ${gameList}" class="gList">
-        <img th:src="${game.imagePath}" width="260px" height="180px">
+        <img th:src="@{'../images/'+${game.uploadImg}}" width="260px" height="180px">
         <ul>
           <li><a th:href="'detail/' + ${game.description}" th:text="${game.name}"></a></li>
           <li th:text="${game.gameGenre}"></li>

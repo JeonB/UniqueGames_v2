@@ -4,6 +4,7 @@ import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.model.Order;
 import com.uniqueGames.repository.GameMapper;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -33,19 +34,16 @@ public class GameService {
     }
 
     public Game aGetGame(int id) {
-        return gameMapper.aGetGame(id);
+        return gameMapper.getGameForIndex(id);
     }
 
-    public ArrayList<Order> addGameInfo(ArrayList<Order> cartList) {
-        for (int i = 0; i < cartList.size(); i++) {
-            int gid = cartList.get(i).getGId();
-            Game game = gameMapper.aGetGame(gid);
 
-            cartList.get(i).setGameImg(game.getImagePath());
-            cartList.get(i).setGametitle(game.getName());
-        }
+    public Game getGameForIndex(int id) {
+        return gameMapper.getGameForIndex(id);
+    }
 
-        return cartList;
+    public List<Game> getGameImg(int gId) {
+        return gameMapper.getGameImg(gId);
     }
 
     public int aRegisterGame(String name, String genre, String imagePath, String description) {

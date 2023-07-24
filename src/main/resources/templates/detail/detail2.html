@@ -49,10 +49,10 @@
                       <div class='media_player_marker'><span>▶</span></div>												<img src="https://img.youtube.com/vi/BjxYggXttHU/1.jpg" data-type="media" data-url="<div class='embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' th:src='https://www.youtube.com/embed/BjxYggXttHU'></iframe></div>" itemprop="thumbnailUrl">
                     </div>
                     <div class="item screenshot_thumbnail" style='cursor:pointer'>
-                      <img th:src="/images/img-game-thumnail_1.jpg" data-type="image/jpeg" data-url="<img th:src='/images/img-game-thumnail_1.jpg'>" itemprop="thumbnailUrl">
+                      <img th:src="@{/images/img-game-thumnail_1.jpg}" data-type="image/jpeg" data-url="<img th:src='/images/img-game-thumnail_1.jpg'>" itemprop="thumbnailUrl">
                     </div>
                     <div class="item screenshot_thumbnail" style='cursor:pointer'>
-                      <img th:src="/images/img-game-thumnail_2.jpg" data-type="image/jpeg" data-url="<img th:src='/images/img-game-thumnail_2.jpg'>" itemprop="thumnailUrl">
+                      <img th:src="@{/images/img-game-thumnail_2.jpg}" data-type="image/jpeg" data-url="<img th:src='/images/img-game-thumnail_2.jpg'>" itemprop="thumnailUrl">
                     </div>
                   </div>
                 </div>
@@ -121,7 +121,6 @@
                                 <span class="vm-price-desc" >제작 </span>
                                 <span class="PricebasePrice" ><a href="../detail/getIntro?id=2" style="font: italic normal 900 18px Apex New; letter-spacing: 0px;color: #1c2025">에픽콘솔게임 Team</a>
                                   </span>
-                                <span id="company_id" style="display: none" th:text="${company.companyId}"></span>
                               </div>
                               <span class="price-crossed" ></span>
                             </div>
@@ -213,6 +212,6 @@
 </div>
 <!--footer-->
 <div th:replace="~{main/footer :: footerFragment}"></div>
+<script th:src="@{/js/detail.js}"></script>
 </body>
 </html>
-<script th:th:src="@{/js/detail.js}"></script>

@@ -24,7 +24,6 @@ DROP TABLE IF EXISTS `TB_GAME`;
 CREATE TABLE TB_GAME (
                         ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                         NAME VARCHAR(30) NOT NULL,
-                        IMAGE_PATH VARCHAR(200) NOT NULL,
                         GAME_GENRE VARCHAR(50) NOT NULL,
                         DONATION_STATUS INT NOT NULL DEFAULT 0,
                         DESCRIPTION VARCHAR(200),

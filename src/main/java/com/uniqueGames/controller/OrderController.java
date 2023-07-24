@@ -43,7 +43,7 @@ public class OrderController {
 
         idStr = orderService.listToString(idList);
         ArrayList<Order> orderList = orderService.getOrderList(idStr);
-        orderList = gameService.addGameInfo(orderList);
+        orderList = orderService.addGameInfo(orderList);
 
         int totalAmount = orderService.getOrderAmount(idStr);
         Member buyer = memberService.aGetDetailMember(member.getMemberId());
@@ -65,7 +65,7 @@ public class OrderController {
         }
 
         ArrayList<Order> orderList = orderService.getOrderList(orderService.listToString(idList));
-        orderList = gameService.addGameInfo(orderList);
+        orderList = orderService.addGameInfo(orderList);
         int totalAmount = orderService.getOrderAmount(idStr);
 
         model.addAttribute("orderList", orderList);
