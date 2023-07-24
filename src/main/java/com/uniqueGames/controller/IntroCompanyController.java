@@ -5,6 +5,7 @@ import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Intro;
+import com.uniqueGames.model.Pagination;
 import com.uniqueGames.repository.CompanyRepositoryMapper;
 import com.uniqueGames.service.GameService;
 import com.uniqueGames.service.IndexServiceMapper;
@@ -43,7 +44,7 @@ public class IntroCompanyController {
      * @throws IOException 입출력 예외 처리
      */
     @PostMapping(value = "/insertIntro")
-    public String insertIntro(Intro vo, Model model,@Login Company company,HttpSession session) throws IOException {
+    public String insertIntro(Intro vo,@Login Company company,HttpSession session) throws IOException {
 
         FileUploadUtil fileUploadUtil = new FileUploadUtil() {
             /**
@@ -96,7 +97,7 @@ public class IntroCompanyController {
      * @return 회사 소개페이지 리스트
      */
     @GetMapping("/getIntroList")
-    public String getIntroList(Model model){
+    public String getIntroList(@ModelAttribute Pagination pagination,Model model){
         List<Intro> introList = introCompanyService.getIntroList();
         model.addAttribute("introList", introList);
         List<List<Game>> gameList = new ArrayList<>();
@@ -111,6 +112,15 @@ public class IntroCompanyController {
         combinedList.add(new ArrayList<>(gameList));
 
         model.addAttribute("combinedList",combinedList);
+
+        String redirectUrl = introCompanyService.pageProcess(pagination);
+        if(redirectUrl != null){
+            return "redirect:/"+redirectUrl;
+        }
+        //log.info("pagination={}", pagination.getSearch());
+        //log.info("pagination={}", pagination);
+        model.addAttribute("baseUrl", "/getIntroList");
         return "detail/company-list";
     }
+
 }

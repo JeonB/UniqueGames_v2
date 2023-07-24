@@ -31,5 +31,9 @@
   <select id="getIntroList" resultType="Intro">
     SELECT * FROM tb_intro ORDER BY id
   </select>
+
+  <select id="findByAllCount"  resultType="Integer">
+    SELECT COUNT(*) FROM tb_intro
+  </select>
   
 </mapper>

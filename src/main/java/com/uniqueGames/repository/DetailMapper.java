@@ -1,5 +1,6 @@
 package com.uniqueGames.repository;
 import com.uniqueGames.model.Intro;
+import com.uniqueGames.model.Pagination;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -22,4 +23,5 @@ public interface DetailMapper {
     void updateIntro(Intro vo);
     void deleteIntro(int id);
     List<Intro> getIntroList();
+    Integer findByAllCount();
 }
