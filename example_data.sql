@@ -29,24 +29,37 @@ VALUES('DeletedMember', '123', '탈퇴회원정보저장', 'email', 'addr', 'ted
 
 
 -- 게임 등록
-INSERT INTO TB_GAME (NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
-VALUES('디 엑시트 이터널 매터스 ', '../images/img-game-deexit4.jpg', '액션', 1,'죽음을 넘어선 생명을 느끼다');
-INSERT INTO TB_GAME (NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
+INSERT INTO TB_GAME (NAME,GAME_GENRE, DONATION_STATUS, DESCRIPTION)
+VALUES('디 엑시트 이터널 매터스 ', '액션', 1,'죽음을 넘어선 생명을 느끼다');
+INSERT INTO TB_GAME (NAME, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
 VALUES('스트리트 파이터 6 디럭스', '../images/img-game-street2.jpg', '격투', 1,'시리즈 최신작 『Street Fighter 6(스트리트 파이터 6)』');
-INSERT INTO TB_GAME (NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
+INSERT INTO TB_GAME (NAME,  GAME_GENRE, DONATION_STATUS, DESCRIPTION)
 VALUES('뱀파이어: 마스커레이드', '../images/img-game-vampire2.jpg', '액션', 1,'월드 오브 다크니스에 오신 것을 환영합니다');
-INSERT INTO TB_GAME (NAME, IMAGE_PATH, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
+INSERT INTO TB_GAME (NAME, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
 VALUES('더 라스트 오브 어스 파트 1', '../images/img-game-last1.jpg', '액션', 1,'살기 위해 오늘도 길을 나선다 탐험 액션');
+-- 게임 이미지 등록
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit1.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit2.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit3.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street1.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street2.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street3.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (3,'img-game-vampire1.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (3,'img-game-vampire2.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (3,'img-game-vampire3.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (4,'img-game-last1.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (4,'img-game-last2.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (4,'img-game-last3.jpg');
+
 
 -- 게임사 등록
-SELECT *FROM TB_COMPANY;
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM, G_ID)
 VALUES ('test', '123', 'TestGames', 'test@gmail.com', '판교', 'KT', '010-1111-2222', 1);
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM, G_ID)
 VALUES ('nexon', '123', '넥슨', 'nexon@gmail.com', '판교', 'SKT', '010-3333-4444', 2);
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM, G_ID)
 VALUES ('net', '123', '넷마블', 'net@gmail.com', '제주도', 'KT', '010-5555-6666', 3);
-INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
+INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM, G_ID)
 VALUES ('smilegate', '123', '스마일게이트', 'smilegate@gmail.com', '강남', 'SKT', '010-7777-8888', 4);
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES ('crafton', '123', '크래프톤', 'crafton@gmail.com', '판교', 'SKT', '010-7777-8888');
@@ -66,7 +79,6 @@ INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES ('DeletedCompany', '123', '탈퇴한법인회원', 'email', 'addr', 'tel', 'phone_num');
 
 -- mtest 장바구니 설정
-SELECT *FROM TB_ORDER;
 INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT)
 VALUES ('mtest', 'test', 1, 10000);
 INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT)
@@ -77,7 +89,6 @@ INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT)
 VALUES('mtest', 'smilegate', 4, 100000);
 
 -- mtest 결제내역 설정
-DELETE FROM TB_ORDER;
 INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
 VALUES(1, 'mtest', 'test', 1, 10000, 'COMPLETE', '2023-05-06');
 INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
