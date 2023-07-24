@@ -1,7 +1,9 @@
 package com.uniqueGames.service;
 
+import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Order;
 import com.uniqueGames.model.Payment;
+import com.uniqueGames.repository.GameMapper;
 import com.uniqueGames.repository.OrderMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,14 @@ import java.util.List;
 @Repository
 @Service
 public class OrderService {
+    private final OrderMapper orderMapper;
+    private final GameMapper gameMapper;
     @Autowired
-    private OrderMapper orderMapper;
+    public OrderService(OrderMapper orderMapper, GameMapper gameMapper) {
+        this.orderMapper = orderMapper;
+        this.gameMapper = gameMapper;
+    }
+
 
     public static String formatCurrency(int amount) {
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
@@ -161,6 +169,19 @@ public class OrderService {
 
     public ArrayList<Payment> aGetDonationList(String order1, String order2, Integer startCount, Integer endCount) {
         return orderMapper.aGetDonationList(order1, order2, startCount, endCount);
+    }
+
+    public ArrayList<Order> addGameInfo(ArrayList<Order> cartList) {
+        for (int i = 0; i < cartList.size(); i++) {
+            int gid = cartList.get(i).getGId();
+            Game game = gameMapper.getGameForIndex(gid);
+            game.setUploadImg("../images/" + gameMapper.getOneFile(gid).getUploadImg());
+
+            cartList.get(i).setGameImg(game.getUploadImg());
+            cartList.get(i).setGametitle(game.getName());
+        }
+
+        return cartList;
     }
 }
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class LoginController {
@@ -42,18 +43,11 @@ public class LoginController {
 						  Model model) {
 		HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
 
-//		MemberVo loginMember = memberRepositoryMapper.findById(member.getMember_id());
-//		CompanyVo loginMemberCom = companyRepositoryMapper.findById(company.getCompany_id());
-
 		/* member */
 		if (member != null && memberRepositoryMapper.passEqual(member) == 1) {
 			// loginMember != null && loginMember.getPassword().equals(member.getPassword())
 			session.setAttribute(SessionConstants.LOGIN_MEMBER, memberRepositoryMapper.findById(member.getMemberId()));
 			session.setAttribute("login", "member");
-//
-//			if (redirectURL.equals("notice_write") || redirectURL.equals("detail/insertIntro")) {
-//				return "redirect:/";
-//			}
 		}
 		/* company */
 		else if (company != null && companyRepositoryMapper.passEqual(company) == 1) {
@@ -65,9 +59,6 @@ public class LoginController {
 			return "login/login";
 		}
 		
-		System.out.println(session.getAttribute("login"));
-
-
 		return "redirect:" + redirectURL;
 	}
 
@@ -80,6 +71,7 @@ public class LoginController {
 	}
 
 	@RequestMapping("/session-info")
+	@ResponseBody
 	public String sessionInfo(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if (session.getAttribute(SessionConstants.LOGIN_MEMBER) == null) {

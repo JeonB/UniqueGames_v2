@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
     // Cart
-    @Select("SELECT ID, G_ID, GAME_IMG, GAMETITLE, AMOUNT FROM TB_ORDER WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{mId}")
+    @Select("SELECT ID, G_ID, AMOUNT FROM TB_ORDER WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{mId}")
     List<Order> getCartList(String mId);
 
     @Select("SELECT COUNT(G_ID) FROM TB_ORDER WHERE PAYMENT_STATUS = 'NOT' AND M_ID = #{mId}")
@@ -24,7 +24,7 @@ public interface OrderMapper {
     @Delete("DELETE FROM TB_ORDER WHERE ID = #{id}")
     int getCartDeleteOne(int id);
 
-    @Insert("INSERT INTO TB_ORDER( M_ID, C_ID, G_ID, AMOUNT,GAMETITLE, GAME_IMG) VALUES (#{mId},#{cId},#{gId},#{amount},#{gametitle},#{gameImg})")
+    @Insert("INSERT INTO TB_ORDER( M_ID, C_ID, G_ID, AMOUNT) VALUES (#{mId},#{cId},#{gId},#{amount})")
     int insertCart(Order order);
 
     // Order
@@ -39,7 +39,7 @@ public interface OrderMapper {
 
     // Details
     @Select("SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${order1} ${order2}) AS RNO, " +
-            "DATE_FORMAT(ORDER_DATE, '%y-%m-%d') AS ORDER_DATE, GAMETITLE, AMOUNT FROM TB_ORDER WHERE M_ID = #{mId} AND " +
+            "DATE_FORMAT(ORDER_DATE, '%y-%m-%d') AS ORDER_DATE, AMOUNT FROM TB_ORDER WHERE M_ID = #{mId} AND " +
             "PAYMENT_STATUS = 'COMPLETE') AS TB1 WHERE RNO BETWEEN ${start} AND ${end}")
     List<Order> getPaymentDetail(String mId, @Param("order1") String order1, @Param("order2") String order2, @Param("start") int start, @Param("end") int end);
 
@@ -49,9 +49,9 @@ public interface OrderMapper {
     @Select("SELECT IFNULL(SUM(AMOUNT), 0) PAYMENT_AMOUNT FROM TB_ORDER WHERE M_ID = #{mId} AND PAYMENT_STATUS = 'COMPLETE'")
     int getPaymentAmount(String mId);
 
-    @Select("SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY ${order1} ${order2}) AS RNO, ORDER_DATE, GAMETITLE, AMOUNT " +
-            "FROM (SELECT DATE_FORMAT(ORDER_DATE, '%y-%m') AS ORDER_DATE, GAMETITLE, SUM(AMOUNT) AS AMOUNT FROM TB_ORDER " +
-            "WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE' GROUP BY DATE_FORMAT(ORDER_DATE, '%y-%m'), GAMETITLE)AS TB1) AS TB2 " +
+    @Select("SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY ${order1} ${order2}) AS RNO, ORDER_DATE, AMOUNT " +
+            "FROM (SELECT DATE_FORMAT(ORDER_DATE, '%y-%m') AS ORDER_DATE,  SUM(AMOUNT) AS AMOUNT FROM TB_ORDER " +
+            "WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE' GROUP BY DATE_FORMAT(ORDER_DATE, '%y-%m'))AS TB1) AS TB2 " +
             "WHERE RNO BETWEEN ${start} AND ${end}")
     List<Order> getDonationDetail(String cId, @Param("order1") String order1, @Param("order2") String order2, @Param("start") int start, @Param("end") int end);
 
@@ -62,9 +62,9 @@ public interface OrderMapper {
     @Select("SELECT IFNULL(SUM(AMOUNT), 0) TOTAL_AMOUNT FROM TB_ORDER WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE'")
     int getTotalDonation(String cId);
 
-    @Select("SELECT ROW_NUMBER() OVER(ORDER BY SUM(AMOUNT) DESC) AS RNO, M.MEMBER_ID USERID, O.GAMETITLE, SUM(AMOUNT) " +
+    @Select("SELECT ROW_NUMBER() OVER(ORDER BY SUM(AMOUNT) DESC) AS RNO, M.MEMBER_ID USERID,  SUM(AMOUNT) " +
             "FROM TB_ORDER AS O INNER JOIN MEMBER AS M ON O.M_ID = M.ID WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE' " +
-            "GROUP BY M.MEMBER_ID, O.GAMETITLE")
+            "GROUP BY M.MEMBER_ID")
     List<Order> getDonationRank(String cId);
 
     @Select("SELECT COUNT(*) FROM TB_ORDER WHERE M_ID = #{id} AND PAYMENT_STATUS = 'COMPLETE'")

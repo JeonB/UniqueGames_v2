@@ -34,25 +34,9 @@ public class GameService {
     }
 
     public Game aGetGame(int id) {
-        return gameMapper.aGetGame(id);
+        return gameMapper.getGameForIndex(id);
     }
 
-
-    /**
-     * @param cartList 추가된 게임을 담을 카트 리스트
-     * @return 장바구니 리스트
-     */
-    public ArrayList<Order> addGameInfo(ArrayList<Order> cartList) {
-        for (int i = 0; i < cartList.size(); i++) {
-            int gid = cartList.get(i).getGId();
-            Game game = gameMapper.aGetGame(gid);
-
-            cartList.get(i).setGameImg("../images/"+game.getUploadImg());
-            cartList.get(i).setGametitle(game.getName());
-        }
-
-        return cartList;
-    }
 
     public Game getGameForIndex(int id) {
         return gameMapper.getGameForIndex(id);

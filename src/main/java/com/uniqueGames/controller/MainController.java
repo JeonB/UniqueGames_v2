@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
+@SessionAttributes("gameList")
 public class MainController {
 
 	private final IndexServiceMapper indexServiceMapper;
@@ -27,8 +28,7 @@ public class MainController {
 	NoticeService noticeService;
 
 	@Autowired
-	public MainController(IndexServiceMapper indexServiceMapper, NoticeService noticeService, LoginController login,
-			GameMapper gameMapper) {
+	public MainController(IndexServiceMapper indexServiceMapper, NoticeService noticeService,GameMapper gameMapper) {
 		this.indexServiceMapper = indexServiceMapper;
 		this.noticeService = noticeService;
 		this.gameMapper = gameMapper;
@@ -51,13 +51,13 @@ public class MainController {
 
 	@GetMapping("alllist")
 	public String allList(Model model) throws IOException  {
-		model.addAttribute("gameList", indexServiceMapper.getGameList());
+//		model.addAttribute("gameList", indexServiceMapper.getGameList());
 		return "main/alllist";
 	}
 
 	@GetMapping("topgame")
 	public String topgame(Model model) throws IOException  {
-		model.addAttribute("ranking", indexServiceMapper.getRankingList());
+//		model.addAttribute("ranking", indexServiceMapper.getRankingList());
 		return "main/topgame";
 	}
 

@@ -21,14 +21,12 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class CartController {
     private final OrderService orderService;
-    private final GameService gameService;
     private final CompanyRepositoryMapper companyRepositoryMapper;
 
     @Autowired
-    public CartController(OrderService orderService, GameService gameService,
+    public CartController(OrderService orderService,
             CompanyRepositoryMapper companyRepositoryMapper) {
         this.orderService = orderService;
-        this.gameService = gameService;
         this.companyRepositoryMapper = companyRepositoryMapper;
     }
 
@@ -58,7 +56,7 @@ public class CartController {
     @GetMapping(value = "/cart")
     public String cart(@Login Member member, Model model) {
         ArrayList<Order> cartList = orderService.getCartList(member.getMemberId());
-        cartList = gameService.addGameInfo(cartList);
+        cartList = orderService.addGameInfo(cartList);
 
         if (cartList.size() == 0) {
             model.addAttribute("nothing", true);
@@ -74,7 +72,7 @@ public class CartController {
     public String cartDeleteOne(@Login Member member, int id, Model model) {
         if (orderService.getCartDeleteOne(id) != 0) {
             ArrayList<Order> cartList = orderService.getCartList(member.getMemberId());
-
+            cartList = orderService.addGameInfo(cartList);
             if (cartList.size() == 0) {
                 model.addAttribute("nothing", true);
             } else {
