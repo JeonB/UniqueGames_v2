@@ -336,7 +336,7 @@ public class AdminController {
         model.addAttribute("company", company.getName());
         model.addAttribute("cid", company.getCompanyId());
         model.addAttribute("genre", game.getGameGenre());
-        model.addAttribute("img", game.getImagePath());
+//        model.addAttribute("img", game.getImagePath());
         model.addAttribute("desciption", game.getDescription());
         model.addAttribute("url", url);
         model.addAttribute("companyList", cList);

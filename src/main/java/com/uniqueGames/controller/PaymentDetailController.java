@@ -58,7 +58,7 @@ public class PaymentDetailController {
             jObj.addProperty("nothing", true);
         } else {
             jObj.addProperty("nothing", false);
-            list = gameService.addGameInfo(list);
+            list = orderService.addGameInfo(list);
 
             for (Order payment : list) {
                 JsonObject jpay = new JsonObject();
@@ -113,7 +113,7 @@ public class PaymentDetailController {
             jObj.addProperty("nothing", true);
         } else {
             jObj.addProperty("nothing", false);
-            list = gameService.addGameInfo(list);
+            list = orderService.addGameInfo(list);
 
             for (Order donation : list) {
                 JsonObject jpay = new JsonObject();

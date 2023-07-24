@@ -24,12 +24,13 @@
         <div class="productdetails-view productdetails">
           <div class="page-header">
             <div style="clear:both;position:absolute;margin-top:18px;z-index:10;text-align:center;">
-              <div style="display:block;border: 1px solid rgba(255,255,255,0.1);padding-left:10px;padding-right:10px;"><img src="/images/img-team-profile-big.png" width="80"/></div>
+              <div style="display:block;border: 1px solid rgba(255,255,255,0.1);padding-left:10px;padding-right:10px;"><img th:src="@{/images/img-team-profile-big.png}" width="80"/></div>
             </div>
             <h1 style="font-size:20px;padding-left:110px;display:inline-block;text-transform:initial" >
 							<span>
 																												디 엑시트 이터널 매터스							</span><br/>
               <span style="text-transform:none" id="game_name" th:text="${game.name}" ></span>
+              <span style="text-transform:none; display:none;" id="game_id" th:text="${game.id}" ></span>
             </h1>
           </div>
 
@@ -124,7 +125,6 @@
                                 <span class="vm-price-desc" >제작 </span>
                                 <span class="PricebasePrice" ><a href="../detail/getIntro?id=1" style="font: italic normal 900 18px Apex New; letter-spacing: 0px;color: #1c2025">CGD(Crazy Game Dog) Team</a>
                                   </span>
-                                <span id="company_id" style="display: none" th:text="${company.companyId}"></span>
                               </div>
                               <span class="price-crossed" ></span>
 

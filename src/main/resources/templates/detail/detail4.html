@@ -26,13 +26,13 @@
         <div class="productdetails-view productdetails">
           <div class="page-header">
             <div style="clear:both;position:absolute;margin-top:18px;z-index:10;text-align:center;">
-              <div style="display:block;border: 1px solid rgba(255,255,255,0.1);padding-left:10px;padding-right:10px;"><img src="${pageContext.request.contextPath}/images/img-game-thumnail_2.jpg" width="80"/></div>
+              <div style="display:block;border: 1px solid rgba(255,255,255,0.1);padding-left:10px;padding-right:10px;"><img th:src="@{/images/img-game-thumnail_2.jpg}" width="80"/></div>
             </div>
             <h1 style="font-size:20px;padding-left:110px;display:inline-block;text-transform:initial" >
 
 							<span>
 																												더 라스트 오브 어스 파트 1 디럭스 에디션							</span><br/>
-              <span style="text-transform:none" id="game_name">${game.name}</span>
+              <span style="text-transform:none" id="game_name" th:text="${game.name}"></span>
             </h1>
           </div>
 
@@ -49,13 +49,13 @@
                       <div class='media_player_marker'><span>▶</span></div>												<img src="https://img.youtube.com/vi/LW5NwaUXgIA/1.jpg" data-type="media" data-url="<div class='embed-responsive embed-responsive-16by9'><iframe class='embed-responsive-item' src='https://www.youtube.com/embed/LW5NwaUXgIA'></iframe></div>" itemprop="thumbnailUrl">
                     </div>
                     <div class="item screenshot_thumbnail" style='cursor:pointer'>
-                      <img th:src="@{/images/img-game-thumnail_2.jpg}" data-type="image/jpeg" data-url="<img src='${pageContext.request.contextPath}/images/img-game-thumnail_2.jpg'>" itemprop="thumbnailUrl">
+                      <img th:src="@{/images/img-game-thumnail_2.jpg}" data-type="image/jpeg" data-url="<img src='/images/img-game-thumnail_2.jpg'>" itemprop="thumbnailUrl">
                     </div>
                     <div class="item screenshot_thumbnail" style='cursor:pointer'>
-                      <img src="${pageContext.request.contextPath}/images/img-game-thumnail_3.jpg" data-url="<img src='${pageContext.request.contextPath}/images/img-game-thumnail_3.jpg'>" itemprop="thumbnailUrl">
+                      <img th:src="@{/images/img-game-thumnail_3.jpg}" data-url="<img src='/images/img-game-thumnail_3.jpg'>" itemprop="thumbnailUrl">
                     </div>
                     <div class="item screenshot_thumbnail" style='cursor:pointer'>
-                      <img src="${pageContext.request.contextPath}/images/img-game-thumnail_4.jpg" data-type="image/jpeg" data-url="<img src='${pageContext.request.contextPath}/images/img-game-thumnail_4.jpg'>" itemprop="thumbnailUrl">
+                      <img th:src="@{/images/img-game-thumnail_4.jpg}" data-type="image/jpeg" data-url="<img src='/images/img-game-thumnail_4.jpg'>" itemprop="thumbnailUrl">
                     </div>
                   </div>
                 </div>
@@ -112,7 +112,7 @@
             <div class="right">
               <div class="vm-product-details-container" >
                 <div class="module normal-module" >
-                  <div id="goods_img" ><img src="${pageContext.request.contextPath}/images/img-game-thumnail_2.jpg" width="320" height="150"  title="유니크 게임즈" onerror="this.src='/images/404.jpg'"></div>
+                  <div id="goods_img" ><img th:src="@{/images/img-game-thumnail_2.jpg}" width="320" height="150"  title="유니크 게임즈" onerror="this.src='/images/404.jpg'"></div>
                   <div class="module-inner">
                     <div class="module-ct">
                       <div class="vmgroup single-product  normal-module" >
@@ -128,7 +128,6 @@
                                 <span class="vm-price-desc" >제작 </span>
                                 <span class="PricebasePrice" ><a href="../detail/getIntro?id=4" style="font: italic normal 900 18px Apex New; letter-spacing: 0px;color: #1c2025">Nauty Dog</a>
                                   </span>
-                                <span id="company_id" style="display: none">${company.company_id}</span>
                               </div>
                               <span class="price-crossed" ></span>
                             </div>
@@ -176,11 +175,11 @@
                                 <span class="amount">400,000,000원</span>
                               </div>
                               <div class="donation-amount" style="margin-bottom: 30px">
-                                <%--                                <span class="label">후원금액</span>--%>
-                                <%--                                <span class="don-amount">4,000,000원</span>--%>
+                                <span class="label">후원금액</span>
+                                <span class="don-amount">4,000,000원</span>
                               </div>
                               <button type="button" class="btn btn-default btn-lg" id="btn_wishlist" data="50004122" style="width: 90px;">
-                                <img src="${pageContext.request.contextPath}/images/btn_like_select.png">
+                                <img th:src="@{/images/btn-like-select.png}">
                                 Like</button>
                               <button type="button" class="btn btn-warning btn-lg" id="btn_donate" data="50004122" data-assetid="3402" data-prodtp="1" style="width: 150px">후원하기</button>
 

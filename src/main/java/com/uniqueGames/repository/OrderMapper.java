@@ -24,7 +24,7 @@ public interface OrderMapper {
     @Delete("DELETE FROM TB_ORDER WHERE ID = #{id}")
     int getCartDeleteOne(int id);
 
-    @Insert("INSERT INTO TB_ORDER( M_ID, C_ID, G_ID, AMOUNT,GAMETITLE, GAME_IMG) VALUES (#{mId},#{cId},#{gId},#{amount},#{gametitle},#{gameImg})")
+    @Insert("INSERT INTO TB_ORDER( M_ID, C_ID, G_ID, AMOUNT) VALUES (#{mId},#{cId},#{gId},#{amount})")
     int insertCart(Order order);
 
     // Order
@@ -49,6 +49,7 @@ public interface OrderMapper {
     @Select("SELECT IFNULL(SUM(AMOUNT), 0) PAYMENT_AMOUNT FROM TB_ORDER WHERE M_ID = #{mId} AND PAYMENT_STATUS = 'COMPLETE'")
     int getPaymentAmount(String mId);
 
+
     @Select("SELECT RNO, ORDER_DATE, G_ID, AMOUNT FROM (SELECT ROW_NUMBER() OVER (ORDER BY ${order1} ${order2}) AS RNO, ORDER_DATE, G_ID, AMOUNT " +
             "FROM (SELECT DATE_FORMAT(ORDER_DATE, '%y-%m') AS ORDER_DATE, G_ID, SUM(AMOUNT) AS AMOUNT FROM TB_ORDER " +
             "WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE' GROUP BY DATE_FORMAT(ORDER_DATE, '%y-%m'), G_ID)AS TB1) AS TB2 " +
@@ -61,6 +62,7 @@ public interface OrderMapper {
 
     @Select("SELECT IFNULL(SUM(AMOUNT), 0) TOTAL_AMOUNT FROM TB_ORDER WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE'")
     int getTotalDonation(String cId);
+
 
     @Select("SELECT ROW_NUMBER() OVER(ORDER BY SUM(AMOUNT) DESC) AS RNO, M.MEMBER_ID USERID, O.G_ID, SUM(AMOUNT) " +
             "FROM TB_ORDER AS O INNER JOIN MEMBER AS M ON O.M_ID = M.ID WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE' " +

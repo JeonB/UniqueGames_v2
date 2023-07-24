@@ -29,27 +29,10 @@
       </ul>
     </div>
   </div>
-<!--  <div class="menu-allList">-->
-<!--    <div id="gameList">-->
-<!--      <div th:each="intro : ${companyList}" id="gList">-->
-<!--        <img th:src="@{/upload/{upload}(upload=${intro.upload})}"-->
-<!--             width="260px" height="180px">-->
-<!--        <ul>-->
-<!--          <li><a th:href="@{getIntro(id=${intro.id})}" style="cursor: pointer" th:text="${intro.name}"></a>-->
-<!--          </li>-->
-<!--          <li th:text="${intro.id}"></li>-->
-<!--          <li><img th:src="@{/images/img-icon-rPc.png}"></li>-->
-<!--        </ul>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-
-<!--  <div class="Frame2">-->
-    <div class="Group18" th:each="intro:${introList}">
+    <div class="Group18" th:each="introList,j:${combinedList[0]}">
       <div class="Group17">
         <div class="Rectangle39"></div>
-        <div class="EnGameName" th:text="${intro.name}"></div>
+        <div class="EnGameName" th:text="${introList.title}"></div>
 <!--        <div class="GameName">넥슨코리아</div>-->
         <div class="Line1"></div>
         <div class="MaskGroup">
@@ -57,14 +40,12 @@
 <!--          <img class="Image3" th:src="${intro.upload}"/>-->
         </div>
       </div>
-      <div class="Description" th:text="${intro.content}">게임을사랑하는사람들이모여즐겁게게임을만드는곳,넥슨.<br/>이곳에서전세계게이머들에게최고의재미와경험을선사하기위한도전은계속됩니다.<br/>그들의 추억으로 버는 수익은 언제까지 지속될까?</div>
+      <div class="Description" th:text="${introList.content}">게임을사랑하는사람들이모여즐겁게게임을만드는곳,넥슨.<br/>이곳에서전세계게이머들에게최고의재미와경험을선사하기위한도전은계속됩니다.<br/>그들의 추억으로 버는 수익은 언제까지 지속될까?</div>
       <div class="Info">INFO</div>
       <div class="Games">GAMES</div>
-      <div th:each="game:${gameList}">
-        <div th:each="g, i: ${game}">
-          <img th:class="'Rectangle4' + (i.index % 3 + 1)" th:src="${g.imagePath}"/>
+        <div th:each="game, stat : ${combinedList[1].get(j.index)}">
+          <img th:class="'Rectangle4' + (${stat.count} % 3 + 1)" th:src="@{'../images/'+ ${game.uploadImg}}"/>
         </div>
-      </div>
 <!--      <div class="Rectangle44"></div>-->
       <div class="ExpandMoreFill1Wght400Grad0Opsz48"></div>
     </div>
@@ -77,15 +58,16 @@
   /*<![CDATA[*/
   const element = document.getElementById('board-top-menu');
   const loginMember = /*[[${session.loginMember}]]*/ '';
-  if(loginMember.memberId != null || loginMember === 'null'){
+  let status = /*[[${session.status}]]*/'';
+  if((loginMember != null && loginMember.memberId != null) || loginMember === null){
     element.style.visibility = 'hidden';
-  }else if(loginMember.companyId != null  && '${status}' === 'writeOnce'){
+  }else if(loginMember.companyId != null  && status === 'writeOnce'){
     $('button[name="listWrite"]').on("click", function() {
       alert("글 작성은 한번만 가능합니다!");
     });
   }else if(loginMember.companyId != null){
     $('button[name="listWrite"]').on("click", function() {
-      location.href = "../detail/insertIntro";
+      location.href = "../insertIntro";
     });
   }
   /*]]>*/

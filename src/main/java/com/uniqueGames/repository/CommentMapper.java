@@ -17,7 +17,7 @@ public interface CommentMapper {
 	public List<Comment> selectComment(String no);
 
 	@Insert("INSERT INTO TB_COMMENT (POST_ID, M_ID, COMMENT_CONTENT)"
-			+ " VALUES (#{postId}, #{memberId}, #{commentContent})")
+			+ " VALUES (#{postId}, #{mId}, #{commentContent})")
 	public int insertComment(Comment comment);
 
 	@Delete("DELETE FROM TB_COMMENT WHERE ID = #{no}")

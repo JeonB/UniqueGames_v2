@@ -72,9 +72,9 @@
 <img class="topGame-title" src="/images/imt-title-top.png" width="135px" height="32px">
 <div class="menu-topGame">
     <div class="topGame-list">
-        <div th:each="game, loop : ${ranking}" class="tList">
+        <div th:each="game, loop : ${gameList}" class="tList">
             <div th:if="${loop.index &lt; 4}">
-                <a th:href="@{'detail/' + ${game.id}}"><img alt="#" th:src="${game.imagePath}" width="500px" height="auto"></a>
+                <a th:href="@{'detail/' + ${game.id}}"><img alt="#" th:src="@{'../images/' +${game.uploadImg}}" width="500px" height="auto"></a>
                 <div>
                     <p th:text="${loop.index + 1}"></p>
                     <li class="cyber"><a th:href="@{'detail/' + ${game.id}}" th:text="${game.name}"></a></li>
@@ -90,9 +90,9 @@
     <p class="sub-title">#최근 반응이 좋은</p>
     <div class="menu-recommendations">
         <div class="recommendList">
-            <div th:each="game, loop : ${donation}" class="rList">
+            <div th:each="game, loop : ${gameList}" class="rList">
                 <div th:if="${loop.index &lt; 4}">
-                    <img th:src="${game.imagePath}" width="260px" height="180px">
+                    <img th:src="@{'../images/' +${game.uploadImg}}" width="260px" height="180px">
                     <ul>
                         <li>Hot</li>
                         <li th:text="${game.name}"></li>
@@ -112,7 +112,7 @@
     <div class="menu-allList">
         <div class="gameList">
             <div th:each="game : ${gameList}" class="gList">
-                <img th:src="${game.imagePath}" width="260px" height="180px">
+                <img th:src="@{'../images/' +${game.uploadImg}}" width="260px" height="180px">
                 <ul>
                     <li><a th:href="@{'detail/' + ${game.id}}" th:text="${game.name}"></a></li>
                     <li th:text="${game.gameGenre}"></li>
