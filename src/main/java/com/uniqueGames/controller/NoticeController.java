@@ -47,7 +47,6 @@ public class NoticeController {
 
         // 페이징 처리 - startCount, endCount 구하기
         Map<String, Integer> pageMap = boardUtil.getPagination(page, "list", "");
-//        Page pageInfo = boardUtil.getPagination(new Page(page, "list"));
         List<Notice> list = noticeService.getNoticeList(pageMap.get("startCount"), pageMap.get("endCount"));
         model.addAttribute("list", list);
         model.addAttribute("dbCount", pageMap.get("dbCount"));
@@ -60,13 +59,32 @@ public class NoticeController {
     }
 
     /**
+     * notice_Search 리스트 검색 처리
+     */
+    @GetMapping(value = "/list/search")
+    @SuppressWarnings("unchecked")
+    public String boardSearchProc(String q, String page, Model model, String searchType) {
+        log.info(searchType);
+        Map<String, Integer> pageMap = boardUtil.getPagination(page, q, searchType);
+        List<Notice> list = (List<Notice>) noticeService.search(q, pageMap, searchType);
+
+        model.addAttribute("list", list);
+        model.addAttribute("dbCount", pageMap.get("dbCount"));
+        model.addAttribute("pageSize", pageMap.get("pageSize"));
+        model.addAttribute("pageCount", pageMap.get("pageCount"));
+        model.addAttribute("page", pageMap.get("reqPage"));
+
+        return "/notice/notice-list";
+    }
+
+    /**
      * notice/write 공지사항 작성 페이지 이동
      *
      * @return
      */
     @GetMapping("/write")
     public String noticeWrite() {
-        return "notice/notice-write";
+        return "/notice/notice-write";
     }
 
     /**
@@ -173,24 +191,5 @@ public class NoticeController {
         }
 
         return "redirect:/notice/content/" + notice.getId();
-    }
-
-    /**
-     * notice_Search 리스트 검색 처리
-     */
-    @GetMapping(value = "/list/search")
-    @SuppressWarnings("unchecked")
-    public String boardSearchProc(String q, String page, Model model, String searchType) {
-        log.info(searchType);
-        Map<String, Integer> pageMap = boardUtil.getPagination(page, q, searchType);
-        List<Notice> list = (List<Notice>) noticeService.search(q, pageMap, searchType);
-
-        model.addAttribute("list", list);
-        model.addAttribute("dbCount", pageMap.get("dbCount"));
-        model.addAttribute("pageSize", pageMap.get("pageSize"));
-        model.addAttribute("pageCount", pageMap.get("pageCount"));
-        model.addAttribute("page", pageMap.get("reqPage"));
-
-        return "/notice/notice-list";
     }
 }

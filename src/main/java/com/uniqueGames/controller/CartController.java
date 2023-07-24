@@ -4,52 +4,61 @@ package com.uniqueGames.controller;
 import com.uniqueGames.config.Login;
 import com.uniqueGames.model.*;
 import com.uniqueGames.model.Company;
-import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Order;
 
+import com.uniqueGames.repository.CompanyRepositoryMapper;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.uniqueGames.service.GameService;
 import com.uniqueGames.service.OrderService;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@SessionAttributes({SessionConstants.LOGIN_MEMBER, "game", "company"})
 public class CartController {
-    @Autowired
-    private OrderService orderService;
-    @Autowired
-    private GameService gameService;
+    private final OrderService orderService;
+    private final CompanyRepositoryMapper companyRepositoryMapper;
 
+    @Autowired
+    public CartController(OrderService orderService,
+            CompanyRepositoryMapper companyRepositoryMapper) {
+        this.orderService = orderService;
+        this.companyRepositoryMapper = companyRepositoryMapper;
+    }
+
+
+    /**
+     * @param selectedValue Ajax로 전달 받은 후원 금액
+     * @param gameId Ajax로 전달 받은 게임 식별자                     
+     * @param member 회원 아이디
+     * @param session 세션 속성값 제거를 위함
+     * @return 장바구니 페이지
+     */
     @PostMapping(value = "/cart")
-    public String getValue(@RequestParam("selectedValue") String selectedValue, @ModelAttribute("company")
-    Company company, @ModelAttribute(SessionConstants.LOGIN_MEMBER) Member member, @ModelAttribute("game") Game game) {
-
-        /*
-         * orderService의 데이터 insert 기능 추가
-         * */
+    public String getValue(@RequestParam("selectedValue") String selectedValue,
+     @RequestParam("gameId") int gameId, @Login Member member, HttpSession session) {
+        Company company = companyRepositoryMapper.findByIndex(gameId);
         Order order = orderService.addToOrderVo(
-
                 member.getMemberId(),
                 company.getCompanyId(),
-
-                game.getId(),
-                Integer.parseInt(selectedValue),
-                game.getName(),
-                game.getImagePath()
+                gameId,
+                Integer.parseInt(selectedValue)
         );
         orderService.insertCart(order);
+        session.removeAttribute("gameId"); // "gameId" 세션 속성 값 제거
         return "order/cart";
     }
 
     @GetMapping(value = "/cart")
     public String cart(@Login Member member, Model model) {
         ArrayList<Order> cartList = orderService.getCartList(member.getMemberId());
-        cartList = gameService.addGameInfo(cartList);
+
+        cartList = orderService.addGameInfo(cartList);
+
 
         if (cartList.size() == 0) {
             model.addAttribute("nothing", true);
@@ -65,7 +74,7 @@ public class CartController {
     public String cartDeleteOne(@Login Member member, int id, Model model) {
         if (orderService.getCartDeleteOne(id) != 0) {
             ArrayList<Order> cartList = orderService.getCartList(member.getMemberId());
-
+            cartList = orderService.addGameInfo(cartList);
             if (cartList.size() == 0) {
                 model.addAttribute("nothing", true);
             } else {

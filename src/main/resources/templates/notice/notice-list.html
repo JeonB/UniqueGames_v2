@@ -13,12 +13,7 @@
         $(document).ready(function () {
             getPagination([[${pageCount}]], [[${dbCount}]], [[${page}]], [[${pageSize}]]);
         });
-    </script>
-    <script th:inline="javascript" th:if="${result}">
-        /*<![CDATA[*/
-        let result = [[${result}]]
-        getResult(result)
-        /*]]>*/
+        getResult([[${result}]])
     </script>
 </head>
 <body>

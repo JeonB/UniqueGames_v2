@@ -24,7 +24,6 @@ DROP TABLE IF EXISTS `TB_GAME`;
 CREATE TABLE TB_GAME (
                         ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                         NAME VARCHAR(30) NOT NULL,
-                        IMAGE_PATH VARCHAR(200) NOT NULL,
                         GAME_GENRE VARCHAR(50) NOT NULL,
                         DONATION_STATUS INT NOT NULL DEFAULT 0,
                         DESCRIPTION VARCHAR(200),
@@ -54,7 +53,7 @@ CREATE TABLE TB_NOTICE (
                         ID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                         C_ID VARCHAR(30) NOT NULL,
                         TITLE VARCHAR(50),
-                        CONTENT VARCHAR(300),
+                        CONTENT VARCHAR(3000),
                         NOTICE_HITS INT,
                         NOTICE_DATE DATETIME DEFAULT CURRENT_TIMESTAMP,
                         CONSTRAINT FK_NOTICE_COMPANY FOREIGN KEY (C_ID) REFERENCES TB_COMPANY (COMPANY_ID) ON DELETE CASCADE

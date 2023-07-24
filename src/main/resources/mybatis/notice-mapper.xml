@@ -94,13 +94,14 @@
 				CONTENT,
 				NOTICE_HITS,
 				CAST( DATE_FORMAT( NOTICE_DATE, '%Y-%m-%d %H:%i:%s' ) AS CHAR(19) ) AS NOTICE_DATE,
-		        UPLOAD_IMG
+				GROUP_CONCAT(TB_NOTICE_IMAGE.UPLOAD_IMG) AS UPLOAD_IMG
 		FROM TB_NOTICE
 		INNER JOIN TB_COMPANY
 		ON TB_NOTICE.C_ID = TB_COMPANY.COMPANY_ID
 		LEFT JOIN TB_NOTICE_IMAGE
 		ON TB_NOTICE.ID = TB_NOTICE_IMAGE.POST_ID
-		WHERE TB_NOTICE.ID = #{no};
+		WHERE TB_NOTICE.ID = #{no}
+		GROUP BY TB_NOTICE.ID, TB_COMPANY.NAME;
 	</select>
 
 	<!-- 공지사항 수정 -->
@@ -144,7 +145,7 @@
 	</update>
 
 	<!-- 공지사항 작성 이미지 첨부 -->
-	<insert id="insertFile" parameterType="Notice">
+	<insert id="insertImage" parameterType="Notice">
 		INSERT INTO TB_NOTICE_IMAGE (
 			POST_ID,
 			UPLOAD_IMG,
@@ -156,39 +157,15 @@
 		NOW()
 		)
 	</insert>
-
-	<!-- 공지사항 수정 이미지 덮어쓰기 -->
-	<update id="updateFile" parameterType="Notice">
-		UPDATE TB_NOTICE_IMAGE
-		SET UPLOAD_IMG = #{id}
-		WHERE POST_ID = #{uploadImg}
-	</update>
-
-	<!-- 수정하는 글에 이미지가 없었을 경우 데이터 생성 -->
-	<insert id="updateUploadFile" parameterType="Notice">
-		INSERT INTO
-		TB_NOTICE_IMAGE (
-		POST_ID,
-		UPLOAD_IMG
-		)
-		VALUES (
-		#{id},
-		#{uploadImg}
-		)
-	</insert>
 	
 	<!-- 수정시 파일 업로드 취소하면 삭제 -->
-	<delete id="deleteFile" parameterType="Notice">
+	<delete id="deleteImage">
 		DELETE FROM TB_NOTICE_IMAGE
-		WHERE POST_ID = #{id}
+		WHERE UPLOAD_IMG IN
+		<foreach collection="list" item="img" open="(" separator="," close=")">
+			#{img}
+		</foreach>
 	</delete>
-
-	<!-- 글에 이미지 컬럼 존재 여부 체크 -->
-	<select id="fileCheck" parameterType="Notice" resultType="int">
-		SELECT COUNT(*)
-		FROM TB_NOTICE_IMAGE
-		WHERE POST_ID = #{id}
-	</select>
 
 	<!-- 검색 시 총 게시글 수 -->
 	<select id="totRowCountSearch" resultType="int">

@@ -1,7 +1,9 @@
 package com.uniqueGames.service;
 
+import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Order;
 import com.uniqueGames.model.Payment;
+import com.uniqueGames.repository.GameMapper;
 import com.uniqueGames.repository.OrderMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,14 @@ import java.util.List;
 @Repository
 @Service
 public class OrderService {
+    private final OrderMapper orderMapper;
+    private final GameMapper gameMapper;
     @Autowired
-    private OrderMapper orderMapper;
+    public OrderService(OrderMapper orderMapper, GameMapper gameMapper) {
+        this.orderMapper = orderMapper;
+        this.gameMapper = gameMapper;
+    }
+
 
     public static String formatCurrency(int amount) {
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
@@ -48,8 +56,8 @@ public class OrderService {
         return orderMapper.insertCart(order);
     }
 
-    public Order addToOrderVo(String m_id, String c_id, int g_id, int amount, String gametitle, String game_img) {
-        return new Order(m_id, c_id, g_id, amount, gametitle, game_img);
+    public Order addToOrderVo(String m_id, String c_id, int g_id, int amount) {
+        return new Order(m_id, c_id, g_id, amount);
     }
 
     // Order
@@ -147,6 +155,19 @@ public class OrderService {
         return orderMapper.aGetDonationList(order1, order2, startCount, endCount);
     }
 
+
+    public ArrayList<Order> addGameInfo(ArrayList<Order> cartList) {
+        for (int i = 0; i < cartList.size(); i++) {
+            int gid = cartList.get(i).getGId();
+            Game game = gameMapper.getGameForIndex(gid);
+            game.setUploadImg("../images/" + gameMapper.getOneFile(gid).getUploadImg());
+
+            cartList.get(i).setGameImg(game.getUploadImg());
+            cartList.get(i).setGametitle(game.getName());
+        }
+
+        return cartList;
+    }
     public int totRowCountAdmin() {
         return orderMapper.totRowCountAdmin();
     }

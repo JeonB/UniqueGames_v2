@@ -106,8 +106,22 @@ $(document).ready(function () {
 
             return false;
         } else {
-            writeForm.submit();
+            const htmlString = editor.getData()
+            // 정규 표현식으로 이미지 태그에서 파일 이름 추출
+            const imgTagRegex = /<img\s+src="([^"]+)">/g
+            const matches = htmlString.matchAll(imgTagRegex)
 
+            // 추출된 파일 이름 출력
+            for (const match of matches) {
+                const srcAttr = match[1]
+                const fileName = srcAttr.substring(srcAttr.lastIndexOf('/') + 1)
+                const input = document.createElement("input")
+                input.type = "hidden"
+                input.name = "uploadImg"
+                input.value = fileName
+                document.getElementById("fileBox").appendChild(input)
+            }
+            writeForm.submit()
         }
 
     });
@@ -119,40 +133,6 @@ $(document).ready(function () {
             location.href = "notice-content?stat=up&no=" + URLSearch.get('no');
         } else {
             location.href = "/notice/list";
-        }
-    });
-
-    // 파일 버튼 이벤트
-    $('button[name="file"]').on("click", function () {
-        $('#upload-hidden').click();
-    });
-
-    // file
-    $('#upload-hidden').on('change', function () {
-        let file = $("#upload-hidden")[0].files[0];
-        let fileName = file.name;
-        let fileType = file.type;
-        let hidden = document.getElementById("upload-hidden");
-        let name = document.getElementById("upload-name");
-
-        if (fileType.startsWith("image/")) {
-            $('#upload-name').val(file.name);
-
-            let output = "<button type='button' class='btn-style' name='filedel'>취소</button>";
-            $('#fileDelbtn').html(output);
-            $(".filebox").css("margin-right", "78px");
-            // 파일 취소 버튼 이벤트
-            $('.filebox button[name="filedel"]').on("click", function () {
-                hidden.value = null;
-                name.value = "";
-                $('button[name="filedel"]').remove();
-                $("#filebox").css("margin-right", "164px");
-            });
-
-        } else {
-            alert("이미지만 선택 가능합니다.");
-            $('#upload-hidden').val(null);
-            $('#upload-name').val("");
         }
     });
 
@@ -229,7 +209,7 @@ $(document).ready(function () {
 
         } else {
             if (confirm("로그인 후 이용 가능합니다. 로그인 하시겠습니까?")) {
-                location.href = "login";
+                location.href = "/login";
 
             } else {
 
