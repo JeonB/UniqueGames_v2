@@ -10,7 +10,6 @@
 - 김병수 [kimbs5899](https://github.com/kimbs5899)
 - 김재현 [jaehyeonkim0](https://github.com/jaehyeonkim0)
 - 민영기 [Corendo6](https://github.com/Corendo6)
-<br>
 
 ## 3. 주요 기능
 * 메인화면
@@ -53,8 +52,8 @@
 	<img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=Java&logoColor=white" />
   <img src="https://img.shields.io/badge/jquery-0769AD?style=for-the-badge&logo=jquery&logoColor=white">
 	<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
-  <img src="https://img.shields.io/badge/springboot-#6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
-  <img src="https://img.shields.io/badge/gradle-#02303A?style=for-the-badge&logo=gradle&logoColor=white">
+  <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+  <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
   <img src="https://img.shields.io/badge/adobephotoshop-31A8FF?style=for-the-badge&logo=adobephotoshop&logoColor=white">
   <img src="https://img.shields.io/badge/adobexd-FF61F6?style=for-the-badge&logo=adobexd&logoColor=white">
 <br>
