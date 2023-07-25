@@ -57,18 +57,14 @@
 	<br>
 </div>
 
----
-
 - RDBMS
 <div align="left">
-	<br>
 	<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
 	<br>
 </div>
 
 - Tools
 <div align="left">
-	<br>
 	<img src="https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white">
 	<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 	<br>
