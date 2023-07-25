@@ -57,11 +57,15 @@
 	<br>
 </div>
 
+---
+
 - RDBMS
 <div align="left">
 	<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
 	<br>
 </div>
+
+---
 
 - Tools
 <div align="left">
@@ -69,6 +73,8 @@
 	<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
 	<br>
 </div>
+
+---
 
 - API
   <br>
