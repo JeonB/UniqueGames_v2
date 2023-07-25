@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/board.css">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script><!-- 마이크로소프트 jQuery-->
     <script src="/js/board.js"></script>
+    <script src="/js/comment.js"></script>
     <script th:inline="javascript" th:if="${result}">
         getResult([[${result}]])
     </script>
@@ -80,17 +81,23 @@
                 <button type="button" class="btn-style" name="cmtWrite">등록</button>
             </form>
             <!-- Comment -->
-            <th:block th:each="c : ${commList}">
+            <th:block th:each="c : ${commList}"
+                      th:with="login = ${loginMember != null and #strings.contains(loginMember,'Member')} and ${c.mId} == ${loginMember.memberId}">
                 <div id="comment" th:id="'comment' + ${c.id}" class="comment1">
-                    <div id="user-name" th:text="${c.mId}"></div>
-                    <div><span id="msg-date" th:text="${c.commentDate}"></span>
-                        <th:block
-                                th:if="${loginMember != null and #strings.contains(loginMember,'Member')} and ${c.mId} == ${loginMember.memberId}">
-                            <span id="cmtDelete" class="cmtDelete"
-                                  th:onclick="'commentDelete(' + ${c.id} + ')'">삭제</span>
-                        </th:block>
+                    <nav>
+                        <span id="msg-date" th:text="${c.commentDate}"></span>
+                        <span class="cmtNav" th:onclick="'commentDelete(' + ${c.id} + ')'" th:if="${login}">삭제</span>
+                        <span class="cmtNav" th:onclick="'commentReport(' + ${c.id} + ')'" th:unless="${login}">신고</span>
+                    </nav>
+                    <div>
+                        <div class="cmt-img">
+                            <img th:src="${c.profileImg != null ? '/upload/' + c.profileImg : '/images/comment-default.png'}"/>
+                        </div>
+                        <div class="cmt-text">
+                            <span th:text="${c.MId}" id="user-name"></span>
+                            <p th:utext="${c.commentContent}" class="comment-content"></p>
+                        </div>
                     </div>
-                    <span th:utext="${c.commentContent}"></span>
                 </div>
             </th:block>
         </div>

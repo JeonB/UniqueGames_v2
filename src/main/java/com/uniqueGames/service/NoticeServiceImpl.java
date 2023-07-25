@@ -78,10 +78,7 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
 
         if (notice.getUploadImg() != null) {
             String[] fileList = notice.getUploadImg().split(",");
-            for (String img : fileList) {
-                notice.setUploadImg(img);
-                noticeMapper.insertImage(notice);
-            }
+            repeatInsert(fileList, notice);
         }
 
         return insResult;
@@ -118,12 +115,7 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
 
                 // db에 저장
                 String[] fileList = notice.getUploadImg().split(",");
-                for (String img : fileList) {
-                    if (!img.equals("")) {
-                        notice.setUploadImg(img);
-                        noticeMapper.insertImage(notice);
-                    }
-                }
+                repeatInsert(fileList, notice);
 
             } else if (dbImg.length > 0) {
                 // 이미지가 없고 db에 저장된 이미지가 있으면 이미지 삭제
@@ -185,6 +177,20 @@ public class NoticeServiceImpl extends FileUploadUtil implements NoticeService {
 
         String[] keywordList = keyword.split(" ");
         return boardUtil.getOutput(noticeMapper.searchList(keywordList, pageMap, searchType));
+    }
+
+    /**
+     * db에 insert 반복
+     * @param fileList 파일 이름 리스트
+     * @param notice
+     */
+    private void repeatInsert(String[] fileList, Notice notice) {
+        for (String img : fileList) {
+            if (!img.equals("")) {
+                notice.setUploadImg(img);
+                noticeMapper.insertImage(notice);
+            }
+        }
     }
 
 }
