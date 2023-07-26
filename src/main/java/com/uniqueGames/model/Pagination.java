@@ -7,17 +7,16 @@ import lombok.Setter;
 @Setter
 public class Pagination {
 
-//    private CompuCategory category;
     private Integer page = 0;           //현재페이지
     private Integer perFirstRow = 0;    //한페이지의 첫번째 게시글
-    private Integer perRows = 4;        //한페이지에 보여줄 게시글 수
+    private Integer perRows = 3;        //한페이지에 보여줄 게시글 수
 
     private Integer listStartNum;       //한페이지의 리스트 시작번호
     private Integer listEndNum;         //한페이지의 리스트 끝번호
     private Integer listLimit = 5;   //한페이지에 보여줄 리스트 수
     private Integer listLastNum;        //마지막페이지번호
 
-    private String order = "createtime desc";
+    private String order = "name desc";
 
     private String searchText = "";
 //    private String searchRange = "1";
@@ -41,7 +40,7 @@ public class Pagination {
      *  마지막 페이지의 번호 설정하는 메소드
      */
     public void setListLastNum(double totalContentCount) {
-        this.listLastNum = (int) Math.ceil(totalContentCount / this.perRows); //21개 게시글이 있으면 21/4 + 1 => 6개 페이지 그룹 생성
+        this.listLastNum = (int) Math.ceil(totalContentCount / this.perRows); //21개 게시글이 있으면 21/3 => 7개 페이지 그룹 생성
     }
 
     

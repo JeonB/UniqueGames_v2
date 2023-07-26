@@ -3,6 +3,7 @@ import com.uniqueGames.model.Intro;
 import com.uniqueGames.model.Pagination;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -24,4 +25,10 @@ public interface DetailMapper {
     void deleteIntro(int id);
     List<Intro> getIntroList();
     Integer findByAllCount();
+
+    @Select("select * from tb_intro " + "order by ${order} limit #{perRows} offset #{perFirstRow}")
+    List<Intro> findByAllPaginationAndSearch(Pagination pagination);
+
+    @Select("select id from tb_intro where c_id = #{cId}")
+    Integer findIdByCId(String cId);
 }

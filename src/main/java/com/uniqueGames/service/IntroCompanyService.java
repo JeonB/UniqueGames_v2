@@ -52,4 +52,11 @@ public class IntroCompanyService {
 
         return null;
     }
+    public List<Intro> findByAllPaginationAndSearch(Pagination pagination){
+        return detailMapper.findByAllPaginationAndSearch(pagination);
+    };
+
+    public Integer findIdByCId(String cId) {
+        return detailMapper.findIdByCId(cId);
+    }
 }
