@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <title>회사 소개페이지 리스트</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/company-list.css}">
   <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 <!--header-->
@@ -18,9 +19,8 @@
     </div>
   </div>
 </section>
-<section id="menu-main">
-  <div class="main-container">
-  <div id="board-top-menu">
+
+<section id="board-top-menu">
     <div>
       <ul>
         <li><button type="button" class="btn-style" name="listWrite">작성</button></li>
@@ -28,30 +28,49 @@
         <li><button type="button" class="btn-style" name="listDelete">삭제</button></li>
       </ul>
     </div>
-  </div>
-    <div class="Group18" th:each="introList,j:${combinedList[0]}">
-      <div class="Group17">
-        <div class="Rectangle39"></div>
-        <div class="EnGameName" th:text="${introList.title}"></div>
-<!--        <div class="GameName">넥슨코리아</div>-->
-        <div class="Line1"></div>
-        <div class="MaskGroup">
-          <div class="Vector1"></div>
-<!--          <img class="Image3" th:src="${intro.upload}"/>-->
+</section>
+<div id="intro-board" th:each="introList,j:${combinedList[0]}">
+  <div class="Group19" th:style="${j.index % 2 != 0} ? 'background-color: #F2F2F2;' : ''">
+    <div class="Group18" >
+        <div class="Group17">
+          <div class="Rectangle39"></div>
+          <div class="EnGameName" th:text="${introList.title}"></div>
+          <div class="Line1"></div>
+          <div class="MaskGroup">
+            <div class="Vector1"></div>
+          </div>
         </div>
-      </div>
-      <div class="Description" th:text="${introList.content}">게임을사랑하는사람들이모여즐겁게게임을만드는곳,넥슨.<br/>이곳에서전세계게이머들에게최고의재미와경험을선사하기위한도전은계속됩니다.<br/>그들의 추억으로 버는 수익은 언제까지 지속될까?</div>
-      <div class="Info">INFO</div>
-      <div class="Games">GAMES</div>
+        <div class="Description" th:text="${introList.content}">게임을사랑하는사람들이모여즐겁게게임을만드는곳,넥슨.<br/>이곳에서전세계게이머들에게최고의재미와경험을선사하기위한도전은계속됩니다.<br/>그들의 추억으로 버는 수익은 언제까지 지속될까?</div>
+        <div class="Info">INFO</div>
+        <div class="Games">GAMES</div>
         <div th:each="game, stat : ${combinedList[1].get(j.index)}">
           <img th:class="'Rectangle4' + (${stat.count} % 3 + 1)" th:src="@{'../images/'+ ${game.uploadImg}}"/>
         </div>
-<!--      <div class="Rectangle44"></div>-->
-      <div class="ExpandMoreFill1Wght400Grad0Opsz48"></div>
+      </div>
     </div>
-  </div>
-<!--  </div>-->
-</section>
+
+</div>
+
+<!--페이징 버튼-->
+<nav aria-label="Page navigation" style="margin-bottom: 70px">
+  <ul class="pagination justify-content-center mt-5">
+    <li class="page-item" th:classappend="${pagination.preview} < 1 ? 'disabled'">
+      <a class="page-link" th:href="@{${baseUrl}(page=${pagination.preview})}">Previous</a>
+    </li>
+
+    <th:block th:each="num : ${#numbers.sequence(pagination.listStartNum, pagination.listEndNum)}">
+      <li class="page-item" th:classappend="${#strings.equals(num, param.page)} ? 'active'">
+        <a class="page-link"
+           th:href="@{${baseUrl}(page=${num})}"
+           th:text="${num}">1</a>
+      </li>
+    </th:block>
+
+    <li class="page-item" th:classappend="${pagination.next} > ${pagination.listLastNum} ? 'disabled'">
+      <a class="page-link" th:href="@{${baseUrl}(page=${pagination.next})}">Next</a>
+    </li>
+  </ul>
+</nav>
 <!--footer-->
 <div th:replace="~{main/footer :: footerFragment}"></div>
 <script th:inline="javascript">
@@ -59,18 +78,35 @@
   const element = document.getElementById('board-top-menu');
   const loginMember = /*[[${session.loginMember}]]*/ '';
   let status = /*[[${session.status}]]*/'';
+  const id = /*[[${id}]]*/'';
   if((loginMember != null && loginMember.memberId != null) || loginMember === null){
     element.style.visibility = 'hidden';
-  }else if(loginMember.companyId != null  && status === 'writeOnce'){
+  }
+
+  if(loginMember.companyId != null  && status === 'writeOnce'){
     $('button[name="listWrite"]').on("click", function() {
       alert("글 작성은 한번만 가능합니다!");
     });
-  }else if(loginMember.companyId != null){
+    $('button[name="listUpdate"]').on("click", function() {
+      location.href="../editIntro/" + id;
+    });
+    $('button[name="listDelete"]').on("click", function() {
+      if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
+        return false;
+      }
+      location.href="../deleteIntro/" + id;
+    });
+  }
+  else if(loginMember.companyId != null){
     $('button[name="listWrite"]').on("click", function() {
-      location.href = "../insertIntro";
+      location.href="../insertIntro";
+    });
+    $('button[name="listUpdate"], button[name="listDelete"]').on("click", function() {
+      alert("현재 게시글이 없습니다!");
     });
   }
   /*]]>*/
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

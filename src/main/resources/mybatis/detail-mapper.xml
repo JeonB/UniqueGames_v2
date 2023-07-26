@@ -18,9 +18,9 @@
   </select>
   <!-- 소개글 수정 -->
   <update id="updateIntro" parameterType="Intro">
-  UPDATE tb_intro SET title = #{title}, content = #{content}, name = #{name}
+  UPDATE tb_intro SET title = #{title}, content = #{content}, UPLOAD_IMG = #{uploadImg}
   WHERE id = #{id}
-    </update>
+  </update>
 
   <!-- 소개글 삭제 -->
   <delete id="deleteIntro" parameterType="int">
@@ -30,6 +30,10 @@
   <!-- 소개글 전부 가져오기 -->
   <select id="getIntroList" resultType="Intro">
     SELECT * FROM tb_intro ORDER BY id
+  </select>
+
+  <select id="findByAllCount"  resultType="Integer">
+    SELECT COUNT(*) FROM tb_intro
   </select>
   
 </mapper>
