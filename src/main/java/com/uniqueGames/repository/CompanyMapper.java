@@ -11,8 +11,8 @@ import java.util.List;
 @Mapper
 public interface CompanyMapper {
 
-    @Insert("insert into TB_COMPANY (company_id, password, name, email, tel, phone_num, addr) " +
-            "values (#{companyId},#{password},#{name},#{email},#{tel},#{phoneNum},#{addr})")
+    @Insert("insert into TB_COMPANY (company_id, password, name, email, tel, phone_num, addr, profile_img) " +
+            "values (#{companyId},#{password},#{name},#{email},#{tel},#{phoneNum},#{addr},#{profileImg})")
     int save(Company company);
 
     @Select("select count(*) from TB_COMPANY where company_id=#{companyId}")
@@ -39,7 +39,7 @@ public interface CompanyMapper {
     @Delete("delete from TB_COMPANY where company_id=#{companyId} and password=#{password}")
     int cdelete(String companyId, String password);
 
-    @Update("update tb_company set profile_img = #{profileImg}, email = #{email}, addr = #{addr}, phone_num = #{phoneNum} where company_id = #{companyId}")
+    @Update("update tb_company set profile_img = #{newProfileImg}, email = #{email}, addr = #{addr}, phone_num = #{phoneNum} where company_id = #{companyId}")
     int update(Company company);
 
     // ADMIN

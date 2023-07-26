@@ -59,7 +59,7 @@ $(document).ready(function() {
 
 	$("#selectbox-mobile, #selectbox-phone, input[name='phone2'], input[name='phone3']").blur(function() {
 		var phoneNum = $("#selectbox-phone").val() + $("input[name='phone2']").val() + $("input[name='phone3']").val();
-		if ($("#selectbox-mobile").val() == "default" || $("#selectbox-phone").val() == "default" || $("input[name='phone2']").val() == "" || $("input[name='phone3']").val() == "") {
+		if ($("#selectbox-mobile").val() == "" || $("#selectbox-phone").val() == "" || $("input[name='phone2']").val() == "" || $("input[name='phone3']").val() == "") {
 			$("#phoneMsg").text("전부 입력해주세요").css("color","red").css("font-size","11px").css("display","inline");
 		}else {
 			$.ajax({
@@ -80,6 +80,7 @@ $(document).ready(function() {
 			});
 		}
 	});
+
 
 	/**
 	 * 이메일 중복확인
@@ -107,7 +108,6 @@ $(document).ready(function() {
 				}
 			});
 		}
-
 	});
 
 	$("#chk-circle").click(function(){
@@ -150,18 +150,6 @@ $(document).ready(function() {
 	$(document).on("click", "button[name='btn-agreement']", function(){
 		$(".modal").css("display", "none");
 	});
-
-
-
-
-
-
-
-
-
-
-
-
 
 	/**법인 제이쿼리*/
 	$("#c-check-btn-style").click(function(){
@@ -323,6 +311,14 @@ $(document).ready(function() {
 			alert("이메일을 확인해주세요");
 			$("input[name='email']").focus();
 			return false;
+		}else if($("#email-auth-check").val()=="") {
+			alert("이메일 인증번호를 입력해주세요");
+			$("#email-auth-check").focus();
+			return false;
+		}else if($("#emailAuth").css("color") === "rgb(255, 0, 0)") {
+			alert("이메일 인증번호를 확인해주세요");
+			$("#email-auth-check").focus();
+			return false;
 		}else if($(".checkbox-agreement:checked").length!=3 && !$("#chk-circle").is(":checked")) {
 			alert("약간 동의를 체크해주세요");
 			$("#agreement").focus();
@@ -351,66 +347,31 @@ $(document).ready(function() {
 
 	})
 
-
-
-
-
-
-	
-
+	document.querySelector('#email-auth-check').addEventListener('change', checkEmailAuth);
+	$("input[name='phoneNum']").change(mypagePhoneCheckBlur);
 
 });
 
+function mypagePhoneCheckBlur() {
+	var phoneNum = $("input[name='phoneNum']");
+	$.ajax({
+		url: "phonecheck",
+		type: "POST",
+		data: {
+			phone_num: phoneNum.val()
+		},
 
+		success : function (result) {
+			if(result == 1) {
+				$("#mypage-update").prop("disabled", "true");
+				alert("이미 등록된 휴대전화입니다");
+				phoneNum.focus();
+				return false;
+			}
+		}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	});
+}
 
 
 function idCheck1(asValue) {

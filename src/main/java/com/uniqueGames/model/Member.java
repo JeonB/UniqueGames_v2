@@ -18,6 +18,7 @@ public class Member {
 	private String email1, email2, email3, phone1, phone2, phone3, addr1, addr2, newpassword;
 	private MultipartFile file;
 	private String profileImg;
+	private String newProfileImg;
 
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)

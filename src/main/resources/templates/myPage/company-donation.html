@@ -119,11 +119,11 @@
 <section class="content-mypage">
     <div class="sidebar">
         <ul>
-            <li th:if="${company.profileImg == null} or ${company.profileImg == ''}" class="mypage-profile">
+            <li th:if="${company?.profileImg == null} or ${company?.profileImg == ''}" class="mypage-profile">
                 <img src="/images/mypage-profile.png" class="profile-picture">
             </li>
-            <li th:unless="${company.profileImg == null} or ${company.profileImg == ''}">
-                <img th:src="@{/upload/{b}(b=${company.profileImg})}" class="profile-picture-1">
+            <li th:unless="${company?.profileImg == null} or ${company?.profileImg == ''}">
+                <img th:src="@{/upload/{b}(b=${company?.profileImg})}" class="profile-picture-1">
             </li>
             <li class="mypage-info" th:text="${company?.name}" id="mypage-info-1"></li>
             <li class="mypage-info" id="mypage-id" th:text="${company?.companyId}"></li>

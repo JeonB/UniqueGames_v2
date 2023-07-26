@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.uniqueGames.repository.MemberMapper">
+<mapper namespace="mapper.member">
 
 	<insert id="save" parameterType="com.uniqueGames.model.Member">
 		insert into tb_member (member_id, password, name, email, phone_num, addr, tel)

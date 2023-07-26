@@ -500,7 +500,6 @@ li.address-input {
 	border: 1px;
 	border-color: #DDD;
 	position: relative;
-	/*margin : 0px 10px 10px 400px;*/
 }
 
 .member-delete {
@@ -508,13 +507,18 @@ li.address-input {
 	bottom: 0;
 }
 
-.mypage-profile {
+.mypage-profile, .join-profile {
 	margin: 45px 0 0 45px;
 	width: 110px;
 	height: 110px;
 	border-radius: 55px;
 	background: #D9D9D9;
 }
+
+.join-profile {
+	margin: 0 0 0 150px;
+}
+
 #mypage-info-1 {
 	margin-top: 27px;
 }
@@ -538,10 +542,6 @@ li.address-input {
 	padding: 60px 0;
 }
 
-/*.must-insert-5,  {*/
-/*	margin: 20px 0 0 98px;*/
-/*}*/
-
 #mypage-update {
 	margin-top: 30px;
 }
@@ -563,7 +563,6 @@ input[type="radio"] {
 }
 
 .content-mypage {
-	/*display: flex;*/
 	padding: 0px;
 }
 
@@ -592,12 +591,8 @@ input[type="radio"] {
 	color: rgb(173,173,173);
 }
 
-/*.div-update {*/
-/*	margin-right: 10px;*/
-/*}*/
-
 .deleteForm {
-	margin-left: 200px;
+	margin-left: 250px;
 	float: left;
 }
 
@@ -618,7 +613,7 @@ li#active {
 .jointab {
 	display: inline-block;
 	padding: 20px 64px;
-	margin-bottom: 20px;
+	margin-bottom: 40px;
 	border-bottom: 1px solid rgb(217, 217, 217);
 }
 
@@ -631,9 +626,10 @@ li#active {
 	color: initial !important;
 }
 
-.mypage-profile-setting {
-	width: 20px;
-	height: 20px;
+.mypage-profile-setting, .join-profile-setting {
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
 	display: inline-block;
 	background: #454545;
 	position: relative;
@@ -641,13 +637,27 @@ li#active {
 	top: -20px;
 	cursor: pointer;
 }
-.profile-picture-1 {
+
+.join-profile-setting {
+	left: 230px;
+}
+
+.profile-setting-join, .profile-setting-mypage {
+	position: relative;
+	left: 3px;
+	top: 3px;
+}
+
+.profile-setting-mypage {
+	left: 0;
+}
+
+.profile-picture-1, profile-picture-new {
 	display: inline-block;
 	width: 150px;
 	height: 60px;
-	margin-top: 20px;
+	margin-top: 45px;
 }
-/*---------------------------------------------------------------------------------------------------------------------------*/
 
 #table-gameList, #cart-price, #table-member-list, #table-game-list, #table-donation, #table-payment {
 	width: 70%;
@@ -677,5 +687,18 @@ ul {
 	padding-left: 0px !important;
 }
 
+.cancelProfileButton {
+	background: #393939;
+	color: #FFFFFF;
+}
+/*0726 18:15 이후 작성*/
+.abc {
+	border: 1px solid red;
+	position: relative;
+	right: 175px;
+}
 
-
+.mypage-li {
+	width: 394px;
+	margin: auto;
+}

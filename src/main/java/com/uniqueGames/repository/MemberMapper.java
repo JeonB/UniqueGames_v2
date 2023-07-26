@@ -10,6 +10,8 @@ import java.util.List;
 @Mapper
 public interface MemberMapper {
 
+    @Insert("insert into tb_member (member_id, password, name, email, phone_num, addr, tel, profile_img) " +
+            " values (#{memberId},#{password},#{name},#{email},#{phoneNum},#{addr},#{tel}, #{profileImg})")
     int save(Member member);
 
     @Select("select count(*) from tb_member where member_id=#{memberId}")
@@ -42,7 +44,7 @@ public interface MemberMapper {
     @Update("update tb_member set password=#{newpassword} where member_id=#{memberId}")
     int mypageNewPass(Member member);
 
-    @Update("update tb_member set profile_img = #{profileImg}, email = #{email}, addr = #{addr}, phone_num = #{phoneNum} where member_id = #{memberId}")
+    @Update("update tb_member set profile_img = #{newProfileImg}, email = #{email}, addr = #{addr}, phone_num = #{phoneNum} where member_id = #{memberId}")
     int update(Member member);
   
     @Select("SELECT COUNT(*) FROM TB_MEMBER")

@@ -133,19 +133,8 @@ public class CheckRestController {
     }
 
     @PostMapping("memberprofile")
-    public String memberprofile(@Login Member member, MultipartFile image) {
-        String oldFile = member.getProfileImg();
+    public String memberprofile(Member member, MultipartFile image) {
         String result = memberService.fileCheck(image);
-        member.setProfileImg(result);
-        int result1 = memberService.update(member);
-
-        if(result1 == 1) {
-            if(!member.getProfileImg().isEmpty()){
-                memberService.fileSave();
-                memberService.fileDelete(oldFile);
-            }
-
-        }
         return result;
     }
 
@@ -153,7 +142,6 @@ public class CheckRestController {
     public String companyprofile(@Login Company company, MultipartFile image) {
         String oldFile = company.getProfileImg();
         String result = companyMemberService2.fileCheck(image);
-        log.info(result);
         company.setProfileImg(result);
         int result1 = companyMemberService2.update(company);
 
@@ -165,6 +153,13 @@ public class CheckRestController {
 
         }
         return result;
+    }
+
+    @PostMapping("deleteprofileImg")
+    public String deleteprofileImg(@RequestParam("originalFile") String originalFile) {
+        log.info("originalFileName = " + originalFile);
+        memberService.fileDelete(originalFile);
+        return "";
     }
 
 

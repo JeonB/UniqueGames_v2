@@ -10,16 +10,20 @@ import com.uniqueGames.service.CompanyMemberService2;
 import com.uniqueGames.service.MemberService;
 
 import javax.servlet.http.HttpSession;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
+@Slf4j
 public class MyPageController {
-    
+
     private MemberService memberService;
     private CompanyMemberService2 companyMemberService2;
     private MemberRepositoryMapper memberRepositoryMapper;
@@ -32,17 +36,19 @@ public class MyPageController {
         this.memberRepositoryMapper = memberRepositoryMapper;
         this.companyRepositoryMapper = companyRepositoryMapper;
     }
-    
+
     @GetMapping("/mypage")
     public String mypage(HttpSession session, Model model) {
         String viewName = "";
         String addr = "";
         String addr1 = "";
         String addr2 = "";
+
         String mode = session.getAttribute(SessionConstants.LOGIN_MEMBER).toString();
 
         if(mode.contains("Member")) {
             Member member = memberRepositoryMapper.findById(((Member)session.getAttribute(SessionConstants.LOGIN_MEMBER)).getMemberId());
+
             addr = member.getAddr();
             if(!addr.equals("   ")){
                 String[] addrSplit = addr.split("   ");
@@ -88,24 +94,43 @@ public class MyPageController {
     }
 
     @PostMapping("memberupdate")
-    public String memberUpdate(HttpSession session, Member member) {
-        int result = memberService.update(member);
+        public String memberUpdate(HttpSession session, Member member) {
+            String oldFile = member.getProfileImg();
+            String fileName = memberService.fileCheck(member.getFile());
+            member.setNewProfileImg(fileName);
+            int result = memberService.update(member);
 
-        if(result == 1) {
-            session.setAttribute("login", "member");
-            System.out.println("마이페이지 수정 완료");
-        }else {
-            System.out.println("수정 실패");
+            if(result == 1) {
+                memberService.fileSave();
+                if(!oldFile.isEmpty()){
+                    memberService.fileDelete(oldFile);
+                }
+                session.setAttribute("login", "member");
+                System.out.println("마이페이지 수정 완료");
+            }else {
+                System.out.println("수정 실패");
+            }
+            return "redirect:/";
         }
-        return "redirect:/";
-    }
 
     @PostMapping("companyupdate")
     public String companyUpdate(HttpSession session, Company company) {
+        String oldFile = company.getProfileImg();
+        log.info(oldFile);
+        String fileName = companyMemberService2.fileCheck(company.getFile());
+        company.setNewProfileImg(fileName);
+        log.info(company.getNewProfileImg());
         int result = companyMemberService2.update(company);
 
         if(result == 1) {
+            companyMemberService2.fileSave();
+            if(!oldFile.isEmpty()){
+                companyMemberService2.fileDelete(oldFile);
+            }
             session.setAttribute("login", "company");
+            System.out.println("마이페이지 수정 완료");
+        }else {
+            System.out.println("수정 실패");
         }
         return "redirect:/";
     }

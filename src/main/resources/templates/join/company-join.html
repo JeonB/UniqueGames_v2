@@ -8,6 +8,7 @@
   <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
   <script th:src="@{/js/join_jquery.js}"></script>
   <script th:src="@{/js/login_script.js}"></script>
+  <script th:src="@{/js/mypage.js}"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
@@ -22,7 +23,10 @@
 </section>
 <section class="content-1">
   <p class="joinIntro">회원가입</p>
-  <form action="joincompany" name="companyJoin" method="post" id="content-2">
+  <form action="joincompany" name="companyJoin" method="post" id="content-2" enctype="multipart/form-data">
+    <input type="hidden" name="type" th:value="join">
+    <input type="hidden" name="type2" th:value="company">
+    <input type="hidden" name="profileImg">
     <div>
       <ul>
         <li class="jointab"><a th:href="@{/join}">개인 회원</a></li>
@@ -31,6 +35,15 @@
     </div>
     <div>
       <ul>
+        <li class="join-profile">
+          <img src="/images/mypage-profile.png" class="profile-picture" id="test2">
+        </li>
+        <li class="join-profile-setting">
+          <label for="profile-picture-img">
+            <img src="/images/mypage-profile-setting.png" style="cursor: pointer;" class="profile-setting-join">
+          </label>
+          <input type="file" name="file" id="profile-picture-img" style="display: none;">
+        </li>
         <li class="must-insert">
           <p class="label-dot">*</p>
           <label>회사_아이디</label><span id="idMsg"></span>
@@ -64,12 +77,12 @@
         <li class="must-insert">
           <p class="label-dot">*</p>
           <label>이메일</label>
-          <span id="c-emailMsg"></span>
+          <span id="emailMsg"></span>
           <span id="emailAuth"></span>
         </li>
         <li>
           <input type="text" name="email" tabindex="5">
-          <button type="button" class="button-style" id="email-btn-style">인증 번호</button>
+          <button type="button" class="button-style" id="email-btn-style" onclick="sendEmail()">인증 번호</button>
           <input type="text" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리" maxlength="6" disabled="disabled">
         </li>
         <li>
@@ -85,20 +98,19 @@
         <li>
           <input type="text" name="addr2" tabindex="10">
         </li>
-        <li class="must-insert">
-          <p class="label-dot">*</p>
-          <label>대표번호</label><span id="c-phoneMsg"></span>
+        <li>
+          <label>대표번호</label><span id="phoneMsg"></span>
         </li>
         <li>
           <select id="selectbox-mobile" name="tel">
-            <option value="default">선택</option>
+            <option value="">선택</option>
             <option value="SKT">SKT</option>
             <option value="KT">KT</option>
             <option value="LGU+">LGU+</option>
             <option value="MVNO">알뜰폰</option>
           </select>
           <select id="selectbox-phone" name="phone1">
-            <option value="default">선택</option>
+            <option value="">선택</option>
             <option value="010">010</option>
             <option value="011">011</option>
             <option value="012">012</option>
