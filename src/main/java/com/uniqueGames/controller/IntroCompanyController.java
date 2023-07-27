@@ -51,17 +51,7 @@ public class IntroCompanyController {
     @PostMapping(value = "/insertIntro")
     public String insertIntro(Intro intro,@Login Company company,HttpSession session) throws IOException {
 
-        FileUploadUtil fileUploadUtil = new FileUploadUtil() {
-            /**
-             * @param obj 인스턴스를 Intro 타입으로 변환 및 오버라이딩
-             */
-            @Override
-            protected void extractFile(Object obj) {
-                setFile(((Intro) obj).getUploadFile());
-            }
-        };
         intro.setCId(company.getCompanyId());
-        intro.setUploadImg(fileUploadUtil.fileCheck(intro));
         introCompanyService.insertIntro(intro);
         session.setAttribute("status","writeOnce");
         return "redirect:/getIntroList";
@@ -87,6 +77,7 @@ public class IntroCompanyController {
     @GetMapping(value = "/editIntro/{id}")
     public String updateIntro(@PathVariable("id") int id, @Login Company company, Model model){
         Intro intro = introCompanyService.getIntro(id);
+        introCompanyService.oldFileDelete(intro.getUploadImg()); // 이전 파일 삭제
         model.addAttribute("intro", intro);
         model.addAttribute("company", company);
         return "detail/company-regi";
@@ -97,21 +88,16 @@ public class IntroCompanyController {
      * 해당 인스턴스는 ajax를 통해 처리됨
      */
     @PostMapping(value = "/editIntro")
-    public String updateIntroSave(Intro intro){
-        FileUploadUtil fileUploadUtil = new FileUploadUtil() {
-            /**
-             * @param obj 인스턴스를 Intro 타입으로 변환 및 오버라이딩
-             */
-            @Override
-            protected void extractFile(Object obj) {
-                setFile(((Intro) obj).getUploadFile());
-            }
-        };
-        intro.setUploadImg(fileUploadUtil.fileCheck(intro));
+    public String updateIntroSave(Intro intro) throws IOException {
         introCompanyService.updateIntro(intro);
         return "redirect:/getIntroList";
     }
 
+    /**
+     * @param id 회사 소개 게시글 아이디
+     * @param session 해당 게시글 삭제시 status 세션 삭제
+     * @return 삭제 완료 후 회사 리스트 페이지로 이동
+     */
     @RequestMapping(value = "/deleteIntro/{id}")
     public String deleteIntro(@PathVariable("id") int id, HttpSession session){
         introCompanyService.deleteIntro(id);
@@ -137,8 +123,9 @@ public class IntroCompanyController {
      */
     @GetMapping("/getIntroList")
     public String getIntroList(@ModelAttribute Pagination pagination,Model model, HttpSession session){
-
-        if (session.getAttribute(SessionConstants.LOGIN_MEMBER).getClass() == Company.class) {
+        
+        // 회원 세션 존재 여부 확인 및 기업 회원 의존성 주입
+        if (session.getAttribute(SessionConstants.LOGIN_MEMBER)!= null && session.getAttribute(SessionConstants.LOGIN_MEMBER).getClass() == Company.class) {
             Company company = (Company) session.getAttribute(SessionConstants.LOGIN_MEMBER);
             Optional<Integer> optionalId = Optional.ofNullable(
                     introCompanyService.findIdByCId(company.getCompanyId()));
@@ -149,19 +136,17 @@ public class IntroCompanyController {
             }
         }
 
-        List<Intro> introList = introCompanyService.getIntroList();
-        List<List<Game>> gameList = new ArrayList<>(); // 다수의 게임 이미지를 담기 위한 2차원 리스트
-        Company comp;
-        for (Intro intro: introList){
-            comp = companyRepositoryMapper.findById(intro.getCId()); // intro 인스턴스의 회사 아이디와 일치하는 company 인스턴스 호출
-            gameList.add(gameService.getGameImg(comp.getGId())); // 호출된 company 인스턴스의 gid와 일치하는 List<game> 타입의 게임 인스턴스 호출
-        }
-
         String redirectUrl = introCompanyService.pageProcess(pagination); //페이지네이션
         if(redirectUrl != null){
             return "redirect:/"+redirectUrl;
         }
         List<Intro> lists = introCompanyService.findByAllPaginationAndSearch(pagination);
+        List<List<Game>> gameList = new ArrayList<>(); // 다수의 게임 이미지를 담기 위한 2차원 리스트
+        Company comp;
+        for (Intro intro: lists){
+            comp = companyRepositoryMapper.findById(intro.getCId()); // intro 인스턴스의 회사 아이디와 일치하는 company 인스턴스 호출
+            gameList.add(gameService.getGameImg(comp.getGId())); // 호출된 company 인스턴스의 gid와 일치하는 List<game> 타입의 게임 인스턴스 호출
+        }
         model.addAttribute("baseUrl", "/getIntroList");
 
         List<List<Object>> combinedList = new ArrayList<>();

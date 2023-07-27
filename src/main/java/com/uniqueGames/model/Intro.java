@@ -5,7 +5,6 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 
-//VO(Value Object)
 @Setter
 @Getter
 public class Intro {
@@ -22,7 +21,6 @@ public class Intro {
      */
     private int id;
     private String name;
-    private String title;
     private String content;
     private MultipartFile uploadFile;
     private String uploadImg;

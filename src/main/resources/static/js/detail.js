@@ -4,11 +4,8 @@
       var index = $(".screenshot_thumbnail").index(this);
       var content_type = $(".screenshot_thumbnail img").eq(index).attr("data-type");
       var content_url = $(".screenshot_thumbnail img").eq(index).attr("data-url");
-      if(content_type=="image/png"){
-        var html = content_url;
-      }else{
-        var html = content_url;
-      }
+      var html = content_url;
+
       $('#screenshot_image').html(html);
       $(".screenshot_thumbnail").each(function(i){
         if(i==index){

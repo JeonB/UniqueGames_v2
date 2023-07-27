@@ -1,12 +1,14 @@
 package com.uniqueGames.service;
 
-
+import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Intro;
 import com.uniqueGames.model.Pagination;
 import com.uniqueGames.repository.DetailMapper;
+import java.io.IOException;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,13 +18,31 @@ public class IntroCompanyService {
     @Autowired
     DetailMapper detailMapper;
 
+    @Value("${upload-directory}")
+    private String ROOT_PATH;
+    FileUploadUtil fileUploadUtil = new FileUploadUtil() {
+        /**
+         * @param obj 인스턴스를 Intro 타입으로 변환 및 오버라이딩
+         */
+        @Override
+        protected void extractFile(Object obj) {
+            setFile(((Intro) obj).getUploadFile());
+        }
+    };
 
-    public void insertIntro(Intro vo) {
-        detailMapper.insertIntro(vo);
+    public void insertIntro(Intro intro) throws IOException {
+
+        String filename = fileUploadUtil.fileCheck(intro);
+        intro.setUploadImg(filename);
+        fileUploadUtil.save(ROOT_PATH, filename, intro.getUploadFile().getBytes());
+        detailMapper.insertIntro(intro);
     }
 
-    public void updateIntro(Intro vo) {
-        detailMapper.updateIntro(vo);
+    public void updateIntro(Intro intro) throws IOException {
+        String filename = fileUploadUtil.fileCheck(intro);
+        intro.setUploadImg(filename);
+        fileUploadUtil.save(ROOT_PATH, filename, intro.getUploadFile().getBytes());
+        detailMapper.updateIntro(intro);
     }
 
     public void deleteIntro(int id) {
@@ -58,5 +78,9 @@ public class IntroCompanyService {
 
     public Integer findIdByCId(String cId) {
         return detailMapper.findIdByCId(cId);
+    }
+
+    public void oldFileDelete(String imageName) {
+        fileUploadUtil.fileDelete(imageName,ROOT_PATH);
     }
 }

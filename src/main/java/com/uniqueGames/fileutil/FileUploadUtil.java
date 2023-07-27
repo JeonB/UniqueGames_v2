@@ -1,8 +1,12 @@
 package com.uniqueGames.fileutil;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -129,6 +133,17 @@ public abstract class FileUploadUtil {
 
         }
     }
+    public void fileDelete(String imageName,String filePath) {
+
+        if (imageName != null && !imageName.equals("")) {
+            File deleteFile = new File(filePath + imageName);
+            if (deleteFile.exists()) {
+                deleteFile.delete();
+
+            }
+
+        }
+    }
 
     /**
      * 여러 파일 삭제하기
@@ -143,6 +158,34 @@ public abstract class FileUploadUtil {
 
             }
         }
+    }
+
+    /**
+     * @param filePath 저장할 경로
+     * @param filename 파일 이름
+     * @param data 파일의 바이트 배열 타입 데이터
+     * @throws IOException 입출력 예외처리
+     * 파일 저장 메소드
+     */
+    public void save(String filePath, String filename, byte[] data) throws IOException {
+        // 디렉토리 생성
+        createDirectory(filePath);
+        String pathname = filePath + File.separator + filename;
+        File file = new File(pathname);
+        FileCopyUtils.copy(data, file);
+    }
+
+    /**
+     * @param directoryPath 파일 저장 경로
+     * @throws IOException 입출력 예외처리
+     * 파일 디렉토리 생성 메소드
+     */
+    private void createDirectory(String directoryPath) throws IOException {
+        // 디렉토리 경로를 Path 객체로 변환
+        Path directory = Paths.get(directoryPath);
+
+        // 디렉토리 생성
+        Files.createDirectories(directory);
     }
 
 }
