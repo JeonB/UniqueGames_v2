@@ -28,7 +28,6 @@
         } else {
           $("#mypage-update").removeAttr("disabled");
         }
-
       });
 
     });
@@ -67,7 +66,8 @@
           <input type="file" name="file" id="profile-picture-img" style="display: none">
         </li>
         <li>
-          <nav id="cancelProfile">
+          <nav class="cancelProfile" th:if="${member.profileImg == null} or ${member.profileImg == ''}"></nav>
+          <nav class="cancelProfile" th:unless="${member.profileImg == null} or ${member.profileImg == ''}">
             <button type='button' class='cancelProfileButton' name='cancelProfileButton' onclick="buttonFunction();">기본값</button>
           </nav>
         </li>
@@ -83,7 +83,9 @@
     <input type="hidden" name="type" th:value="mypage">
     <input type="hidden" name="memberId" th:value="${member?.memberId}">
     <input type="hidden" name="profileImg" th:value="${member?.profileImg}">
-    <input type="hidden" name="newProfileImg">
+    <input type='hidden' name='newProfileImg'>
+    <input type='hidden' name="deleteImg">
+    <nav class="newProfileImg"></nav>
     <div class="div-update">
       <ul>
         <li class="mypage-insert">
@@ -113,7 +115,7 @@
           <input type="text" name="addr1" th:value="${member?.addr1}">
         </li>
         <li>
-          <button type="button" class="button-style" id="mypage-addr-btn">주소 검색</button>
+          <button type="button" class="button-style" id="mypage-addr-btn" onclick="findAddress()">주소 검색</button>
         </li>
         <li class="mypage-insert-1">
           <label>상세 주소</label>

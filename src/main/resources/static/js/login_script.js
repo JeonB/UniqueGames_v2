@@ -148,6 +148,16 @@ function changePassword() {
 	}
 }
 
+function findAddress() {
+	new daum.Postcode({
+		oncomplete: function(data) {
+			$("input[name='addr1']").val("("+data.zonecode+") "+data.address);
+			$("input[name='addr2']").focus();
+		}
+	}).open();
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
 	var urlParams = new URLSearchParams(window.location.search);

@@ -93,38 +93,73 @@ public class MyPageController {
         return viewName;
     }
 
-    @PostMapping("memberupdate")
-        public String memberUpdate(HttpSession session, Member member) {
-            String oldFile = member.getProfileImg();
-            String fileName = memberService.fileCheck(member.getFile());
-            member.setNewProfileImg(fileName);
-            int result = memberService.update(member);
+//    @PostMapping("memberupdate")
+//    public String memberUpdate(HttpSession session, Member member) {
+//        String oldFile = member.getProfileImg();
+//        String fileName = memberService.fileCheck(member.getFile());
+//        if(fileName != null) { //파일이 넘어오면
+//            member.setNewProfileImg(fileName);
+//        } else { //파일이 안 넘어오면
+//
+//        }
+//
+//        int result = memberService.update(member);
+//        if(result == 1) {
+//            memberService.fileSave();
+//            if(!oldFile.isEmpty() && !member.getNewProfileImg().equals(oldFile)){
+//                memberService.fileDelete(oldFile);
+//            }
+//            session.setAttribute("login", "member");
+//        }else {
+//            System.out.println("수정 실패");
+//        }
+//        return "redirect:/";
+//    }
 
-            if(result == 1) {
-                memberService.fileSave();
-                if(!oldFile.isEmpty()){
-                    memberService.fileDelete(oldFile);
-                }
-                session.setAttribute("login", "member");
-                System.out.println("마이페이지 수정 완료");
-            }else {
-                System.out.println("수정 실패");
-            }
-            return "redirect:/";
+    @PostMapping("memberupdate")
+    public String memberUpdate(HttpSession session, Member member,
+                               @RequestParam("deleteImg") String deleteImg) {
+        String oldFile = member.getProfileImg();
+        String fileName = memberService.fileCheck(member.getFile());
+        if(fileName != null) { //파일이 넘어오면
+            member.setNewProfileImg(fileName);
+        } else { //파일이 안 넘어오면
+            member.setNewProfileImg(oldFile);
         }
+
+        //기본 값 클릭해서 이미지 삭제 할 때
+        if(deleteImg.equals("delete")) {
+            memberService.fileDelete(oldFile);
+            member.setNewProfileImg("");
+        }
+        int result = memberService.update(member);
+        if(result == 1) {
+            memberService.fileSave();
+            if(!oldFile.isEmpty() && !member.getNewProfileImg().equals(oldFile)){
+                //기존 파일이 있을 때 그리고 변경된 프로필 이미지와 기존 프로필 이미지가 다를 때 기존 프로필 이미지를 삭제
+                memberService.fileDelete(oldFile);
+            }
+            session.setAttribute("login", "member");
+        }else {
+            System.out.println("수정 실패");
+        }
+        return "redirect:/";
+    }
 
     @PostMapping("companyupdate")
     public String companyUpdate(HttpSession session, Company company) {
         String oldFile = company.getProfileImg();
-        log.info(oldFile);
         String fileName = companyMemberService2.fileCheck(company.getFile());
-        company.setNewProfileImg(fileName);
-        log.info(company.getNewProfileImg());
-        int result = companyMemberService2.update(company);
+        if(fileName != null) {
+            company.setNewProfileImg(fileName);
+        }else {
+            company.setNewProfileImg(oldFile);
+        }
 
+        int result = companyMemberService2.update(company);
         if(result == 1) {
             companyMemberService2.fileSave();
-            if(!oldFile.isEmpty()){
+            if(!oldFile.isEmpty() && !company.getNewProfileImg().equals(oldFile)){
                 companyMemberService2.fileDelete(oldFile);
             }
             session.setAttribute("login", "company");

@@ -13,7 +13,7 @@ import javax.persistence.*;
 //@AllArgsConstructor
 //@NoArgsConstructor
 public class Member {
-
+	private int id;
 	private String memberId, password, name, email, tel, phoneNum, addr;
 	private String email1, email2, email3, phone1, phone2, phone3, addr1, addr2, newpassword;
 	private MultipartFile file;

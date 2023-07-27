@@ -337,15 +337,19 @@ $(document).ready(function() {
 		var phoneNum = $("input[name='phoneNum']");
 		var mypageForm = $("form[name='myPageForm']");
 
-		if(!mypagePhoneCheck(phoneNum.val())) {
-			alert("번호는 -를 제외하고 10,11자로 작성해주세요");
-			phoneNum.focus();
-			return false;
-		}else {
+		if (phoneNum.val().trim() !== "") {
+			if (!mypagePhoneCheck(phoneNum.val())) {
+				alert("번호는 -를 제외하고 10,11자로 작성해주세요");
+				phoneNum.focus();
+				return false;
+			} else {
+				mypageForm.submit();
+			}
+		} else {
 			mypageForm.submit();
 		}
 
-	})
+	});
 
 	document.querySelector('#email-auth-check').addEventListener('change', checkEmailAuth);
 	$("input[name='phoneNum']").change(mypagePhoneCheckBlur);

@@ -9,7 +9,7 @@ $("#profile-picture-img").change(function(){
     if(param == "join") {
         let output = "<button type='text' class='profileImgConfirm' style='margin-right: 5px' onclick='disapperButton()'>확인</button>" +
             "<button type='button' class='cancelProfileButton' name='cancelProfileButton' onclick='defaultImgNull();'>기본값</button>";
-        $("#cancelProfile").html(output).css("text-align", "center");
+        $(".cancelProfile").html(output).css("text-align", "center");
         $(".profileImgConfirm, .profile-no-change, .cancelProfileButton").css("background", "#393939").css("color", "#FFFFFF");
         $(".join-profile").css("background", "#FFFFFF");
         $(".profile-picture").css("display", "none").css("margin-left", "-20px");
@@ -20,7 +20,7 @@ $("#profile-picture-img").change(function(){
         let output = "<button type='text' class='profileImgConfirm' style='margin-right: 5px'>확인</button>" +
             "<button type='button' class='cancelProfileButton' name='cancelProfileButton' style='margin-right: 5px'>기본값</button>" +
             "<button type='button' class='profile-no-change'>변경 안함</button>";
-        $("#cancelProfile").html(output).css("text-align", "center");
+        $(".cancelProfile").html(output).css("text-align", "center");
         $(".profileImgConfirm, .profile-no-change, .cancelProfileButton").css("background", "#393939").css("color", "#FFFFFF");
         $(".mypage-profile, .mypage-cancel").css("margin", "45px 0 0 0").css("background", "#FBFBFB");
 
@@ -86,6 +86,7 @@ function defaultImgNotNull() {
     $(".mypage-cancel").css("width", "110px").css("height", "110px").css("border-radius", "55px").css("background", "#D9D9D9")
         .css("margin", "45px 0 0 45px");
     $(".profile-picture-1").attr("src", "/images/mypage-profile.png").css("margin", "17px 20px").css("width", "70px").css("height", "70px");
+    $("input[name='deleteImg']").val("delete");
 }
 
 function disapperButton() {
