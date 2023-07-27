@@ -5,20 +5,17 @@
 <mapper namespace="com.uniqueGames.repository.DetailMapper">
   <!-- 소개글 등록 -->
   <insert id="insertIntro" parameterType="Intro" >
-    INSERT INTO tb_intro (c_id,name,title, content,upload_img)
-    VALUES ( #{cId},#{name}, #{title}, #{content},#{uploadImg})
+    INSERT INTO tb_intro (c_id,name, content,upload_img)
+    VALUES ( #{cId},#{name}, #{content},#{uploadImg})
   </insert>
   <!-- 소개글 조회 -->
   <select id="getIntro" parameterType="int" resultType="Intro">
     SELECT * FROM tb_intro WHERE id = #{id}
   </select>
-  <!-- 소개글 조회 2-->
-  <select id="getIntroTitle" parameterType="String" resultType="Intro">
-    SELECT * FROM tb_intro WHERE title = #{title}
-  </select>
+
   <!-- 소개글 수정 -->
   <update id="updateIntro" parameterType="Intro">
-  UPDATE tb_intro SET title = #{title}, content = #{content}, UPLOAD_IMG = #{uploadImg}
+  UPDATE tb_intro SET content = #{content}, UPLOAD_IMG = #{uploadImg}
   WHERE id = #{id}
   </update>
 

@@ -29,11 +29,6 @@
           <input class="Vector" type="text" name="name" th:value="${company?.name}" readonly style="width: 600px; height: 39px; left: 113px; top: 8.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid">
           <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">회사명</div>
         </div>
-        <div class="487" style="width: 760px; height: 55px; left: 0px; top: 102px; position: absolute">
-          <div class="Vector" style="width: 760px; height: 55px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
-          <input class="Vector" type="text" name="title" th:value="${intro?.title}" style="width: 600px; height: 39px; left: 113px; top: 8.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid">
-          <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">제목</div>
-        </div>
         <div class="488" style="width: 760px; height: 55px; left: 0px; top: 457px; position: absolute">
           <div class="Vector" style="width: 760px; height: 55px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
           <div id="filename" class="Vector" style="width: 600px; height: 40px; left: 113px; top: 8px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
@@ -44,8 +39,8 @@
 
         </div>
         <div class="486" style="width: 760px; height: 299px; left: 0px; top: 157px; position: absolute">
-          <div class="Vector" style="width: 760px; height: 299px; left: 0px; top: 0px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
-            <textarea class="Vector"  name="content" style="width: 600px; height: 268px; left: 113px; top: 7.50px; position: absolute; background: white; border: 0.50px #DDDDDD solid" th:text="${intro?.content}"></textarea>
+          <div class="Vector" style="width: 760px; height: 350px; left: 0px; top: -55px; position: absolute; background: white; border: 0.50px #DDDDDD solid"></div>
+            <textarea class="Vector"  name="content" style="width: 600px; height: 325px; left: 113px; top: -40.5px; position: absolute; background: white; border: 0.50px #DDDDDD solid" th:text="${intro?.content}"></textarea>
           <div style="left: 24px; top: 17px; position: absolute; color: black; font-size: 16px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">소개글</div>
         </div>
         <div class="469" style="width: 1100px; height: 2px; left: 0px; top: 46px; position: absolute; background: #393939"></div>
@@ -58,7 +53,7 @@
           </div>
         </div>
         <div class="Group21" style="width: 300px; height: 60px; left: 200px; top: 552px; position: absolute">
-          <button id="editorFormSubmit" class="526" style="width: 200px; height: 60px; left: 50px; top: 0px; position: absolute; background: linear-gradient(45deg, #682CAD 0%, #2FC0CC 100%); cursor: pointer" type="button"> <div th:text="${#strings.isEmpty(intro?.title)} ? '저장':'수정' " style="left: 78px; top: 19px; position: absolute; color: white; font-size: 20px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">등록</div></button>
+          <button id="editorFormSubmit" class="526" style="width: 200px; height: 60px; left: 50px; top: 0px; position: absolute; background: linear-gradient(45deg, #682CAD 0%, #2FC0CC 100%); cursor: pointer" type="button"> <div th:text="${#strings.isEmpty(intro?.content)} ? '저장':'수정' " style="left: 78px; top: 19px; position: absolute; color: white; font-size: 20px; font-family: YouandiModern; font-weight: 400; word-wrap: break-word">등록</div></button>
 
         </div>
       </div>
@@ -73,56 +68,7 @@
 <div th:replace="~{main/footer :: footerFragment}"></div>
 
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-<script>
-    $("#editorFormSubmit").click(function(event){
-
-      let form = $("#editorForm")[0];
-      let formData = new FormData(form);
-
-      let action = "/insertIntro";
-      if($(location).attr('href').includes("/editIntro") === true){
-        action = "/editIntro";
-      }
-
-      $.ajax({
-        url: action,
-        type: "POST",
-        data: formData,
-        processData: false, // jQuery가 데이터를 프로세싱하는 것을 방지
-        contentType: false, // jQuery가 데이터 타입을 설정하는 것을 방지
-        success: function(result) {
-          console.log(result);
-          location.href="../getIntroList";
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          console.error("Error submitting the form: " + textStatus, errorThrown);
-        }
-      });
-    });
-
-
-    $("#addImg").on("click", function(){
-      $("#fileUploadInput").click();
-
-      $('#fileUploadInput').on('change', function() {
-        const input = this;
-        if (input.files && input.files[0]) {
-          const reader = new FileReader();
-
-          // FileReader의 로드 이벤트를 사용하여 미리보기 이미지를 변경
-          reader.onload = function(e) {
-            $('#addImg').attr('src', e.target.result);
-          };
-
-          reader.readAsDataURL(input.files[0]);
-        }
-        // 업로드된 파일의 이름을 추출하여 출력
-        const filename = $(this).val().split('\\').pop();
-        $('#filename').text(filename);
-      });
-    });
-</script>
-
+<script th:src="@{/js/company-regi.js}"></script>
 </body>
 
 </html>
