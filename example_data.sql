@@ -1,8 +1,4 @@
-COMMIT;
-
 -- 회원 설정
-SELECT *
-FROM TB_MEMBER;
 INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES ('mtest', '123', '테스트', 'mtest@naver.com', '서울시 렛잇구', 'SKT', '010-1122-3344');
 INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
@@ -32,13 +28,24 @@ VALUES ('DeletedMember', '123', '탈퇴회원정보저장', 'email', 'addr', 'te
 -- 게임 등록
 SELECT *FROM TB_GAME;
 INSERT INTO TB_GAME (NAME, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
-VALUES ('디 엑시트 이터널 매터스 ', '액션', 1, '죽음을 넘어선 생명을 느끼다');
+VALUES('스트리트 파이터 6 디럭스',  '격투', 1,'시리즈 최신작 『Street Fighter 6(스트리트 파이터 6)』');
+INSERT INTO TB_GAME (NAME,  GAME_GENRE, DONATION_STATUS, DESCRIPTION)
+VALUES('뱀파이어: 마스커레이드',  '액션', 1,'월드 오브 다크니스에 오신 것을 환영합니다');
 INSERT INTO TB_GAME (NAME, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
-VALUES ('스트리트 파이터 6 디럭스', '액션', 1, '시리즈 최신작 『Street Fighter 6(스트리트 파이터 6)』');
-INSERT INTO TB_GAME (NAME, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
-VALUES ('뱀파이어: 마스커레이드', '격투', 1, '월드 오브 다크니스에 오신 것을 환영합니다');
-INSERT INTO TB_GAME (NAME, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
-VALUES ('더 라스트 오브 어스 파트 1', '액션', 1, '살기 위해 오늘도 길을 나선다 탐험 액션');
+VALUES('더 라스트 오브 어스 파트 1',  '액션', 1,'살기 위해 오늘도 길을 나선다 탐험 액션');
+-- 게임 이미지 등록
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit1.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit2.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit3.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street1.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street2.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street3.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (3,'img-game-vampire1.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (3,'img-game-vampire2.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (3,'img-game-vampire3.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (4,'img-game-last1.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (4,'img-game-last2.jpg');
+INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (4,'img-game-last3.jpg');
 
 -- 게임 이미지 등록
 SELECT *FROM TB_GAME_IMAGE;
@@ -69,13 +76,13 @@ VALUES (4, 'img-game-last3.jpg');
 
 -- 게임사 등록
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM, G_ID)
-VALUES ('test', '123', 'TestGames', 'test@gmail.com', '판교', 'KT', '010-1111-2222', 1);
+VALUES ('test', '123', 'WideScent Games', 'test@gmail.com', '판교', 'KT', '010-1111-2222', 1);
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM, G_ID)
-VALUES ('nexon', '123', '넥슨', 'nexon@gmail.com', '판교', 'SKT', '010-3333-4444', 2);
+VALUES ('stest', '123', 'Retro Nostalgia', 'nexon@gmail.com', '판교', 'SKT', '010-3333-4444', 2);
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM, G_ID)
-VALUES ('net', '123', '넷마블', 'net@gmail.com', '제주도', 'KT', '010-5555-6666', 3);
+VALUES ('dtest', '123', 'X - Interaction', 'net@gmail.com', '제주도', 'KT', '010-5555-6666', 3);
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM, G_ID)
-VALUES ('smilegate', '123', '스마일게이트', 'smilegate@gmail.com', '강남', 'SKT', '010-7777-8888', 4);
+VALUES ('ftest', '123', 'EcoSync GamING', 'smilegate@gmail.com', '강남', 'SKT', '010-7777-8888', 4);
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
 VALUES ('crafton', '123', '크래프톤', 'crafton@gmail.com', '판교', 'SKT', '010-7777-8888');
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM)
@@ -131,8 +138,6 @@ VALUES ('mtest', 'test', 1, 10000, 'COMPLETE', '2023-06-21');
 
 
 -- 게임사 후원내역 설정 : test
-SELECT *
-FROM TB_ORDER;
 INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
 VALUES (11, 'lee', 'test', 1, 10000, 'COMPLETE', '2023-02-06');
 INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
@@ -183,3 +188,21 @@ INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
 VALUES (38, 'min', 'smilegate', 4, 680000, 'COMPLETE', '2023-06-10');
 INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
 VALUES (39, 'min', 'smilegate', 4, 250000, 'COMPLETE', '2023-07-10');
+
+-- 회사 소개글
+INSERT INTO TB_INTRO(C_ID, NAME, CONTENT) VALUES('test', 'WideScent Games', '저희는 현실에서 벗어나 새로운 세계를 탐험하고자 하는 이들을 위한 게임사입니다. 우리의 컨셉은 답답한 일상에서 해방되고자 하는 욕구를 만족시키기 위해 끊임없이 새로운 게임을 제작하는 것입니다. 함께 뛰어난 창의력과 혁신적인 기술을 통해 즐거움과 흥미로운 경험을 선사할 것입니다.
+');
+INSERT INTO TB_INTRO(C_ID, NAME, CONTENT) VALUES('stest', 'Retro Nostalgia', '1980년대의 향수와 감성을 그리워하는 분들을 위한 특별한 게임사입니다.
+우리는 과거의 클래식한 게임들과 현대적인 기술을 융합하여 독특하고 애착있는 게임들을
+만들어냅니다. 지금까지 느껴보지 못한 옛날의 감성을 느낄 수 있는 특별한 경험을 선사합니다.
+');
+INSERT INTO TB_INTRO(C_ID, NAME, CONTENT) VALUES('dtest', 'X - Interaction', '쾌감과 액션을 극대화시킨 게임을 제작하는 전문 회사입니다.
+우리의 컨셉은 플레이어들이 게임을 통해 진정한 즐거움과 감동을 느끼도록 하는 것입니다.
+탁월한 게임 디자인과 역동적인 게임플레이로 인해 플레이어들은 게임 속 세계에 몰입하여
+매 순간을 즐길 수 있습니다.
+');
+INSERT INTO TB_INTRO(C_ID, NAME, CONTENT) VALUES('ftest', 'EcoSync GamING', '자연과 하나로 어우러지는 게임을 제작하는 게임사입니다.
+우리는 자연의 아름다움과 조화를 게임 속에 담아냄으로써 플레이어들에게 평온하고
+감동적인 경험을 선사합니다. 최첨단 기술과 창의력을 통해 플레이어들이 자연과 함께하는
+환상적인 여정을 떠날 수 있도록 지원합니다.
+');
