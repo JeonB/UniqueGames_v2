@@ -90,8 +90,8 @@
     <p class="sub-title">#최근 반응이 좋은</p>
     <div class="menu-recommendations">
         <div class="recommendList">
-            <div th:each="game, loop : ${gameList}" class="rList">
-                <div th:if="${loop.index &lt; 4}">
+            <div th:each="game, loop : ${gameList}" class="rList" th:if="${loop.index &lt; 4}">
+                <div>
                     <img th:src="@{'../images/' +${game.uploadImg}}" width="260px" height="180px">
                     <ul>
                         <li>Hot</li>
