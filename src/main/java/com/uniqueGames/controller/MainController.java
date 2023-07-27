@@ -7,10 +7,12 @@ import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.repository.GameMapper;
 import com.uniqueGames.service.IndexServiceMapper;
-import com.uniqueGames.service.NoticeService;
+
 import java.io.IOException;
 
 import java.util.List;
+
+import com.uniqueGames.service.NoticeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

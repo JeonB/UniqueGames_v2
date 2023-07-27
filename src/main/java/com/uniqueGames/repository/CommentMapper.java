@@ -19,16 +19,20 @@ public interface CommentMapper {
             " FROM TB_COMMENT LEFT JOIN TB_MEMBER ON tb_comment.M_ID = tb_member.MEMBER_ID" +
             " WHERE POST_ID = #{no}" +
             " ORDER BY COMMENT_DATE ASC")
-    public List<Comment> selectComment(String no);
+    List<Comment> selectComment(String no);
+
+    @Select("SELECT * FROM TB_COMMENT WHERE ID = #{no}")
+    Comment selectOneComment(int no);
 
     @Insert("INSERT INTO TB_COMMENT (POST_ID, M_ID, COMMENT_CONTENT)"
             + " VALUES (#{postId}, #{mId}, #{commentContent})")
-    public int insertComment(Comment comment);
+    int insertComment(Comment comment);
 
     @Delete("DELETE FROM TB_COMMENT WHERE ID = #{no}")
-    public int deleteComment(String no);
+    int deleteComment(String no);
 
     @Select("SELECT COUNT(*) FROM TB_COMMENT WHERE POST_ID = #{no}")
-    public int getCmtCount(int no);
+    int getCmtCount(int no);
+
 
 }

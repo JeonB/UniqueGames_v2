@@ -1,10 +1,11 @@
 package com.uniqueGames.controller;
 
 import com.uniqueGames.config.Login;
- import com.uniqueGames.fileutil.FileUploadUtil;
+import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Comment;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.service.CommentService;
+import com.uniqueGames.service.MailSendService;
 import com.uniqueGames.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ public class RestNoticeController extends FileUploadUtil {
 
     private final CommentService commentService;
     private final NoticeService noticeService;
+    private final MailSendService mailSendService;
 
     @Override
     protected void extractFile(Object obj) {
@@ -57,6 +59,13 @@ public class RestNoticeController extends FileUploadUtil {
         return noticeService.deleteList(list, company);
     }
 
+    /**
+     * 에디터 이미지 업로드
+     *
+     * @param paramMap
+     * @param request
+     * @return
+     */
     @PostMapping("/imgUpload")
     public Map<String, Object> test(@RequestParam Map<String, Object> paramMap, MultipartRequest request) {
         String fileName = fileCheck(request.getFile("upload"));
@@ -65,5 +74,18 @@ public class RestNoticeController extends FileUploadUtil {
         log.info(getImageName());
         paramMap.put("url", "/upload/" + getImageName());
         return paramMap;
+    }
+
+    /**
+     * 신고 메일 전송
+     *
+     * @return
+     */
+    @PostMapping("/emailTest")
+    public String mailTest(@RequestBody Map<String, String> map) {
+        Comment comment = commentService.selectOne(Integer.parseInt(map.get("id")));
+        comment.setReason(map.get("reason"));
+
+        return mailSendService.emailTest(comment);
     }
 }

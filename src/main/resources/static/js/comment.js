@@ -69,7 +69,7 @@ function commentDelete(commentId) {
         $.ajax({
             url     : "/comment-delete",
             data    : {
-                no: commentId,
+                no: commentId
             },
             dataType: "text",
             type    : "DELETE",
@@ -92,6 +92,47 @@ function commentDelete(commentId) {
 }
 
 /**
+ * 댓글 신고 함수
+ * @param commentId 댓글 번호
+ */
+function commentReport(commentId) {
+
+    let popUp = showPopup();
+    popUp.document.getElementById()
+
+    // const data = {"id": commentId, "reason": "을 세로로 완성하시면"};
+    // const login = document.getElementById("member-id").value;
+    // if (login != "") {
+    //     $.ajax({
+    //         url        : "/emailTest",
+    //         type       : "POST",
+    //         data       : JSON.stringify(data),
+    //         dataType   : 'text',
+    //         contentType: "application/JSON; charset=UTF-8",
+    //         async      : true,
+    //         cache      : false,
+    //         success    : function (result) {
+    //             console.log(result);
+    //         },
+    //         error      : function (xhr, status, error) {
+    //             console.log("오류가 발생했습니다.");
+    //             console.log("상태 코드:", xhr.status);
+    //             console.log("오류 메시지:", error);
+    //         },
+    //     });
+    //     alert("신고되었습니다. 관리자가 확인 후 신속히 처리하겠습니다.");
+    //
+    // } else {
+    //     if (confirm("로그인이 필요합니다. 로그인 하시겠습니까?")) {
+    //         location.href = "/login";
+    //     } else {
+    //
+    //         return false;
+    //     }
+    // }
+}
+
+/**
  * alert 중복 방지를 위한 스크립트
  * @param result
  */
@@ -105,4 +146,11 @@ function getResultCmt(result) {
     }
 
     history.replaceState({}, null, null);
+}
+
+/**
+ * 신고 팝업
+ */
+function showPopup() {
+    return window.open('/notice/popUp', "popup", "width=563, height=594, left=650, top=250");
 }

@@ -192,4 +192,14 @@ public class NoticeController {
 
         return "redirect:/notice/content/" + notice.getId();
     }
+
+    /**
+     * 신고 팝업 매핑
+     */
+    @GetMapping("popUp")
+    public String noticePopUp(Model model) {
+
+//        commentService.selectOne()
+        return "/notice/report-pop-up";
+    }
 }

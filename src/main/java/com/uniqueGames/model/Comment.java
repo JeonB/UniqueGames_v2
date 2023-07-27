@@ -12,5 +12,5 @@ public class Comment {
 	String commentContent;
 	String commentDate;
 	String profileImg;
-
+	String reason;
 }
