@@ -76,13 +76,14 @@
                 <li>
                     <p name="p-regi">장르</p>
                     <select id="genre" name="genre">
-                        <option value="default">선택</option>
-                        <option value="horror">공포</option>
-                        <option value="rpg">RPG</option>
-                        <option value="tycoon"> 타이쿤</option>
-                        <option value="action">액션</option>
-                        <option value="fps">FPS</option>
-                        <option value="etc">기타</option>
+                        <option value="default" th:value="${gamegenre}"></option>
+                        <option value="공포" th:selected="${'공포' == gamegenre}">공포</option>
+                        <option value="RPG" th:selected="${'RPG' == gamegenre}">RPG</option>
+                        <option value="타이쿤" th:selected="${'타이쿤' == gamegenre}">타이쿤</option>
+                        <option value="격투" th:selected="${'격투' == gamegenre}">격투</option>
+                        <option value="액션" th:selected="${'액션' == gamegenre}">액션</option>
+                        <option value="FPS" th:selected="${'FPS' == gamegenre}">FPS</option>
+                        <option value="기타" th:selected="${'기타' == gamegenre}">기타</option>
                     </select>
                 </li>
                 <li>

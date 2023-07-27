@@ -98,11 +98,11 @@ $(document).ready(function () {
     // file
     $('#upload-file').on('change', function () {
         let file = $("#upload-file")[0].files[0];
-        let fileName = "../images/" + file.name;
 
-        if (fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
-            $('#imagePath').val(fileName);
-            $('#path').val(fileName);
+        if ((file.name).endsWith(".jpg") || (file.name).endsWith(".png")) {
+            $('#imagePath').val(file.name);
+            $('#path').val(file.name);
+
         } else {
             alert("이미지(jpg,png)만 선택 가능합니다.");
             $('#upload-file').val(null);

@@ -31,8 +31,8 @@ public interface GameMapper {
     @Select("SELECT * FROM TB_GAME")
     List<Game> getGameAllList();
 
-    @Insert("INSERT INTO TB_GAME (NAME, IMAGE_PATH, GAME_GENRE, DESCRIPTION) VALUES (#{name}, #{imagePath}, #{genre}, #{description})")
-    int aRegisterGame(String name, String genre, String imagePath, String description);
+    @Insert("INSERT INTO TB_GAME (NAME, GAME_GENRE, DESCRIPTION) VALUES (#{name}, #{genre}, #{description})")
+    int aRegisterGame(String name, String genre, String description);
 
     @Select("SELECT ID FROM TB_GAME WHERE NAME = #{name}")
     int aGetGid(String name);
@@ -40,7 +40,15 @@ public interface GameMapper {
     @Delete("DELETE FROM TB_GAME WHERE ID = #{gid}")
     int aDeleteGame(int gid);
 
-    @Update("UPDATE TB_GAME SET NAME = #{name}, GAME_GENRE = #{genre}, IMAGE_PATH = #{imagePath}, DESCRIPTION = #{description} WHERE ID = #{gid}")
-    int aUpdateGame(String name, String genre, String imagePath, String description, int gid);
+    @Update("UPDATE TB_GAME SET NAME = #{name}, GAME_GENRE = #{genre}, DESCRIPTION = #{description} WHERE ID = #{gid}")
+    int aUpdateGame(String name, String genre, String description, int gid);
 
+    @Update("UPDATE TB_GAME_IMAGE SET UPLOAD_IMG = #{imagePath} LIMIT 1")
+    int aUpdateGameImg(String imagePath);
+
+    @Select("SELECT UPLOAD_IMG FROM TB_GAME_IMAGE WHERE G_ID = #{id} LIMIT 1")
+    String aGetGameImg(int id);
+
+    @Insert("INSERT INTO TB_GAME_IMAGE (G_ID, UPLOAD_IMG) VALUES (#{gid}, #{imagePath})")
+    int aRegisterGameImg(int gid,String imagePath);
 }

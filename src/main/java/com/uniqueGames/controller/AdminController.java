@@ -6,11 +6,9 @@ import com.google.gson.JsonObject;
 import com.uniqueGames.fileutil.AdminUtil;
 import com.uniqueGames.model.*;
 import com.uniqueGames.service.*;
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -197,8 +195,9 @@ public class AdminController {
     public String admin_game_register_form(Model model, String name, String cId, String genre, String imagePath, String description) {
         if (companyMemberService.aGetGameRegistered(cId) == 0) {
             // register
-            if (gameService.aRegisterGame(name, genre, imagePath, description) != 0) {
+            if (gameService.aRegisterGame(name, genre, description) != 0) {
                 if (companyMemberService.aSetGid(gameService.aGetGid(name), cId) != 0) {
+                    gameService.aRegisterGameImg(gameService.aGetGid(name), imagePath);
                     model.addAttribute("result", "register_complete");
                 } else {
                     gameService.aDeleteGame(gameService.aGetGid(name));
@@ -327,6 +326,7 @@ public class AdminController {
     @RequestMapping(value = "/admin-update-game")
     public String admin_update_game(int id, Model model) {
         Game game = gameService.aGetGame(id);
+        game.setUploadImg(gameService.aGetGameImg(id));
         Company company = companyMemberService.aGetCompany(id);
         ArrayList<Company> cList = companyMemberService.aGetAllCompanyList();
         String url = "/detail/" + id;
@@ -335,8 +335,8 @@ public class AdminController {
         model.addAttribute("title", game.getName());
         model.addAttribute("company", company.getName());
         model.addAttribute("cid", company.getCompanyId());
-        model.addAttribute("genre", game.getGameGenre());
-//        model.addAttribute("img", game.getImagePath());
+        model.addAttribute("gamegenre", game.getGameGenre());
+        model.addAttribute("img", game.getUploadImg());
         model.addAttribute("desciption", game.getDescription());
         model.addAttribute("url", url);
         model.addAttribute("companyList", cList);
@@ -356,7 +356,8 @@ public class AdminController {
             }
         }
         if (companyMemberService.aSetGid(gid, cId) != 0) {
-            if (gameService.aUpdateGame(newname, genre, imagePath, description, gid) != 0) {
+            if (gameService.aUpdateGame(newname, genre, description, gid) != 0) {
+                gameService.aUpdateGameImg(imagePath);
                 model.addAttribute("result", "update_complete");
             } else {
                 model.addAttribute("result", "update_failed");
