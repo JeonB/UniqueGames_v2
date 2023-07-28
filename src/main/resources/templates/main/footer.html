@@ -3,9 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="/css/main.css">
+
+
 </head>
 <body>
 <footer th:fragment="footerFragment">
+  <a href="#" class="btn_gotop">
+  <span class="glyphicon glyphicon-chevron-up">
+    <img src="/images/btn-footer-top.png" class="btn-gotop-img">
+  </span>
+  </a>
 <div class="event-banner">
   <a href="#"></a>
 </div>
@@ -81,6 +88,19 @@
     </div>
   </div>
 </footer>
+<script th:inline="javascript">
+  $(window).scroll(function(){
+    if ($(this).scrollTop() > 300){
+      $('.btn_gotop').show();
+    } else{
+      $('.btn_gotop').hide();
+    }
+  });
+  $('.btn_gotop').click(function(){
+    $('html, body').animate({scrollTop:0},400);
+    return false;
+  });
+</script>
 </body>
 </html>
 

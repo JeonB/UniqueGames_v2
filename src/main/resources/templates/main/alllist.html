@@ -5,6 +5,8 @@
   <title>Unique Games</title>
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <!--header-->
@@ -20,20 +22,67 @@
 <section id="menu-main2">
   <div class="menu-allList">
     <div class="gameList">
-      <div th:each="game : ${gameList}" class="gList">
-        <img th:src="@{'../images/'+${game.uploadImg}}" width="260px" height="180px">
-        <ul>
-          <li><a th:href="'detail/' + ${game.description}" th:text="${game.name}"></a></li>
-          <li th:text="${game.gameGenre}"></li>
-          <li><button class="btn-like-style" type="button" th:data-game-id="${game.id}"></button></li>
-          <li></li>
-          <li><img src="/images/img-icon-rPc.png"></li>
-        </ul>
-      </div>
+    <div th:each="game : ${gameList}" class="gList">
+      <img th:src="@{'../images/' +${game.uploadImg}}" width="260px" height="180px">
+      <ul>
+        <li><a th:href="@{'detail/' + ${game.id}}" th:text="${game.name}"></a></li>
+        <li th:text="${game.gameGenre}"></li>
+        <li>
+          <div th:if="${session.loginMember?.name == null}">
+            <a href="#" class="nonmember">
+              <img src="../images/btn-heart-normal.png" width="20px" height="18px" style="display:inline-block">
+            </a>
+            <p class="likeCount" th:text="${game.likeCount}" style="display: inline-block"></p>
+            <!--                            <p class="likeCount" th:text="${game.likeCount}" style="display: inline-block"></p>-->
+          </div>
+          <div th:if="${session.loginMember?.name != null}">
+            <button class="btn-like-style" type="button" th:data-gameid="${game.id}"></button>
+            <p class="likeCount" th:text="${game.likeCount}" style="display: inline-block"></p>
+            <!--                            <p class="likeCount" th:text="${game.likeCount}"style="display: inline-block"></p>-->
+          </div>
+        </li>
+        <li><img src="/images/img-icon-rPc.png"></li>
+      </ul>
+    </div>
     </div>
   </div>
 </section>
 <!--footer-->
 <div th:replace="~{/main/footer::footerFragment}"></div>
+<script th:inline="javascript">
+  document.addEventListener("click", function(event) {
+    var target = event.target;
+    if (target.classList.contains("btn-like-style")) {
+      var gameId = target.dataset.gameid;
+      gameId = gameId.toString();
+
+      $.ajax({
+        type: "POST",
+        url: "/addlike/" + gameId + "/",
+        success: function(response) {
+          var result = response.result2;
+          var message = response.message2;
+          var likecount = response.likecount;
+
+          alert(message);
+          target.closest(".gList").querySelector(".likeCount").textContent = likecount;
+
+          // 좋아요 버튼 이미지 변경
+          target.classList.toggle("selected");
+        },
+        error: function() {
+          alert("error");
+        }
+      });
+    }
+  });
+
+  $(".nonmember").on("click", function(event) {
+    event.preventDefault();
+    alert("회원만 좋아요를 누를 수 있습니다.");
+    window.location.href = "/login";
+  });
+
+</script>
 </body>
 </html>
