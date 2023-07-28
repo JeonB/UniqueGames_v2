@@ -121,6 +121,16 @@
 .cyber {
     position: relative;
     float: left;
+    top: 7px;
+    left: 64px;
+    font-family: "YouandiModern", sans-serif;
+    font-weight: bold;
+    font-size: 26px;
+    font-style: italic;
+}
+.cyber3 {
+    position: relative;
+    float: left;
     top: 60px;
     left: 64px;
     font-family: "YouandiModern", sans-serif;
@@ -128,7 +138,6 @@
     font-size: 26px;
     font-style: italic;
 }
-
 .tList-detail div p:nth-child(3) {
     position: absolute;
     float: left;
