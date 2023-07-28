@@ -147,6 +147,17 @@
                 <th>작성자</th>
                 <th>작성일</th>
             </tr>
+            <th:block th:unless="${#lists.isEmpty(notice)}">
+                <tr th:each="notice : ${notice}">
+                    <td><span th:text="${notice.rno}"/></td>
+                    <td><a th:href="@{/notice/content/{no}(no = ${notice.id})}"
+                           th:text="${notice.title}"/><span
+                            th:if="${notice.cmtCount > 0}" th:text=" ' [' + ${notice.cmtCount} + ']'"/></td>
+                    </td>
+                    <td><span th:text="${notice.name}"/></td>
+                    <td><span th:text="${notice.dateOutput}"/></td>
+                </tr>
+            </th:block>
         </table>
         <div class="solution-btn-area">
             <a href="/notice/list"><button class="btn-solution" type="button">자세히보기</button></a>
