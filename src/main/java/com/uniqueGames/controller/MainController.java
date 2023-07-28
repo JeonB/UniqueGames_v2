@@ -42,7 +42,7 @@ public class MainController {
 			game.setUploadImg(oneFile.getUploadImg());
 		}
 		model.addAttribute("gameList",gameList);
-		model.addAttribute("noticeList", noticeService.getNoticeList(1, 4));
+		model.addAttribute("notice", noticeService.getNoticeList(1, 4));
 
         return "index";
 	}
