@@ -5,10 +5,8 @@ import com.uniqueGames.model.Comment;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import com.uniqueGames.model.Member;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -34,5 +32,10 @@ public interface CommentMapper {
     @Select("SELECT COUNT(*) FROM TB_COMMENT WHERE POST_ID = #{no}")
     int getCmtCount(int no);
 
+    @Update("UPDATE TB_COMMENT SET REPORTED_USERS = IF(" +
+            "REPORTED_USERS IS NULL, #{member.memberId}, CONCAT(REPORTED_USERS, ',', #{member.memberId})" +
+            ")" +
+            "WHERE ID = #{comment.id}")
+    void report(@Param("comment") Comment comment, @Param("member") Member member);
 
 }

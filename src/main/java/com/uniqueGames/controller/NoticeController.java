@@ -197,9 +197,7 @@ public class NoticeController {
      * 신고 팝업 매핑
      */
     @GetMapping("popUp")
-    public String noticePopUp(Model model) {
-
-//        commentService.selectOne()
+    public String noticePopUp() {
         return "/notice/report-pop-up";
     }
 }

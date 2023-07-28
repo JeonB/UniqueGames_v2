@@ -96,40 +96,19 @@ function commentDelete(commentId) {
  * @param commentId 댓글 번호
  */
 function commentReport(commentId) {
+    const login = document.getElementById("member-id").value;
+    if (login != "") {
+        sessionStorage.setItem("data", commentId)
+        let popUp = showPopup();
 
-    let popUp = showPopup();
-    popUp.document.getElementById()
+    } else {
+        if (confirm("로그인이 필요합니다. 로그인 하시겠습니까?")) {
+            location.href = "/login";
+        } else {
 
-    // const data = {"id": commentId, "reason": "을 세로로 완성하시면"};
-    // const login = document.getElementById("member-id").value;
-    // if (login != "") {
-    //     $.ajax({
-    //         url        : "/emailTest",
-    //         type       : "POST",
-    //         data       : JSON.stringify(data),
-    //         dataType   : 'text',
-    //         contentType: "application/JSON; charset=UTF-8",
-    //         async      : true,
-    //         cache      : false,
-    //         success    : function (result) {
-    //             console.log(result);
-    //         },
-    //         error      : function (xhr, status, error) {
-    //             console.log("오류가 발생했습니다.");
-    //             console.log("상태 코드:", xhr.status);
-    //             console.log("오류 메시지:", error);
-    //         },
-    //     });
-    //     alert("신고되었습니다. 관리자가 확인 후 신속히 처리하겠습니다.");
-    //
-    // } else {
-    //     if (confirm("로그인이 필요합니다. 로그인 하시겠습니까?")) {
-    //         location.href = "/login";
-    //     } else {
-    //
-    //         return false;
-    //     }
-    // }
+            return false;
+        }
+    }
 }
 
 /**
@@ -153,4 +132,60 @@ function getResultCmt(result) {
  */
 function showPopup() {
     return window.open('/notice/popUp', "popup", "width=563, height=594, left=650, top=250");
+}
+
+/**
+ * 초기화
+ */
+function init() {
+    const commentId = sessionStorage.getItem("data")
+    $.ajax({
+        url     : "/popUpInit",
+        data    : {"commentId": commentId},
+        async   : true,
+        cache   : false,
+        type    : "POST",
+        dataType: "JSON",
+        success : function (result) {
+            const data = result.cmtResult;
+            if (data === "OK") {
+                alert("이미 신고 처리된 댓글입니다.");
+                window.close();
+            } else {
+                $(".report_nick").text(data.mid)
+                $(".report_cont").text(data.commentContent)
+            }
+        },
+        error   : function () {
+            alert("비정상적인 접근입니다.");
+            window.close();
+        }
+    });
+}
+
+function report() {
+    let selectedId = $("input[name='select']:checked").attr('id');
+    let reason = $("label[for='" + selectedId + "']").text()
+
+    const data = {"id": sessionStorage.getItem("data"), "reason": reason};
+    $.ajax({
+        url        : "/reportSend",
+        type       : "POST",
+        data       : JSON.stringify(data),
+        dataType   : 'text',
+        contentType: "application/JSON; charset=UTF-8",
+        async      : true,
+        cache      : false,
+        success    : function (result) {
+            console.log(result);
+        },
+        error      : function (xhr, status, error) {
+            console.log("오류가 발생했습니다.");
+            console.log("상태 코드:", xhr.status);
+            console.log("오류 메시지:", error);
+        },
+    });
+    alert("신고되었습니다. 관리자가 확인 후 신속히 처리하겠습니다.");
+    window.close();
+
 }

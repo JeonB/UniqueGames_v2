@@ -43,7 +43,7 @@ public class MailSendService {
         return Integer.toString(authNumber);
 	}
 
-	public String emailTest(Comment comment) {
+	public String reportEmail(Comment comment) {
 		String setFrom = "uniquegames@uniquegames.com";
 		String toMail = "durrl5897@gmail.com";
 		String title = "신고 내역";
@@ -52,7 +52,9 @@ public class MailSendService {
 						"<br><br>" +
 						"댓글 내용 : " + comment.getCommentContent() +
 						"<br>" +
-						"신고 사유 : " + comment.getReason();
+						"신고 사유 : " + comment.getReason() +
+						"<br>" +
+						"신고자 : " + comment.getMId();
 		mailSend(setFrom, toMail, title, content);
 		return "Email Send Success";
 	}

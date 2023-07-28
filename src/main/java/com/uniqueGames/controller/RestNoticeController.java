@@ -4,6 +4,7 @@ import com.uniqueGames.config.Login;
 import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Comment;
 import com.uniqueGames.model.Company;
+import com.uniqueGames.model.Member;
 import com.uniqueGames.service.CommentService;
 import com.uniqueGames.service.MailSendService;
 import com.uniqueGames.service.NoticeService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -77,15 +79,29 @@ public class RestNoticeController extends FileUploadUtil {
     }
 
     /**
-     * 신고 메일 전송
-     *
-     * @return
+     * 신고 처리
      */
-    @PostMapping("/emailTest")
-    public String mailTest(@RequestBody Map<String, String> map) {
+    @PostMapping("/reportSend")
+    public String reportProc(@RequestBody Map<String, String> map, @Login Member member) {
         Comment comment = commentService.selectOne(Integer.parseInt(map.get("id")));
         comment.setReason(map.get("reason"));
+        log.info(String.valueOf(comment.getId()));
+        commentService.report(comment, member);
 
-        return mailSendService.emailTest(comment);
+        return mailSendService.reportEmail(comment);
+    }
+
+
+    @PostMapping("/popUpInit")
+    public Map<String, Object> popUpInit(@RequestParam("commentId") int commentId, @Login Member member) {
+        Map<String, Object> map = new HashMap<>();
+
+        if (commentService.isReported(commentId, member)) {
+            map.put("cmtResult", "OK");
+        } else {
+            map.put("cmtResult", commentService.selectOne(commentId));
+        }
+
+        return map;
     }
 }

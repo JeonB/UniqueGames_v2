@@ -13,4 +13,5 @@ public class Comment {
 	String commentDate;
 	String profileImg;
 	String reason;
+	String reportedUsers;
 }
