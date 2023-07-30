@@ -126,7 +126,6 @@ public class MyPageController {
         } else { //파일이 안 넘어오면
             member.setNewProfileImg(oldFile);
         }
-
         //기본 값 클릭해서 이미지 삭제 할 때
         if(deleteImg.equals("delete")) {
             memberService.fileDelete(oldFile);
@@ -234,7 +233,4 @@ public class MyPageController {
         model.addAttribute("company", company);
         return "myPage/company-donation";
     }
-
-
-
 }

@@ -1,5 +1,5 @@
 /* Input */
-input {
+input, phoneNumInput {
 	width: 394px;
 	padding: 20px 0;
 	margin: 5px 0;
@@ -36,7 +36,7 @@ input[name="phone2"], input[name='phone3'] {
 }
 
 input[name="email-auth-check"] {
-	margin-top: -10px;
+	margin-top: -20px;
 }
 
 /* Button */
@@ -87,7 +87,7 @@ input[name="email-auth-check"] {
 #mypage-email-btn, #mypage-addr-btn {
 	position: relative;
 	top: -57px;
-	left: 250px;
+	left: 180px;
 }
 
 a:visited {
@@ -351,13 +351,24 @@ li.address-input {
 	margin-top: -28px;
 }
 
-#idMsg, #pwdMsg, #pwdMsg-check, #nameMsg, #emailMsg, #emailAuth,
-#phoneMsg, #c-idMsg, #c-pwdMsg, #c-pwdMsg-check, #c-nameMsg,
-#c-emailMsg, #c-emailAuth, #c-phoneMsg {
+/*#idMsg, #pwdMsg, #pwdMsg-check, #nameMsg, #emailMsg, #emailAuth,*/
+/*#phoneMsg, #c-idMsg, #c-pwdMsg, #c-pwdMsg-check, #c-nameMsg,*/
+/*#c-emailMsg, #c-emailAuth, #c-phoneMsg {*/
+/*	position: relative;*/
+/*	top: -1.5px;*/
+/*	left: 5px;*/
+/*	margin-right: 5px;*/
+/*}*/
+
+.messageStyle, .messageStyle1 {
 	position: relative;
 	top: -1.5px;
 	left: 5px;
 	margin-right: 5px;
+}
+
+.messageStyle1 {
+	left: 0px;
 }
 
 .choice-span {
@@ -602,12 +613,13 @@ li#active {
 	border-bottom: none;
 }
 
-.mypage-insert {
-	margin-right: 335px;
-}
+/*.mypage-insert {*/
+/*	margin-right: 335px;*/
+/*}*/
 
 .mypage-insert-1 {
-	margin: -40px 330px 0 0;
+	margin-top: -38px;
+	text-align: left;
 }
 
 .jointab {
@@ -701,4 +713,17 @@ ul {
 .mypage-li {
 	width: 394px;
 	margin: auto;
+}
+
+.div-update {
+	width: 50%;
+	margin-left: 445px;
+}
+
+.mypage-insert {
+	text-align: left;
+}
+
+.phoneNumInput {
+	width: 309px;
 }

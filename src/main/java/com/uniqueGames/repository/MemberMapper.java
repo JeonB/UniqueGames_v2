@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Mapper
@@ -38,8 +39,8 @@ public interface MemberMapper {
     @Select("SELECT * FROM TB_MEMBER WHERE MEMBER_ID=#{id}")
     Member aGetDetailMember(String id);
 
-    @Delete("delete from tb_member where member_id=#{memberId} and password=#{password}")
-    int delete(String memberId, String password);
+//    @Delete("delete from tb_member where member_id=#{memberId} and password=#{password}")
+//    int delete(String memberId, String password);
 
     @Update("update tb_member set password=#{newpassword} where member_id=#{memberId}")
     int mypageNewPass(Member member);
@@ -55,4 +56,18 @@ public interface MemberMapper {
 
     @Delete("DELETE FROM TB_MEMBER WHERE MEMBER_ID = #{mid}")
     int aDeleteMember(String mid);
+
+    /**0729 변경사항*/
+    int idCheck1(Map param);
+    int emailDuplicateCheck(Map param);
+    int phoneCheck1(Map param);
+    String findId(Map param);
+    String findPass(Map param);
+
+    /**
+     * int modalChangePass(Map param);
+     */
+    int delete1(Map param);
+
+
 }

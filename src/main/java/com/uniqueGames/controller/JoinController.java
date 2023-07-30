@@ -44,7 +44,6 @@ public class JoinController {
 		}
 		return "login/login";
 	}
-
 	@PostMapping("joincompany")
 	public String joinCompanyProc(Company company, Model model) {
 		String fileName = companyMemberService2.fileCheck(company.getFile());
@@ -59,7 +58,4 @@ public class JoinController {
 		}
 		return "login/login";
 	}
-
-
-
 }

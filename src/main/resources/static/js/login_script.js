@@ -99,18 +99,6 @@ function checkEmailAuth() { //회원가입, 개인, 법인 마이페이지
 	}
 }
 
-function updateCheckbox() { //회원가입
-	var checkboxes = document.querySelectorAll("input[name='chk-agree']");
-	var total = checkboxes.length;
-	var checked = document.querySelectorAll("input[name='chk-agree']:checked").length;
-
-	if (total !== checked) {
-		document.getElementById("chk-circle").checked = false;
-	} else if (total === checked) {
-		document.getElementById("chk-circle").checked = true;
-	}
-}
-
 function companyIdPassCheck() {
 	var companyId = document.querySelector("input[name='companyId']");
 	var password = document.getElementById("companyPass");
@@ -130,9 +118,7 @@ function companyIdPassCheck() {
 	}
 	return true;
 }
-
 function changePassword() {
-
 	var changePassForm = $("#changePassForm");
 
 	if ($("input[name='newpassword']").val() == "") {
@@ -147,7 +133,6 @@ function changePassword() {
 		changePassForm.submit();
 	}
 }
-
 function findAddress() {
 	new daum.Postcode({
 		oncomplete: function(data) {
@@ -156,18 +141,11 @@ function findAddress() {
 		}
 	}).open();
 }
-
-
 document.addEventListener('DOMContentLoaded', function() {
-
 	var urlParams = new URLSearchParams(window.location.search);
 	var selectedTab = urlParams.get('selectedTab');
 	if (selectedTab) {
 		document.getElementById(selectedTab).checked = true;
 	}
-
 	document.querySelector('#email-auth-check').addEventListener('change', checkEmailAuth);
-	document.querySelectorAll("input[name='chk-agree']").forEach(function(checkbox) {
-		checkbox.addEventListener("click", updateCheckbox);
-	});
 });

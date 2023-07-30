@@ -7,42 +7,7 @@
   <link rel="stylesheet" th:href="@{/css/login.css}">
   <script src="/js/jquery-3.6.4.min.js"></script>
   <script th:src="@{/js/login_script.js}"></script>
-  <script th:inline="javascript">
-    $(document).ready(function(){
-
-      $(".button-gradient").click(function() {
-        var password = [[${member.password}]];
-        var oldpass = $("input[name='password']");
-        var newpassword = $("input[name='newpassword']");
-        var newpasswordCheck = $("input[name='newpassword-check']");
-
-        if(oldpass.val() == "") {
-          alert("현재 비밀번호를 입력하세요");
-          oldpass.focus();
-          return false;
-        } else if (newpassword.val() == "") {
-          alert("새 비밀번호를 입력하세요");
-          newpassword.focus();
-          return false;
-        } else if (newpasswordCheck.val() == "") {
-          alert("새 비밀번호 확인칸을 입력하세요");
-          newpasswordCheck.focus();
-          return false;
-        } else if (newpassword.val() != newpasswordCheck.val()) {
-          alert("비밀번호가 동일하지 않습니다");
-          newpasswordCheck.focus();
-          return false;
-        } else if (oldpass.val() != password) {
-          alert("현재 비밀번호가 일치하지 않습니다\n다시 입력해주세요");
-          oldpass.focus();
-          return false;
-        } else {
-          $("#newpassForm").submit();
-        }
-      });
-    });
-
-  </script>
+  <script th:src="@{/js/duplicate.js}"></script>
 </head>
 <body>
 <div th:replace="/main/header :: headerFragment"></div>
@@ -74,7 +39,8 @@
   <form action="mypagenewpass" name="newpassForm" method="post" class="deleteForm" id="newpassForm">
     <p class="intro-4">비밀번호 재설정</p>
     <input type="hidden" name="memberId" th:value="${member?.memberId}">
-    <div class="div-update">
+    <input type="hidden" th:value="${member?.password}" id="memberPass">
+    <div>
       <ul>
         <li>
           <input type="password" name="password" class="mypage-input" placeholder="현재 비밀번호">
@@ -94,7 +60,7 @@
           <input type="checkbox" class="mypage-pwd-check-img" id="mypage-pwd-check-img-1" onclick="mypagePassCheckVisible()">
         </li>
         <li>
-          <button type="button" class="button-gradient">수정 하기</button>
+          <button type="button" class="button-gradient" id="mypageChangePass">수정 하기</button>
         </li>
       </ul>
     </div>

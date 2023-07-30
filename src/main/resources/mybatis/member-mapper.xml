@@ -3,14 +3,101 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mapper.member">
+<mapper namespace="com.uniqueGames.repository.MemberMapper">
 
-	<insert id="save" parameterType="com.uniqueGames.model.Member">
-		insert into tb_member (member_id, password, name, email, phone_num, addr, tel)
-		values (#{memberId},#{password},#{name},#{email},#{phoneNum},#{addr},#{tel})
-	</insert>
+	<!--<insert id="save" parameterType="com.uniqueGames.model.Member">
+            insert into tb_member (member_id, password, name, email, phone_num, addr, tel)
+            values (#{memberId},#{password},#{name},#{email},#{phoneNum},#{addr},#{tel})
+        </insert>-->
+	<select id="idCheck1" parameterType="map" resultType="int">
+		select count(*) from
+		<if test="type2 == 'member'">
+			 tb_member where member_id = #{id}
+		</if>
+		<if test="type2 == 'company'">
+			 tb_company where company_id = #{id}
+		</if>
+	</select>
 
-<!--	<update id="update" parameterType="com.uniqueGames.model.Member">-->
+	<select id="emailDuplicateCheck" parameterType="map" resultType="int">
+		select count(*) from
+		<if test="type2 == 'member'">
+			tb_member
+		</if>
+		<if test="type2 == 'company'">
+			tb_company
+		</if>
+		<where>
+			email = #{email}
+		</where>
+	</select>
+
+	<select id="phoneCheck1" parameterType="map" resultType="int">
+		select count(*) from
+		<if test="type2 == 'member'">
+			tb_member
+		</if>
+		<if test="type2 == 'company'">
+			tb_company
+		</if>
+		<where>
+			phone_num = #{phoneNum}
+		</where>
+	</select>
+
+	<select id="findId" parameterType="map" resultType="java.lang.String">
+		<if test="type2 == 'member'">
+			select member_id from tb_member
+		</if>
+		<if test="type2 == 'company'">
+			select company_id from tb_company
+		</if>
+		<where>
+			email = #{email} and name = #{name}
+		</where>
+	</select>
+
+	<select id="findPass" parameterType="map" resultType="java.lang.String">
+		<if test="type2 == 'member'">
+			select member_id from tb_member
+		</if>
+		<if test="type2 == 'company'">
+			select company_id from tb_company
+		</if>
+		<where>
+			email = #{email} and name = #{name}
+		</where>
+		<if test="type2 == 'member'">
+			and member_id = #{id}
+		</if>
+		<if test="type2 == 'company'">
+			and company_id = #{id}
+		</if>
+	</select>
+
+	<delete id="delete1" parameterType="map">
+		<if test="type2 == 'member'">
+			delete from tb_member where member_id = #{id} and password = #{password}
+		</if>
+		<if test="type2 == 'company'">
+			delete from tb_company where company_id = #{id} and password = #{password}
+		</if>
+	</delete>
+
+<!--	<update id="modalChangePass" parameterType="map">-->
+<!--		<if test="modaltype == 'member'">-->
+<!--			update tb_member set password = #{newpassword} where member_id = #{id}-->
+<!--		</if>-->
+<!--		<if test="modaltype == 'company'">-->
+<!--			update tb_company set password = #{newpassword} where company_id = #{id}-->
+<!--		</if>-->
+<!--	</update>-->
+
+
+
+
+
+    <!--	<update id="update" parameterType="com.uniqueGames.model.Member">-->
 
 <!--		<selectKey keyProperty="email, phone_num, addr" resultType="int"  order="AFTER">-->
 <!--			SELECT email, phone_num, addr FROM member WHERE member_id = #{memberId}-->

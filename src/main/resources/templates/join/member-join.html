@@ -8,7 +8,8 @@
   <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
   <script th:src="@{/js/join_jquery.js}"></script>
   <script th:src="@{/js/login_script.js}"></script>
-  <script th:src="@{/js/mypage.js}"></script>
+  <script th:src="@{/js/profileUpload.js}"></script>
+  <script th:src="@{/js/duplicate.js}"></script>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
@@ -50,22 +51,22 @@
         <li>
         <li class="must-insert">
           <p class="label-dot">*</p>
-          <label>아이디</label><span id="idMsg"></span>
+          <label>아이디</label><span id="idMsg" class="messageStyle"></span>
         </li>
         <li>
-          <input type="text" name="memberId" id="memberId" placeholder="영문,숫자 5~10자리" tabindex="1">
+          <input type="text" name="memberId" id="id" placeholder="영문,숫자 5~10자리" tabindex="1">
           <button type="button" class="button-style" id="check-btn-style">중복 체크</button>
         </li>
         <li class="must-insert-1">
           <p class="label-dot-1">*</p>
-          <label>비밀번호</label><span id="pwdMsg"></span>
+          <label>비밀번호</label><span id="pwdMsg" class="messageStyle"></span>
         </li>
         <li>
           <input type="password" id="mpass" name="password" placeholder="숫자,영문,특수문자 조합 최소 8자" tabindex="2">
           <input type="checkbox" class="pwd-check-img" id="pwd-check-img" onclick="memberPassVisible()">
         </li>
         <li>
-          <label>비밀번호 확인</label><span id="pwdMsg-check"></span>
+          <label>비밀번호 확인</label><span id="pwdMsg-check" class="messageStyle"></span>
         </li>
         <li>
           <input type="password" name="password-check" placeholder="비밀번호 재입력" tabindex="3">
@@ -73,7 +74,7 @@
         </li>
         <li class="must-insert">
           <p class="label-dot">*</p>
-          <label>이름</label><span id="nameMsg"></span>
+          <label>이름</label><span id="nameMsg" class="messageStyle"></span>
         </li>
         <li>
           <input type="text" name="name" tabindex="4">
@@ -81,13 +82,13 @@
         <li class="must-insert">
           <p class="label-dot">*</p>
           <label>이메일</label>
-          <span id="emailMsg"></span>
-          <span id="emailAuth"></span>
+          <span id="emailMsg" class="messageStyle1"></span>
+          <span id="emailAuth" class="messageStyle1"></span>
         </li>
         <li>
           <input type="text" name="email" tabindex="5">
           <button type="button" class="button-style" id="email-btn-style" onclick="sendEmail()">인증 번호</button>
-          <input type="text" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리" disabled="disabled">
+          <input type="text" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리" th:disabled="true">
         </li>
         <li>
           <label>주소</label>
@@ -103,31 +104,22 @@
           <input type="text" id="input-common" name="addr2" tabindex="10">
         </li>
         <li>
-          <label>휴대전화</label><span id="phoneMsg"></span>
+          <label>휴대전화</label><span id="phoneMsg" class="messageStyle"></span>
         </li>
         <li>
-          <select id="selectbox-mobile" name="tel" tabindex="11">
+          <select class="tel" name="tel" tabindex="11">
             <option value="">선택</option>
             <option value="SKT">SKT</option>
             <option value="KT">KT</option>
             <option value="LGU+">LGU+</option>
             <option value="MVNO">알뜰폰</option>
           </select>
-          <select id="selectbox-phone" name="phone1" tabindex="12">
-            <option value="">선택</option>
-            <option value="010">010</option>
-            <option value="011">011</option>
-            <option value="012">012</option>
-          </select>
-          -
-          <input type="text" name="phone2" tabindex="13">
-          -
-          <input type="text" name="phone3" tabindex="14">
+          <input type="text" name="phoneNum" class="phoneNumInput" placeholder="-제외하고 입력하세요" tabindex="12">
         </li>
       </ul>
       <ul class="ul-agreement">
         <li class="agreement-box">
-          <input type="checkbox" name="agreementAll" id="chk-circle" tabindex="15">
+          <input type="checkbox" name="agreementAll" id="chk-circle" tabindex="13">
           <span class="span_agreementAll">전체 동의하기</span>
         </li>
         <li>
@@ -147,7 +139,7 @@
           <span class="choice-span">[선택]</span> <span>마케팅 정보 메일, SMS 수신동의</span>
         </li>
         <li>
-          <button type="button" class="button-gradient" tabindex="16" id="join-button">가입하기</button>
+          <button type="button" class="button-gradient" tabindex="14" id="join-button">가입하기</button>
         </li>
       </ul>
     </div>

@@ -6,50 +6,51 @@
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/login.css}">
   <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
-  <script th:inline="javascript">
-    $(document).ready(function() {
+  <script th:src="@{/js/duplicate.js}"></script>
+<!--  <script th:inline="javascript">-->
+<!--    $(document).ready(function() {-->
 
-      $(".button-gradient").click(function() {
-        var companyId = [[${company.companyId}]];
-        var password = [[${company.password}]];
-        var inputpass = $("input[name='password']");
+<!--      $(".button-gradient").click(function() {-->
+<!--        var companyId = [[${company.companyId}]];-->
+<!--        var password = [[${company.password}]];-->
+<!--        var inputpass = $("input[name='password']");-->
 
-        if (inputpass.val() == "") {
-          alert("비밀번호를 입력하세요");
-          inputpass.focus();
-          return false;
-        } else if(inputpass.val() != password){
-          alert("비밀번호가 일치하지 않습니다");
-          inputpass.focus();
-          return false;
-        }else {
-          $.ajax({
-            url: "cdeletecheck",
-            type: "POST",
-            data: {
-              companyId: $("input[name='companyId']").val(),
-              password: $("input[name='password']").val()
-            },
-            success: function(result) {
-              if (result == 1) {
-                $(".modal2").show();
-                $(".delete-member-id").html(companyId);
-                $(".agreement-content1").html($(".deleteComplete").html());
-              } else {
-                alert("비밀번호가 일치하지 않습니다");
-                $("input[name='password']").val("").focus();
-              }
-            }
-          });
-        }
-      });
+<!--        if (inputpass.val() == "") {-->
+<!--          alert("비밀번호를 입력하세요");-->
+<!--          inputpass.focus();-->
+<!--          return false;-->
+<!--        } else if(inputpass.val() != password){-->
+<!--          alert("비밀번호가 일치하지 않습니다");-->
+<!--          inputpass.focus();-->
+<!--          return false;-->
+<!--        }else {-->
+<!--          $.ajax({-->
+<!--            url: "cdeletecheck",-->
+<!--            type: "POST",-->
+<!--            data: {-->
+<!--              companyId: $("input[name='companyId']").val(),-->
+<!--              password: $("input[name='password']").val()-->
+<!--            },-->
+<!--            success: function(result) {-->
+<!--              if (result == 1) {-->
+<!--                $(".modal2").show();-->
+<!--                $(".delete-member-id").html(companyId);-->
+<!--                $(".agreement-content1").html($(".deleteComplete").html());-->
+<!--              } else {-->
+<!--                alert("비밀번호가 일치하지 않습니다");-->
+<!--                $("input[name='password']").val("").focus();-->
+<!--              }-->
+<!--            }-->
+<!--          });-->
+<!--        }-->
+<!--      });-->
 
-      $(document).on("click", "#home", function(event) {
-        $(".modal2").hide();
-        location.href="/";
-      });
-    });
-  </script>
+<!--      $(document).on("click", "#home", function(event) {-->
+<!--        $(".modal2").hide();-->
+<!--        location.href="/";-->
+<!--      });-->
+<!--    });-->
+<!--  </script>-->
 </head>
 <body>
 <div th:replace="~{/main/header::headerFragment}"></div>
@@ -79,7 +80,7 @@
     </ul>
   </div>
 
-  <form action="delete_check" name="loginForm" method="post" class="deleteForm">
+  <form action="deletecheck1" name="loginForm" method="post" class="deleteForm">
     <p class="intro-4">회원탈퇴</p>
     <div class="div-delete">
       <p class="delete-intro">탈퇴 사유</p>
@@ -99,8 +100,9 @@
         <li>
           <!-- disabled 속성은 Thymeleaf의 th:disabled로 변경됩니다 -->
           <input type="text" name="companyId" th:value="${company?.companyId}" th:disabled="disabled">
-          <input type="hidden" name="companyId" th:value="${company?.companyId}">
-          <span class="msgId"></span>
+          <input type="hidden" name="companyId" th:value="${company?.companyId}" id="id">
+          <input type="hidden" th:value="${company?.password}" id="companyPass">
+          <input type="hidden" name="type2" th:value="company">
         </li>
         <li>
           <input type="password" name="password" placeholder="비밀번호">
@@ -120,7 +122,7 @@
           </p>
         </li>
         <li>
-          <button type="button" class="button-gradient">회원 탈퇴</button>
+          <button type="button" class="button-gradient" id="deleteButton">회원 탈퇴</button>
         </li>
       </ul>
     </div>

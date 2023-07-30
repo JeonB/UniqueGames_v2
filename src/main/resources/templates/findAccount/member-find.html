@@ -7,19 +7,8 @@
   <link rel="stylesheet" th:href="@{/css/login.css}">
   <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
   <script th:src="@{/js/login_script.js}"></script>
+  <script th:src="@{/js/duplicate.js}"></script>
   <script th:inline="javascript">
-    //JavaScript 코드
-
-    document.addEventListener('DOMContentLoaded', function() {
-      // URL에서 selectedTab 파라미터 값을 가져옴
-      var urlParams = new URLSearchParams(window.location.search);
-      var selectedTab = urlParams.get('selectedTab');
-
-      // 선택한 탭을 표시
-      if (selectedTab) {
-        document.getElementById(selectedTab).checked = true;
-      }
-    });
     /*<![CDATA[*/
     const error = [[${result}]];
     const url = [[${url}]];
@@ -28,116 +17,6 @@
       alert("등록된 회원정보가 없습니다");
       location.href = url;
     }
-    /*]]>*/
-  </script>
-  <script th:inline="javascript">
-    /*<![CDATA[*/
-    $(document).ready(function(){
-
-      $("#findIdButton").click(function() {
-        if ($("input[name='email']").val() === "") {
-          alert("이메일을 입력해주세요");
-          $("input[name='email']").focus();
-          return false;
-        } else if ($("input[name='name']").val() === "") {
-          alert("이름을 입력해주세요");
-          $("input[name='name']").focus();
-          return false;
-        } else {
-          $.ajax({
-            url: "findmid",
-            type: "POST",
-            data: {
-              email : $("input[name='email']").val(),
-              name: $("input[name='name']").val()
-            },
-            success: function(result) {
-              if (result == "") {
-                $(".modal2").show();
-                $(".agreement-content1").html($(".find-id-none").html());
-              } else {
-                $(".modal2").show();
-                $(".delete-span").html($("input[name='name']").val());
-                $(".find-id-result").html(result).css("font-size", "16px").css("color", "#2E7AF6");
-                $(".agreement-content1").html($(".deleteComplete").html());
-              }
-            }
-          });
-        }
-      });
-
-      $("#findPass").click(function(){
-        var email = $("#email");
-        var member_id = $("#memberId");
-        var name = $("#name");
-
-        if(email.val()==""){
-          alert("이메일을 입력해주세요");
-          email.focus();
-          return false;
-        }else if(member_id.val()==""){
-          alert("아이디를 입력해주세요");
-          member_id.focus();
-          return false;
-        }else if(name.val()==""){
-          alert("이름을 입력해주세요");
-          name.focus();
-          return false;
-        }else {
-          $.ajax({
-            url : "changempass",
-            type : "POST",
-            data : {
-              email : email.val(),
-              member_id : member_id.val(),
-              name : name.val()
-            },
-
-            success : function(result) {
-              if(result=="") {
-                $(".modal2").show();
-                $(".agreement-content1").html($(".find-id-none").html());
-              }else {
-                $(".modal3").show();
-                $("#memberId1").attr("value", result);
-                $(".agreement-content2").html($(".mchangepass").html());
-
-              }
-            }
-          });
-        }
-      });
-
-      $(document).on("click", "#gotoFind", function(event){
-
-        $(".modal2").hide();
-        $("input[name='email']").val("").focus();
-        $("input[name='memberId']").val("");
-        $("input[name='name']").val("");
-
-      });
-
-      $(document).on("click", "#gotoPwd", function(event){
-
-        $(".modal2").hide();
-        location.href="/findMember?selectedTab=findPwd";
-
-      });
-      $(document).on("click", "#gotoLogin", function(event){
-
-        $(".modal2").hide();
-        location.href="/login";
-
-      });
-
-      $(document).on("click", "#gotoJoin", function(event){
-
-        $(".modal2").hide();
-        location.href="/join";
-
-      });
-
-    });
     /*]]>*/
   </script>
 </head>
@@ -159,8 +38,9 @@
   <input id="findPwd" type="radio" name="findAccount">
   <label for="findPwd" class="findPwd-tab">비밀번호 찾기</label>
 
-  <form action="findmid" name="findIdForm" method="post" id="findIdForm">
-    <input type="hidden" name="type2" th:value="member">
+  <input type="hidden" name="type2" th:value="member">
+
+  <form action="findId" name="findIdForm" method="post" id="findIdForm">
     <ul>
       <li>
         <input type="text" name="email" placeholder="이메일">
@@ -187,7 +67,7 @@
         <span class="msgclass"></span>
       </li>
       <li>
-        <input type="text" name="memberId" id="memberId" placeholder="아이디">
+        <input type="text" name="memberId" id="id" placeholder="아이디">
         <span class="msgName1"></span>
       </li>
       <li>
@@ -195,7 +75,7 @@
         <span class="msgPhone1"></span>
       </li>
       <li>
-        <button type="button" class="button-gradient" id="findPass">비밀번호 찾기</button>
+        <button type="button" class="button-gradient" id="findPassButton">비밀번호 찾기</button>
       </li>
       <li>
         <a th:href = "@{/login}" class="toLogin">return to login</a>
@@ -224,6 +104,7 @@
 		<span class="find-id-result"></span>
   <ul>
     <li>
+      <input type="hidden" name="modaltype" th:value="member">
       <button type="button" class="find-button-gradient" id="gotoLogin" name="btn-agreement">로그인 하러가기</button>
       <button type="button" class="find-button-gradient" id="gotoPwd" name="btn-agreement">비밀번호 찾기</button>
     </li>
@@ -236,7 +117,7 @@
     <div>
       <ul>
         <li>
-          <input type="hidden" name="memberId" id="memberId1" th:value="${memberId}">
+          <input type="hidden" name="memberId" id="id2" th:value="${memberId}">
         </li>
         <li>
           <input type="password" name="newpassword" placeholder="새로운 비밀번호">
@@ -260,6 +141,7 @@
   <span class="delete-span">등록된 회원정보가 없습니다</span>
   <ul>
     <li>
+      <input type="hidden" name="modaltype" th:value="member">
       <button type="button" class="find-button-gradient" id="gotoFind" name="btn-agreement">다시입력</button>
       <button type="button" class="find-button-gradient" id="gotoJoin" name="btn-agreement">회원가입</button>
     </li>

@@ -6,40 +6,11 @@
   <link rel="stylesheet" th:href="@{/css/login.css}">
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <script th:src="@{/js/jquery-3.6.4.min.js}"></script>
-  <script th:src="@{/js/join_jquery.js}"></script>
   <script th:src="@{/js/login_script.js}"></script>
-  <script th:src="@{/js/mypage.js}"></script>
+  <script th:src="@{/js/profileUpload.js}"></script>
+  <script th:src="@{/js/duplicate.js}"></script>
+  <script th:src="@{/js/mypage1.js}"></script>
   <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
-  <script th:inline="javascript">
-    //JavaScript 코드
-    /*<![CDATA[*/
-
-    $(document).ready(function() {
-
-      const mypageEmail = [[${company.email}]];
-      const mypagePhoneNum = [[${company.phoneNum}]];
-      const mypageAddr1 = [[${company.addr1}]];
-      const mypageAddr2 = [[${company.addr2}]];
-
-      $("input[name='email'], input[name='phoneNum'], input[name='addr1'], input[name='addr2']").keyup(function(){
-
-        if($("input[name='email']").val() == mypageEmail && $("input[name='phoneNum']").val() == mypagePhoneNum
-                && $("input[name='addr1']").val() == mypageAddr1 && $("input[name='addr2']").val() == mypageAddr2) {
-          $("#mypage-update").prop("disabled", "true");
-        } else {
-          $("#mypage-update").removeAttr("disabled");
-        }
-
-      });
-
-    });
-    /*]]>*/
-  </script>
-  <style>
-    .mypage-addr {
-      margin-right: 360px;
-    }
-  </style>
 </head>
 <body>
 <header th:include="main/header"></header>
@@ -83,6 +54,7 @@
     </div>
     <p class="intro-4">법인정보 수정</p>
     <input type="hidden" name="type" th:value="mypage">
+    <input type="hidden" name="type2" th:value="company">
     <input type="hidden" name="companyId" th:value="${company?.companyId}">
     <input type="hidden" name="profileImg" th:value="${company?.profileImg}">
     <input type="hidden" name="newProfileImg">
@@ -91,35 +63,48 @@
         <li class="mypage-insert">
           <label>게임명</label>
         </li>
-        <li>
+        <li class="mypage-insert">
           <input type="text" name="game" th:value="${company?.game}" th:disabled="true">
         </li>
         <li class="mypage-insert">
           <label>이메일</label>
+          <span id="emailMsg" class="messageStyle1"></span>
+          <span id="emailAuth" class="messageStyle1"></span>
         </li>
-        <li>
-          <input type="text" class="mypage-input" name="email" th:value="${company?.email}">
+        <li class="mypage-insert">
+          <input type="text" name="email" th:value="${company?.email}">
+          <input type="hidden" th:value="${company?.email}" id="companyEmail">
         </li>
         <li>
           <button type="button" class="button-style" id="mypage-email-btn" onclick="sendEmail()">인증 번호</button>
         </li>
-        <li>
-          <input type="text" class="mypage-input" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리" th:disabled="true">
+        <li class="mypage-insert">
+          <input type="text" name="email-auth-check" id="email-auth-check" placeholder="인증번호 6자리" th:disabled="true">
         </li>
         <li class="mypage-insert">
-          <label>휴대전화</label><span id="phoneMsg"></span>
+          <label>휴대전화</label><span id="phoneMsg" class="messageStyle"></span>
         </li>
-        <li>
-          <input type="text" class="mypage-input" name="phoneNum" th:value="${company?.phoneNum}" placeholder="-제외하고 입력하세요">
+        <li class="mypage-insert">
+          <select class="tel" name="tel" tabindex="11">
+            <option value="" th:selected="${company.tel == ''}">선택</option>
+            <option value="SKT" th:selected="${company.tel == 'SKT'}">SKT</option>
+            <option value="KT" th:selected="${company.tel == 'KT'}">KT</option>
+            <option value="LGU+" th:selected="${company.tel == 'LGU+'}">LGU+</option>
+            <option value="MVNO" th:selected="${company.tel == 'MVNO'}">알뜰폰</option>
+          </select>
+          <input type="hidden" th:value="${company?.tel}" id="companyTel">
+          <input type="text" name="phoneNum" th:value="${company?.phoneNum}" placeholder="-제외하고 입력하세요"  class="phoneNumInput">
+          <input type="hidden" th:value="${company?.phoneNum}" id="companyPhoneNum">
         </li>
-        <li>
-          <label class="mypage-addr">주소</label>
+        <li class="mypage-insert">
+          <label>주소</label>
         </li>
-        <li th:if="${company?.addr1} == null">
-          <input type="text" name="addr1" class="mypage-input" th:value="">
+        <li th:if="${company?.addr1} == null" class="mypage-insert">
+          <input type="text" name="addr1" th:value="">
         </li>
-        <li th:unless="${company?.addr1} == null">
-          <input type="text" name="addr1" class="mypage-input" th:value="${company?.addr1}">
+        <li th:unless="${company?.addr1} == null" class="mypage-insert">
+          <input type="text" name="addr1" th:value="${company?.addr1}">
+          <input type="hidden" th:value="${company?.addr1}" id="companyAddr1">
         </li>
         <li>
           <button type="button" class="button-style" id="mypage-addr-btn" onclick="findAddress()">주소 검색</button>
@@ -127,13 +112,14 @@
         <li class="mypage-insert-1">
           <label>상세 주소</label>
         </li>
-        <li th:if="${company?.addr2} == null">
+        <li th:if="${company?.addr2} == null" class="mypage-insert">
           <input type="text" name="addr2" th:value="">
         </li>
-        <li th:unless="${company?.addr2} == null">
+        <li th:unless="${company?.addr2} == null" class="mypage-insert">
           <input type="text" name="addr2" th:value="${company?.addr2}">
+          <input type="hidden" th:value="${company?.addr2}" id="companyAddr2">
         </li>
-        <li>
+        <li class="mypage-insert">
           <button type="button" class="button-gradient" id="mypage-update" th:disabled="true">수정 완료</button>
         </li>
       </ul>
