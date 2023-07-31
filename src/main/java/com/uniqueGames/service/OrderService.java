@@ -160,7 +160,7 @@ public class OrderService {
         for (int i = 0; i < cartList.size(); i++) {
             int gid = cartList.get(i).getGId();
             Game game = gameMapper.getGameForIndex(gid);
-            game.setUploadImg("../images/" + gameMapper.getOneFile(gid).getUploadImg());
+            game.setUploadImg(gameMapper.getOneFile(gid).getUploadImg());
 
             cartList.get(i).setGameImg(game.getUploadImg());
             cartList.get(i).setGametitle(game.getName());

@@ -1,10 +1,10 @@
 package com.uniqueGames.service;
 
 import com.uniqueGames.model.Game;
-import com.uniqueGames.model.Member;
-import com.uniqueGames.model.Order;
 import com.uniqueGames.repository.GameMapper;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -19,10 +19,6 @@ public class GameService {
 
     public int totRowCount() {
         return gameMapper.totRowCount();
-    }
-
-    public int totRowCountSearch(String keyword) {
-        return gameMapper.totRowCountSearch(keyword);
     }
 
     public ArrayList<Game> aGetGameList(String order1, String order2, int start, int end) {
@@ -46,8 +42,8 @@ public class GameService {
         return gameMapper.getGameImg(gId);
     }
 
-    public int aRegisterGame(String name, String genre, String imagePath, String description) {
-        return gameMapper.aRegisterGame(name, genre, imagePath, description);
+    public int aRegisterGame(String name, String genre, String description) {
+        return gameMapper.aRegisterGame(name, genre, description);
     }
 
     public int aGetGid(String name) {
@@ -58,7 +54,19 @@ public class GameService {
         return gameMapper.aDeleteGame(gid);
     }
 
-    public int aUpdateGame(String name, String genre, String imagePath, String description, int gid) {
-        return gameMapper.aUpdateGame(name, genre, imagePath, description, gid);
+    public int aUpdateGame(String name, String genre, String description, int gid) {
+        return gameMapper.aUpdateGame(name, genre, description, gid);
+    }
+
+    public int aUpdateGameImg(String imagePath) {
+        return gameMapper.aUpdateGameImg(imagePath);
+    }
+
+    public String aGetGameImg(int id) {
+        return gameMapper.aGetGameImg(id);
+    }
+
+    public int aRegisterGameImg(int gid, String imagePath) {
+        return gameMapper.aRegisterGameImg(gid, imagePath);
     }
 }
