@@ -12,7 +12,7 @@ $(document).ready(function(){
     let modal = $(".modal2");                   let modaltype = $("input[name='modaltype']");
 
     /**이메일 중복체크*/
-    $(email).blur(function() {
+    $(email).change(function() {
         if(email.val() == "") {
             $("#emailMsg").text("필수항목입니다").css("color","red").css("font-size","11px").css("display","inline");
             return false;
@@ -27,14 +27,14 @@ $(document).ready(function(){
                 success : function (result) {
                     if(result==1) {
                         if(email.val() == memberEmail.val() || email.val() == companyEmail.val()) {
-                            $("#emailMsg").text("").css("color","blue").css("display","none");
+                            $("#emailMsg").css("color", "initial").css("display","none");
                         }else {
                             $("#emailMsg").text("중복된 이메일입니다").css("color","red").css("font-size","11px").css("display","inline");
                             $("#emailAuth").text("").css("display", "none");
                         }
                         return false;
                     }else {
-                        $("#emailMsg").text("").css("display","none");
+                        $("#emailMsg").css("color", "initial").css("display","none");
                     }
                 }
             });
@@ -58,13 +58,13 @@ $(document).ready(function(){
                     success : function (result) {
                         if(result==1) {
                             if(phoneNum.val() == memberPhoneNum.val() || phoneNum.val() == companyPhoneNum.val()) {
-                                $("#phoneMsg").text("").css("color","blue").css("display","none");
+                                $("#phoneMsg").text("").css("color","initial").css("display","none");
                             }else {
                                 $("#phoneMsg").text("이미 등록된 번호입니다").css("color","red").css("font-size","11px").css("display","inline");
                             }
                             return false;
                         }else {
-                            $("#phoneMsg").text("").css("display","none");
+                            $("#phoneMsg").css("color","initial").css("display","none");
                         }
                     }
                 });

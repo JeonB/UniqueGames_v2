@@ -4,11 +4,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.uniqueGames.repository.MemberMapper">
-
-	<!--<insert id="save" parameterType="com.uniqueGames.model.Member">
-            insert into tb_member (member_id, password, name, email, phone_num, addr, tel)
-            values (#{memberId},#{password},#{name},#{email},#{phoneNum},#{addr},#{tel})
-        </insert>-->
 	<select id="idCheck1" parameterType="map" resultType="int">
 		select count(*) from
 		<if test="type2 == 'member'">
@@ -83,29 +78,4 @@
 			delete from tb_company where company_id = #{id} and password = #{password}
 		</if>
 	</delete>
-
-<!--	<update id="modalChangePass" parameterType="map">-->
-<!--		<if test="modaltype == 'member'">-->
-<!--			update tb_member set password = #{newpassword} where member_id = #{id}-->
-<!--		</if>-->
-<!--		<if test="modaltype == 'company'">-->
-<!--			update tb_company set password = #{newpassword} where company_id = #{id}-->
-<!--		</if>-->
-<!--	</update>-->
-
-
-
-
-
-    <!--	<update id="update" parameterType="com.uniqueGames.model.Member">-->
-
-<!--		<selectKey keyProperty="email, phone_num, addr" resultType="int"  order="AFTER">-->
-<!--			SELECT email, phone_num, addr FROM member WHERE member_id = #{memberId}-->
-<!--		</selectKey>-->
-
-<!--		UPDATE member SET email = #{email}, phone_num = #{phoneNum}, addr = #{addr}-->
-<!--		WHERE member_id = #{memberId}-->
-
-<!--	</update>-->
-
 </mapper>   

@@ -39,8 +39,8 @@
           <input type="file" name="file" id="profile-picture-img" style="display: none;">
         </li>
         <li>
-          <nav class="cancelProfile" th:if="${company?.profileImg == null}"></nav>
-          <nav class="cancelProfile" th:unless="${company?.profileImg == null}">
+          <nav class="cancelProfile" th:if="${company?.profileImg == null} or ${company?.profileImg == ''}"></nav>
+          <nav class="cancelProfile" th:unless="${company?.profileImg == null} or ${company?.profileImg == ''}">
             <button type='button' class='cancelProfileButton' name='cancelProfileButton' onclick="buttonFunction();">기본값</button>
           </nav>
         </li>
@@ -99,10 +99,10 @@
         <li class="mypage-insert">
           <label>주소</label>
         </li>
-        <li th:if="${company?.addr1} == null" class="mypage-insert">
+        <li th:if="${company?.addr1 == null}" class="mypage-insert">
           <input type="text" name="addr1" th:value="">
         </li>
-        <li th:unless="${company?.addr1} == null" class="mypage-insert">
+        <li th:unless="${company?.addr1 == null}" class="mypage-insert">
           <input type="text" name="addr1" th:value="${company?.addr1}">
           <input type="hidden" th:value="${company?.addr1}" id="companyAddr1">
         </li>
@@ -112,10 +112,10 @@
         <li class="mypage-insert-1">
           <label>상세 주소</label>
         </li>
-        <li th:if="${company?.addr2} == null" class="mypage-insert">
+        <li th:if="${company?.addr2 == null}" class="mypage-insert">
           <input type="text" name="addr2" th:value="">
         </li>
-        <li th:unless="${company?.addr2} == null" class="mypage-insert">
+        <li th:unless="${company?.addr2 == null}" class="mypage-insert">
           <input type="text" name="addr2" th:value="${company?.addr2}">
           <input type="hidden" th:value="${company?.addr2}" id="companyAddr2">
         </li>

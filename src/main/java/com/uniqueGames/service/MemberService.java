@@ -34,25 +34,6 @@ public class MemberService extends FileUploadUtil {
         return memberMapper.save(member);
     }
 
-//    public int idCheck(String memberId) {
-//        return memberMapper.idCheck(memberId);
-//    }
-//
-//    public String findMid(String email, String name) {
-//        Member member = new Member();
-//        member.setEmail(email);
-//        member.setName(name);
-//        return memberMapper.findMid(member);
-//    }
-//
-//    public int phoneCheck(String phoneNum) {
-//        return memberMapper.phoneCheck(phoneNum);
-//    }
-//
-//    public int emailCheck(String email) {
-//        return memberMapper.emailCheck(email);
-//    }
-
     public ArrayList<Member> aGetMemberList(String order1, String order2, int start, int end) {
         ArrayList<Member> mList = new ArrayList<>();
         for (Member member : memberMapper.aGetMemberList(order1, order2, start, end)) {
@@ -64,18 +45,6 @@ public class MemberService extends FileUploadUtil {
     public Member aGetDetailMember(String id) {
         return memberMapper.aGetDetailMember(id);
     }
-
-//    public int delete(String memberId, String password) {
-//        return memberMapper.delete(memberId, password);
-//    }
-
-//    public String findMpass(String email, String memberId, String name) {
-//        Member member = new Member();
-//        member.setEmail(email);
-//        member.setMemberId(memberId);
-//        member.setName(name);
-//        return memberMapper.findMpass(member);
-//    }
 
     public int changeMpass(String memberId, String newpassword) {
         Member member = new Member();
@@ -108,7 +77,6 @@ public class MemberService extends FileUploadUtil {
         return memberMapper.aDeleteMember(mid);
     }
 
-    /**0729 변경사항*/
     public int idCheck1(String id, String type2) {
         Map param = new HashMap();
         param.put("id", id);
@@ -144,14 +112,6 @@ public class MemberService extends FileUploadUtil {
         param.put("type2", type2);
         return memberMapper.findPass(param);
     }
-    /**
-    public int modalChangePass(String id, String newpassword, String modaltype) {
-        Map param = new HashMap();
-        param.put("id", id);
-        param.put("newpassword", newpassword);
-        param.put("modaltype", modaltype);
-        return memberMapper.modalChangePass(param);
-    }*/
 
     public int delete1(String id, String password, String type2) {
         Map param = new HashMap();
@@ -160,9 +120,4 @@ public class MemberService extends FileUploadUtil {
         param.put("type2", type2);
         return memberMapper.delete1(param);
     }
-
-
-
-
-
 }

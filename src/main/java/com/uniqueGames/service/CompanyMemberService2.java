@@ -21,25 +21,6 @@ public class CompanyMemberService2 extends FileUploadUtil {
         return companyMapper.save(company);
     }
 
-    public int cidCheck(String companyId) {
-        return companyMapper.cidCheck(companyId);
-    }
-
-    public String findCid(String email, String name) {
-        Company company = new Company();
-        company.setEmail(email);
-        company.setName(name);
-        return companyMapper.findCid(company);
-    }
-
-    public String findCpass(String email, String companyId, String name) {
-        Company company = new Company();
-        company.setEmail(email);
-        company.setCompanyId(companyId);
-        company.setName(name);
-        return companyMapper.findCpass(company);
-    }
-
     public int changeCpass(String companyId, String newpassword) {
         Company company = new Company();
         company.setCompanyId(companyId);
@@ -53,18 +34,6 @@ public class CompanyMemberService2 extends FileUploadUtil {
         company.setPassword(password);
         company.setNewpassword(newpassword);
         return companyMapper.CmypageNewPass(company);
-    }
-
-    public int cphoneCheck(String phoneNum) {
-        return companyMapper.cphoneCheck(phoneNum);
-    }
-
-    public int cemailCheck(String email) {
-        return companyMapper.cemailCheck(email);
-    }
-
-    public int cdelete(String companyId, String password) {
-        return companyMapper.cdelete(companyId, password);
     }
 
     public int update(Company company) {

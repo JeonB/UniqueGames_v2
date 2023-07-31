@@ -15,31 +15,14 @@ public interface CompanyMapper {
             "values (#{companyId},#{password},#{name},#{email},#{tel},#{phoneNum},#{addr},#{profileImg})")
     int save(Company company);
 
-    @Select("select count(*) from TB_COMPANY where company_id=#{companyId}")
-    int cidCheck(String companyId);
-
-    @Select("select company_id from TB_COMPANY where email=#{email} and name=#{name}")
-    String findCid(Company company);
-
-    @Select("select company_id from TB_COMPANY where email=#{email} and company_id=#{companyId} and name=#{name}")
-    String findCpass(Company company);
-
     @Update("update TB_COMPANY set password=#{newpassword} where company_id=#{companyId}")
     int changeCpass(Company company);
-
-    @Select("select count(*) from TB_COMPANY where phone_num=#{phoneNum}")
-    int cphoneCheck(String phoneNum);
-
-    @Select("select count(*) from TB_COMPANY where email=#{email}")
-    int cemailCheck(String email);
 
     @Update("update TB_COMPANY set password=#{newpassword} where company_id=#{companyId}")
     int CmypageNewPass(Company company);
 
-    @Delete("delete from TB_COMPANY where company_id=#{companyId} and password=#{password}")
-    int cdelete(String companyId, String password);
 
-    @Update("update tb_company set profile_img = #{newProfileImg}, email = #{email}, addr = #{addr}, phone_num = #{phoneNum} where company_id = #{companyId}")
+    @Update("update tb_company set profile_img = #{newProfileImg}, email = #{email}, addr = #{addr}, phone_num = #{phoneNum}, tel = #{tel} where company_id = #{companyId}")
     int update(Company company);
 
     // ADMIN

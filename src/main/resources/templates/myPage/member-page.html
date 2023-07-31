@@ -39,8 +39,8 @@
           <input type="file" name="file" id="profile-picture-img" style="display: none">
         </li>
         <li>
-          <nav class="cancelProfile" th:if="${member.profileImg == null} or ${member.profileImg == ''}"></nav>
-          <nav class="cancelProfile" th:unless="${member.profileImg == null} or ${member.profileImg == ''}">
+          <nav class="cancelProfile" th:if="${member?.profileImg == null} or ${member?.profileImg == ''}"></nav>
+          <nav class="cancelProfile" th:unless="${member?.profileImg == null} or ${member?.profileImg == ''}">
             <button type='button' class='cancelProfileButton' name='cancelProfileButton' onclick="buttonFunction();">기본값</button>
           </nav>
         </li>
@@ -82,23 +82,23 @@
         </li>
         <li class="mypage-insert">
           <select class="tel" name="tel" tabindex="11">
-            <option value="" th:selected="${member.tel == ''}">선택</option>
-            <option value="SKT" th:selected="${member.tel == 'SKT'}">SKT</option>
-            <option value="KT" th:selected="${member.tel == 'KT'}">KT</option>
-            <option value="LGU+" th:selected="${member.tel == 'LGU+'}">LGU+</option>
-            <option value="MVNO" th:selected="${member.tel == 'MVNO'}">알뜰폰</option>
+            <option value="" th:selected="${member?.tel == ''}">선택</option>
+            <option value="SKT" th:selected="${member?.tel == 'SKT'}">SKT</option>
+            <option value="KT" th:selected="${member?.tel == 'KT'}">KT</option>
+            <option value="LGU+" th:selected="${member?.tel == 'LGU+'}">LGU+</option>
+            <option value="MVNO" th:selected="${member?.tel == 'MVNO'}">알뜰폰</option>
           </select>
-          <input type="hidden" th:value="${member.tel}" id="memberTel">
+          <input type="hidden" th:value="${member?.tel}" id="memberTel">
           <input type="text" name="phoneNum" th:value="${member?.phoneNum}" placeholder="-제외하고 입력하세요" class="phoneNumInput">
           <input type="hidden" th:value="${member?.phoneNum}" id="memberPhoneNum">
         </li>
         <li class="mypage-insert">
           <label>주소</label>
         </li>
-        <li th:if="${member?.addr1} == null" class="mypage-insert">
+        <li th:if="${member?.addr1 == null}" class="mypage-insert">
           <input type="text" name="addr1" th:value="">
         </li>
-        <li th:unless="${member?.addr1} == null" class="mypage-insert">
+        <li th:unless="${member?.addr1 == null}" class="mypage-insert">
           <input type="text" name="addr1" th:value="${member?.addr1}">
           <input type="hidden" th:value="${member?.addr1}" id="memberAddr1">
         </li>
@@ -108,10 +108,10 @@
         <li class="mypage-insert-1">
           <label>상세 주소</label>
         </li>
-        <li th:if="${member?.addr2} == null" class="mypage-insert">
+        <li th:if="${member?.addr2 == null}" class="mypage-insert">
           <input type="text" name="addr2" th:value="">
         </li>
-        <li th:unless="${member?.addr2} == null" class="mypage-insert">
+        <li th:unless="${member?.addr2 == null}" class="mypage-insert">
           <input type="text" name="addr2" th:value="${member?.addr2}">
           <input type="hidden" th:value="${member?.addr2}" id="memberAddr2">
         </li>

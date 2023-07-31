@@ -3,6 +3,7 @@ package com.uniqueGames.controller;
 
 import com.uniqueGames.service.CompanyMemberService2;
 import com.uniqueGames.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ public class FindAccountController {
 	private MemberService memberService;
 	private CompanyMemberService2 companyMemberService2;
 
+	@Autowired
 	public FindAccountController(MemberService memberService, CompanyMemberService2 companyMemberService2) {
 		this.memberService = memberService;
 		this.companyMemberService2 = companyMemberService2;
@@ -37,14 +39,13 @@ public class FindAccountController {
 	@PostMapping("/mchangepass")
 	public String mChangePass(Model model,
 								 @RequestParam("memberId") String memberId, @RequestParam("newpassword") String newpassword) {
-		String viewName = "";
+
 		int result = memberService.changeMpass(memberId, newpassword);
 		if(result == 1) {
 			model.addAttribute("result", "change");
 			model.addAttribute("url", "/login");
 			return "login/login";
 		}else {
-			model.addAttribute("result", "error");
 			return "redirect:/findMember";
 		}
 	}
@@ -59,28 +60,7 @@ public class FindAccountController {
 			model.addAttribute("url", "/login");
 			return "login/login";
 		}else {
-			model.addAttribute("result", "error");
 			return "redirect:/findMember";
 		}
 	}
-
-	/** changing password on modal
-	@PostMapping("/modalchangepass")
-	public String modalChangePass(Model model,
-							  @RequestParam("id") String id,
-							  @RequestParam("newpassword") String newpassword,
-							  @RequestParam("modaltype") String modaltype) {
-		String viewName = "";
-		int result = memberService.modalChangePass(id, newpassword, modaltype);
-		if(result == 1) {
-			model.addAttribute("result", "change");
-			model.addAttribute("url", "/login");
-			return "login/login";
-		}else {
-			model.addAttribute("result", "error");
-			return "redirect:/findMember";
-		}
-	}
-	 */
-
 }
