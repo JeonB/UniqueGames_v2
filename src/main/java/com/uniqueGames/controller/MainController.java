@@ -42,22 +42,18 @@ public class MainController {
 			game.setUploadImg(oneFile.getUploadImg());
 		}
 		model.addAttribute("gameList",gameList);
-//		model.addAttribute("donation",indexServiceMapper.getDonationList());
-//		model.addAttribute("ranking",indexServiceMapper.getRankingList());
-		model.addAttribute("noticeList", noticeService.getNoticeList(1, 4));
+		model.addAttribute("notice", noticeService.getNoticeList(1, 4));
 
         return "index";
 	}
 
 	@GetMapping("alllist")
 	public String allList(Model model) throws IOException  {
-//		model.addAttribute("gameList", indexServiceMapper.getGameList());
 		return "main/alllist";
 	}
 
 	@GetMapping("topgame")
 	public String topgame(Model model) throws IOException  {
-//		model.addAttribute("ranking", indexServiceMapper.getRankingList());
 		return "main/topgame";
 	}
 
