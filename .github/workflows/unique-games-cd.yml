@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up JDK 11
-        uses: actions/setup-java@v1 # 최신 버전을 쓰고 싶었으나 이슈가 생겨서 기존에 CI에서 쓰던 버전 사용
+        uses: actions/setup-java@v1
         with:
           java-version: 11
 
