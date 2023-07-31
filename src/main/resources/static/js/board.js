@@ -101,7 +101,7 @@ $(document).ready(function () {
 
             return false;
         } else if ($("textarea[name='content']").val().length > 3000) {
-            alert("내용이 너무 깁니다. 내용은 300자 이내로 작성해주세요.");
+            alert("내용이 너무 깁니다. 내용은 3000자 이내로 작성해주세요.");
             $("textarea[name='content']").focus();
 
             return false;
@@ -128,6 +128,35 @@ $(document).ready(function () {
 
     // 취소 버튼 이벤트
     $('button[name="cancel"]').on("click", function () {
+        const htmlString = editor.getData()
+        // 정규 표현식으로 이미지 태그에서 파일 이름 추출
+        const imgTagRegex = /<img\s+src="([^"]+)">/g
+        const matches = htmlString.matchAll(imgTagRegex)
+
+        let deleteImgArray = [];
+        for (const match of matches) {
+            const srcAttr = match[1]
+            const fileName = srcAttr.substring(srcAttr.lastIndexOf('/') + 1)
+            deleteImgArray.push(fileName);
+        }
+
+        $.ajax({
+            url        : "/imgDelete",
+            type       : "DELETE",
+            data       : {deleteImgArray: deleteImgArray},
+            dataType   : "text",
+            traditional: true,
+            async      : true,
+            cache      : false,
+            success    : () => {
+                console.log("ok")
+            },
+            error      : () => {
+                console.log("fail")
+            }
+
+        })
+
         const URLSearch = new URLSearchParams(location.search);
         if (window.location.href.indexOf("update") > -1) {
             location.href = "notice-content?stat=up&no=" + URLSearch.get('no');
@@ -178,80 +207,11 @@ $(document).ready(function () {
         location.href = "/notice/list";
     })
 
-    // 댓글 작성 이벤트
-    $('button[name="cmtWrite"]').on("click", function () {
-        let url = window.location.href;
-        let login = document.getElementById("member-id").value;
-        if (login != "") {
-            if ($("#form-control").val() != "") {
-                $.ajax({
-                    url     : "/commentWriteProc",
-                    data    : $("#comment-write").serialize(),
-                    dataType: "text",
-                    async   : true,
-                    Cache   : false,
-                    type    : "POST",
-                    success : function (result) {
-                        if (result == "SUCCESS") {
-                            alert("댓글이 등록되었습니다.");
-                            window.location.replace(url);
-                        } else {
-                            alert("댓글 등록이 실패하였습니다.");
-                        }
-                    },
-                    error   : function (xhr, status, error) {
-                        alert("댓글 작성 실패. 관리자에게 문의하세요");
-                    }
-                });
-
-            } else
-                alert("댓글 내용을 입력하세요.");
-
-        } else {
-            if (confirm("로그인 후 이용 가능합니다. 로그인 하시겠습니까?")) {
-                location.href = "/login";
-
-            } else {
-
-                return false;
-            }
-
-        }
-    })
-
 });
 
-// 댓글 삭제 이벤트
-function commentDelete(commentId) {
-    if (confirm('댓글을 삭제하시겠습니까?')) {
-        let url = window.location.href;
-
-        $.ajax({
-            url     : "/comment-delete",
-            data    : {
-                no: commentId,
-            },
-            dataType: "text",
-            type    : "DELETE",
-            success : function (result) {
-                if (result == "SUCCESS") {
-                    alert("댓글이 삭제되었습니다.");
-                } else {
-                    alert("댓글 삭제가 실패하였습니다.");
-                }
-                window.location.replace(url);
-            },
-            error   : function (error) {
-                alert("지금은 시도할 수 없습니다.\n상태가 지속될 경우 관리자에게 문의하세요.");
-            }
-
-        });
-    } else {
-        return false;
-    }
-}
-
-// 게시글 목록 삭제 이벤트
+/**
+ * 게시글 목록 삭제 함수
+ */
 function boardManage() {
     const url = window.location.href
     $.ajax({
@@ -261,10 +221,12 @@ function boardManage() {
         cache  : false,
         type   : "delete",
         success: function (result) {
-            if (result == "SUCCESS")
+            if (result == "SUCCESS") {
                 alert("작업 성공")
-            else
+            } else {
                 alert("작업 실패")
+            }
+
             window.location.replace(url)
         },
         error() {
@@ -273,7 +235,9 @@ function boardManage() {
     })
 }
 
-// 검색 이벤트
+/**
+ * 검색 함수
+ */
 function searchScript() {
     if ($('input[name="q"]').val() == "") {
         alert("검색어를 입력하세요");
@@ -285,7 +249,10 @@ function searchScript() {
     }
 }
 
-// alert 중복 방지를 위한 스크립트
+/**
+ * alert 다중 실행 방지를 위한 함수
+ * @param result 결과
+ */
 function getResult(result) {
     if (result == 'insuccess') {
         alert("게시글이 성공적으로 등록되었습니다.");
@@ -306,20 +273,12 @@ function getResult(result) {
     history.replaceState({}, null, null);
 }
 
-function getResultCmt(result) {
-    if (result == 'success') {
-        alert("댓글이 등록되었습니다.");
-    }
-
-    if (result == 'fail') {
-        alert("작업에 실패했습니다.\n잠시후에 다시 시도해주세요.");
-    }
-
-    history.replaceState({}, null, null);
-}
-
 /**
- * 페이징 처리
+ * 페이징 처리 함수
+ * @param pageCount 전체 페이지 수
+ * @param dbCount DB에서 가져온 전체 행수
+ * @param page 요청한 페이지
+ * @param pageSize 한페이지당 게시물 수
  */
 function getPagination(pageCount, dbCount, page, pageSize) {
     var pager = jQuery('#ampaginationsm').pagination({

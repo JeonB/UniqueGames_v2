@@ -11,5 +11,8 @@ public class Comment {
 	String mId;
 	String commentContent;
 	String commentDate;
-
+	String profileImg;
+	String reason;
+	String reportedUsers;
+	int reportCount;
 }

@@ -8,7 +8,6 @@ import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
 import com.uniqueGames.service.CommentService;
 import com.uniqueGames.service.NoticeService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +20,11 @@ import java.util.Map;
 @Controller
 @SessionAttributes({"list", "noticeVo"})
 @RequestMapping(value = "/notice")
-@Slf4j
 public class NoticeController {
 
-    private NoticeService noticeService;
-    private CommentService commentService;
-    private BoardUtil boardUtil;
+    private final NoticeService noticeService;
+    private final CommentService commentService;
+    private final BoardUtil boardUtil;
 
     @Autowired
     public NoticeController(NoticeService noticeService, CommentService commentService, BoardUtil boardUtil) {
@@ -38,9 +36,7 @@ public class NoticeController {
     /**
      * notice/list 공지사항 목록 조회
      *
-     * @param page
-     * @param model
-     * @return
+     * @param page 페이지 정보
      */
     @GetMapping({"/list", "/list/{page}"})
     public String noticeList(@PathVariable(value = "page", required = false) String page, Model model, @ModelAttribute("result") String result) {
@@ -59,14 +55,16 @@ public class NoticeController {
     }
 
     /**
-     * notice_Search 리스트 검색 처리
+     * /notice/list/search 검색 처리
+     *
+     * @param q          검색어
+     * @param page       페이지 정보
+     * @param searchType 검색 타입
      */
     @GetMapping(value = "/list/search")
-    @SuppressWarnings("unchecked")
     public String boardSearchProc(String q, String page, Model model, String searchType) {
-        log.info(searchType);
         Map<String, Integer> pageMap = boardUtil.getPagination(page, q, searchType);
-        List<Notice> list = (List<Notice>) noticeService.search(q, pageMap, searchType);
+        List<Notice> list = noticeService.search(q, pageMap, searchType);
 
         model.addAttribute("list", list);
         model.addAttribute("dbCount", pageMap.get("dbCount"));
@@ -79,8 +77,6 @@ public class NoticeController {
 
     /**
      * notice/write 공지사항 작성 페이지 이동
-     *
-     * @return
      */
     @GetMapping("/write")
     public String noticeWrite() {
@@ -90,11 +86,8 @@ public class NoticeController {
     /**
      * noticeWriteProc 공지사항 작성 처리
      *
-     * @param notice
-     * @param company
-     * @param attributes
-     * @return
-     * @throws Exception
+     * @param notice     폼에 저장된 정보
+     * @param company    로그인한 회사 정보
      */
     @PostMapping("/write")
     public String noticeWriteProc(Notice notice, @Login Company company,
@@ -114,10 +107,8 @@ public class NoticeController {
     /**
      * notice/content/{no} 공지사항 상세 보기
      *
-     * @param stat
-     * @param no
-     * @param model
-     * @return
+     * @param stat  수정 이후면 up이 들어옴
+     * @param no    페이지 번호
      */
     @GetMapping("/content/{no}")
     public String noticeContent(String stat, @PathVariable("no") String no, Model model, @ModelAttribute("result") String result) {
@@ -134,10 +125,8 @@ public class NoticeController {
     /**
      * notice/delete 공지사항 삭제 처리
      *
-     * @param no
-     * @param imgDel
-     * @param attributes
-     * @return
+     * @param no         페이지 번호
+     * @param imgDel     삭제할 이미지
      */
     @PostMapping("/delete")
     public String noticeDelete(String no, String imgDel, RedirectAttributes attributes) {
@@ -157,9 +146,8 @@ public class NoticeController {
     /**
      * notice/write/{stat}/{no} 공지사항 수정 페이지
      *
-     * @param stat
-     * @param no
-     * @return
+     * @param stat 수정 이후면 up이 들어옴
+     * @param no   페이지 번호
      */
     @GetMapping("write/{stat}/{no}")
     public String noticeUpdate(@PathVariable("stat") String stat, @PathVariable("no") String no, Model model) {
@@ -174,13 +162,11 @@ public class NoticeController {
     /**
      * noticeUpdateProc 공지사항 수정 처리
      *
-     * @param notice
-     * @param attributes
-     * @return
-     * @throws Exception
+     * @param notice     폼 데이터
      */
     @PostMapping("write/{stat}/{no}")
-    public String noticeUpdateProc(Notice notice, RedirectAttributes attributes) {
+    @SuppressWarnings("unused")
+    public String noticeUpdateProc(Notice notice, RedirectAttributes attributes, @PathVariable String no, @PathVariable String stat) {
         int result = noticeService.update(notice);
         if (result == 1) {
             attributes.addFlashAttribute("result", "upsuccess");
@@ -191,5 +177,13 @@ public class NoticeController {
         }
 
         return "redirect:/notice/content/" + notice.getId();
+    }
+
+    /**
+     * notice/popUp 팝업 창
+     */
+    @GetMapping("popUp")
+    public String noticePopUp() {
+        return "/notice/report-pop-up";
     }
 }

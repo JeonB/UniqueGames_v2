@@ -25,15 +25,13 @@ public abstract class FileUploadUtil {
     private String ROOT_PATH;
 
     /**
-     * MultipartFile 타입의 데이터를 필드 file에 넣도록 구현해야 함
-     * @param obj
+     * MultipartFile 타입의 데이터를 필드 file 에 넣도록 구현해야 함
      */
     protected abstract void extractFile(Object obj);
 
     /**
      * 파일이 있는지 체크
      * <p>있으면 변환된 이미지 이름 반환, 없으면 null 반환</p>
-     * @param obj
      * @return 변환된 이미지 이름
      */
     public String fileCheck(Object obj) {
@@ -73,13 +71,13 @@ public abstract class FileUploadUtil {
      * <p>수정을 통해 파일을 바꾸고자 할 때, 파일을 삭제하고자 할 때 사용</p>
      * <p>이전 파일을 삭제하기 위해 이전 이미지 이름을 넘겨줘야함</p>
      * <p>이미지 교체 없이 삭제 로직을 사용하려면 이미지 값을 "delete!이미지 이름" 으로 바꿔야함;;</p>
-     * @param oldFileName
+     * @param oldFileName 삭제할 파일 이름
      * @return "" or "delete"
      */
     public String fileUpdate(String oldFileName) {
         String stat = "";
 
-        if (oldFileName.indexOf("!") > -1) {
+        if (oldFileName.contains("!")) {
             String[] tmp = oldFileName.split("!");
             stat = tmp[0];
             oldFileName = tmp[1];
@@ -106,8 +104,7 @@ public abstract class FileUploadUtil {
      * <p>수정을 통해 파일을 바꾸고자 할 때, 파일을 삭제하고자 할 때 사용</p>
      * <p>이전 파일을 삭제하기 위해 이전 이미지 이름을 넘겨줘야함</p>
      * <p>이미지 교체 없이 삭제 로직을 사용하려면 이미지 값을 "delete!이미지 이름" 으로 바꿔야함;;</p>
-     * @param obj
-     * @param oldFileName
+     * @param oldFileName 이전 파일 이름
      * @return String[] 0 = 파일 이름, 1 = "" or "delete"
      *
      */
@@ -120,7 +117,7 @@ public abstract class FileUploadUtil {
 
     /**
      * 삭제할 이미지 이름을 이용해 이미지 삭제
-     * @param imageName
+     * @param imageName 이미지 이름
      */
     public void fileDelete(String imageName) {
 
@@ -147,7 +144,7 @@ public abstract class FileUploadUtil {
 
     /**
      * 여러 파일 삭제하기
-     * @param list<String>
+     * @param list<String> 이미지 이름 정보가 담긴 List
      */
     public void fileListDelete(List<String> list) {
         for (String imageName : list) {
