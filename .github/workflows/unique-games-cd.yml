@@ -40,7 +40,7 @@ jobs:
           cp Procfile deploy/Procfile
           cp -r .ebextensions deploy/.ebextensions
           cp -r .platform deploy/.platform
-          cd deploy && zip -r deploy.zip deploy
+          zip -r deploy.zip deploy
 
         # Beanstalk Deploy 플러그인 사용
       - name: Beanstalk Deploy
