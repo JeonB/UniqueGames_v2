@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import com.uniqueGames.fileutil.AdminUtil;
 import com.uniqueGames.model.*;
 import com.uniqueGames.service.*;
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +31,8 @@ public class AdminController {
     private OrderService orderService;
     @Autowired
     private AdminUtil adminUtil;
+    @Autowired
+    private CommentService commentService;
 
     // ADMIN - INDEX
     @RequestMapping(value = "/admin")
@@ -366,5 +368,48 @@ public class AdminController {
         }
         model.addAttribute("modalDisplay", "none");
         return "admin/admin-update-game";
+    }
+
+    /**
+     * Author Corendo6
+     */
+
+    /**
+     * 어드민 댓글 리스트
+     * @return
+     */
+    @RequestMapping(value = "/admin-comment-list")
+    public String admin_comment_list() {
+        return "/admin/admin-comment-list";
+    }
+
+    /**
+     * 어드민 댓글 리스트 불러오기
+     * @param type 'comment'
+     * @param page
+     * @return
+     */
+    @RequestMapping(value = "/admin-comment-list-data")
+    @ResponseBody
+    public Map<String, Object> admin_comment_list_data(String type, String page) {
+        Map<String, Object> result = new HashMap<>();
+
+        Map<String, Integer> pageMap = adminUtil.getPagination(page, "list", type);
+        List<Comment> list = commentService.selectAdmin(pageMap.get("startCount"), pageMap.get("endCount"));
+
+        if (list.size() == 0) {
+            result.put("nothing", true);
+        } else {
+            result.put("nothing", false);
+            result.put("count", list.size());
+        }
+
+        result.put("list", list);
+        result.put("dbCount", pageMap.get("dbCount"));
+        result.put("pageSize", pageMap.get("pageSize"));
+        result.put("maxSize", pageMap.get("maxSize"));
+        result.put("page", pageMap.get("reqPage"));
+
+        return result;
     }
 }

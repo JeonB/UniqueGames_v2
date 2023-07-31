@@ -128,6 +128,35 @@ $(document).ready(function () {
 
     // 취소 버튼 이벤트
     $('button[name="cancel"]').on("click", function () {
+        const htmlString = editor.getData()
+        // 정규 표현식으로 이미지 태그에서 파일 이름 추출
+        const imgTagRegex = /<img\s+src="([^"]+)">/g
+        const matches = htmlString.matchAll(imgTagRegex)
+
+        let deleteImgArray = [];
+        for (const match of matches) {
+            const srcAttr = match[1]
+            const fileName = srcAttr.substring(srcAttr.lastIndexOf('/') + 1)
+            deleteImgArray.push(fileName);
+        }
+
+        $.ajax({
+            url        : "/imgDelete",
+            type       : "DELETE",
+            data       : {deleteImgArray: deleteImgArray},
+            dataType   : "text",
+            traditional: true,
+            async      : true,
+            cache      : false,
+            success    : () => {
+                console.log("ok")
+            },
+            error      : () => {
+                console.log("fail")
+            }
+
+        })
+
         const URLSearch = new URLSearchParams(location.search);
         if (window.location.href.indexOf("update") > -1) {
             location.href = "notice-content?stat=up&no=" + URLSearch.get('no');

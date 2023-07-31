@@ -9,19 +9,20 @@ import com.uniqueGames.service.CommentService;
 import com.uniqueGames.service.MailSendService;
 import com.uniqueGames.service.NoticeService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@Slf4j
 public class RestNoticeController extends FileUploadUtil {
 
+    // @RequiredArgsConstructor 적용
     private final CommentService commentService;
     private final NoticeService noticeService;
     private final MailSendService mailSendService;
@@ -34,8 +35,8 @@ public class RestNoticeController extends FileUploadUtil {
     /**
      * 댓글 작성 처리
      *
-     * @param comment
-     * @return
+     * @param comment 폼 데이터
+     * @return FAIL OR SUCCESS
      */
     @PostMapping("/commentWriteProc")
     public String commentWriteProc(Comment comment) {
@@ -43,7 +44,10 @@ public class RestNoticeController extends FileUploadUtil {
     }
 
     /**
-     * comment_delete 댓글 삭제 처리
+     * 댓글 삭제 처리
+     *
+     * @param no 댓글 번호
+     * @return FAIL OR SUCCESS
      */
     @DeleteMapping("/comment-delete")
     public String commentDelete(@RequestParam("no") String no) {
@@ -52,7 +56,11 @@ public class RestNoticeController extends FileUploadUtil {
     }
 
     /**
-     * board_manage 리스트 선택 삭제 처리
+     * 공지사항 리스트에서 삭제 처리
+     *
+     * @param list 공지사항 id를 담은 배열
+     * @param company 현재 로그인 한 회사 정보
+     * @return FAIL OR SUCCESS
      */
     @DeleteMapping("/board-manage")
     public String boardManage(String[] list, @Login Company company) {
@@ -64,34 +72,64 @@ public class RestNoticeController extends FileUploadUtil {
     /**
      * 에디터 이미지 업로드
      *
-     * @param paramMap
-     * @param request
-     * @return
+     * @param paramMap 아무것도 받지 않으면 객체 생성
+     * @param request  파일
+     * @return 이미지 src 위치 경로
      */
     @PostMapping("/imgUpload")
-    public Map<String, Object> test(@RequestParam Map<String, Object> paramMap, MultipartRequest request) {
-        String fileName = fileCheck(request.getFile("upload"));
+    public Map<String, Object> imgUpload(@RequestParam Map<String, Object> paramMap, MultipartRequest request) {
+        fileCheck(request.getFile("upload"));
         fileSave();
-        log.info(getFile().toString());
-        log.info(getImageName());
         paramMap.put("url", "/upload/" + getImageName());
         return paramMap;
     }
 
     /**
-     * 신고 처리
+     * 작성 취소시 파일 업로드 취소(삭제)
+     *
+     * @param deleteImgArray 이미지 이름 배열
      */
-    @PostMapping("/reportSend")
+    @DeleteMapping("/imgDelete")
+    public String imgDelete(@RequestParam("deleteImgArray") String[] deleteImgArray) {
+        fileListDelete(Arrays.stream(deleteImgArray).collect(Collectors.toList()));
+        return "GOOD";
+    }
+
+    /**
+     * 신고 처리
+     *
+     * @param map    댓글의 id 'id', 신고 사유 'reason' 이 담긴 객체
+     * @param member 로그인 한 유저 정보
+     * @return Email Send Success or stack trace
+     */
+    @PutMapping("/reportSend")
     public String reportProc(@RequestBody Map<String, String> map, @Login Member member) {
         Comment comment = commentService.selectOne(Integer.parseInt(map.get("id")));
         comment.setReason(map.get("reason"));
-        log.info(String.valueOf(comment.getId()));
         commentService.report(comment, member);
 
         return mailSendService.reportEmail(comment);
     }
 
+    /**
+     * 어드민이 확인 후 삭제 사유가 합당하지 않을 때 댓글에 대한 신고 취소
+     *
+     * @param id 댓글 번호
+     * @return FAIL OR SUCCESS
+     */
+    @PutMapping("/reportCancel")
+    public String reportCancel(@RequestParam("id") int id) {
 
+        return commentService.reportCancel(id);
+    }
+
+    /**
+     * 신고 팝업 창 열기
+     *
+     * @param commentId 댓글 번호
+     * @param member    로그인한 사용자
+     * @return 이미 신고한 아이디라면 OK, 아니라면 해당 댓글의 정보 반환
+     */
     @PostMapping("/popUpInit")
     public Map<String, Object> popUpInit(@RequestParam("commentId") int commentId, @Login Member member) {
         Map<String, Object> map = new HashMap<>();

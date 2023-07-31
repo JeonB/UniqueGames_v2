@@ -6,7 +6,6 @@ import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
 import com.uniqueGames.repository.NoticeMapper;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +18,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
 public class NoticeService extends FileUploadUtil {
 
-    private NoticeMapper noticeMapper;
-    private BoardUtil boardUtil;
+    private final NoticeMapper noticeMapper;
+    private final BoardUtil boardUtil;
 
     @Autowired
     public NoticeService(NoticeMapper noticeMapper, BoardUtil boardUtil) {
@@ -67,8 +65,7 @@ public class NoticeService extends FileUploadUtil {
     /**
      * 공지사항 작성
      *
-     * @param notice
-     * @return
+     * @param notice 폼 데이터
      */
     public int insert(Notice notice) {
         int insResult = noticeMapper.insertNotice(notice);
@@ -82,13 +79,13 @@ public class NoticeService extends FileUploadUtil {
     }
 
     /**
-     * 공지사항 - 수정
+     * 공지사항 수정
+     *
+     * @param notice 폼 데이터
      */
     public int update(Notice notice) {
         // 이미 저장되어있는 이미지 정보 배열
         String[] dbImg = noticeMapper.getDbImage(notice.getId());
-        log.info("dbImg = " + dbImg);
-        log.info("new img = " + notice.getUploadImg());
 
         int result = noticeMapper.updateNotice(notice);
         if (result == 1) {
@@ -115,7 +112,7 @@ public class NoticeService extends FileUploadUtil {
 
             } else if (dbImg.length > 0) {
                 // 이미지가 없고 db에 저장된 이미지가 있으면 이미지 삭제
-                List dbImgList = Arrays.stream(dbImg).collect(Collectors.toList());
+                List<String> dbImgList = Arrays.stream(dbImg).collect(Collectors.toList());
                 noticeMapper.deleteImage(dbImgList);
                 fileListDelete(dbImgList);
             }
@@ -133,7 +130,10 @@ public class NoticeService extends FileUploadUtil {
     }
 
     /**
-     * 공지사항 - 삭제
+     * 공지사항 삭제
+     *
+     * @param no     삭제할 페이지
+     * @param imgDel 삭제할 이미지 이름 (ex:"1123.png,2143.png ...")
      */
     public int delete(String no, String imgDel) {
 
@@ -148,9 +148,9 @@ public class NoticeService extends FileUploadUtil {
 
     /**
      * 공지사항 리스트 삭제
-     *
-     * @param list
-     * @return
+     * @param list    삭제할 페이지 번호가 담긴 배열
+     * @param company 로그인 한 회사 정보
+     * @return FAIL OR SUCCESS
      */
     public String deleteList(String[] list, Company company) {
         fileListDelete(noticeMapper.deleteListBefore(list));
@@ -166,7 +166,7 @@ public class NoticeService extends FileUploadUtil {
     /**
      * 공지사항 - 검색
      */
-    public List<Notice> search(String keyword, Map pageMap, String searchType) {
+    public List<Notice> search(String keyword, Map<String, Integer> pageMap, String searchType) {
 
         String[] keywordList = keyword.split(" ");
         return boardUtil.getOutput(noticeMapper.searchList(keywordList, pageMap, searchType));
@@ -174,8 +174,9 @@ public class NoticeService extends FileUploadUtil {
 
     /**
      * db에 insert 반복
+     *
      * @param fileList 파일 이름 리스트
-     * @param notice
+     * @param notice 현재 글 정보
      */
     private void repeatInsert(String[] fileList, Notice notice) {
         for (String img : fileList) {

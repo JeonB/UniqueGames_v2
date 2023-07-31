@@ -14,4 +14,5 @@ public class Comment {
 	String profileImg;
 	String reason;
 	String reportedUsers;
+	int reportCount;
 }

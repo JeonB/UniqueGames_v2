@@ -163,6 +163,9 @@ function init() {
     });
 }
 
+/**
+ * 신고 처리 함수
+ */
 function report() {
     let selectedId = $("input[name='select']:checked").attr('id');
     let reason = $("label[for='" + selectedId + "']").text()
@@ -170,7 +173,7 @@ function report() {
     const data = {"id": sessionStorage.getItem("data"), "reason": reason};
     $.ajax({
         url        : "/reportSend",
-        type       : "POST",
+        type       : "PUT",
         data       : JSON.stringify(data),
         dataType   : 'text',
         contentType: "application/JSON; charset=UTF-8",
@@ -188,4 +191,32 @@ function report() {
     alert("신고되었습니다. 관리자가 확인 후 신속히 처리하겠습니다.");
     window.close();
 
+}
+
+/**
+ * 신고 처리 취소 함수
+ * @param id 댓글 번호
+ */
+function reportCancel(id) {
+    const url = window.location.href;
+    $.ajax({
+        url     : "/reportCancel",
+        type    : "PUT",
+        data    : {id: id},
+        dataType: "text",
+        async   : true,
+        cache   : false,
+        success : (result) => {
+            if (result === "SUCCESS")
+                window.location.replace(url);
+            else {
+                alert("oops, something went wrong...")
+            }
+        },
+        error   : function (xhr, status, error) {
+            console.log("오류가 발생했습니다.");
+            console.log("상태 코드:", xhr.status);
+            console.log("오류 메시지:", error);
+        },
+    })
 }
