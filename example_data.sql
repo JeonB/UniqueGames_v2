@@ -34,7 +34,7 @@ VALUES('뱀파이어: 마스커레이드',  '액션', 1,'월드 오브 다크니
 INSERT INTO TB_GAME (NAME, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
 VALUES('더 라스트 오브 어스 파트 1',  '액션', 1,'살기 위해 오늘도 길을 나선다 탐험 액션');
 -- 게임 이미지 등록
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit1.jpg');
+INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit1.jpg');
 INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit2.jpg');
 INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit3.jpg');
 INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street1.jpg');

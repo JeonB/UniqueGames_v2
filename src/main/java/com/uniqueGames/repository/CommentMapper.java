@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface CommentMapper {
 
-    @Select("SELECT tb_comment.ID AS ID, POST_ID, M_ID, COMMENT_CONTENT, COMMENT_DATE, PROFILE_IMG" +
-            " FROM TB_COMMENT LEFT JOIN TB_MEMBER ON tb_comment.M_ID = tb_member.MEMBER_ID" +
+    @Select("SELECT TB_COMMENT.ID AS ID, POST_ID, M_ID, COMMENT_CONTENT, COMMENT_DATE, PROFILE_IMG" +
+            " FROM TB_COMMENT LEFT JOIN TB_MEMBER ON TB_COMMENT.M_ID = TB_MEMBER.MEMBER_ID" +
             " WHERE POST_ID = #{no}" +
             " ORDER BY COMMENT_DATE ASC")
     List<Comment> selectComment(String no);
