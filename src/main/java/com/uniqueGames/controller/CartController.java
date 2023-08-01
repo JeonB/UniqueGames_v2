@@ -96,7 +96,7 @@ public class CartController {
                 return "order/error";
             }
         }
-        return "/cart";
+        return "cart";
     }
 
     @RequestMapping(value = "/cartDeleteAll")

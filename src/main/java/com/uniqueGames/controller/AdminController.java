@@ -36,7 +36,7 @@ public class AdminController {
     // ADMIN - INDEX
     @RequestMapping(value = "/admin")
     public String admin() {
-        return "/admin/admin";
+        return "admin/admin";
     }
 
     // ADMIN - MEMBER LIST : MEMBER / COMPANY

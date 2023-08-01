@@ -105,17 +105,6 @@ public class IntroCompanyController {
         return "redirect:/getIntroList";
     }
 
-    /**
-     * @param model  회사 소개 객체 담는 모델
-     * @param vo     회사 소개 객체
-     * @return 회사 소개 페이지
-     */
-    @GetMapping("/getIntro")
-    public String getIntro(Model model, Intro vo){
-        model.addAttribute("intro", introCompanyService.getIntro(vo.getId()));
-        model.addAttribute("sliderList",indexServiceMapper.getGameList());
-        return "detail/company";
-    }
 
     /**
      * @param model 회사 소개페이지 리스트, 게임 객체 리스트 담는 객체
@@ -147,7 +136,7 @@ public class IntroCompanyController {
             comp = companyRepositoryMapper.findById(intro.getCId()); // intro 인스턴스의 회사 아이디와 일치하는 company 인스턴스 호출
             gameList.add(gameService.getGameImg(comp.getGId())); // 호출된 company 인스턴스의 gid와 일치하는 List<game> 타입의 게임 인스턴스 호출
         }
-        model.addAttribute("baseUrl", "/getIntroList");
+        model.addAttribute("baseUrl", "getIntroList");
 
         List<List<Object>> combinedList = new ArrayList<>();
         combinedList.add(new ArrayList<>(lists));

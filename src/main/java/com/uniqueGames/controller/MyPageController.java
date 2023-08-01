@@ -85,7 +85,7 @@ public class MyPageController {
         return viewName;
     }
 
-    @PostMapping("memberupdate")
+    @PostMapping("/memberupdate")
     public String memberUpdate(HttpSession session, Member member) {
         int result = memberService.update(member);
 
@@ -98,7 +98,7 @@ public class MyPageController {
         return "redirect:/";
     }
 
-    @PostMapping("companyupdate")
+    @PostMapping("/companyupdate")
     public String companyUpdate(HttpSession session, Company company) {
         int result = companyMemberService2.update(company);
 
@@ -113,7 +113,7 @@ public class MyPageController {
 
 
 
-    @GetMapping("newpass")
+    @GetMapping("/newpass")
     public String mypageNewPass(HttpSession session, Model model) {
         String mode = session.getAttribute("login").toString();
         String viewName = "";
@@ -129,7 +129,7 @@ public class MyPageController {
         return viewName;
     }
 
-    @PostMapping("mypagenewpass")
+    @PostMapping("/mypagenewpass")
     public String mypageNewPass(HttpSession session, Model model,
                                 @RequestParam("password") String password,
                                 @RequestParam("newpassword") String newpassword) {
@@ -148,7 +148,7 @@ public class MyPageController {
         return viewName;
     }
 
-    @PostMapping("cmypagenewpass")
+    @PostMapping("/cmypagenewpass")
     public String CmypageNewPass(HttpSession session, Model model,
                                 @RequestParam("password") String password,
                                 @RequestParam("newpassword") String newpassword) {

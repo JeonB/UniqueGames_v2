@@ -72,7 +72,7 @@ public class NoticeController {
         model.addAttribute("pageCount", pageMap.get("pageCount"));
         model.addAttribute("page", pageMap.get("reqPage"));
 
-        return "/notice/notice-list";
+        return "notice/notice-list";
     }
 
     /**
@@ -119,7 +119,7 @@ public class NoticeController {
         model.addAttribute("commList", commList);
         model.addAttribute("result", result);
 
-        return "/notice/notice-content";
+        return "notice/notice-content";
     }
 
     /**
@@ -149,14 +149,14 @@ public class NoticeController {
      * @param stat 수정 이후면 up이 들어옴
      * @param no   페이지 번호
      */
-    @GetMapping("write/{stat}/{no}")
+    @GetMapping("/write/{stat}/{no}")
     public String noticeUpdate(@PathVariable("stat") String stat, @PathVariable("no") String no, Model model) {
 
         Notice notice = noticeService.getNoticeContent(stat, no);
 
         model.addAttribute("notice", notice);
 
-        return "/notice/notice-update";
+        return "notice/notice-update";
     }
 
     /**
@@ -164,7 +164,7 @@ public class NoticeController {
      *
      * @param notice     폼 데이터
      */
-    @PostMapping("write/{stat}/{no}")
+    @PostMapping("/write/{stat}/{no}")
     @SuppressWarnings("unused")
     public String noticeUpdateProc(Notice notice, RedirectAttributes attributes, @PathVariable String no, @PathVariable String stat) {
         int result = noticeService.update(notice);
@@ -184,6 +184,6 @@ public class NoticeController {
      */
     @GetMapping("popUp")
     public String noticePopUp() {
-        return "/notice/report-pop-up";
+        return "notice/report-pop-up";
     }
 }
