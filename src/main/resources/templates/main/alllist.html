@@ -10,7 +10,7 @@
 </head>
 <body>
 <!--header-->
-<div th:replace="~{/main/header :: headerFragment}"></div>
+<div th:replace="~{main/header :: headerFragment}"></div>
 <section id="top-bg">
   <div id="base-layer">
     <div id="top-bg-textarea">
@@ -48,7 +48,7 @@
   </div>
 </section>
 <!--footer-->
-<div th:replace="~{/main/footer::footerFragment}"></div>
+<div th:replace="~{main/footer::footerFragment}"></div>
 <script th:inline="javascript">
   document.addEventListener("click", function(event) {
     var target = event.target;
