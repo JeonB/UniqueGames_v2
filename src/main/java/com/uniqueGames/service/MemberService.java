@@ -1,5 +1,6 @@
 package com.uniqueGames.service;
 
+import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.repository.MemberMapper;
 import com.uniqueGames.repository.MemberRepositoryMapper;
@@ -8,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository
 @Service
-public class MemberService {
+public class MemberService extends FileUploadUtil {
 
     @Autowired
     private MemberRepositoryMapper memberRepositoryMapper;
@@ -21,27 +25,13 @@ public class MemberService {
     @Autowired
     private MemberMapper memberMapper;
 
+    @Override
+    protected void extractFile(Object obj) {
+        super.setFile((MultipartFile) obj);
+    }
+
     public int save(Member member) {
         return memberMapper.save(member);
-    }
-
-    public int idCheck(String memberId) {
-        return memberMapper.idCheck(memberId);
-    }
-
-    public String findMid(String email, String name) {
-        Member member = new Member();
-        member.setEmail(email);
-        member.setName(name);
-        return memberMapper.findMid(member);
-    }
-
-    public int phoneCheck(String phoneNum) {
-        return memberMapper.phoneCheck(phoneNum);
-    }
-
-    public int emailCheck(String email) {
-        return memberMapper.emailCheck(email);
     }
 
     public ArrayList<Member> aGetMemberList(String order1, String order2, int start, int end) {
@@ -54,18 +44,6 @@ public class MemberService {
 
     public Member aGetDetailMember(String id) {
         return memberMapper.aGetDetailMember(id);
-    }
-
-    public int delete(String memberId, String password) {
-        return memberMapper.delete(memberId, password);
-    }
-
-    public String findMpass(String email, String memberId, String name) {
-        Member member = new Member();
-        member.setEmail(email);
-        member.setMemberId(memberId);
-        member.setName(name);
-        return memberMapper.findMpass(member);
     }
 
     public int changeMpass(String memberId, String newpassword) {
@@ -97,5 +75,49 @@ public class MemberService {
 
     public int aDeleteMember(String mid) {
         return memberMapper.aDeleteMember(mid);
+    }
+
+    public int idCheck1(String id, String type2) {
+        Map param = new HashMap();
+        param.put("id", id);
+        param.put("type2", type2);
+        return memberMapper.idCheck1(param);
+    }
+    public int emailDuplicateCheck(String email, String type2) {
+        Map param = new HashMap();
+        param.put("email", email);
+        param.put("type2", type2);
+        return memberMapper.emailDuplicateCheck(param);
+    }
+    public int phoneCheck1(String phoneNum, String type2) {
+        Map param = new HashMap();
+        param.put("phoneNum", phoneNum);
+        param.put("type2", type2);
+        return memberMapper.phoneCheck1(param);
+    }
+
+    public String findId(String email, String name, String type2) {
+        Map param = new HashMap();
+        param.put("email", email);
+        param.put("name", name);
+        param.put("type2", type2);
+        return memberMapper.findId(param);
+    }
+
+    public String findPass(String email, String id, String name, String type2) {
+        Map param = new HashMap();
+        param.put("email", email);
+        param.put("id", id);
+        param.put("name", name);
+        param.put("type2", type2);
+        return memberMapper.findPass(param);
+    }
+
+    public int delete1(String id, String password, String type2) {
+        Map param = new HashMap();
+        param.put("id", id);
+        param.put("password", password);
+        param.put("type2", type2);
+        return memberMapper.delete1(param);
     }
 }

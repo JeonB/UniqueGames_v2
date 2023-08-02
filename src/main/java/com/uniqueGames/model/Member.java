@@ -1,6 +1,8 @@
 package com.uniqueGames.model;
 
 import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -12,9 +14,12 @@ import javax.persistence.*;
 //@NoArgsConstructor
 public class Member {
 
-	int id;
+	private int id;
 	private String memberId, password, name, email, tel, phoneNum, addr;
 	private String email1, email2, email3, phone1, phone2, phone3, addr1, addr2, newpassword;
+	private MultipartFile file;
+	private String profileImg;
+	private String newProfileImg;
 
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)

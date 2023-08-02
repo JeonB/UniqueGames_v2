@@ -11,35 +11,18 @@ import java.util.List;
 @Mapper
 public interface CompanyMapper {
 
-    @Insert("insert into TB_COMPANY (company_id, password, name, email, tel, phone_num, addr) " +
-            "values (#{companyId},#{password},#{name},#{email},#{tel},#{phoneNum},#{addr})")
+    @Insert("insert into TB_COMPANY (company_id, password, name, email, tel, phone_num, addr, profile_img) " +
+            "values (#{companyId},#{password},#{name},#{email},#{tel},#{phoneNum},#{addr},#{profileImg})")
     int save(Company company);
-
-    @Select("select count(*) from TB_COMPANY where company_id=#{companyId}")
-    int cidCheck(String companyId);
-
-    @Select("select company_id from TB_COMPANY where email=#{email} and name=#{name}")
-    String findCid(Company company);
-
-    @Select("select company_id from TB_COMPANY where email=#{email} and company_id=#{companyId} and name=#{name}")
-    String findCpass(Company company);
 
     @Update("update TB_COMPANY set password=#{newpassword} where company_id=#{companyId}")
     int changeCpass(Company company);
 
-    @Select("select count(*) from TB_COMPANY where phone_num=#{phoneNum}")
-    int cphoneCheck(String phoneNum);
-
-    @Select("select count(*) from TB_COMPANY where email=#{email}")
-    int cemailCheck(String email);
-
     @Update("update TB_COMPANY set password=#{newpassword} where company_id=#{companyId}")
     int CmypageNewPass(Company company);
 
-    @Delete("delete from TB_COMPANY where company_id=#{companyId} and password=#{password}")
-    int cdelete(String companyId, String password);
 
-    @Update("update TB_COMPANY set email=#{email}, phone_num=#{phoneNum}, addr=#{addr} where company_id=#{companyId}")
+    @Update("update tb_company set profile_img = #{newProfileImg}, email = #{email}, addr = #{addr}, phone_num = #{phoneNum}, tel = #{tel} where company_id = #{companyId}")
     int update(Company company);
 
     // ADMIN
@@ -63,6 +46,9 @@ public interface CompanyMapper {
 
     @Select("SELECT * FROM TB_COMPANY WHERE UPPER(NAME) LIKE CONCAT('%', #{companyName}, '%')")
     List<Company> aGetSearched(String companyName);
+
+    @Select("select b.name from tb_company a, tb_game b where a.g_id = b.id and company_id=#{companyId}")
+    String gameName(String companyId);
 
     @Select("SELECT COUNT(*) FROM TB_COMPANY WHERE COMPANY_ID = #{cId} AND G_ID IS NOT NULL")
     int aGetGameRegistered(String cId);

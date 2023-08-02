@@ -1,41 +1,24 @@
 package com.uniqueGames.service;
 
+import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.repository.CompanyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CompanyMemberService2 {
+public class CompanyMemberService2 extends FileUploadUtil {
 
     @Autowired
     private CompanyMapper companyMapper;
 
     public int save(Company company) {
         return companyMapper.save(company);
-    }
-
-    public int cidCheck(String companyId) {
-        return companyMapper.cidCheck(companyId);
-    }
-
-    public String findCid(String email, String name) {
-        Company company = new Company();
-        company.setEmail(email);
-        company.setName(name);
-        return companyMapper.findCid(company);
-    }
-
-    public String findCpass(String email, String companyId, String name) {
-        Company company = new Company();
-        company.setEmail(email);
-        company.setCompanyId(companyId);
-        company.setName(name);
-        return companyMapper.findCpass(company);
     }
 
     public int changeCpass(String companyId, String newpassword) {
@@ -51,18 +34,6 @@ public class CompanyMemberService2 {
         company.setPassword(password);
         company.setNewpassword(newpassword);
         return companyMapper.CmypageNewPass(company);
-    }
-
-    public int cphoneCheck(String phoneNum) {
-        return companyMapper.cphoneCheck(phoneNum);
-    }
-
-    public int cemailCheck(String email) {
-        return companyMapper.cemailCheck(email);
-    }
-
-    public int cdelete(String companyId, String password) {
-        return companyMapper.cdelete(companyId, password);
     }
 
     public int update(Company company) {
@@ -110,6 +81,10 @@ public class CompanyMemberService2 {
         return cList;
     }
 
+    public String gameName(String companyId) {
+        return companyMapper.gameName(companyId);
+    }
+
     public int aGetGameRegistered(String cId) {
         return companyMapper.aGetGameRegistered(cId);
     }
@@ -128,5 +103,10 @@ public class CompanyMemberService2 {
 
     public int aDeleteMember(String mid) {
         return companyMapper.aDeleteMember(mid);
+    }
+
+    @Override
+    protected void extractFile(Object obj) {
+        super.setFile((MultipartFile) obj);
     }
 }
