@@ -1,5 +1,5 @@
 /* Input */
-input {
+input, phoneNumInput {
 	width: 394px;
 	padding: 20px 0;
 	margin: 5px 0;
@@ -8,6 +8,10 @@ input {
 	border: 1px solid lightgray;
 	outline: none;
 	font-size: 16px;
+}
+
+footer {
+	clear: both;
 }
 
 input[type="text"]:focus {
@@ -32,7 +36,7 @@ input[name="phone2"], input[name='phone3'] {
 }
 
 input[name="email-auth-check"] {
-	margin-top: -10px;
+	margin-top: -20px;
 }
 
 /* Button */
@@ -83,12 +87,12 @@ input[name="email-auth-check"] {
 #mypage-email-btn, #mypage-addr-btn {
 	position: relative;
 	top: -57px;
-	left: 250px;
+	left: 180px;
 }
 
-/*a:visited {*/
-/*	color: inherit !important;*/
-/*}*/
+a:visited {
+	color: initial;
+}
 
 .detail1, .detail2 {
 	text-decoration: underline;
@@ -115,6 +119,10 @@ input[name="email-auth-check"] {
 	color: #2E7AF6;
 	font-size: 14px;
 	margin: 25px 10px 0 8px;
+}
+
+.link-signUp:visited {
+	color: #2E7AF6;
 }
 
 #link-deleteAccount, #link-changePassword, #link-donation {
@@ -167,7 +175,7 @@ select {
 	border: 1px solid lightgray;
 	border-radius: 3px;
 	outline: none;
-	text-indent: 10px;
+	text-align: center;
 	padding: 20px 0;
 	margin: 5px 0;
 	font-size: 16px;
@@ -180,6 +188,8 @@ select:focus {
 .selectbox-find {
 	width: 394px;
 	margin: 10px 0;
+	text-align: left;
+	text-indent: 10px;
 }
 
 select[name='email3'] {
@@ -341,13 +351,24 @@ li.address-input {
 	margin-top: -28px;
 }
 
-#idMsg, #pwdMsg, #pwdMsg-check, #nameMsg, #emailMsg, #emailAuth,
-#phoneMsg, #c-idMsg, #c-pwdMsg, #c-pwdMsg-check, #c-nameMsg,
-#c-emailMsg, #c-emailAuth, #c-phoneMsg {
+/*#idMsg, #pwdMsg, #pwdMsg-check, #nameMsg, #emailMsg, #emailAuth,*/
+/*#phoneMsg, #c-idMsg, #c-pwdMsg, #c-pwdMsg-check, #c-nameMsg,*/
+/*#c-emailMsg, #c-emailAuth, #c-phoneMsg {*/
+/*	position: relative;*/
+/*	top: -1.5px;*/
+/*	left: 5px;*/
+/*	margin-right: 5px;*/
+/*}*/
+
+.messageStyle, .messageStyle1 {
 	position: relative;
 	top: -1.5px;
 	left: 5px;
 	margin-right: 5px;
+}
+
+.messageStyle1 {
+	left: 0px;
 }
 
 .choice-span {
@@ -490,7 +511,6 @@ li.address-input {
 	border: 1px;
 	border-color: #DDD;
 	position: relative;
-	/*margin : 0px 10px 10px 400px;*/
 }
 
 .member-delete {
@@ -498,16 +518,20 @@ li.address-input {
 	bottom: 0;
 }
 
-.mypage-profile {
+.mypage-profile, .join-profile {
 	margin: 45px 0 0 45px;
 	width: 110px;
 	height: 110px;
 	border-radius: 55px;
 	background: #D9D9D9;
 }
-.mypage-info {
-	margin-top: 20px;
-	text-align: center;
+
+.join-profile {
+	margin: 0 0 0 150px;
+}
+
+#mypage-info-1 {
+	margin-top: 27px;
 }
 
 #mypage-id {
@@ -528,10 +552,6 @@ li.address-input {
 	font-size: 24px;
 	padding: 60px 0;
 }
-
-/*.must-insert-5,  {*/
-/*	margin: 20px 0 0 98px;*/
-/*}*/
 
 #mypage-update {
 	margin-top: 30px;
@@ -554,7 +574,6 @@ input[type="radio"] {
 }
 
 .content-mypage {
-	display: flex;
 	padding: 0px;
 }
 
@@ -583,12 +602,9 @@ input[type="radio"] {
 	color: rgb(173,173,173);
 }
 
-/*.div-update {*/
-/*	margin-right: 10px;*/
-/*}*/
-
 .deleteForm {
-	margin-left: 150px;
+	margin-left: 250px;
+	float: left;
 }
 
 li#active {
@@ -597,22 +613,117 @@ li#active {
 	border-bottom: none;
 }
 
-.mypage-insert {
-	margin-right: 335px;
-}
+/*.mypage-insert {*/
+/*	margin-right: 335px;*/
+/*}*/
 
 .mypage-insert-1 {
-	margin: -40px 330px 0 0;
+	margin-top: -38px;
+	text-align: left;
 }
 
 .jointab {
 	display: inline-block;
 	padding: 20px 64px;
-	margin-bottom: 20px;
+	margin-bottom: 40px;
 	border-bottom: 1px solid rgb(217, 217, 217);
 }
 
 #mypage-update:disabled {
 	background : lightgrey;
 	cursor: default;
+}
+
+.mUpdate1:visited {
+	color: initial !important;
+}
+
+.mypage-profile-setting, .join-profile-setting {
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	display: inline-block;
+	background: #454545;
+	position: relative;
+	left: 125px;
+	top: -20px;
+	cursor: pointer;
+}
+
+.join-profile-setting {
+	left: 230px;
+}
+
+.profile-setting-join, .profile-setting-mypage {
+	position: relative;
+	left: 3px;
+	top: 3px;
+}
+
+.profile-setting-mypage {
+	left: 0;
+}
+
+.profile-picture-1, profile-picture-new {
+	display: inline-block;
+	width: 150px;
+	height: 60px;
+	margin-top: 45px;
+}
+
+#table-gameList, #cart-price, #table-member-list, #table-game-list, #table-donation, #table-payment {
+	width: 70%;
+}
+
+#table-gameList td, #cart-price td, #table-member-list td, #table-game-list td, #table-donation td, #table-payment td {
+	border-bottom: none;
+}
+
+#p-nothing {
+	margin-top: 80px;
+	margin-bottom: 0px;
+}
+
+.select-payment {
+	border: 1px solid #DDDDDD;
+	border-collapse: collapse;
+	border-radius: 5px;
+	float: right;
+	padding: 5px 10px;
+	margin-right: 65px;
+	font-family: "YouandiModern";
+	font-size: 12px;
+}
+
+ul {
+	padding-left: 0px !important;
+}
+
+.cancelProfileButton {
+	background: #393939;
+	color: #FFFFFF;
+}
+/*0726 18:15 이후 작성*/
+.abc {
+	border: 1px solid red;
+	position: relative;
+	right: 175px;
+}
+
+.mypage-li {
+	width: 394px;
+	margin: auto;
+}
+
+.div-update {
+	width: 50%;
+	margin-left: 445px;
+}
+
+.mypage-insert {
+	text-align: left;
+}
+
+.phoneNumInput {
+	width: 309px;
 }

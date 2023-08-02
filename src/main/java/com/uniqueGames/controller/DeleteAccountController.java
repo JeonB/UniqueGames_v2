@@ -23,7 +23,6 @@ public class DeleteAccountController {
 	@Autowired
 	private CompanyMemberService companyMemberService;
 
-
 	@GetMapping("deleteaccount")
 	public String deletePwd(HttpSession session, Model model) {
 		String viewName = "";
@@ -41,19 +40,6 @@ public class DeleteAccountController {
 		return viewName;
 	}
 
-
-	/**************************회원 탈퇴***************************************
-	 @RequestMapping(value="/deleteCompany", method=RequestMethod.GET)
-	 public ModelAndView deleteCompany(String company_id) {
-	 ModelAndView mav = new ModelAndView();
-	 Company company = companyMemberService.companyPageResult(company_id);
-
-	 mav.addObject("companyVo", companyVo);
-	 mav.setViewName("/deleteAccount/deleteCompany");
-
-	 return mav;
-	 }
-	 */
 	@RequestMapping(value="/company_delete_check", method=RequestMethod.POST)
 	@ResponseBody
 	public String company_delete_check(Company company, HttpSession session) {
