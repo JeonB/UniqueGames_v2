@@ -80,11 +80,11 @@ VALUES ('DeletedCompany', '123', '탈퇴한법인회원', 'email', 'addr', 'tel'
 INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT)
 VALUES ('mtest', 'test', 1, 10000);
 INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT)
-VALUES ('mtest', 'nexon', 2, 30000);
+VALUES ('mtest', 'stest', 2, 30000);
 INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT)
-VALUES ('mtest', 'net', 3, 50000);
+VALUES ('mtest', 'dtest', 3, 50000);
 INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT)
-VALUES ('mtest', 'smilegate', 4, 100000);
+VALUES ('mtest', 'ftest', 4, 100000);
 
 -- mtest 결제내역 설정
 INSERT INTO TB_ORDER (ID, M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
@@ -106,9 +106,9 @@ VALUES (8, 'mtest', 'test', 1, 20000, 'COMPLETE', '2023-06-18');
 INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
 VALUES ('mtest', 'test', 1, 30000, 'COMPLETE', '2023-03-01');
 INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
-VALUES ('mtest', 'net', 3, 100000, 'COMPLETE', '2023-04-10');
+VALUES ('mtest', 'dtest', 3, 100000, 'COMPLETE', '2023-04-10');
 INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
-VALUES ('mtest', 'net', 3, 50000, 'COMPLETE', '2023-06-16');
+VALUES ('mtest', 'dtest', 3, 50000, 'COMPLETE', '2023-06-16');
 INSERT INTO TB_ORDER (M_ID, C_ID, G_ID, AMOUNT, PAYMENT_STATUS, ORDER_DATE)
 VALUES ('mtest', 'test', 1, 10000, 'COMPLETE', '2023-06-21');
 
