@@ -1,7 +1,7 @@
 package com.uniqueGames.controller;
 
 
-import com.uniqueGames.service.CompanyMemberService2;
+import com.uniqueGames.service.CompanyMemberService;
 import com.uniqueGames.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class FindAccountController {
 
 	private MemberService memberService;
-	private CompanyMemberService2 companyMemberService2;
+	private CompanyMemberService companyMemberService;
 
 	@Autowired
-	public FindAccountController(MemberService memberService, CompanyMemberService2 companyMemberService2) {
+	public FindAccountController(MemberService memberService, CompanyMemberService companyMemberService) {
 		this.memberService = memberService;
-		this.companyMemberService2 = companyMemberService2;
+		this.companyMemberService = companyMemberService;
 	}
 
 	@GetMapping("findMember")
@@ -54,7 +54,7 @@ public class FindAccountController {
 	public String cChangePass(Model model,
 							  @RequestParam("companyId") String companyId, @RequestParam("newpassword") String newpassword) {
 
-		int result = companyMemberService2.changeCpass(companyId, newpassword);
+		int result = companyMemberService.changeCpass(companyId, newpassword);
 		if(result == 1) {
 			model.addAttribute("result", "change");
 			model.addAttribute("url", "/login");

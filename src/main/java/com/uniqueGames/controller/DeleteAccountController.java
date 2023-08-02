@@ -4,24 +4,15 @@ package com.uniqueGames.controller;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.model.SessionConstants;
-import com.uniqueGames.service.CompanyMemberService;
-import com.uniqueGames.service.MemberService;
 
 import javax.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class DeleteAccountController {
-
-	@Autowired
-	private MemberService memberSerivce;
-
-	@Autowired
-	private CompanyMemberService companyMemberService;
 
 	@GetMapping("deleteaccount")
 	public String deletePwd(HttpSession session, Model model) {
@@ -38,17 +29,6 @@ public class DeleteAccountController {
 			viewName = "deleteAccount/company-delete";
 		}
 		return viewName;
-	}
-
-	@RequestMapping(value="/company_delete_check", method=RequestMethod.POST)
-	@ResponseBody
-	public String company_delete_check(Company company, HttpSession session) {
-		int result = companyMemberService.companyDeleteResult(company);
-
-		if(result==1) {
-			session.invalidate();
-		}
-		return String.valueOf(result);
 	}
 
 }

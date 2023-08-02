@@ -23,7 +23,7 @@ public class AdminController {
     @Autowired
     private MemberService memberService;
     @Autowired
-    private CompanyMemberService2 companyMemberService;
+    private CompanyMemberService companyMemberService;
     @Autowired
     private GameService gameService;
     @Autowired

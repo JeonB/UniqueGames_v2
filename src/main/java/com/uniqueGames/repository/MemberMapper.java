@@ -11,23 +11,23 @@ import java.util.Map;
 @Mapper
 public interface MemberMapper {
 
-    @Insert("insert into tb_member (member_id, password, name, email, phone_num, addr, tel, profile_img) " +
-            " values (#{memberId},#{password},#{name},#{email},#{phoneNum},#{addr},#{tel}, #{profileImg})")
+    @Insert("INSERT INTO TB_MEMBER (MEMBER_ID, PASSWORD, NAME, EMAIL, PHONE_NUM, ADDR, TEL, PROFILE_IMG) " +
+            " VALUES (#{memberId},#{password},#{name},#{email},#{phoneNum},#{addr},#{tel}, #{profileImg})")
     int save(Member member);
 
-    @Update("update tb_member set password=#{newpassword} where member_id=#{memberId}")
+    @Update("UPDATE TB_MEMBER SET PASSWORD=#{newpassword} WHERE MEMBER_ID=#{memberId}")
     int changeMpass(Member member);
 
-    @Select("SELECT member_id, name FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${order1} ${order2}) AS RNO, member_id, name FROM TB_MEMBER) AS TB1 WHERE RNO BETWEEN ${start} AND ${end}")
+    @Select("SELECT MEMBER_ID, NAME FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${order1} ${order2}) AS RNO, MEMBER_ID, NAME FROM TB_MEMBER) AS TB1 WHERE RNO BETWEEN ${start} AND ${end}")
     List<Member> aGetMemberList(@Param("order1") String order1, @Param("order2") String order2, @Param("start") int start, @Param("end") int end);
 
     @Select("SELECT * FROM TB_MEMBER WHERE MEMBER_ID=#{id}")
     Member aGetDetailMember(String id);
 
-    @Update("update tb_member set password=#{newpassword} where member_id=#{memberId}")
+    @Update("UPDATE TB_MEMBER SET PASSWORD=#{newpassword} WHERE MEMBER_ID=#{memberId}")
     int mypageNewPass(Member member);
 
-    @Update("update tb_member set profile_img = #{newProfileImg}, email = #{email}, addr = #{addr}, phone_num = #{phoneNum}, tel = #{tel} where member_id = #{memberId}")
+    @Update("UPDATE TB_MEMBER SET PROFILE_IMG = #{newProfileImg}, EMAIL = #{email}, ADDR = #{addr}, PHONE_NUM = #{phoneNum}, TEL = #{tel} WHERE MEMBER_ID = #{memberId}")
     int update(Member member);
   
     @Select("SELECT COUNT(*) FROM TB_MEMBER")
