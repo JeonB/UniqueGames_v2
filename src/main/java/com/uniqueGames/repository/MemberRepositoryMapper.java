@@ -19,20 +19,20 @@ public interface MemberRepositoryMapper {
    //@Select("select * from member where id = #{findId}")
 //   MemberVo findById(Long findId);
 //
-   @Select("select * from tb_member where member_id = #{memberId}")
+   @Select("SELECT * FROM TB_MEMBER WHERE MEMBER_ID = #{memberId}")
    Member findById(String memberId);
 
-   @Select("select * from tb_member")
+   @Select("SELECT * FROM TB_MEMBER")
    List<Member> findAll();
    
-   @Select("select count(*) from tb_member where member_id = #{memberId} and password = #{password}")
+   @Select("SELECT COUNT(*) FROM TB_MEMBER WHERE MEMBER_ID = #{memberId} AND PASSWORD = #{password}")
    int passEqual(Member member);
 
    //@Select("select * from member where email = #{email} and name = #{name}")
    //XmlMapper로 구현
 //   Optional<MemberVo> findByEmailAndName(String email, String name);
 
-   @Select("update tb_member set name=#{name}, password=#{oldPassword} where email=#{email}")
-   Integer update(Member member);
+//   @Select("update tb_member set name=#{name}, password=#{oldPassword} where email=#{email}")
+//   Integer update(Member member);
 
 }

@@ -11,18 +11,18 @@ import java.util.List;
 @Mapper
 public interface CompanyMapper {
 
-    @Insert("insert into TB_COMPANY (company_id, password, name, email, tel, phone_num, addr, profile_img) " +
-            "values (#{companyId},#{password},#{name},#{email},#{tel},#{phoneNum},#{addr},#{profileImg})")
+    @Insert("INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, TEL, PHONE_NUM, ADDR, PROFILE_IMG) " +
+            "VALUES (#{companyId},#{password},#{name},#{email},#{tel},#{phoneNum},#{addr},#{profileImg})")
     int save(Company company);
 
-    @Update("update TB_COMPANY set password=#{newpassword} where company_id=#{companyId}")
+    @Update("UPDATE TB_COMPANY SET PASSWORD=#{newpassword} WHERE COMPANY_ID=#{companyId}")
     int changeCpass(Company company);
 
-    @Update("update TB_COMPANY set password=#{newpassword} where company_id=#{companyId}")
+    @Update("UPDATE TB_COMPANY SET PASSWORD=#{newpassword} WHERE COMPANY_ID=#{companyId}")
     int CmypageNewPass(Company company);
 
 
-    @Update("update tb_company set profile_img = #{newProfileImg}, email = #{email}, addr = #{addr}, phone_num = #{phoneNum}, tel = #{tel} where company_id = #{companyId}")
+    @Update("UPDATE TB_COMPANY SET PROFILE_IMG = #{newProfileImg}, EMAIL = #{email}, ADDR = #{addr}, PHONE_NUM = #{phoneNum}, TEL = #{tel} WHERE COMPANY_ID = #{companyId}")
     int update(Company company);
 
     // ADMIN
@@ -47,7 +47,7 @@ public interface CompanyMapper {
     @Select("SELECT * FROM TB_COMPANY WHERE UPPER(NAME) LIKE CONCAT('%', #{companyName}, '%')")
     List<Company> aGetSearched(String companyName);
 
-    @Select("select b.name from tb_company a, tb_game b where a.g_id = b.id and company_id=#{companyId}")
+    @Select("SELECT B.NAME FROM TB_COMPANY A, TB_GAME B WHERE A.G_ID = B.ID AND COMPANY_ID=#{companyId}")
     String gameName(String companyId);
 
     @Select("SELECT COUNT(*) FROM TB_COMPANY WHERE COMPANY_ID = #{cId} AND G_ID IS NOT NULL")
