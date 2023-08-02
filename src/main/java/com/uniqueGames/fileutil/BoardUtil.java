@@ -28,7 +28,7 @@ public class BoardUtil {
     /**
      * 페이징 처리 유틸
      *
-     * @param page
+     * @param page 페이지 정보
      * @return Map<String, Integer>
      */
     public Map<String, Integer> getPagination(String page, String keyword, String searchType) {
@@ -80,8 +80,8 @@ public class BoardUtil {
     /**
      * 리스트 날짜, 제목 출력 방식 변경
      *
-     * @param result
-     * @return
+     * @param result DB 에서 가져온 가져온 List
+     * @return 출력 방식이 바뀐 List
      */
     public List<Notice> getOutput(List<Notice> result) {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM.dd");

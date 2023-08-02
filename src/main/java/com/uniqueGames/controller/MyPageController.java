@@ -93,28 +93,7 @@ public class MyPageController {
         return viewName;
     }
 
-//    @PostMapping("memberupdate")
-//    public String memberUpdate(HttpSession session, Member member) {
-//        String oldFile = member.getProfileImg();
-//        String fileName = memberService.fileCheck(member.getFile());
-//        if(fileName != null) { //파일이 넘어오면
-//            member.setNewProfileImg(fileName);
-//        } else { //파일이 안 넘어오면
-//
-//        }
-//
-//        int result = memberService.update(member);
-//        if(result == 1) {
-//            memberService.fileSave();
-//            if(!oldFile.isEmpty() && !member.getNewProfileImg().equals(oldFile)){
-//                memberService.fileDelete(oldFile);
-//            }
-//            session.setAttribute("login", "member");
-//        }else {
-//            System.out.println("수정 실패");
-//        }
-//        return "redirect:/";
-//    }
+
 
     @PostMapping("memberupdate")
     public String memberUpdate(HttpSession session, Member member,
@@ -131,6 +110,7 @@ public class MyPageController {
             memberService.fileDelete(oldFile);
             member.setNewProfileImg("");
         }
+
         int result = memberService.update(member);
         if(result == 1) {
             memberService.fileSave();
@@ -145,7 +125,7 @@ public class MyPageController {
         return "redirect:/";
     }
 
-    @PostMapping("companyupdate")
+    @PostMapping("/companyupdate")
     public String companyUpdate(HttpSession session, Company company) {
         String oldFile = company.getProfileImg();
         String fileName = companyMemberService2.fileCheck(company.getFile());
@@ -169,6 +149,7 @@ public class MyPageController {
         return "redirect:/";
     }
 
+
     @GetMapping("newpass")
     public String mypageNewPass(HttpSession session, Model model) {
         String mode = session.getAttribute("login").toString();
@@ -185,7 +166,7 @@ public class MyPageController {
         return viewName;
     }
 
-    @PostMapping("mypagenewpass")
+    @PostMapping("/mypagenewpass")
     public String mypageNewPass(HttpSession session, Model model,
                                 @RequestParam("password") String password,
                                 @RequestParam("newpassword") String newpassword) {
@@ -204,7 +185,7 @@ public class MyPageController {
         return viewName;
     }
 
-    @PostMapping("cmypagenewpass")
+    @PostMapping("/cmypagenewpass")
     public String CmypageNewPass(HttpSession session, Model model,
                                 @RequestParam("password") String password,
                                 @RequestParam("newpassword") String newpassword) {

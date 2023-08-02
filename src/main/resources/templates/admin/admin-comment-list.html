@@ -8,60 +8,52 @@
     <link rel="stylesheet" th:href="@{/css/am-pagination.css}">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
     <script src="js/admin-script.js"></script>
+    <script src="js/comment.js"></script>
     <script src="js/am-pagination.js"></script>
     <script>
         $(document).ready(function () {
-            getPage("member", 1);
-
-            $("#btn-member-personal").click(function () {
-                getPage("member", 1);
-            });
-            $("#btn-member-company").click(function () {
-                getPage("company", 1);
-            });
+            getPage("comment", 1);
 
             $("#select-order").change(function () {
-                var type = $("#table-type").val();
-                getPage(type, 1);
+                getPage("comment", 1);
             });
 
-
-            function getPage(type = "member", page = 1) {
-                var array = $("#select-order").val();
+            function getPage(type = "comment", page = 1) {
+                // let array = $("#select-order").val();
 
                 $.ajax({
-                    url: "/admin-member-list",
-                    data: {type: type, array: array, page: page},
+                    url    : "/admin-comment-list-data",
+                    data   : {type: type, page: page},
                     success: function (result) {
-                        let returnData = JSON.parse(result);
-                        let str = '<p id="p-member-count">' + returnData.str + '</p>';
+                        let str = '<p id="p-member-count">신고된 댓글 : ' + result.count + '개</p>';
                         let output = "";
 
-                        if (returnData.nothing) {
+                        if (result.nothing) {
                             alert("데이터가 존재하지 않습니다.");
                         } else {
-                            output += '<div id="div-member-table"> <table id="table-member-list">';
-                            output += '<tr> <th>선택</th> <th>아이디</th> <th>' + returnData.nameField + '</th> <th>메뉴</th> </tr>';
-
-                            for (let member of returnData.memberList) {
+                            output += '<div id="div-game-table">';
+                            output += '<table id="table-game-list">';
+                            output += '<tr> <th>댓글 번호</th> <th>작성자</th> <th>신고자 수</th> <th>메뉴</th> </tr>';
+                            for (let comment of result.list) {
                                 output += '<tr>';
-                                output += '<td><input type="checkbox" name="chk-member" value="' + member.id + '"></td>';
-                                output += '<td>' + member.id + '</td>';
-                                output += '<td>' + member.name + '</td>';
-                                output += '<td> <a href="/admin-detail-member?id=' + member.id + '&type=' + returnData.mType + '"> ';
-                                output += '<button type="button" id="btn-member-detail">자세히 보기</button> </a> ';
-                                output += ' </td> </tr>';
+                                // output += '<td><input type="checkbox" name="chk-admin" value="' + comment.id + '"></td>';
+                                output += '<td>' + comment.id + '</td>';
+                                output += '<td><a href="/admin-detail-member?id=' + comment.mid + '&type=member">' + comment.mid + '</a></td>';
+                                output += '<td>' + comment.reportCount + '</td>';
+                                output += '<td><button type="button" id="btn-game-detail" onclick="commentDelete(' + comment.id + ')">삭제하기</button>';
+                                output += '<button type="button" id="btn-report-cancel" onclick="reportCancel(' + comment.id + ')">신고 취소</button> </td>';
                             }
                             output += '<tr> <td colspan="5"> <div id="ampaginationsm"></div> </td> </tr>';
-                            output += '</table> </div>';
+                            output += '</table>';
+                            output += '</div>';
 
                             $("#p-member-count").remove();
                             $("#div-hidden").after(str);
-                            $("#div-member-table").remove();
+                            $("#div-game-table").remove();
                             $("#div-member-info").after(output);
 
                             //페이징 처리 함수 호출
-                            pager(returnData.totals, returnData.maxSize, returnData.pageSize, returnData.page);
+                            pager(result.totals, result.maxSize, result.pageSize, result.page);
 
                             //페이지 번호 클릭 이벤트 처리
                             jQuery('#ampaginationsm').on('am.pagination.change', function (e) {
@@ -71,6 +63,9 @@
                                 getPage(type, e.page);
                             });
                         }
+                    },
+                    error  : function () {
+                        alert("error");
                     }
                 });
             }
@@ -80,16 +75,16 @@
 
                 var pager = jQuery('#ampaginationsm').pagination({
 
-                    maxSize: maxSize,	    		// max page size
-                    totals: totals,	// total pages
-                    page: page,		// initial page
+                    maxSize : maxSize,	    		// max page size
+                    totals  : totals,	// total pages
+                    page    : page,		// initial page
                     pageSize: pageSize,			// max number items per page
 
                     // custom labels
-                    lastText: '&raquo;&raquo;',
+                    lastText : '&raquo;&raquo;',
                     firstText: '&laquo;&laquo;',
-                    prevText: '&laquo;',
-                    nextText: '&raquo;',
+                    prevText : '&laquo;',
+                    nextText : '&raquo;',
 
                     btnSize: 'lg'	// 'sm'  or 'lg'
                 });
@@ -102,8 +97,8 @@
 <div th:replace="~{main/header :: headerFragment}"></div>
 
 <!-- content -->
-<input type="hidden" id="admin-type" value="a-memberlist">
-<input type="hidden" id="table-type" value="member">
+<input type="hidden" id="admin-type" value="a-comment">
+<input type="hidden" id="table-type" value="comment">
 <section id="top-bg">
     <div id="base-layer">
         <div id="top-bg-textarea">
@@ -126,22 +121,15 @@
         </ul>
     </div>
     <div id="div-viewer">
-        <p id="p-title">회원 관리</p>
-        <div id="div-member-menu">
-            <button type="button" id="btn-member-personal" name="btn-member" value="member">개인 회원</button>
-            <button type="button" id="btn-member-company" name="btn-member" value="company">법인 회원</button>
-        </div>
-
+        <p id="p-title">댓글 관리</p>
         <div id="div-member-info">
             <input type="hidden" id="div-hidden">
-            <!--p Tag-->
-            <button type="button" id="btn-mslect-delete">선택 삭제</button>
-            <select id="select-order">
-                <option value="id_asc">아이디 (A~Z)</option>
-                <option value="id_desc">아이디 (Z~A)</option>
-                <option value="name_asc">이름 (ㄱ~ㅎ)</option>
-                <option value="name_desc">이름 (ㅎ~ㄱ)</option>
-            </select>
+            <!-- p Tag-->
+<!--            <button type="button" id="btn-mslect-delete">선택 삭제</button>-->
+            <!--            <select id="select-order">-->
+            <!--                <option value="name_asc">제목 (ㄱ~ㅎ)</option>-->
+            <!--                <option value="name_desc">제목 (ㅎ~ㄱ)</option>-->
+            <!--            </select>-->
         </div>
         <!-- Table -->
     </div>

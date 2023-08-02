@@ -7,10 +7,12 @@ import com.uniqueGames.model.Game;
 import com.uniqueGames.model.Member;
 import com.uniqueGames.repository.GameMapper;
 import com.uniqueGames.service.IndexServiceMapper;
-import com.uniqueGames.service.NoticeService;
+
 import java.io.IOException;
 
 import java.util.List;
+
+import com.uniqueGames.service.NoticeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -47,17 +49,17 @@ public class MainController {
         return "index";
 	}
 
-	@GetMapping("alllist")
+	@GetMapping("/alllist")
 	public String allList(Model model) throws IOException  {
 		return "main/alllist";
 	}
 
-	@GetMapping("topgame")
+	@GetMapping("/topgame")
 	public String topgame(Model model) throws IOException  {
 		return "main/topgame";
 	}
 
-	@PostMapping("addlike/{gameId}/")
+	@PostMapping("/addlike/{gameId}/")
 	@ResponseBody
 	public ResponseEntity<AjaxResponse> addLike(@PathVariable("gameId") String gameId, @Login Member member) {
 		AjaxResponse ajaxResponse;

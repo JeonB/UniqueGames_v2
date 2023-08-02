@@ -5,6 +5,8 @@
 감사합니다!
 <br>
 
+* 현재 배포상태: [![unique-games](https://github.com/JeonB/UniqueGames_v2/actions/workflows/unique-games-cd.yml/badge.svg)](https://github.com/JeonB/UniqueGames_v2/actions/workflows/unique-games-cd.yml)
+
 ## 2. 구성원
 - 전승오 [JeonB](https://github.com/JeonB)
 - 송유나 [SongYuna99](https://github.com/SongYuna99)

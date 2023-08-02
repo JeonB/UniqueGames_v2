@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 public interface NoticeMapper {
     List<Notice> selectNotice(@Param("start") int startCount, @Param("end") int endCount);
 
-    List<Notice> searchList(@Param("keywordList") String[] keywordList, @Param("pageMap") Map pageMap,
+    List<Notice> searchList(@Param("keywordList") String[] keywordList, @Param("pageMap") Map<String, Integer> pageMap,
                             @Param("searchType") String searchType);
 
     int insertNotice(Notice notice);
@@ -34,12 +34,12 @@ public interface NoticeMapper {
 
     void hitsCount(String no);
 
-    int insertImage(Notice notice);
+    void insertImage(Notice notice);
 
     @Select("SELECT UPLOAD_IMG FROM TB_NOTICE_IMAGE WHERE POST_ID = #{no}")
     String[] getDbImage(int no);
 
-    int deleteImage(List<String> deleteImg);
+    void deleteImage(List<String> deleteImg);
 
     @Select("SELECT COUNT(*) FROM TB_NOTICE")
     int totRowCount();

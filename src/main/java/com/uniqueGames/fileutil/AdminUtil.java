@@ -1,9 +1,6 @@
 package com.uniqueGames.fileutil;
 
-import com.uniqueGames.service.CompanyMemberService2;
-import com.uniqueGames.service.GameService;
-import com.uniqueGames.service.MemberService;
-import com.uniqueGames.service.OrderService;
+import com.uniqueGames.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -18,16 +15,18 @@ public class AdminUtil {
     CompanyMemberService2 companyMemberService;
     GameService gameService;
     OrderService orderService;
+    CommentService commentService;
 
     @Value("${upload-directory}")
     private String root_path;
 
     @Autowired
-    private AdminUtil(MemberService memberService, CompanyMemberService2 companyMemberService, GameService gameService, OrderService orderService) {
+    private AdminUtil(MemberService memberService, CompanyMemberService2 companyMemberService, GameService gameService, OrderService orderService, CommentService commentService) {
         this.memberService = memberService;
         this.companyMemberService = companyMemberService;
         this.gameService = gameService;
         this.orderService = orderService;
+        this.commentService = commentService;
     }
 
     /**
@@ -52,6 +51,8 @@ public class AdminUtil {
             dbCount = companyMemberService.totRowCount();
         } else if (keyword.equals("list") && type.equals("game")) {
             dbCount = gameService.totRowCount();
+        } else if (keyword.equals("list") && type.equals("comment")) {
+            dbCount = commentService.totRowCount();
         } else if (type.equals("member_payment")) {
             dbCount = orderService.totRowCountMember(keyword);
         } else if (type.equals("company_payment")) {
