@@ -12,7 +12,7 @@ import java.util.Map;
 public class AdminUtil {
 
     MemberService memberService;
-    CompanyMemberService2 companyMemberService;
+    CompanyMemberService companyMemberService;
     GameService gameService;
     OrderService orderService;
     CommentService commentService;
@@ -21,7 +21,7 @@ public class AdminUtil {
     private String root_path;
 
     @Autowired
-    private AdminUtil(MemberService memberService, CompanyMemberService2 companyMemberService, GameService gameService, OrderService orderService, CommentService commentService) {
+    private AdminUtil(MemberService memberService, CompanyMemberService companyMemberService, GameService gameService, OrderService orderService, CommentService commentService) {
         this.memberService = memberService;
         this.companyMemberService = companyMemberService;
         this.gameService = gameService;

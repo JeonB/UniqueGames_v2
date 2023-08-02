@@ -5,77 +5,77 @@
 
 <mapper namespace="com.uniqueGames.repository.MemberMapper">
 	<select id="idCheck1" parameterType="map" resultType="int">
-		select count(*) from
+		SELECT COUNT(*) FROM
 		<if test="type2 == 'member'">
-			 tb_member where member_id = #{id}
+			 TB_MEMBER WHERE MEMBER_ID = #{id}
 		</if>
 		<if test="type2 == 'company'">
-			 tb_company where company_id = #{id}
+			 TB_COMPANY WHERE COMPANY_ID = #{id}
 		</if>
 	</select>
 
 	<select id="emailDuplicateCheck" parameterType="map" resultType="int">
-		select count(*) from
+		SELECT COUNT(*) FROM
 		<if test="type2 == 'member'">
-			tb_member
+			TB_MEMBER
 		</if>
 		<if test="type2 == 'company'">
-			tb_company
+			TB_COMPANY
 		</if>
 		<where>
-			email = #{email}
+			EMAIL = #{email}
 		</where>
 	</select>
 
 	<select id="phoneCheck1" parameterType="map" resultType="int">
-		select count(*) from
+		SELECT COUNT(*) FROM
 		<if test="type2 == 'member'">
-			tb_member
+			TB_MEMBER
 		</if>
 		<if test="type2 == 'company'">
-			tb_company
+			TB_COMPANY
 		</if>
 		<where>
-			phone_num = #{phoneNum}
+			PHONE_NUM = #{phoneNum}
 		</where>
 	</select>
 
 	<select id="findId" parameterType="map" resultType="java.lang.String">
 		<if test="type2 == 'member'">
-			select member_id from tb_member
+			SELECT MEMBER_ID FROM TB_MEMBER
 		</if>
 		<if test="type2 == 'company'">
-			select company_id from tb_company
+			SELECT COMPANY_ID FROM TB_COMPANY
 		</if>
 		<where>
-			email = #{email} and name = #{name}
+			EMAIL = #{email} AND NAME = #{name}
 		</where>
 	</select>
 
 	<select id="findPass" parameterType="map" resultType="java.lang.String">
 		<if test="type2 == 'member'">
-			select member_id from tb_member
+			SELECT MEMBER_ID FROM TB_MEMBER
 		</if>
 		<if test="type2 == 'company'">
-			select company_id from tb_company
+			SELECT COMPANY_ID FROM TB_COMPANY
 		</if>
 		<where>
-			email = #{email} and name = #{name}
+			EMAIL = #{email} AND NAME = #{name}
 		</where>
 		<if test="type2 == 'member'">
-			and member_id = #{id}
+			AND MEMBER_ID = #{id}
 		</if>
 		<if test="type2 == 'company'">
-			and company_id = #{id}
+			AND COMPANY_ID = #{id}
 		</if>
 	</select>
 
 	<delete id="delete1" parameterType="map">
 		<if test="type2 == 'member'">
-			delete from tb_member where member_id = #{id} and password = #{password}
+			DELETE FROM TB_MEMBER WHERE MEMBER_ID = #{id} AND PASSWORD = #{password}
 		</if>
 		<if test="type2 == 'company'">
-			delete from tb_company where company_id = #{id} and password = #{password}
+			DELETE FROM TB_COMPANY WHERE COMPANY_ID = #{id} AND PASSWORD = #{password}
 		</if>
 	</delete>
 </mapper>   
