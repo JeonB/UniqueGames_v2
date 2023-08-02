@@ -24,6 +24,9 @@
                     url: "/admin-game-list-data",
                     data: {type: type, array: array, page: page},
                     success: function (result) {
+                        if(result =="error"){
+                            window.location.href = "/order/error";
+                        }
                         let returnData = JSON.parse(result);
                         let str = '<p id="p-member-count">등록된 게임 : ' + returnData.gameCount + '개</p>';
                         let output = "";

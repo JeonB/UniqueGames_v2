@@ -61,6 +61,10 @@ $(document).ready(function () {
             url: "/admin-company-selector",
             data: {keyword: keyword},
             success: function (result) {
+                if(result =="error"){
+                    window.location.href = "/order/error";
+                }
+
                 let returnData = JSON.parse(result);
                 let output = "";
 
@@ -156,6 +160,9 @@ $(document).ready(function () {
                 url: "/admin-delete-member",
                 data: {mid: mid, type: type},
                 success: function (result) {
+                    if(result =="error"){
+                        window.location.href = "/order/error";
+                    }
                     if (result == "complete") {
                         alert("해당 회원을 탈퇴시켰습니다.");
                         window.location.href = "/admin";
@@ -187,6 +194,9 @@ $(document).ready(function () {
                     url: "/admin-delete-members",
                     data: { midList: midList, type: type },
                     success: function (result) {
+                        if(result =="error"){
+                            window.location.href = "/order/error";
+                        }
                         if (result == "complete") {
                             alert("해당 회원을 탈퇴시켰습니다.");
                             window.location.href = "/admin";
