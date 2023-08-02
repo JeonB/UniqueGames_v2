@@ -80,7 +80,7 @@ public class NoticeController {
      */
     @GetMapping("/write")
     public String noticeWrite() {
-        return "/notice/notice-write";
+        return "notice/notice-write";
     }
 
     /**

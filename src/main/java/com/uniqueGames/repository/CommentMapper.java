@@ -40,7 +40,7 @@ public interface CommentMapper {
 
     @Select("SELECT * FROM (SELECT row_number() over(order by COMMENT_DATE DESC) as RNO, ID, POST_ID, M_ID, COMMENT_CONTENT, COMMENT_DATE, REPORTED_USERS" +
             " FROM TB_COMMENT) T1" +
-            " WHERE REPORTED_USERS NOT LIKE NULL AND RNO BETWEEN #{startCount} AND #{endCount} order by length(REPORTED_USERS)")
+            " WHERE REPORTED_USERS IS NOT NULL AND RNO BETWEEN #{startCount} AND #{endCount} order by length(REPORTED_USERS)")
     List<Comment> selectAll(@Param("startCount") int startCount, @Param("endCount") int endCount);
 
     @Update("UPDATE TB_COMMENT SET REPORTED_USERS = NULL WHERE ID = #{id}")

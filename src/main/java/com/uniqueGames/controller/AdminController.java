@@ -382,7 +382,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/admin-comment-list")
     public String admin_comment_list() {
-        return "/admin/admin-comment-list";
+        return "admin/admin-comment-list";
     }
 
     /**
