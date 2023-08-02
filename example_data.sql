@@ -28,6 +28,8 @@ VALUES ('DeletedMember', '123', '탈퇴회원정보저장', 'email', 'addr', 'te
 -- 게임 등록
 SELECT *FROM TB_GAME;
 INSERT INTO TB_GAME (NAME, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
+VALUES('디 엑시트 이터널 매터스',  '액션', 1,'죽음을 넘어선 생명을 느끼다');
+INSERT INTO TB_GAME (NAME, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
 VALUES('스트리트 파이터 6 디럭스',  '격투', 1,'시리즈 최신작 『Street Fighter 6(스트리트 파이터 6)』');
 INSERT INTO TB_GAME (NAME,  GAME_GENRE, DONATION_STATUS, DESCRIPTION)
 VALUES('뱀파이어: 마스커레이드',  '액션', 1,'월드 오브 다크니스에 오신 것을 환영합니다');
@@ -35,44 +37,18 @@ INSERT INTO TB_GAME (NAME, GAME_GENRE, DONATION_STATUS, DESCRIPTION)
 VALUES('더 라스트 오브 어스 파트 1',  '액션', 1,'살기 위해 오늘도 길을 나선다 탐험 액션');
 -- 게임 이미지 등록
 INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit1.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit2.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit3.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street1.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street2.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street3.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (3,'img-game-vampire1.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (3,'img-game-vampire2.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (3,'img-game-vampire3.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (4,'img-game-last1.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (4,'img-game-last2.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG) VALUES (4,'img-game-last3.jpg');
+INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit2.jpg');
+INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (1,'img-game-deexit3.jpg');
+INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street1.jpg');
+INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street2.jpg');
+INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (2,'img-game-street3.jpg');
+INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (3,'img-game-vampire1.jpg');
+INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (3,'img-game-vampire2.jpg');
+INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (3,'img-game-vampire3.jpg');
+INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (4,'img-game-last1.jpg');
+INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (4,'img-game-last2.jpg');
+INSERT INTO TB_GAME_IMAGE(G_ID, UPLOAD_IMG) VALUES (4,'img-game-last3.jpg');
 
--- 게임 이미지 등록
-SELECT *FROM TB_GAME_IMAGE;
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG)
-VALUES (1, 'img-game-deexit1.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG)
-VALUES (1, 'img-game-deexit2.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG)
-VALUES (1, 'img-game-deexit3.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG)
-VALUES (2, 'img-game-street1.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG)
-VALUES (2, 'img-game-street2.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG)
-VALUES (2, 'img-game-street3.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG)
-VALUES (3, 'img-game-vampire1.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG)
-VALUES (3, 'img-game-vampire2.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG)
-VALUES (3, 'img-game-vampire3.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG)
-VALUES (4, 'img-game-last1.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG)
-VALUES (4, 'img-game-last2.jpg');
-INSERT INTO tb_game_image(G_ID, UPLOAD_IMG)
-VALUES (4, 'img-game-last3.jpg');
 
 -- 게임사 등록
 INSERT INTO TB_COMPANY (COMPANY_ID, PASSWORD, NAME, EMAIL, ADDR, TEL, PHONE_NUM, G_ID)

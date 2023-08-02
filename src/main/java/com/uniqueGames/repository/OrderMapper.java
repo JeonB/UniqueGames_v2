@@ -65,7 +65,7 @@ public interface OrderMapper {
 
 
     @Select("SELECT ROW_NUMBER() OVER(ORDER BY SUM(AMOUNT) DESC) AS RNO, M.MEMBER_ID USERID, O.G_ID, SUM(AMOUNT) " +
-            "FROM TB_ORDER AS O INNER JOIN MEMBER AS M ON O.M_ID = M.ID WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE' " +
+            "FROM TB_ORDER AS O INNER JOIN TB_MEMBER AS M ON O.M_ID = M.ID WHERE C_ID = #{cId} AND PAYMENT_STATUS = 'COMPLETE' " +
             "GROUP BY M.MEMBER_ID, O.G_ID")
     List<Order> getDonationRank(String cId);
 

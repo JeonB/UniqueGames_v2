@@ -26,9 +26,9 @@ public interface DetailMapper {
     List<Intro> getIntroList();
     Integer findByAllCount();
 
-    @Select("select * from tb_intro " + "order by ${order} limit #{perRows} offset #{perFirstRow}")
+    @Select("select * from TB_INTRO " + "order by ${order} limit #{perRows} offset #{perFirstRow}")
     List<Intro> findByAllPaginationAndSearch(Pagination pagination);
 
-    @Select("select id from tb_intro where c_id = #{cId}")
+    @Select("select id from TB_INTRO where c_id = #{cId}")
     Integer findIdByCId(String cId);
 }
