@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Setter
 @Getter
-@Entity(name = "TB_INTRO")
 public class Intro {
 
     /**
@@ -26,14 +25,9 @@ public class Intro {
      * upload 이미지 파일 경로
      * cId 회사 아이디
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(length = 200)
     private String name;
-    @Column(columnDefinition = "TEXT")
     private String content;
-    @Transient
     private MultipartFile uploadFile;
     private String uploadImg;
     private String cId;
