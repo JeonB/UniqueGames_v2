@@ -77,7 +77,7 @@
 			NOTICE_DATE
 		)
 		VALUES (
-			'test',
+			#{cId},
 			#{title},
 			#{content},
 			0,
