@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Setter
 @Getter
-@Entity(name = "tb_intro")
+@Entity(name = "TB_INTRO")
 public class Intro {
 
     /**
