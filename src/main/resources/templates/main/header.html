@@ -78,7 +78,7 @@
                     <li class="member_id_header" th:text="${session.loginMember?.name + '님 반갑습니다.'}"></li>
                     <li class="logout_header"><a href="/logout" target="_parent">Logout</a></li>
                     <li><a th:href="@{/mypage}"><img src="/images/img-icon-mypage.png"></a></li>
-                    <li th:if="${session.login == 'member'}"><a href="/cart"><img src="../images/img-icon-cart.png"></a>
+                    <li th:if="${session.login == 'member'}"><a href="/cart"><img src="/images/img-icon-cart.png"></a>
                     </li>
                 </ul>
             </nav>

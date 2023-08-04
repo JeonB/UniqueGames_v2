@@ -162,7 +162,7 @@ public class OrderService {
             Game game = gameMapper.getGameForIndex(gid);
             game.setUploadImg(gameMapper.getOneFile(gid).getUploadImg());
 
-            cartList.get(i).setGameImg(game.getUploadImg());
+            cartList.get(i).setGameImg("/images/"+game.getUploadImg());
             cartList.get(i).setGametitle(game.getName());
         }
 
