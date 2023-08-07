@@ -3,6 +3,7 @@ package com.uniqueGames.controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.uniqueGames.config.Login;
 import com.uniqueGames.fileutil.AdminUtil;
 import com.uniqueGames.model.*;
 import com.uniqueGames.service.*;
@@ -35,14 +36,22 @@ public class AdminController {
 
     // ADMIN - INDEX
     @RequestMapping(value = "/admin")
-    public String admin() {
+    public String admin(@Login Member member) {
+        if (!member.getMemberId().equals("admin")) {
+            return "order/error";
+
+        }
         return "admin/admin";
     }
 
     // ADMIN - MEMBER LIST : MEMBER / COMPANY
     @RequestMapping(value = "/admin-member-list", produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String admin_member_list(String type, String array, String page) {
+    public String admin_member_list(@Login Member lmember, String type, String array, String page) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "error";
+        }
+
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
         String[] arr = adminUtil.splitString(array);
@@ -106,7 +115,10 @@ public class AdminController {
 
     @RequestMapping(value = "/admin-delete-member", produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String admin_delete_member(String mid, String type) {
+    public String admin_delete_member(@Login Member lmember, String mid, String type) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "error";
+        }
         if (type.equals("member")) {
             if (memberService.aDeleteMember(mid) == 0) {
                 return "failed";
@@ -121,7 +133,10 @@ public class AdminController {
 
     @RequestMapping(value = "/admin-delete-members", produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String admin_delete_members(@RequestParam(value = "midList[]") java.util.List<String> midList, String type) {
+    public String admin_delete_members(@Login Member lmember, @RequestParam(value = "midList[]") java.util.List<String> midList, String type) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "error";
+        }
         if (type.equals("member")) {
             for (String mid : midList) {
                 if (memberService.aDeleteMember(mid) == 0) {
@@ -140,14 +155,20 @@ public class AdminController {
 
 
     @RequestMapping(value = "/admin-game-list")
-    public String admin_game_list() {
+    public String admin_game_list(@Login Member lmember) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "order/error";
+        }
         return "admin/admin-game-list";
     }
 
     // ADMIN - GAME LIST
     @RequestMapping(value = "/admin-game-list-data", produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String admin_game_list_data(String type, String array, String page) {
+    public String admin_game_list_data(@Login Member lmember, String type, String array, String page) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "error";
+        }
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
         String[] arr = adminUtil.splitString(array);
@@ -163,12 +184,19 @@ public class AdminController {
 
             for (Game game : list) {
                 JsonObject obj = new JsonObject();
-                Company company = companyMemberService.aGetCompany(game.getId());
+                Company company = null;
+                company = companyMemberService.aGetCompany(game.getId());
+                String companyName = "  ";
+                String companyId = "  ";
+                if (company != null) {
+                    companyName = company.getName();
+                    companyId = company.getCompanyId();
+                }
 
                 obj.addProperty("id", game.getId());
                 obj.addProperty("title", game.getName());
-                obj.addProperty("company", company.getName());
-                obj.addProperty("cId", company.getCompanyId());
+                obj.addProperty("company", companyName);
+                obj.addProperty("cId", companyId);
 
                 jArray.add(obj);
             }
@@ -185,7 +213,10 @@ public class AdminController {
 
     // ADMIN - GAME REGISTER
     @RequestMapping(value = "/admin-game-register")
-    public String admin_game_register(Model model) {
+    public String admin_game_register(@Login Member lmember, Model model) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "order/error";
+        }
         ArrayList<Company> cList = companyMemberService.aGetAllCompanyList();
 
         model.addAttribute("companyList", cList);
@@ -195,7 +226,10 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin-game-register-form")
-    public String admin_game_register_form(Model model, String name, String cId, String genre, String imagePath, String description) {
+    public String admin_game_register_form(@Login Member lmember, Model model, String name, String cId, String genre, String imagePath, String description) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "order/error";
+        }
         if (companyMemberService.aGetGameRegistered(cId) == 0) {
             // register
             if (gameService.aRegisterGame(name, genre, description) != 0) {
@@ -218,7 +252,10 @@ public class AdminController {
 
     @RequestMapping(value = "/admin-company-selector", produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String admin_company_selector(String keyword, Model model) {
+    public String admin_company_selector(@Login Member lmember, String keyword, Model model) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "error";
+        }
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
 
@@ -245,7 +282,10 @@ public class AdminController {
 
     // ADMIN - DONATION
     @RequestMapping(value = "/admin-donation")
-    public String admim_donation(Model model) {
+    public String admim_donation(@Login Member lmember, Model model) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "order/error";
+        }
         ArrayList<String> yearList = orderService.aGetYearList();
         yearList.add(0, "All");
 
@@ -256,7 +296,10 @@ public class AdminController {
 
     @RequestMapping(value = "/admin-donation-data", produces = "text/plain;charset=UTF-8")
     @ResponseBody
-    public String admin_donation_data(String array, String page) {
+    public String admin_donation_data(@Login Member lmember, String array, String page) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "error";
+        }
         JsonObject jObj = new JsonObject();
         JsonArray jArray = new JsonArray();
         String[] arr = adminUtil.splitString(array);
@@ -299,7 +342,10 @@ public class AdminController {
 
     // ADMIN - DETAIL : MEMBER / COMPANY
     @RequestMapping(value = "/admin-detail-member")
-    public String admin_detail_member(String id, String type, Model model) {
+    public String admin_detail_member(@Login Member lmember, String id, String type, Model model) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "order/error";
+        }
         if (type.equals("member")) {
             Member member = memberService.aGetDetailMember(id);
             String pn = member.getTel() + ") " + member.getPhoneNum();
@@ -327,17 +373,27 @@ public class AdminController {
 
     // ADMIN - GAME UPDATE
     @RequestMapping(value = "/admin-update-game")
-    public String admin_update_game(int id, Model model) {
+    public String admin_update_game(@Login Member lmember, int id, Model model) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "order/error";
+        }
         Game game = gameService.aGetGame(id);
         game.setUploadImg(gameService.aGetGameImg(id));
-        Company company = companyMemberService.aGetCompany(id);
+        Company company = null;
+        company = companyMemberService.aGetCompany(id);
         ArrayList<Company> cList = companyMemberService.aGetAllCompanyList();
         String url = "/detail/" + id;
+        String cName = "  ";
+        String cId = "  ";
+        if (company != null) {
+            cName = company.getName();
+            cId = company.getCompanyId();
+        }
 
         model.addAttribute("id", game.getId());
         model.addAttribute("title", game.getName());
-        model.addAttribute("company", company.getName());
-        model.addAttribute("cid", company.getCompanyId());
+        model.addAttribute("company", cName);
+        model.addAttribute("cid", cId);
         model.addAttribute("gamegenre", game.getGameGenre());
         model.addAttribute("img", game.getUploadImg());
         model.addAttribute("desciption", game.getDescription());
@@ -349,7 +405,11 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin-game-update-form")
-    public String admin_game_update_form(Model model, String name, String newname, String oldcid, String cId, String genre, String imagePath, String description) {
+    public String admin_game_update_form(@Login Member lmember, Model model, String name, String newname, String oldcid, String cId, String genre, String imagePath, String description) {
+        if (!lmember.getMemberId().equals("admin") || lmember.getMemberId() == null) {
+            return "order/error";
+        }
+
         int gid = gameService.aGetGid(name);
 
         if (!oldcid.equals(cId)) {
@@ -357,14 +417,9 @@ public class AdminController {
                 model.addAttribute("result", "update_gid_error");
                 return "admin/admin-update-game";
             }
-        }
-        if (companyMemberService.aSetGid(gid, cId) != 0) {
-            if (gameService.aUpdateGame(newname, genre, description, gid) != 0) {
-                gameService.aUpdateGameImg(imagePath);
-                model.addAttribute("result", "update_complete");
-            } else {
-                model.addAttribute("result", "update_failed");
-            }
+        } else if (gameService.aUpdateGame(newname, genre, description, gid) != 0) {
+            gameService.aUpdateGameImg(imagePath);
+            model.addAttribute("result", "update_complete");
         } else {
             model.addAttribute("result", "update_failed");
         }
@@ -378,6 +433,7 @@ public class AdminController {
 
     /**
      * 어드민 댓글 리스트
+     *
      * @return
      */
     @RequestMapping(value = "/admin-comment-list")
@@ -387,6 +443,7 @@ public class AdminController {
 
     /**
      * 어드민 댓글 리스트 불러오기
+     *
      * @param type 'comment'
      * @param page
      * @return

@@ -31,6 +31,9 @@
                     url: "/admin-donation-data",
                     data: {array: array, page: page},
                     success: function (result) {
+                        if(result =="error"){
+                            window.location.href = "/order/error";
+                        }
                         let returnData = JSON.parse(result);
                         let output = "";
 
