@@ -5,6 +5,7 @@ import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Comment;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Member;
+import com.uniqueGames.service.AwsS3Service;
 import com.uniqueGames.service.CommentService;
 import com.uniqueGames.service.MailSendService;
 import com.uniqueGames.service.NoticeService;
@@ -13,24 +14,23 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-public class RestNoticeController extends FileUploadUtil {
+public class RestNoticeController {
 
     // @RequiredArgsConstructor 적용
     private final CommentService commentService;
     private final NoticeService noticeService;
     private final MailSendService mailSendService;
+    private final AwsS3Service awsS3Service;
 
-    @Override
-    protected void extractFile(Object obj) {
-        setFile((MultipartFile) obj);
-    }
 
     /**
      * 댓글 작성 처리
@@ -77,10 +77,9 @@ public class RestNoticeController extends FileUploadUtil {
      * @return 이미지 src 위치 경로
      */
     @PostMapping("/imgUpload")
-    public Map<String, Object> imgUpload(@RequestParam Map<String, Object> paramMap, MultipartRequest request) {
-        fileCheck(request.getFile("upload"));
-        fileSave();
-        paramMap.put("url", "/upload/" + getImageName());
+    public Map<String, Object> imgUpload(@RequestParam Map<String, Object> paramMap, MultipartRequest request) throws IOException {
+        String url = awsS3Service.uploadFile(request.getFile("upload"));
+        paramMap.put("url", url);
         return paramMap;
     }
 
@@ -91,7 +90,7 @@ public class RestNoticeController extends FileUploadUtil {
      */
     @DeleteMapping("/imgDelete")
     public String imgDelete(@RequestParam("deleteImgArray") String[] deleteImgArray) {
-        fileListDelete(Arrays.stream(deleteImgArray).collect(Collectors.toList()));
+        awsS3Service.deleteFile(List.of(deleteImgArray));
         return "GOOD";
     }
 

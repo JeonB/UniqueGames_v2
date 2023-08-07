@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+@Deprecated
 @Setter
 @Getter
 public abstract class FileUploadUtil {

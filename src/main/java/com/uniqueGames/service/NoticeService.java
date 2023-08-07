@@ -2,7 +2,6 @@ package com.uniqueGames.service;
 
 
 import com.uniqueGames.fileutil.BoardUtil;
-import com.uniqueGames.fileutil.FileUploadUtil;
 import com.uniqueGames.model.Company;
 import com.uniqueGames.model.Notice;
 import com.uniqueGames.repository.NoticeMapper;
@@ -12,27 +11,23 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
-public class NoticeService extends FileUploadUtil {
+public class NoticeService {
 
     private final NoticeMapper noticeMapper;
     private final BoardUtil boardUtil;
+    private final AwsS3Service awsS3Service;
 
     @Autowired
-    public NoticeService(NoticeMapper noticeMapper, BoardUtil boardUtil) {
+    public NoticeService(NoticeMapper noticeMapper, BoardUtil boardUtil, AwsS3Service awsS3Service) {
         this.noticeMapper = noticeMapper;
         this.boardUtil = boardUtil;
+        this.awsS3Service = awsS3Service;
     }
 
-    @Override
-    protected void extractFile(Object obj) {
-        super.setFile(((Notice) obj).getFile());
-    }
 
     /**
      * ㅋ
@@ -91,7 +86,7 @@ public class NoticeService extends FileUploadUtil {
         if (result == 1) {
             List<String> deleteList = null;
 
-            // 이미지가 있다면
+            // 수정할 이미지가 있다면
             if (notice.getUploadImg() != null) {
                 // db와 이름 비교후 삭제 리스트에 저장
                 deleteList = new ArrayList<>();
@@ -111,16 +106,16 @@ public class NoticeService extends FileUploadUtil {
                 repeatInsert(fileList, notice);
 
             } else if (dbImg.length > 0) {
-                // 이미지가 없고 db에 저장된 이미지가 있으면 이미지 삭제
-                List<String> dbImgList = Arrays.stream(dbImg).collect(Collectors.toList());
+                // 수정할 이미지가 없고 db에 저장된 이미지가 있으면 이미지 삭제
+                List<String> dbImgList = List.of(dbImg);
                 noticeMapper.deleteImage(dbImgList);
-                fileListDelete(dbImgList);
+                awsS3Service.deleteFile(dbImgList);
             }
 
             if (deleteList != null && deleteList.size() > 0) {
                 //본문에 없는 이미지 db에서 삭제
                 noticeMapper.deleteImage(deleteList);
-                fileListDelete(deleteList);
+                awsS3Service.deleteFile(deleteList);
 
             }
 
@@ -139,7 +134,8 @@ public class NoticeService extends FileUploadUtil {
 
         if (imgDel != null) {
             String[] fileList = imgDel.split(",");
-            fileListDelete(Arrays.stream(fileList).collect(Collectors.toList()));
+//            fileListDelete(Arrays.stream(fileList).collect(Collectors.toList()));
+            awsS3Service.deleteFile(List.of(fileList));
         }
 
 
@@ -153,7 +149,8 @@ public class NoticeService extends FileUploadUtil {
      * @return FAIL OR SUCCESS
      */
     public String deleteList(String[] list, Company company) {
-        fileListDelete(noticeMapper.deleteListBefore(list));
+//        fileListDelete(noticeMapper.deleteListBefore(list));
+        awsS3Service.deleteFile(noticeMapper.deleteListBefore(list));
         String result = "FAIL";
 
         int dbResult = noticeMapper.deleteList(list, company);
