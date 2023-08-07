@@ -36,7 +36,7 @@
           <div class="Rectangle39"></div>
           <div class="EnGameName" th:text="${introList.name}"></div>
           <div class="Line1"></div>
-          <img class="MaskGroup" th:src="@{'/upload/'+${introList.uploadImg}}">
+          <img class="MaskGroup" th:src="@{'https://elasticbeanstalk-ap-northeast-2-729081329231.s3.ap-northeast-2.amazonaws.com/'+${introList.uploadImg}}">
         </div>
         <div class="Description" th:text="${introList.content}">게임을사랑하는사람들이모여즐겁게게임을만드는곳,넥슨.<br/>이곳에서전세계게이머들에게최고의재미와경험을선사하기위한도전은계속됩니다.<br/>그들의 추억으로 버는 수익은 언제까지 지속될까?</div>
         <div class="Info">INFO</div>
