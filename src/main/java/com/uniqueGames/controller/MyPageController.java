@@ -108,7 +108,7 @@ public class MyPageController {
         if(fileName != null) { //파일이 넘어오면
             member.setProfileImg(fileName);
         } else { //파일이 안 넘어오면
-            if(oldFile.isPresent())
+            if(oldFile.isEmpty())
                 member.setProfileImg(String.valueOf(oldFile));
         }
         //기본 값 클릭해서 이미지 삭제 할 때
@@ -120,11 +120,11 @@ public class MyPageController {
 //        int result = memberService.update(member);
 //        if(result == 1) {
 //            memberService.fileSave();
-            if(!oldFile.isEmpty() && !member.getNewProfileImg().equals(oldFile)){
-                //기존 파일이 있을 때 그리고 변경된 프로필 이미지와 기존 프로필 이미지가 다를 때 기존 프로필 이미지를 삭제
-                awsS3Service.deleteFile(String.valueOf(oldFile));
-            }
-            session.setAttribute("login", "member");
+//            if(oldFile.isPresent()){
+//                //기존 파일이 있을 때 그리고 변경된 프로필 이미지와 기존 프로필 이미지가 다를 때 기존 프로필 이미지를 삭제
+//                awsS3Service.deleteFile(String.valueOf(oldFile));
+//            }
+//            session.setAttribute("login", "member");
 //        }else {
 //            System.out.println("수정 실패");
 //        }
@@ -150,10 +150,10 @@ public class MyPageController {
 //        int result = companyMemberService.update(company);
 //        if(result == 1) {
 //            companyMemberService.fileSave();
-            if(!oldFile.isEmpty() && !company.getNewProfileImg().equals(oldFile)){
-                awsS3Service.deleteFile(oldFile);
-            }
-            session.setAttribute("login", "company");
+//            if(!oldFile.isEmpty() && !company.getNewProfileImg().equals(oldFile)){
+//                awsS3Service.deleteFile(oldFile);
+//            }
+//            session.setAttribute("login", "company");
 //        }else {
 //            System.out.println("수정 실패");
 //        }
