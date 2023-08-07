@@ -6,9 +6,12 @@ import com.uniqueGames.model.Member;
 import com.uniqueGames.model.SessionConstants;
 import com.uniqueGames.repository.CompanyRepositoryMapper;
 import com.uniqueGames.repository.MemberRepositoryMapper;
+import com.uniqueGames.service.AwsS3Service;
 import com.uniqueGames.service.CompanyMemberService;
 import com.uniqueGames.service.MemberService;
 
+import java.io.IOException;
+import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,13 +30,15 @@ public class MyPageController {
     private CompanyMemberService companyMemberService;
     private MemberRepositoryMapper memberRepositoryMapper;
     private CompanyRepositoryMapper companyRepositoryMapper;
+    private AwsS3Service awsS3Service;
     @Autowired
     public MyPageController(MemberService memberService, CompanyMemberService companyMemberService,
-                            MemberRepositoryMapper memberRepositoryMapper, CompanyRepositoryMapper companyRepositoryMapper) {
+                            MemberRepositoryMapper memberRepositoryMapper, CompanyRepositoryMapper companyRepositoryMapper,AwsS3Service awsS3Service) {
         this.memberService = memberService;
         this.companyMemberService = companyMemberService;
         this.memberRepositoryMapper = memberRepositoryMapper;
         this.companyRepositoryMapper = companyRepositoryMapper;
+        this.awsS3Service= awsS3Service;
     }
 
     @GetMapping("/mypage")
@@ -96,60 +101,62 @@ public class MyPageController {
 
     @PostMapping("memberupdate")
     public String memberUpdate(HttpSession session, Member member,
-                               @RequestParam("deleteImg") String deleteImg) {
-        String oldFile = member.getProfileImg();
-        String fileName = memberService.fileCheck(member.getFile());
+                               @RequestParam("deleteImg") String deleteImg) throws IOException {
+        Optional<String> oldFile = Optional.ofNullable(member.getProfileImg());
+        String fileName = awsS3Service.uploadFile(member.getFile());
+//        String fileName = memberService.fileCheck(member.getFile());
         if(fileName != null) { //파일이 넘어오면
             member.setNewProfileImg(fileName);
         } else { //파일이 안 넘어오면
-            member.setNewProfileImg(oldFile);
+            if(oldFile.isPresent())
+                member.setNewProfileImg(String.valueOf(oldFile));
         }
         //기본 값 클릭해서 이미지 삭제 할 때
         if(deleteImg.equals("delete")) {
-            memberService.fileDelete(oldFile);
+            awsS3Service.deleteFile(String.valueOf(oldFile));
             member.setNewProfileImg("");
         }
 
-        int result = memberService.update(member);
-        if(result == 1) {
-            memberService.fileSave();
+//        int result = memberService.update(member);
+//        if(result == 1) {
+//            memberService.fileSave();
             if(!oldFile.isEmpty() && !member.getNewProfileImg().equals(oldFile)){
                 //기존 파일이 있을 때 그리고 변경된 프로필 이미지와 기존 프로필 이미지가 다를 때 기존 프로필 이미지를 삭제
-                memberService.fileDelete(oldFile);
+                awsS3Service.deleteFile(String.valueOf(oldFile));
             }
             session.setAttribute("login", "member");
-        }else {
-            System.out.println("수정 실패");
-        }
+//        }else {
+//            System.out.println("수정 실패");
+//        }
         return "redirect:/";
     }
 
     @PostMapping("/companyupdate")
     public String companyUpdate(HttpSession session, Company company,
-                                @RequestParam("deleteImg") String deleteImg) {
+                                @RequestParam("deleteImg") String deleteImg) throws IOException {
         String oldFile = company.getProfileImg();
-        String fileName = companyMemberService.fileCheck(company.getFile());
+        String fileName = awsS3Service.uploadFile(company.getFile());
         if(fileName != null) {
-            company.setNewProfileImg(fileName);
+            company.setProfileImg(fileName);
         }else {
-            company.setNewProfileImg(oldFile);
+            company.setProfileImg(oldFile);
         }
 
         if(deleteImg.equals("delete")) {
-            companyMemberService.fileDelete(oldFile);
-            company.setNewProfileImg("");
+            awsS3Service.deleteFile(oldFile);
+            company.setProfileImg("");
         }
 
-        int result = companyMemberService.update(company);
-        if(result == 1) {
-            companyMemberService.fileSave();
+//        int result = companyMemberService.update(company);
+//        if(result == 1) {
+//            companyMemberService.fileSave();
             if(!oldFile.isEmpty() && !company.getNewProfileImg().equals(oldFile)){
-                companyMemberService.fileDelete(oldFile);
+                awsS3Service.deleteFile(oldFile);
             }
             session.setAttribute("login", "company");
-        }else {
-            System.out.println("수정 실패");
-        }
+//        }else {
+//            System.out.println("수정 실패");
+//        }
         return "redirect:/";
     }
 
