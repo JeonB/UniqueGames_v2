@@ -137,14 +137,14 @@ public class MyPageController {
         String oldFile = company.getProfileImg();
         String fileName = awsS3Service.uploadFile(company.getFile());
         if(fileName != null) {
-            company.setNewProfileImg(fileName);
+            company.setProfileImg(fileName);
         }else {
-            company.setNewProfileImg(oldFile);
+            company.setProfileImg(oldFile);
         }
 
         if(deleteImg.equals("delete")) {
             awsS3Service.deleteFile(oldFile);
-            company.setNewProfileImg("");
+            company.setProfileImg("");
         }
 
 //        int result = companyMemberService.update(company);
