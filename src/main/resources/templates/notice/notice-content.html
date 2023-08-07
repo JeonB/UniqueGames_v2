@@ -91,7 +91,7 @@
                     </nav>
                     <div>
                         <div class="cmt-img">
-                            <img th:src="${c.profileImg != null ? '/upload/' + c.profileImg : '/images/comment-default.png'}"/>
+                            <img th:src="${c.profileImg != null ? c.profileImg : '/images/comment-default.png'}"/>
                         </div>
                         <div class="cmt-text">
                             <span th:text="${c.MId}" id="user-name"></span>

@@ -157,9 +157,8 @@ $(document).ready(function () {
 
         })
 
-        const URLSearch = new URLSearchParams(location.search);
-        if (window.location.href.indexOf("update") > -1) {
-            location.href = "notice-content?stat=up&no=" + URLSearch.get('no');
+        if (window.location.href.indexOf("up") > -1) {
+            window.history.back();
         } else {
             location.href = "/notice/list";
         }

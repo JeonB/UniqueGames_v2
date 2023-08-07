@@ -7,9 +7,12 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.util.IOUtils;
 import com.uniqueGames.fileutil.CommonUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,13 +57,21 @@ public class AwsS3Service {
 
 
     private void validateFileExists(MultipartFile multipartFile) {
-        if(multipartFile.isEmpty()) {
+        if (multipartFile.isEmpty()) {
             throw new RuntimeException("file is empty");
         }
     }
 
+
     public void deleteFile(String fileName){
         DeleteObjectRequest request = new DeleteObjectRequest(bucketName,fileFolder+fileName);
         amazonS3Client.deleteObject(request);
+    }
+
+    public void deleteFile(List<String> fileNameList) {
+        for (String fileName : fileNameList) {
+            DeleteObjectRequest request = new DeleteObjectRequest(bucketName, fileFolder+fileName);
+            amazonS3Client.deleteObject(request);
+        }
     }
 }
