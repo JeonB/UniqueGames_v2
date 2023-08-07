@@ -30,7 +30,7 @@
           <img src="/images/mypage-profile.png" class="profile-picture" id="test2">
         </li>
         <li th:unless="${company?.profileImg == null} or ${company?.profileImg == ''}">
-          <img th:src="@{/upload/{b}(b=${company?.profileImg})}" class="profile-picture-1">
+          <img th:src="@{${company?.profileImg}}" class="profile-picture-1">
         </li>
         <li class="mypage-profile-setting">
           <label for="profile-picture-img">

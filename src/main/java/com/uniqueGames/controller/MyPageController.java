@@ -106,15 +106,15 @@ public class MyPageController {
         String fileName = awsS3Service.uploadFile(member.getFile());
 //        String fileName = memberService.fileCheck(member.getFile());
         if(fileName != null) { //파일이 넘어오면
-            member.setNewProfileImg(fileName);
+            member.setProfileImg(fileName);
         } else { //파일이 안 넘어오면
             if(oldFile.isPresent())
-                member.setNewProfileImg(String.valueOf(oldFile));
+                member.setProfileImg(String.valueOf(oldFile));
         }
         //기본 값 클릭해서 이미지 삭제 할 때
         if(deleteImg.equals("delete")) {
             awsS3Service.deleteFile(String.valueOf(oldFile));
-            member.setNewProfileImg("");
+            member.setProfileImg("");
         }
 
 //        int result = memberService.update(member);
