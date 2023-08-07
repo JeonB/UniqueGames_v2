@@ -39,8 +39,10 @@ public class IntroCompanyService {
     }
 
     public void insertIntro(Intro intro) throws IOException {
-
-        intro.setUploadImg(awsS3Service.uploadFile(intro.getUploadFile()));
+        if(intro.getUploadFile() != null){
+            String imgUrl = awsS3Service.uploadFile(intro.getUploadFile());
+            intro.setUploadImg(imgUrl);
+        }
         detailMapper.insertIntro(intro);
     }
 
