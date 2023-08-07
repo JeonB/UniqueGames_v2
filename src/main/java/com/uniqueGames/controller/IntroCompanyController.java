@@ -77,7 +77,7 @@ public class IntroCompanyController {
     @GetMapping(value = "/editIntro/{id}")
     public String updateIntro(@PathVariable("id") int id, @Login Company company, Model model){
         Intro intro = introCompanyService.getIntro(id);
-        introCompanyService.oldFileDelete(intro.getUploadImg()); // 이전 파일 삭제
+//        introCompanyService.oldFileDelete(intro.getUploadImg()); // 이전 파일 삭제
         model.addAttribute("intro", intro);
         model.addAttribute("company", company);
         return "detail/company-regi";
@@ -89,7 +89,7 @@ public class IntroCompanyController {
      */
     @PostMapping(value = "/editIntro")
     public String updateIntroSave(Intro intro) throws IOException {
-        introCompanyService.updateIntro(intro);
+        introCompanyService.insertIntro(intro);
         return "redirect:/getIntroList";
     }
 
