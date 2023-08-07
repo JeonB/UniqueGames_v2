@@ -27,7 +27,7 @@ public interface MemberMapper {
     @Update("UPDATE TB_MEMBER SET PASSWORD=#{newpassword} WHERE MEMBER_ID=#{memberId}")
     int mypageNewPass(Member member);
 
-    @Update("UPDATE TB_MEMBER SET PROFILE_IMG = #{newProfileImg}, EMAIL = #{email}, ADDR = #{addr}, PHONE_NUM = #{phoneNum}, TEL = #{tel} WHERE MEMBER_ID = #{memberId}")
+    @Update("UPDATE TB_MEMBER SET PROFILE_IMG = #{profileImg}, EMAIL = #{email}, ADDR = #{addr}, PHONE_NUM = #{phoneNum}, TEL = #{tel} WHERE MEMBER_ID = #{memberId}")
     int update(Member member);
   
     @Select("SELECT COUNT(*) FROM TB_MEMBER")

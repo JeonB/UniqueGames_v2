@@ -22,7 +22,7 @@ public interface CompanyMapper {
     int CmypageNewPass(Company company);
 
 
-    @Update("UPDATE TB_COMPANY SET PROFILE_IMG = #{newProfileImg}, EMAIL = #{email}, ADDR = #{addr}, PHONE_NUM = #{phoneNum}, TEL = #{tel} WHERE COMPANY_ID = #{companyId}")
+    @Update("UPDATE TB_COMPANY SET PROFILE_IMG = #{profileImg}, EMAIL = #{email}, ADDR = #{addr}, PHONE_NUM = #{phoneNum}, TEL = #{tel} WHERE COMPANY_ID = #{companyId}")
     int update(Company company);
 
     // ADMIN

@@ -117,7 +117,7 @@ public class MyPageController {
             member.setProfileImg("");
         }
 
-//        int result = memberService.update(member);
+        memberService.update(member);
 //        if(result == 1) {
 //            memberService.fileSave();
 //            if(oldFile.isPresent()){
@@ -147,7 +147,7 @@ public class MyPageController {
             company.setProfileImg("");
         }
 
-//        int result = companyMemberService.update(company);
+        companyMemberService.update(company);
 //        if(result == 1) {
 //            companyMemberService.fileSave();
 //            if(!oldFile.isEmpty() && !company.getNewProfileImg().equals(oldFile)){
