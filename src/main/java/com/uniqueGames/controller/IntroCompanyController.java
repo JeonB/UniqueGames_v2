@@ -92,7 +92,7 @@ public class IntroCompanyController {
      */
     @PostMapping(value = "/editIntro")
     public String updateIntroSave(Intro intro) throws IOException {
-        introCompanyService.insertIntro(intro);
+        introCompanyService.updateIntro(intro);
         return "redirect:/getIntroList";
     }
 

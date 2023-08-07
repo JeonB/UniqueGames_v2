@@ -45,7 +45,13 @@ public class IntroCompanyService {
         }
         detailMapper.insertIntro(intro);
     }
-
+    public void updateIntro(Intro intro) throws IOException {
+        if(intro.getUploadFile() != null){
+            String imgUrl = awsS3Service.uploadFile(intro.getUploadFile());
+            intro.setUploadImg(imgUrl);
+        }
+        detailMapper.updateIntro(intro);
+    }
 
     public void deleteIntro(int id) {
         detailMapper.deleteIntro(id);
