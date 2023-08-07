@@ -1,5 +1,7 @@
 package com.uniqueGames.fileutil;
 
+import java.io.File;
+
 public class CommonUtils {
     private static final String FILE_EXTENSION_SEPARATOR = ".";
 
@@ -10,5 +12,16 @@ public class CommonUtils {
         String now = String.valueOf(System.currentTimeMillis());
 
         return fileName + "_" + now + fileExtension;
+    }
+    public void fileDelete(String fileUrl) {
+
+        if (fileUrl != null && !fileUrl.isEmpty()) {
+            File deleteFile = new File(fileUrl);
+            if (deleteFile.exists()) {
+                deleteFile.delete();
+
+            }
+
+        }
     }
 }

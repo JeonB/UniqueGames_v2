@@ -32,15 +32,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class IntroCompanyController {
 
     private final IntroCompanyService introCompanyService;
-    private final IndexServiceMapper indexServiceMapper;
     private final GameService gameService;
     private final CompanyRepositoryMapper companyRepositoryMapper;
     @Autowired
     public IntroCompanyController(IntroCompanyService introCompanyService,
-            IndexServiceMapper indexServiceMapper, GameService gameService,
+            GameService gameService,
             CompanyRepositoryMapper companyRepositoryMapper) {
         this.introCompanyService = introCompanyService;
-        this.indexServiceMapper = indexServiceMapper;
         this.gameService = gameService;
         this.companyRepositoryMapper = companyRepositoryMapper;
     }
@@ -77,7 +75,7 @@ public class IntroCompanyController {
     @GetMapping(value = "/editIntro/{id}")
     public String updateIntro(@PathVariable("id") int id, @Login Company company, Model model){
         Intro intro = introCompanyService.getIntro(id);
-//        introCompanyService.oldFileDelete(intro.getUploadImg()); // 이전 파일 삭제
+        introCompanyService.oldFileDelete(intro.getUploadImg()); // 이전 파일 삭제
         model.addAttribute("intro", intro);
         model.addAttribute("company", company);
         return "detail/company-regi";

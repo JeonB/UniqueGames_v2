@@ -40,9 +40,7 @@ public class IntroCompanyService {
 
     public void insertIntro(Intro intro) throws IOException {
 
-        String filename = CommonUtils.buildFileName(intro.getUploadFile().getOriginalFilename());
-        intro.setUploadImg(filename);
-        awsS3Service.uploadFile(intro.getUploadFile());
+        intro.setUploadImg(awsS3Service.uploadFile(intro.getUploadFile()));
         detailMapper.insertIntro(intro);
     }
 
@@ -82,7 +80,7 @@ public class IntroCompanyService {
         return detailMapper.findIdByCId(cId);
     }
 
-//    public void oldFileDelete(String imageName) {
-//        commonUtils.fileDelete(imageName,ROOT_PATH);
-//    }
+    public void oldFileDelete(String imageName) {
+        commonUtils.fileDelete(imageName);
+    }
 }
