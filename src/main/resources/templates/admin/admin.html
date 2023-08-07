@@ -33,6 +33,9 @@
                     url: "/admin-member-list",
                     data: {type: type, array: array, page: page},
                     success: function (result) {
+                        if (result == "error") {
+                            window.location.href = "/order/error";
+                        }
                         let returnData = JSON.parse(result);
                         let str = '<p id="p-member-count">' + returnData.str + '</p>';
                         let output = "";
