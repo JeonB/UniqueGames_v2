@@ -82,7 +82,7 @@ public class IntroCompanyService {
         return detailMapper.findIdByCId(cId);
     }
 
-    public void oldFileDelete(String imageName) {
-        commonUtils.fileDelete(imageName);
+    public void oldFileDelete(String fileName) {
+        awsS3Service.deleteFile(fileName);
     }
 }

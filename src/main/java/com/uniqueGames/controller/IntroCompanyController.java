@@ -75,7 +75,12 @@ public class IntroCompanyController {
     @GetMapping(value = "/editIntro/{id}")
     public String updateIntro(@PathVariable("id") int id, @Login Company company, Model model){
         Intro intro = introCompanyService.getIntro(id);
-        introCompanyService.oldFileDelete(intro.getUploadImg()); // 이전 파일 삭제
+        String url = intro.getUploadImg();
+        // 마지막 '/'의 인덱스를 찾음
+        int lastSlashIndex = url.lastIndexOf('/');
+        // 마지막 '/' 이후의 문자열을 가져옴
+        String result = url.substring(lastSlashIndex + 1);
+        introCompanyService.oldFileDelete(result); // 이전 파일 삭제
         model.addAttribute("intro", intro);
         model.addAttribute("company", company);
         return "detail/company-regi";
