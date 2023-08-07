@@ -23,6 +23,9 @@ public class AwsS3Service {
 
     private final AmazonS3Client amazonS3Client;
 
+    @Value("${file-folder}")
+    String fileFolder;
+
     @Value("${cloud.aws.s3.bucket}")
     private String bucketName; //버킷 이름
 
@@ -38,13 +41,13 @@ public class AwsS3Service {
         objectMetadata.setContentLength(bytes.length);
         try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes)) {
 
-            amazonS3Client.putObject(new PutObjectRequest(bucketName, fileName, byteArrayInputStream, objectMetadata)
+            amazonS3Client.putObject(new PutObjectRequest(bucketName, fileFolder+fileName, byteArrayInputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (Exception e) {
             log.error("Can not upload image, ", e);
             throw new RuntimeException("cannot upload image");
         }
-        String url = amazonS3Client.getUrl(bucketName, fileName).toString();
+        String url = amazonS3Client.getUrl(bucketName, fileFolder+fileName).toString();
 
         return url;
     }
@@ -57,7 +60,7 @@ public class AwsS3Service {
     }
 
     public void deleteFile(String fileName){
-        DeleteObjectRequest request = new DeleteObjectRequest(bucketName, fileName);
+        DeleteObjectRequest request = new DeleteObjectRequest(bucketName,fileFolder+fileName);
         amazonS3Client.deleteObject(request);
     }
 }
