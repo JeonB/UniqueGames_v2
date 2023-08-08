@@ -3,6 +3,7 @@ package com.uniqueGames.service;
 
 import com.uniqueGames.model.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -17,6 +18,8 @@ public class MailSendService {
 
 	private JavaMailSender mailSender;
 	private Environment environment;
+	@Value("${email-address}")
+	private String EMAIL_ADDRESS;
 
 	@Autowired
 	public MailSendService(JavaMailSender javaMailSender, Environment environment) {
@@ -36,7 +39,7 @@ public class MailSendService {
 
 	public String joinEmail(String email) {
 		makeRandomNumber();
-		String setFrom = environment.getProperty("EMAIL_ADDRESS");
+		String setFrom = EMAIL_ADDRESS;
         String toMail = email;
         String title = "회원가입 인증 이메일 입니다.";
         String content =

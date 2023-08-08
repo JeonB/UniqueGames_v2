@@ -1,10 +1,8 @@
 package com.uniqueGames.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
@@ -13,16 +11,22 @@ import java.util.Properties;
 @Configuration
 public class MailConfig {
 
-    @Autowired
-    private Environment environment;
+//    @Autowired
+//    private Environment environment;
+    @Value("${email-address}")
+    private String EMAIL_ADDRESS;
+    @Value("${email-password}")
+    private String EMAIL_PASSWORD;
 
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
-        mailSender.setUsername(environment.getProperty("EMAIL_ADDRESS"));
-        mailSender.setPassword(environment.getProperty("EMAIL_PASSWORD"));
+//        mailSender.setUsername(environment.getProperty("EMAIL_ADDRESS"));
+//        mailSender.setPassword(environment.getProperty("EMAIL_PASSWORD"));
+        mailSender.setUsername(EMAIL_ADDRESS);
+        mailSender.setPassword(EMAIL_PASSWORD);
 
         Properties mailProperties = new Properties();
         mailProperties.put("mail.transport.protocol", "smtp");
