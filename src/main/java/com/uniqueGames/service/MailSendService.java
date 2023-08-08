@@ -1,21 +1,31 @@
 package com.uniqueGames.service;
 
 
-import java.util.Random;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
 import com.uniqueGames.model.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.util.Random;
+
 @Component
 public class MailSendService {
 
-	@Autowired
 	private JavaMailSender mailSender;
+	private Environment environment;
+	@Value("${email-address}")
+	private String EMAIL_ADDRESS;
+
+	@Autowired
+	public MailSendService(JavaMailSender javaMailSender, Environment environment) {
+		this.mailSender = javaMailSender;
+		this.environment = environment;
+	}
 
 	private int authNumber;
 
@@ -29,7 +39,7 @@ public class MailSendService {
 
 	public String joinEmail(String email) {
 		makeRandomNumber();
-		String setFrom = "a01083529494@gmail.com";
+		String setFrom = EMAIL_ADDRESS;
         String toMail = email;
         String title = "회원가입 인증 이메일 입니다.";
         String content =
@@ -45,7 +55,7 @@ public class MailSendService {
 
 	public String reportEmail(Comment comment) {
 		String setFrom = "uniquegames@uniquegames.com";
-		String toMail = "durrl5897@gmail.com";
+		String toMail = environment.getProperty("EMAIL_COMMENT_TO_ADDRESS");
 		String title = "신고 내역";
 		String content =
 				"댓글 번호 : " + comment.getId() +
