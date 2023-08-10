@@ -31,7 +31,7 @@ public interface IndexMapper {
             "    TB_GAME.NAME,\n" +
             "    TB_GAME.GAME_GENRE,\n" +
             "    TB_GAME.DONATION_STATUS,\n" +
-            "    TB_GAME.DESCRIPTION;")
+            "    TB_GAME.DESCRIPTION")
     List<Game> getGameList();
 
     @Select("SELECT * FROM TB_GAME WHERE ID=?#{id}")
