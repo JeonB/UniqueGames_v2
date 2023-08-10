@@ -38,7 +38,7 @@ public class MainController {
 
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String index(Model model) throws IOException {
-		List<Game> gameList = gameMapper.getGameAllList();
+		List<Game> gameList = indexServiceMapper.getGameList();
 		for (Game game : gameList) {
 			Game oneFile = gameMapper.getOneFile(game.getId());
 			game.setUploadImg(oneFile.getUploadImg());
